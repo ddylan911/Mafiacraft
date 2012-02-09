@@ -1,0 +1,6 @@
+name: Mafiacraft
+description: A mafia server plugin.
+authors: [AlbireoX, Camaroow]
+version: 0.1
+
+main: com.crimsonrpg.mafiacraft.Mafiacraft
