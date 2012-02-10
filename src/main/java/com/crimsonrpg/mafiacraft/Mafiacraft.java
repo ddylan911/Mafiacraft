@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.geo.DistrictManager;
+import com.crimsonrpg.mafiacraft.session.SessionManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,8 +17,10 @@ public class Mafiacraft extends JavaPlugin {
     private static Mafiacraft instance;
 
     private static Logger LOGGER = Logger.getLogger("Minecraft");
-    
+
     private DistrictManager districtManager;
+
+    private SessionManager sessionManager;
 
     public Mafiacraft() {
         instance = this;
@@ -33,6 +36,10 @@ public class Mafiacraft extends JavaPlugin {
 
     public DistrictManager getDistrictManager() {
         return districtManager;
+    }
+
+    public SessionManager getSessionManager() {
+        return sessionManager;
     }
 
     public static void log(String message) {

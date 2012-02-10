@@ -77,8 +77,36 @@ public class District {
         return owners.get(id);
     }
     
+    /**
+     * Gets the owner of a chunk.
+     * 
+     * @param chunk
+     * @return The chunk, or null if the chunk is not part of the district.
+     */
+    public Government getOwner(Chunk chunk) {
+        if (!contains(chunk)) {
+            return null;
+        }
+        return getOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
+    }
+    
+    /**
+     * Checks if the district contains the specified location.
+     * 
+     * @param location
+     * @return 
+     */
     public boolean contains(Location location) {
-        Chunk c = location.getChunk();
+        return contains(location.getChunk());
+    }
+
+    /**
+     * Checks if the district contains the specified chunk.
+     * 
+     * @param c
+     * @return 
+     */
+    public boolean contains(Chunk c) {
         int sx = x << 4;
         int sz = z << 4;
         return (c.getX() > sx)
@@ -86,6 +114,5 @@ public class District {
                 && (c.getZ() > sz)
                 && (c.getZ() < (sz + 0x10));
     }
-
 
 }
