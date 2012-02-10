@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft;
 
+import com.crimsonrpg.mafiacraft.geo.DistrictManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,7 +13,15 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Mafiacraft main class
  */
 public class Mafiacraft extends JavaPlugin {
+    private static Mafiacraft instance;
+
     private static Logger LOGGER = Logger.getLogger("Minecraft");
+    
+    private DistrictManager districtManager;
+
+    public Mafiacraft() {
+        instance = this;
+    }
 
     public void onDisable() {
         log("Mafiacraft disabled.");
@@ -20,6 +29,10 @@ public class Mafiacraft extends JavaPlugin {
 
     public void onEnable() {
         log("Mafiacraft enabled.");
+    }
+
+    public DistrictManager getDistrictManager() {
+        return districtManager;
     }
 
     public static void log(String message) {
@@ -34,6 +47,10 @@ public class Mafiacraft extends JavaPlugin {
     public static void log(Level level, String msg, Throwable thrown) {
         msg = "[MC] " + msg;
         LOGGER.log(level, msg, thrown);
+    }
+
+    public static Mafiacraft getInstance() {
+        return instance;
     }
 
 }
