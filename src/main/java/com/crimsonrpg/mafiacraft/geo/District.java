@@ -19,6 +19,8 @@ import com.crimsonrpg.mafiacraft.util.GeoUtils;
 public class District {
     private City city;
     
+    private DistrictType type;
+    
     private int id;
 
     private int x;
@@ -36,6 +38,18 @@ public class District {
         this.x = x;
         this.z = z;
         this.city = city;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public DistrictType getType() {
+        return type;
+    }
+
+    public void setType(DistrictType type) {
+        this.type = type;
     }
 
     public City getCity() {
