@@ -10,18 +10,22 @@ import org.bukkit.Chunk;
 import org.bukkit.World;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.gov.Government;
 
 /**
  * Represents a... CITY!
  */
 public class City {
+    private final int id;
+
     private String name;
 
-    private World world;
+    public City(int id) {
+        this.id = id;
+    }
 
-    public City(String name, World world) {
-        this.name = name;
-        this.world = world;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -33,13 +37,13 @@ public class City {
         return this;
     }
 
-    public World getWorld() {
-        return world;
-    }
-
-    public City setWorld(World world) {
-        this.world = world;
-        return this;
+    /**
+     * Gets the government of this city.
+     * 
+     * @return 
+     */
+    public Government getGovernment() {
+        return Mafiacraft.getInstance().getGovernmentManager().getCityGovernment(this);
     }
 
     public List<District> getDistricts() {

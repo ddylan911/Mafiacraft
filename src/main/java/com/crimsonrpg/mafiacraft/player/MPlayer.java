@@ -63,4 +63,8 @@ public class MPlayer implements LandOwner {
     public String getOwnerName() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public void sendMessage(String message) {
+        player.sendMessage(message);
+    }
 }

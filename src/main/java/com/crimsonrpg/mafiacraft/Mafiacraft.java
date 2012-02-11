@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.geo.CityManager;
+import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
 import com.crimsonrpg.mafiacraft.player.PlayerManager;
 import com.crimsonrpg.mafiacraft.player.SessionManager;
 import com.crimsonrpg.mafiacraft.vault.VaultHelper;
@@ -23,10 +24,12 @@ public class Mafiacraft extends JavaPlugin {
 
     private CityManager cityManager;
 
+    private GovernmentManager governmentManager;
+
     private PlayerManager playerManager;
 
     private SessionManager sessionManager;
-    
+
     private VaultHelper vaultHelper;
 
     public Mafiacraft() {
@@ -41,17 +44,21 @@ public class Mafiacraft extends JavaPlugin {
         //Initialize the listener
         MListener l = new MListener(this);
         Bukkit.getPluginManager().registerEvents(l, this);
-        
+
         //Initialize managers
         cityManager = new CityManager(this);
         playerManager = new PlayerManager(this);
         sessionManager = new SessionManager(this);
-        
+
         log("Mafiacraft enabled.");
     }
 
     public CityManager getCityManager() {
         return cityManager;
+    }
+
+    public GovernmentManager getGovernmentManager() {
+        return governmentManager;
     }
 
     public PlayerManager getPlayerManager() {

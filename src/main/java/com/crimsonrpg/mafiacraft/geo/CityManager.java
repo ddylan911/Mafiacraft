@@ -5,7 +5,9 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
+import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 
@@ -55,14 +58,40 @@ public class CityManager {
     }
 
     public City foundCity(String name, District center) {
-        City city = new City(name, center.getWorld());
+        //Make city
+        City city = new City(getNextCityId());
+        city.setName(name);
         center.setCity(null).setName(city.getNextDistrictName());
+        cities.put(city.getId(), city);
+
+        //Make government
+        Government government = mc.getGovernmentManager().createGovernment(name);
+        mc.getGovernmentManager().setCityGovernment(city, government);
+        
         return city;
+    }
+
+    public int getNextCityId() {
+        int id = 0;
+        for (int i = 1; getCity(i) != null; ++i) {
+            id = i;
+        }
+        return id;
     }
 
     /////////////////
     // DISTRICT METHODS
     /////////////////
+    /**
+     * Gets the district a player is in.
+     * 
+     * @param player
+     * @return 
+     */
+    public District getDistrict(MPlayer player) {
+        return getDistrict(player.getPlayer().getLocation().getChunk());
+    }
+
     /**
      * Gets the district that a chunk is part of.
      * 
@@ -127,9 +156,11 @@ public class CityManager {
      */
     public List<District> getCityDistricts(City city) {
         List<District> districts = new ArrayList<District>();
-        for (District district : getDistrictList(city.getWorld())) {
-            if (district.getCity().equals(city)) {
-                districts.add(district);
+        for (World world : Bukkit.getWorlds()) {
+            for (District district : getDistrictList(world)) {
+                if (district.getCity().equals(city)) {
+                    districts.add(district);
+                }
             }
         }
         return districts;

@@ -12,14 +12,25 @@ import org.bukkit.Chunk;
  * @author simplyianm
  */
 public class Government implements LandOwner {
+    private final int id;
+
     private String name;
+
+    public Government(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Government setName(String name) {
         this.name = name;
+        return this;
     }
 
     public boolean canBuild(MPlayer player, Chunk c) {

@@ -42,4 +42,11 @@ public class CityCommand {
         return null;
     }
 
+    public static String doSetSpawn(MPlayer player) {
+        City city = Mafiacraft.getInstance().getCityManager().getDistrict(player).getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+        return null;
+    }
 }
