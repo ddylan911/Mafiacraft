@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
@@ -113,14 +114,14 @@ public class MListener implements Listener {
             return;
         }
 
-        Player player = event.getPlayer();
-        SessionStore store = Mafiacraft.getInstance().getPlayerManager().getPlayer(player).getSessionStore();
+        MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
+        SessionStore store = player.getSessionStore();
 
         Chunk last = store.getObject("lastchunk", Chunk.class);
-        Chunk current = player.getLocation().getChunk();
+        Chunk current = player.getPlayer().getLocation().getChunk();
 
         if (last == null) {
-            store.setData("lastchunk", player.getLocation().getChunk());
+            store.setData("lastchunk", player.getPlayer().getLocation().getChunk());
             return;
         }
 
@@ -128,10 +129,16 @@ public class MListener implements Listener {
             return;
         }
 
+        //Check for reserved district
+        District dest = mc.getDistrictManager().getDistrict(current);
+        if (dest.getType().equals(DistrictType.RESERVED)) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
+            event.setCancelled(true);
+            return;
+        }
+
         //We've switched chunks!
         store.setData("lastchunk", current);
-
-        //TODO: what do we do.
     }
 
 }
