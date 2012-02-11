@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.player.SessionStore;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -33,36 +35,69 @@ public class MListener implements Listener {
         if (event.isCancelled()) {
             return;
         }
-        
+
         MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
-        District d = mc.getDistrictManager().getDistrict(player.getPlayer().getLocation().getChunk());
-        
+        Chunk c = player.getPlayer().getLocation().getChunk();
+        District d = mc.getDistrictManager().getDistrict(c);
+
         if (!d.getType().isBuild()) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
             event.setCancelled(true);
+            return;
+        }
+
+        Government gov = d.getGovernment(c);
+        if (!gov.equals(player.getGovernment())) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + gov.getName() + ".");
+            event.setCancelled(true);
+            return;
         }
     }
-    
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
+        MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
+        Chunk c = player.getPlayer().getLocation().getChunk();
+        District d = mc.getDistrictManager().getDistrict(c);
+
+        if (!d.getType().isBuild()) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
+            event.setCancelled(true);
+            return;
+        }
+
+        Government gov = d.getGovernment(c);
+        if (!gov.equals(player.getGovernment())) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + gov.getName() + ".");
+            event.setCancelled(true);
+            return;
+        }
+    }
+
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.isCancelled()) {
             return;
         }
-        
+
         if (!(event instanceof EntityDamageByEntityEvent)) {
             return;
         }
-        
+
         EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) event;
         if (!(e.getEntity() instanceof Player && e.getDamager() instanceof Player)) {
             return;
         }
-        
+
         MPlayer player = mc.getPlayerManager().getPlayer((Player) e.getEntity());
         MPlayer damager = mc.getPlayerManager().getPlayer((Player) e.getDamager());
-        
+
         District d = mc.getDistrictManager().getDistrict(player.getPlayer().getLocation().getChunk());
-        
+
         //Check for PvP
         if (!d.getType().isPvp()) {
             damager.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to PvP in this district.");
@@ -70,7 +105,7 @@ public class MListener implements Listener {
             return;
         }
     }
-    
+
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()) {

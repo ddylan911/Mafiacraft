@@ -107,7 +107,7 @@ public class District {
      * @param chunk
      * @return The government assigned to the chunk, or null if the chunk is not part of the district.
      */
-    public Government getOwner(Chunk chunk) {
+    public Government getGovernment(Chunk chunk) {
         if (!contains(chunk)) {
             return null;
         }
