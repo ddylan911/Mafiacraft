@@ -12,6 +12,7 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -27,6 +28,21 @@ public class MListener implements Listener {
         this.mc = mc;
     }
 
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        
+        MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
+        District d = mc.getDistrictManager().getDistrict(player.getPlayer().getLocation().getChunk());
+        
+        if (!d.getType().isBuild()) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
+            event.setCancelled(true);
+        }
+    }
+    
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.isCancelled()) {
