@@ -6,6 +6,7 @@ package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Government;
+import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.player.SessionStore;
@@ -46,9 +47,9 @@ public class MListener implements Listener {
             return;
         }
 
-        Government gov = d.getGovernment(c);
-        if (!gov.equals(player.getGovernment())) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + gov.getName() + ".");
+        LandOwner owner = d.getOwner(c);
+        if (!owner.canBuild(player)) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -70,9 +71,9 @@ public class MListener implements Listener {
             return;
         }
 
-        Government gov = d.getGovernment(c);
-        if (!gov.equals(player.getGovernment())) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + gov.getName() + ".");
+        LandOwner owner = d.getOwner(c);
+        if (!owner.canBuild(player)) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.getName() + ".");
             event.setCancelled(true);
             return;
         }

@@ -25,10 +25,10 @@ public class GeoUtils {
     /**
      * Converts district coordinates to a section ID.
      * 
-     * <p>Limit is 8.
+     * <p>Limit is 16.
      * 
-     * @param x The abscissa 1 - 8
-     * @param z The ordinate 1 - 8 
+     * @param x The abscissa 1 - 16
+     * @param z The ordinate 1 - 16
      * @return The section id, a byte.
      */
     public static byte coordsToSectionId(int x, int z) {

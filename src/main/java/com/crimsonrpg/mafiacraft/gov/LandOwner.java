@@ -11,4 +11,5 @@ import com.crimsonrpg.mafiacraft.player.MPlayer;
  */
 public interface LandOwner {
     public boolean canBuild(MPlayer player);
+    public String getName();
 }

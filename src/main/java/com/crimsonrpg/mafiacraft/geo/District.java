@@ -11,6 +11,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 
 import com.crimsonrpg.mafiacraft.gov.Government;
+import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 
 /**
@@ -31,7 +32,7 @@ public class District {
 
     private String description;
 
-    private TByteObjectMap<Government> owners = new TByteObjectHashMap<Government>();
+    private TByteObjectMap<LandOwner> owners = new TByteObjectHashMap<LandOwner>();
 
     public District(int id, String name, int x, int z, City city) {
         this.id = id;
@@ -89,7 +90,20 @@ public class District {
         return this;
     }
 
-    public Government getOwner(int x, int z) {
+    /**
+     * Gets the owner of a chunk.
+     * 
+     * @param chunk
+     * @return The government assigned to the chunk, or null if the chunk is not part of the district.
+     */
+    public LandOwner getOwner(Chunk chunk) {
+        if (!contains(chunk)) {
+            return null;
+        }
+        return getOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
+    }
+
+    public LandOwner getOwner(int x, int z) {
         byte id = GeoUtils.coordsToSectionId(x, z);
         return owners.get(id);
     }
@@ -99,19 +113,6 @@ public class District {
             return -1;
         }
         return GeoUtils.coordsToSectionId(chunk.getX(), chunk.getZ());
-    }
-
-    /**
-     * Gets the owner of a chunk.
-     * 
-     * @param chunk
-     * @return The government assigned to the chunk, or null if the chunk is not part of the district.
-     */
-    public Government getGovernment(Chunk chunk) {
-        if (!contains(chunk)) {
-            return null;
-        }
-        return getOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
     }
 
     /**

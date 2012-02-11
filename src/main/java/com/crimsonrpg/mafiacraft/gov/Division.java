@@ -15,5 +15,9 @@ public class Division implements LandOwner {
     public boolean canBuild(MPlayer player) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

@@ -5,7 +5,7 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
-import com.crimsonrpg.mafiacraft.gov.Government;
+import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -104,12 +104,12 @@ public class DistrictManager {
     // SECTION METHODS
     /////////////////
     /**
-     * Gets the government that owns a chunk.
+     * Gets the owner of a section.
      * 
      * @param chunk
      * @return 
      */
-    public Government getSectionOwner(Chunk chunk) {
+    public LandOwner getSectionOwner(Chunk chunk) {
         int x = chunk.getX() % 0x10;
         int z = chunk.getZ() % 0x10;
         return getDistrict(chunk).getOwner(x, z);
