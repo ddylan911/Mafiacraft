@@ -4,11 +4,16 @@
  */
 package com.crimsonrpg.mafiacraft;
 
+import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.player.SessionStore;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
@@ -22,6 +27,34 @@ public class MListener implements Listener {
         this.mc = mc;
     }
 
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        
+        if (!(event instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+        
+        EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) event;
+        if (!(e.getEntity() instanceof Player && e.getDamager() instanceof Player)) {
+            return;
+        }
+        
+        MPlayer player = mc.getPlayerManager().getPlayer((Player) e.getEntity());
+        MPlayer damager = mc.getPlayerManager().getPlayer((Player) e.getDamager());
+        
+        District d = mc.getDistrictManager().getDistrict(player.getPlayer().getLocation().getChunk());
+        
+        //Check for PvP
+        if (!d.getType().isPvp()) {
+            damager.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to PvP in this district.");
+            event.setCancelled(true);
+            return;
+        }
+    }
+    
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()) {
