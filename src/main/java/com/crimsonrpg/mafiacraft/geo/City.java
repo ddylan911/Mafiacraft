@@ -15,19 +15,37 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
  * Represents a... CITY!
  */
 public class City {
+    private String name;
+
     private World world;
 
-    public City() {
+    public City(String name, World world) {
+        this.name = name;
+        this.world = world;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public City setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public World getWorld() {
         return world;
     }
 
-    public List<District> getDistricts() {
-        return Mafiacraft.getInstance().getDistrictManager().getCityDistricts(this);
+    public City setWorld(World world) {
+        this.world = world;
+        return this;
     }
-    
+
+    public List<District> getDistricts() {
+        return Mafiacraft.getInstance().getCityManager().getCityDistricts(this);
+    }
+
     public boolean hasDistrict(String name) {
         for (District district : getDistricts()) {
             if (district.getName().equalsIgnoreCase(name)) {
@@ -36,15 +54,15 @@ public class City {
         }
         return false;
     }
-    
+
     public District getDistrict(Chunk chunk) {
-        return Mafiacraft.getInstance().getDistrictManager().getDistrict(chunk);
+        return Mafiacraft.getInstance().getCityManager().getDistrict(chunk);
     }
 
-    private String getNextName() {
+    public String getNextDistrictName() {
         String chars = " ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String name = "";
-        
+
         for (char c : chars.toCharArray()) {
             for (char d : chars.toCharArray()) {
                 for (char e : chars.toCharArray()) {
@@ -55,7 +73,7 @@ public class City {
                 }
             }
         }
-        
+
         return name;
     }
 

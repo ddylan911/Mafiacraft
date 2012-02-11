@@ -4,27 +4,30 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.player.MPlayer;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 
-import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
+import org.bukkit.World;
 
 /**
  * Represents a 8x8 section area.
  */
-public class District {
-    private int id;
+public class District implements LandOwner {
+    private final int id;
 
     private String name;
 
-    private int x;
+    private final World world;
 
-    private int z;
+    private final int x;
+
+    private final int z;
 
     private City city;
 
@@ -34,12 +37,11 @@ public class District {
 
     private TByteObjectMap<LandOwner> owners = new TByteObjectHashMap<LandOwner>();
 
-    public District(int id, String name, int x, int z, City city) {
-        this.id = id;
-        this.name = name;
+    public District(World world, int x, int z) {
+        this.id = GeoUtils.coordsToDistrictId(x, z);
+        this.world = world;
         this.x = x;
         this.z = z;
-        this.city = city;
     }
 
     public int getId() {
@@ -53,6 +55,10 @@ public class District {
     public District setName(String name) {
         this.name = name;
         return this;
+    }
+
+    public World getWorld() {
+        return world;
     }
 
     public int getX() {
@@ -107,7 +113,7 @@ public class District {
         byte id = GeoUtils.coordsToSectionId(x, z);
         return owners.get(id);
     }
-    
+
     public byte getSectionId(Chunk chunk) {
         if (!contains(chunk)) {
             return -1;
@@ -138,6 +144,14 @@ public class District {
                 && (c.getX() < (sx + 0x10))
                 && (c.getZ() > sz)
                 && (c.getZ() < (sz + 0x10));
+    }
+
+    public boolean canBuild(MPlayer player, Chunk chunk) {
+        return type.isBuild();
+    }
+
+    public String getOwnerName() {
+        return "District " + name;
     }
 
 }

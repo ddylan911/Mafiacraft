@@ -10,6 +10,6 @@ import com.crimsonrpg.mafiacraft.player.MPlayer;
  * Represents an entity that can own parcels of land. (chunks)
  */
 public interface LandOwner {
-    public boolean canBuild(MPlayer player);
-    public String getName();
+    public boolean canBuild(MPlayer player, org.bukkit.Chunk chunk);
+    public String getOwnerName();
 }

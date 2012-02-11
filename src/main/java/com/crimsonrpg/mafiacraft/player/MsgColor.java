@@ -12,4 +12,7 @@ import org.bukkit.ChatColor;
  */
 public class MsgColor {
     public static String ERROR = ChatColor.RED.toString();
+
+    public static String SUCCESS = ChatColor.GREEN.toString();
+
 }

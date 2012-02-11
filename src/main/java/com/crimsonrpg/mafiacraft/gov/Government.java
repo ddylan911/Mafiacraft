@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.gov;
 
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import org.bukkit.Chunk;
 
 /**
  *
@@ -21,8 +22,12 @@ public class Government implements LandOwner {
         this.name = name;
     }
 
-    public boolean canBuild(MPlayer player) {
+    public boolean canBuild(MPlayer player, Chunk c) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getOwnerName() {
+        return name;
     }
 
 }

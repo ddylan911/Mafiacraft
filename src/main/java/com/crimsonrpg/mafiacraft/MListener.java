@@ -40,7 +40,7 @@ public class MListener implements Listener {
 
         MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
         Chunk c = player.getPlayer().getLocation().getChunk();
-        District d = mc.getDistrictManager().getDistrict(c);
+        District d = mc.getCityManager().getDistrict(c);
 
         if (!d.getType().isBuild()) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
@@ -49,8 +49,8 @@ public class MListener implements Listener {
         }
 
         LandOwner owner = d.getOwner(c);
-        if (!owner.canBuild(player)) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getName() + ".");
+        if (!owner.canBuild(player, c)) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -64,7 +64,7 @@ public class MListener implements Listener {
 
         MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
         Chunk c = player.getPlayer().getLocation().getChunk();
-        District d = mc.getDistrictManager().getDistrict(c);
+        District d = mc.getCityManager().getDistrict(c);
 
         if (!d.getType().isBuild()) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
@@ -73,8 +73,8 @@ public class MListener implements Listener {
         }
 
         LandOwner owner = d.getOwner(c);
-        if (!owner.canBuild(player)) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.getName() + ".");
+        if (!owner.canBuild(player, c)) {
+            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -98,7 +98,7 @@ public class MListener implements Listener {
         MPlayer player = mc.getPlayerManager().getPlayer((Player) e.getEntity());
         MPlayer damager = mc.getPlayerManager().getPlayer((Player) e.getDamager());
 
-        District d = mc.getDistrictManager().getDistrict(player.getPlayer().getLocation().getChunk());
+        District d = mc.getCityManager().getDistrict(player.getPlayer().getLocation().getChunk());
 
         //Check for PvP
         if (!d.getType().isPvp()) {
@@ -130,7 +130,7 @@ public class MListener implements Listener {
         }
 
         //Check for reserved district
-        District dest = mc.getDistrictManager().getDistrict(current);
+        District dest = mc.getCityManager().getDistrict(current);
         if (dest.getType().equals(DistrictType.RESERVED)) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
             event.setCancelled(true);

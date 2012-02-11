@@ -4,9 +4,10 @@
  */
 package com.crimsonrpg.mafiacraft;
 
-import com.crimsonrpg.mafiacraft.geo.DistrictManager;
+import com.crimsonrpg.mafiacraft.geo.CityManager;
 import com.crimsonrpg.mafiacraft.player.PlayerManager;
 import com.crimsonrpg.mafiacraft.player.SessionManager;
+import com.crimsonrpg.mafiacraft.vault.VaultHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -20,11 +21,13 @@ public class Mafiacraft extends JavaPlugin {
 
     private static Logger LOGGER = Logger.getLogger("Minecraft");
 
-    private DistrictManager districtManager;
+    private CityManager cityManager;
 
     private PlayerManager playerManager;
 
     private SessionManager sessionManager;
+    
+    private VaultHelper vaultHelper;
 
     public Mafiacraft() {
         instance = this;
@@ -40,15 +43,15 @@ public class Mafiacraft extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(l, this);
         
         //Initialize managers
-        districtManager = new DistrictManager(this);
+        cityManager = new CityManager(this);
         playerManager = new PlayerManager(this);
         sessionManager = new SessionManager(this);
         
         log("Mafiacraft enabled.");
     }
 
-    public DistrictManager getDistrictManager() {
-        return districtManager;
+    public CityManager getCityManager() {
+        return cityManager;
     }
 
     public PlayerManager getPlayerManager() {
@@ -57,6 +60,10 @@ public class Mafiacraft extends JavaPlugin {
 
     public SessionManager getSessionManager() {
         return sessionManager;
+    }
+
+    public VaultHelper getVaultHelper() {
+        return vaultHelper;
     }
 
     public static void log(String message) {

@@ -19,20 +19,52 @@ import org.bukkit.World;
 /**
  * Manager for handling district objects.
  */
-public class DistrictManager {
+public class CityManager {
+    private TIntObjectMap<City> cities = new TIntObjectHashMap<City>();
+
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
 
     private final Mafiacraft mc;
 
-    public DistrictManager(Mafiacraft mc) {
+    public CityManager(Mafiacraft mc) {
         this.mc = mc;
+    }
+
+    /////////////////
+    // CITY
+    /////////////////
+    public City getCity(int id) {
+        return cities.get(id);
+    }
+
+    public City getCity(String name) {
+        for (City city : getCityList()) {
+            if (city.getName().equalsIgnoreCase(name)) {
+                return city;
+            }
+        }
+        return null;
+    }
+
+    public List<City> getCityList() {
+        return new ArrayList<City>(cities.valueCollection());
+    }
+
+    public boolean cityExists(String name) {
+        return getCity(name) != null;
+    }
+
+    public City foundCity(String name, District center) {
+        City city = new City(name, center.getWorld());
+        center.setCity(null).setName(city.getNextDistrictName());
+        return city;
     }
 
     /////////////////
     // DISTRICT METHODS
     /////////////////
     /**
-     * Gets the district that owns a chunk.
+     * Gets the district that a chunk is part of.
      * 
      * @param chunk
      * @return 
@@ -44,6 +76,10 @@ public class DistrictManager {
         return getDistrictMap(chunk.getWorld()).get(id);
     }
 
+    public District createDistrict(Chunk sample) {
+        return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
+    }
+
     /**
      * Creates a district for the specified city.
      * 
@@ -52,10 +88,9 @@ public class DistrictManager {
      * @param city
      * @return 
      */
-    public District createDistrict(String name, int x, int z, City city) {
-        int id = GeoUtils.coordsToDistrictId(x, z);
-        District d = new District(id, name, x, z, city);
-        getDistrictMap(city.getWorld()).put(id, d);
+    public District createDistrict(World world, int x, int z) {
+        District d = new District(world, x, z);
+        getDistrictMap(world).put(d.getId(), d);
         return d;
     }
 
@@ -127,6 +162,9 @@ public class DistrictManager {
         byte sid = d.getSectionId(chunk);
         nameBuilder.append(Byte.toString(sid));
         return nameBuilder.toString();
+    }
+
+    public void claimSection(Chunk chunk, LandOwner owner) {
     }
 
 }

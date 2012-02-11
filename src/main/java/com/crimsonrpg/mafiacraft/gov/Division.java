@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.gov;
 
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import org.bukkit.Chunk;
 
 /**
  *
@@ -12,11 +13,15 @@ import com.crimsonrpg.mafiacraft.player.MPlayer;
  */
 public class Division implements LandOwner {
 
-    public boolean canBuild(MPlayer player) {
+    public boolean canBuild(MPlayer player, Chunk chunk) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public String getName() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getOwnerName() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
