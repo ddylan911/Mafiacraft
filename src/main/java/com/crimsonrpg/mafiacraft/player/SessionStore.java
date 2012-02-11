@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.crimsonrpg.mafiacraft.session;
+package com.crimsonrpg.mafiacraft.player;
 
 import java.util.HashMap;
 import java.util.Map;

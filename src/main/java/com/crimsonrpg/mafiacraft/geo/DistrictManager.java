@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
@@ -20,19 +21,16 @@ import org.bukkit.World;
  */
 public class DistrictManager {
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
-    
-    /**
-     * Gets the government that owns a chunk.
-     * 
-     * @param chunk
-     * @return 
-     */
-    public Government getOwner(Chunk chunk) {
-        int x = chunk.getX() % 0x10;
-        int z = chunk.getZ() % 0x10;
-        return getDistrict(chunk).getOwner(x, z);
+
+    private final Mafiacraft mc;
+
+    public DistrictManager(Mafiacraft mc) {
+        this.mc = mc;
     }
 
+    /////////////////
+    // DISTRICT METHODS
+    /////////////////
     /**
      * Gets the district that owns a chunk.
      * 
@@ -45,7 +43,7 @@ public class DistrictManager {
         int id = GeoUtils.coordsToDistrictId(dx, dz);
         return getDistrictMap(chunk.getWorld()).get(id);
     }
-    
+
     /**
      * Creates a district for the specified city.
      * 
@@ -54,9 +52,9 @@ public class DistrictManager {
      * @param city
      * @return 
      */
-    public District createDistrict(int x, int z, City city) {
+    public District createDistrict(String name, int x, int z, City city) {
         int id = GeoUtils.coordsToDistrictId(x, z);
-        District d = new District(id, x, z, city);
+        District d = new District(id, name, x, z, city);
         getDistrictMap(city.getWorld()).put(id, d);
         return d;
     }
@@ -67,7 +65,7 @@ public class DistrictManager {
      * @param world
      * @return 
      */
-    public TIntObjectMap<District> getDistrictMap(World world) {
+    private TIntObjectMap<District> getDistrictMap(World world) {
         TIntObjectMap<District> worldDistricts = worlds.get(world.getName());
         if (worldDistricts == null) {
             worldDistricts = new TIntObjectHashMap<District>();
@@ -100,6 +98,35 @@ public class DistrictManager {
             }
         }
         return districts;
+    }
+
+    /////////////////
+    // SECTION METHODS
+    /////////////////
+    /**
+     * Gets the government that owns a chunk.
+     * 
+     * @param chunk
+     * @return 
+     */
+    public Government getSectionOwner(Chunk chunk) {
+        int x = chunk.getX() % 0x10;
+        int z = chunk.getZ() % 0x10;
+        return getDistrict(chunk).getOwner(x, z);
+    }
+
+    /**
+     * Gets the name of the specified section.
+     * 
+     * @param chunk
+     * @return 
+     */
+    public String getSectionName(Chunk chunk) {
+        District d = getDistrict(chunk);
+        StringBuilder nameBuilder = new StringBuilder(d.getName()).append('-');
+        byte sid = d.getSectionId(chunk);
+        nameBuilder.append(Byte.toString(sid));
+        return nameBuilder.toString();
     }
 
 }

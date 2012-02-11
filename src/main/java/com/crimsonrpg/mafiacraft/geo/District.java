@@ -17,24 +17,25 @@ import com.crimsonrpg.mafiacraft.util.GeoUtils;
  * Represents a 8x8 section area.
  */
 public class District {
-    private City city;
-    
-    private DistrictType type;
-    
     private int id;
+
+    private String name;
 
     private int x;
 
     private int z;
 
-    private String name;
+    private City city;
+
+    private DistrictType type;
 
     private String description;
 
     private TByteObjectMap<Government> owners = new TByteObjectHashMap<Government>();
 
-    public District(int id, int x, int z, City city) {
+    public District(int id, String name, int x, int z, City city) {
         this.id = id;
+        this.name = name;
         this.x = x;
         this.z = z;
         this.city = city;
@@ -44,28 +45,38 @@ public class District {
         return id;
     }
 
-    public DistrictType getType() {
-        return type;
-    }
-
-    public void setType(DistrictType type) {
-        this.type = type;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     public String getName() {
         return name;
     }
 
     public District setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public District setCity(City city) {
+        this.city = city;
+        return this;
+    }
+
+    public DistrictType getType() {
+        return type;
+    }
+
+    public District setType(DistrictType type) {
+        this.type = type;
         return this;
     }
 
@@ -78,19 +89,18 @@ public class District {
         return this;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getZ() {
-        return z;
-    }
-
     public Government getOwner(int x, int z) {
         byte id = GeoUtils.coordsToSectionId(x, z);
         return owners.get(id);
     }
     
+    public byte getSectionId(Chunk chunk) {
+        if (!contains(chunk)) {
+            return -1;
+        }
+        return GeoUtils.coordsToSectionId(chunk.getX(), chunk.getZ());
+    }
+
     /**
      * Gets the owner of a chunk.
      * 
@@ -103,7 +113,7 @@ public class District {
         }
         return getOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
     }
-    
+
     /**
      * Checks if the district contains the specified location.
      * 

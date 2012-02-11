@@ -27,12 +27,12 @@ public class GeoUtils {
      * 
      * <p>Limit is 8.
      * 
-     * @param x
-     * @param z
+     * @param x The abscissa 1 - 8
+     * @param z The ordinate 1 - 8 
      * @return The section id, a byte.
      */
     public static byte coordsToSectionId(int x, int z) {
-        return (byte) (((x & 0xf) << 4) | (z & 0xf));
+        return (byte) ((((x - 1) & 0xf) << 4) | ((z - 1) & 0xf));
     }
 
 }
