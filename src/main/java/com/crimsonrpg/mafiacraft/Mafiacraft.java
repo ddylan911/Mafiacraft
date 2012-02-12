@@ -12,6 +12,7 @@ import com.crimsonrpg.mafiacraft.vault.VaultHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -41,6 +42,11 @@ public class Mafiacraft extends JavaPlugin {
     }
 
     public void onEnable() {
+        //Setup config
+        setupConfig();
+        
+        //Setup commands
+        
         //Initialize the listener
         MListener l = new MListener(this);
         Bukkit.getPluginManager().registerEvents(l, this);
@@ -71,6 +77,16 @@ public class Mafiacraft extends JavaPlugin {
 
     public VaultHelper getVaultHelper() {
         return vaultHelper;
+    }
+    
+    private void setupConfig() {
+        Configuration c = getConfig();
+        
+        //Mafia prices
+        c.set("prices.mafia.found", c.getDouble("prices.mafia.found", 1000000.0));
+        
+        //City prices
+        c.set("prices.city.found", c.getDouble("prices.city.found", 1000000.0));
     }
 
     public static void log(String message) {

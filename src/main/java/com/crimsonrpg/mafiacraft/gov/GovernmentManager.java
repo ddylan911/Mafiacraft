@@ -10,6 +10,8 @@ import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,6 +28,10 @@ public class GovernmentManager {
         this.mc = mc;
     }
 
+    public List<Government> getGovernments() {
+        return new ArrayList<Government>(governments.valueCollection());
+    }
+    
     /**
      * Gets the government associated with the id.
      * 

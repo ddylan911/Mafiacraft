@@ -154,4 +154,8 @@ public class District implements LandOwner {
         return "District " + name;
     }
 
+    public String getOwnerId() {
+        return "R-" + id;
+    }
+
 }

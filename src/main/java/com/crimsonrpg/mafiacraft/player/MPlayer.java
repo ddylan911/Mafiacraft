@@ -21,8 +21,6 @@ public class MPlayer implements LandOwner {
 
     private String title;
     
-    private Government government;
-    
     private Position position;
     
     public MPlayer(Player player) {
@@ -54,22 +52,22 @@ public class MPlayer implements LandOwner {
     public void setTitle(String title) {
         this.title = title;
     }
-
+    
     public Government getGovernment() {
-        return government;
-    }
-
-    public MPlayer setGovernment(Government government) {
-        this.government = government;
-        return this;
+        for (Government gov : Mafiacraft.getInstance().getGovernmentManager().getGovernments()) {
+            if (gov.isMember(this)) {
+                return gov;
+            }
+        }
+        return null;
     }
 
     public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
+        Government gov = getGovernment();
+        if (gov == null) {
+            return Position.NONE;
+        }
+        return gov.getPosition(this);
     }
     
     public SessionStore getSessionStore() {
@@ -81,11 +79,23 @@ public class MPlayer implements LandOwner {
         return player.equals(this);
     }
 
+    public String getName() {
+        return player.getName();
+    }
+    
+    public String getDisplayName() {
+        return player.getDisplayName();
+    }
+    
     public String getOwnerName() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void sendMessage(String message) {
         player.sendMessage(message);
+    }
+
+    public String getOwnerId() {
+        return "P-" + getName();
     }
 }

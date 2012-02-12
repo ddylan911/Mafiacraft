@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
@@ -65,7 +66,7 @@ public class CityManager {
         cities.put(city.getId(), city);
 
         //Make government
-        Government government = mc.getGovernmentManager().createGovernment(name);
+        Government government = mc.getGovernmentManager().createGovernment(name, GovType.CITY);
         mc.getGovernmentManager().setCityGovernment(city, government);
         
         return city;

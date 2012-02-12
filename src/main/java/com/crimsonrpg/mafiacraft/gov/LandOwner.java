@@ -12,4 +12,5 @@ import com.crimsonrpg.mafiacraft.player.MPlayer;
 public interface LandOwner {
     public boolean canBuild(MPlayer player, org.bukkit.Chunk chunk);
     public String getOwnerName();
+    public String getOwnerId();
 }

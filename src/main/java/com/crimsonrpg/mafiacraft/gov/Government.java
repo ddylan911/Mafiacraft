@@ -7,9 +7,10 @@ package com.crimsonrpg.mafiacraft.gov;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.bukkit.Chunk;
 
 /**
@@ -20,12 +21,18 @@ public class Government implements LandOwner {
     private final int id;
 
     private String name;
-    
+
     private String chatTag;
 
     private GovType type;
 
-    private Map<Position, List<String>> positions = new HashMap<Position, List<String>>();
+    private String leader;
+
+    private String viceLeader;
+
+    private List<Division> divisions;
+
+    private List<String> affiliates;
 
     public Government(int id) {
         this.id = id;
@@ -89,22 +96,25 @@ public class Government implements LandOwner {
         return name;
     }
 
+    ///////////////
+    // POSITION METHODS
+    ///////////////
     /**
      * Gets the leader of the government.
      * 
      * @return 
      */
     public String getLeader() {
-        List<String> members = getMembers(Position.LEADER);
-        if (members == null) {
-            return null;
-        }
+        return leader;
+    }
 
-        if (members.isEmpty()) {
-            return null;
-        }
-
-        return members.get(0);
+    /**
+     * Gets the vice leader of the government.
+     * 
+     * @return 
+     */
+    public String getViceLeader() {
+        return viceLeader;
     }
 
     /**
@@ -121,18 +131,90 @@ public class Government implements LandOwner {
     }
 
     /**
-     * Gets the members of a specified position.
+     * Gets a map of all positions.
+     * 
+     * @return 
+     */
+    public Map<Position, List<String>> getPositions() {
+        Map<Position, List<String>> positions = new EnumMap<Position, List<String>>(Position.class);
+        for (Position position : Position.values()) {
+            positions.put(position, getMembers(position));
+        }
+        return positions;
+    }
+
+    /**
+     * Gets a list of all members in the specified position.
      * 
      * @param position
      * @return 
      */
     public List<String> getMembers(Position position) {
-        List<String> members = positions.get(position);
-        if (members == null) {
-            members = new ArrayList<String>();
-            positions.put(position, members);
+        List<String> members = new ArrayList<String>();
+        if (position.isDivision()) {
+            switch (position) {
+                case WORKER:
+                    for (Division division : divisions) {
+                        members.addAll(division.getWorkers());
+                    }
+                    break;
+
+                case MANAGER:
+                    for (Division division : divisions) {
+                        members.add(division.getManager());
+                    }
+                    break;
+            }
+        } else {
+            switch (position) {
+                case LEADER:
+                    members.add(leader);
+                    break;
+
+                case VICE_LEADER:
+                    members.add(viceLeader);
+                    break;
+
+                case AFFILIATE:
+                    members.addAll(members);
+                    break;
+            }
         }
         return members;
+    }
+
+    /**
+     * Gets the division a certain player is part of.
+     * 
+     * @param player
+     * @return 
+     */
+    public Division getDivision(String player) {
+        for (Division division : divisions) {
+            if (division.isMember(player)) {
+                return division;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the total member count of the entire government.
+     * 
+     * @return 
+     */
+    public int getMemberCount() {
+        return getMembers().size();
+    }
+
+    /**
+     * Gets the total member count of a position.
+     * 
+     * @param position
+     * @return 
+     */
+    public int getMemberCount(Position position) {
+        return getMembers(position).size();
     }
 
     /**
@@ -142,13 +224,186 @@ public class Government implements LandOwner {
      */
     public List<MPlayer> getOnlineMembers() {
         ArrayList<MPlayer> members = new ArrayList<MPlayer>();
-        List<String> allMembers = getMembers();
         for (MPlayer player : Mafiacraft.getInstance().getPlayerManager().getPlayerList()) {
-            if (allMembers.contains(player.getPlayer().getName())) {
+            if (isMember(player)) {
                 members.add(player);
             }
         }
         return members;
+    }
+
+    /**
+     * Gets the amount of members currently online the server.
+     * 
+     * @return 
+     */
+    public int getOnlineMemberCount() {
+        return getOnlineMembers().size();
+    }
+
+    /**
+     * Returns true if the government can have more players in a position.
+     * 
+     * @param position
+     * @return 
+     */
+    public boolean canHaveMore(Position position) {
+        int count = getMemberCount(position);
+        return (count < position.getLimit(this));
+    }
+
+    /**
+     * Gets the position of a certain player.
+     * 
+     * @param player
+     * @return 
+     */
+    public Position getPosition(String player) {
+        Position pos = Position.NONE;
+        for (Entry<Position, List<String>> position : getPositions().entrySet()) {
+            if (position.getValue().contains(player)) {
+                return position.getKey();
+            }
+        }
+        return pos;
+    }
+
+    /**
+     * Gets the position of a certain MPlayer.
+     * 
+     * @param player
+     * @return 
+     */
+    public Position getPosition(MPlayer player) {
+        return getPosition(player.getName());
+    }
+
+    /**
+     * Sets a player's position.
+     * 
+     * @param player
+     * @param position
+     * @return 
+     */
+    public boolean setPosition(String player, Position position) {
+        if (position.isDivision()) {
+            return false;
+        }
+
+        if (!removeMember(player)) {
+            return false;
+        }
+
+        switch (position) {
+            case AFFILIATE:
+                addMember(player);
+                break;
+
+            case VICE_LEADER:
+                String oldV = getViceLeader();
+                viceLeader = player;
+                addMember(oldV);
+                break;
+                
+            case LEADER:
+                String oldL = getLeader();
+                leader = player;
+                addMember(oldL);
+                break;
+        }
+        return true;
+    }
+    
+    /**
+     * Sets a player's position to the one specified.
+     * 
+     * @param player
+     * @param position
+     * @return 
+     */
+    public boolean setPosition(MPlayer player, Position position) {
+        return setPosition(player.getName(), position);
+    }
+
+    /**
+     * Removes a member from this government.
+     * 
+     * @param player
+     * @return 
+     */
+    public boolean removeMember(String player) {
+        Position position = getPosition(player);
+        if (position.isDivision()) {
+            getDivision(player).remove(player);
+        } else {
+            switch (position) {
+                case LEADER:
+                    return false;
+
+                case VICE_LEADER:
+                    return false;
+
+                case AFFILIATE:
+                    affiliates.remove(player);
+                    break;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Removes a member from this government.
+     * 
+     * @param player 
+     */
+    public boolean removeMember(MPlayer player) {
+        return removeMember(player.getName());
+    }
+
+    /**
+     * Returns true if the player is a member of this government.
+     * 
+     * @param player
+     * @return 
+     */
+    public boolean isMember(String player) {
+        return getMembers().contains(player);
+    }
+
+    /**
+     * Returns true if the player is a member of this government.
+     * 
+     * @param player
+     * @return 
+     */
+    public boolean isMember(MPlayer player) {
+        return isMember(player.getName());
+    }
+
+    /**
+     * Adds a member to this government as an affiliate.
+     * 
+     * @param player
+     * @return 
+     */
+    public Government addMember(String player) {
+        affiliates.add(player);
+        return this;
+    }
+
+    /**
+     * Adds a member to this government.
+     * 
+     * @param player
+     * @param position
+     * @return True if the operation was allowed.
+     */
+    public Government addMember(MPlayer player) {
+        return addMember(player.getName());
+    }
+
+    public String getOwnerId() {
+        return "G-" + id;
     }
 
 }
