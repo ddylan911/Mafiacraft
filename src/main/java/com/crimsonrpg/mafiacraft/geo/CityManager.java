@@ -68,7 +68,7 @@ public class CityManager {
         //Make government
         Government government = mc.getGovernmentManager().createGovernment(name, GovType.CITY);
         mc.getGovernmentManager().setCityGovernment(city, government);
-        
+
         return city;
     }
 
@@ -103,10 +103,17 @@ public class CityManager {
         int dx = chunk.getX() >> 4;
         int dz = chunk.getZ() >> 4;
         int id = GeoUtils.coordsToDistrictId(dx, dz);
-        return getDistrictMap(chunk.getWorld()).get(id);
+        District d = getDistrictMap(chunk.getWorld()).get(id);
+        if (d == null) {
+            d = (getDistrictList(chunk.getWorld()).size() <= 0)
+                    ? createDistrict(chunk).setType(DistrictType.ANARCHIC)
+                    : createDistrict(chunk).setType(DistrictType.RESERVED);
+        }
+        return d;
     }
 
     public District createDistrict(Chunk sample) {
+        Mafiacraft.logVerbose("A district was created upon entering " + sample.toString() + ".");
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
     }
 

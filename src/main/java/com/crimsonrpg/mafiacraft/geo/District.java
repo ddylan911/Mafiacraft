@@ -104,14 +104,18 @@ public class District implements LandOwner {
      */
     public LandOwner getOwner(Chunk chunk) {
         if (!contains(chunk)) {
-            return null;
+            throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
         }
         return getOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
     }
 
     public LandOwner getOwner(int x, int z) {
         byte id = GeoUtils.coordsToSectionId(x, z);
-        return owners.get(id);
+        LandOwner owner = owners.get(id);
+        if (owner == null) {
+            owner = this;
+        }
+        return owner;
     }
 
     public byte getSectionId(Chunk chunk) {
