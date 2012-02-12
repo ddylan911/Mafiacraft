@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft;
 
+import com.crimsonrpg.mafiacraft.cmd.Commands;
 import com.crimsonrpg.mafiacraft.geo.CityManager;
 import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
 import com.crimsonrpg.mafiacraft.player.PlayerManager;
@@ -46,6 +47,7 @@ public class Mafiacraft extends JavaPlugin {
         setupConfig();
         
         //Setup commands
+        Commands.registerAll(this);
         
         //Initialize the listener
         MListener l = new MListener(this);

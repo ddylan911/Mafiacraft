@@ -4,3 +4,11 @@ authors: [AlbireoX, Camaroow]
 version: 0.1
 
 main: com.crimsonrpg.mafiacraft.Mafiacraft
+
+commands:
+  mafia:
+    description: Mafia base command
+    usage: /mafia <tool>
+  city:
+    description: City base command
+    usage: /city <tool>
