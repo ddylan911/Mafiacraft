@@ -10,10 +10,10 @@ package com.crimsonrpg.mafiacraft.gov;
  */
 public class GovType {
     public static GovType MAFIA;
-    public static GovType POLICE;
+    public static GovType CITY;
     
     static {
         MAFIA = new GovType();
-        POLICE = new GovType();
+        CITY = new GovType();
     }
 }

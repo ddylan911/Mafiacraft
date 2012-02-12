@@ -7,6 +7,7 @@ package com.crimsonrpg.mafiacraft.player;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
+import com.crimsonrpg.mafiacraft.gov.Position;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
@@ -18,7 +19,11 @@ import org.bukkit.entity.Player;
 public class MPlayer implements LandOwner {
     private final Player player;
 
+    private String title;
+    
     private Government government;
+    
+    private Position position;
     
     public MPlayer(Player player) {
         this.player = player;
@@ -42,6 +47,14 @@ public class MPlayer implements LandOwner {
         return player;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Government getGovernment() {
         return government;
     }
@@ -49,6 +62,14 @@ public class MPlayer implements LandOwner {
     public MPlayer setGovernment(Government government) {
         this.government = government;
         return this;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
     
     public SessionStore getSessionStore() {

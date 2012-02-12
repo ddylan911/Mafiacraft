@@ -17,7 +17,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
  */
 public class GovernmentManager {
     private TIntObjectMap<Government> governments = new TIntObjectHashMap<Government>();
-
+    
     private TIntIntMap cities = new TIntIntHashMap();
 
     private Mafiacraft mc;
@@ -52,15 +52,22 @@ public class GovernmentManager {
      * @param name The name of the government.
      * @return 
      */
-    public Government createGovernment(String name) {
+    public Government createGovernment(String name, GovType type) {
         int id = getNextGovernmentId();
         Government government = new Government(id);
         governments.put(id, government);
-        government.setName(name);
+        government.setName(name).setType(type);
         return government;
     }
 
+    /**
+     * Sets the city government of a city.
+     * 
+     * @param city
+     * @param government 
+     */
     public void setCityGovernment(City city, Government government) {
+        government.setType(GovType.CITY);
         cities.put(city.getId(), government.getId());
     }
     

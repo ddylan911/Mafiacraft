@@ -12,13 +12,12 @@ import com.crimsonrpg.mafiacraft.player.MsgColor;
 import org.bukkit.Chunk;
 
 /**
- *
- * @author simplyianm
+ * Contains all city-related commands.
  */
 public class CityCommand {
     public static String doFound(MPlayer player, String name) {
         double balance = player.getMoney();
-        double required = Mafiacraft.getInstance().getConfig().getDouble("prices.cityfound", 1000000.0);
+        double required = Mafiacraft.getInstance().getConfig().getDouble("prices.city.found", 1000000.0);
 
         if (balance < required) {
             return "You don't have enough money to found a city! (Costs $1,000,000)";
