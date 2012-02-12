@@ -22,7 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Mafiacraft extends JavaPlugin {
     private static Mafiacraft instance;
 
-    private static Logger LOGGER = Logger.getLogger("Minecraft");
+    private static final Logger LOGGER = Logger.getLogger("Minecraft");
 
     private CityManager cityManager;
 
