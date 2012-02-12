@@ -6,7 +6,6 @@ package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
-import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
@@ -20,6 +19,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
 
 /**
  *
@@ -133,6 +133,11 @@ public class MListener implements Listener {
         District dest = mc.getCityManager().getDistrict(current);
         if (dest.getType().equals(DistrictType.RESERVED)) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
+
+            //Move back
+            Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.getZ() - last.getZ());
+
+            event.setTo(event.getFrom().subtract(vec.normalize()));
             event.setCancelled(true);
             return;
         }

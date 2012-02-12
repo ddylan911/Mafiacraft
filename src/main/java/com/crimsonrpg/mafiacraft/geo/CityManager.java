@@ -127,6 +127,7 @@ public class CityManager {
      */
     public District createDistrict(World world, int x, int z) {
         District d = new District(world, x, z);
+        d.setName("Unexplored");
         getDistrictMap(world).put(d.getId(), d);
         return d;
     }

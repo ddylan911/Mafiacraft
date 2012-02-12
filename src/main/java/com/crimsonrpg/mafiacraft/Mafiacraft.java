@@ -106,7 +106,11 @@ public class Mafiacraft extends JavaPlugin {
     }
     
     public static void logVerbose(String message) {
-        log("[DEBUG] " + message);
+        logVerbose(message, 1);
+    }
+    
+    public static void logVerbose(String message, int level) {
+        log("[V" + level + "] " + message);
     }
 
     public static Mafiacraft getInstance() {

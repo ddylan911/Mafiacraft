@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
@@ -144,9 +145,10 @@ public class District implements LandOwner {
     public boolean contains(Chunk c) {
         int sx = x << 4;
         int sz = z << 4;
-        return (c.getX() > sx)
+        Mafiacraft.logVerbose("Checking if chunk " + c.getX() + ", " + c.getZ() + " is within the bounds of " + sx + ", " + sz + ".", 5);
+        return (c.getX() >= sx)
                 && (c.getX() < (sx + 0x10))
-                && (c.getZ() > sz)
+                && (c.getZ() >= sz)
                 && (c.getZ() < (sz + 0x10));
     }
 
