@@ -8,7 +8,6 @@ import com.crimsonrpg.mafiacraft.cmd.Commands;
 import com.crimsonrpg.mafiacraft.geo.CityManager;
 import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
 import com.crimsonrpg.mafiacraft.player.PlayerManager;
-import com.crimsonrpg.mafiacraft.player.SessionManager;
 import com.crimsonrpg.mafiacraft.vault.VaultHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,8 +28,6 @@ public class Mafiacraft extends JavaPlugin {
     private GovernmentManager governmentManager;
 
     private PlayerManager playerManager;
-
-    private SessionManager sessionManager;
 
     private VaultHelper vaultHelper;
 
@@ -55,8 +52,8 @@ public class Mafiacraft extends JavaPlugin {
 
         //Initialize managers
         cityManager = new CityManager(this);
+		governmentManager = new GovernmentManager(this);
         playerManager = new PlayerManager(this);
-        sessionManager = new SessionManager(this);
 
         log("Mafiacraft enabled.");
     }
@@ -71,10 +68,6 @@ public class Mafiacraft extends JavaPlugin {
 
     public PlayerManager getPlayerManager() {
         return playerManager;
-    }
-
-    public SessionManager getSessionManager() {
-        return sessionManager;
     }
 
     public VaultHelper getVaultHelper() {

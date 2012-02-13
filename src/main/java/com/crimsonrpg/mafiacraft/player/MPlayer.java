@@ -22,6 +22,8 @@ public class MPlayer implements LandOwner {
     private String title;
     
     private Position position;
+	
+	private SessionStore store;
     
     public MPlayer(Player player) {
         this.player = player;
@@ -71,7 +73,10 @@ public class MPlayer implements LandOwner {
     }
     
     public SessionStore getSessionStore() {
-        return Mafiacraft.getInstance().getSessionManager().getStore(player);
+        if (store == null) {
+            store = new SessionStore();
+        }
+        return store;
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {

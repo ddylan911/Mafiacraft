@@ -407,6 +407,13 @@ public class Government implements LandOwner {
         return "G-" + id;
     }
 
+	/**
+	 * Dispatches an invite to the given player as the specified player.
+	 * 
+	 * @param inviter
+	 * @param invited
+	 * @return 
+	 */
     public boolean dispatchInvite(MPlayer inviter, MPlayer invited) {
         Government them = invited.getGovernment();
         if (them.equals(this)) {
