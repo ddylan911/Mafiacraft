@@ -46,10 +46,21 @@ public class City {
         return Mafiacraft.getInstance().getGovernmentManager().getCityGovernment(this);
     }
 
+    /**
+     * Gets a list of all districts of this city.
+     * 
+     * @return 
+     */
     public List<District> getDistricts() {
         return Mafiacraft.getInstance().getCityManager().getCityDistricts(this);
     }
 
+    /**
+     * Checks if the city contains a district with the specified name.
+     * 
+     * @param name
+     * @return 
+     */
     public boolean hasDistrict(String name) {
         for (District district : getDistricts()) {
             if (district.getName().equalsIgnoreCase(name)) {
@@ -59,26 +70,37 @@ public class City {
         return false;
     }
 
+    /**
+     * Gets the district in this city from the specified chunk.
+     * 
+     * @param chunk
+     * @return 
+     */
     public District getDistrict(Chunk chunk) {
         return Mafiacraft.getInstance().getCityManager().getDistrict(chunk);
     }
 
+    /**
+     * Gets the next free name to give a district.
+     * 
+     * @return 
+     */
     public String getNextDistrictName() {
         String chars = " ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String name = "";
+        String dname = "";
 
         for (char c : chars.toCharArray()) {
             for (char d : chars.toCharArray()) {
                 for (char e : chars.toCharArray()) {
-                    name = new StringBuilder(c).append(d).append(e).toString().trim();
-                    if (hasDistrict(name)) {
+                    dname = new StringBuilder(c).append(d).append(e).toString().trim();
+                    if (hasDistrict(dname)) {
                         continue;
                     }
                 }
             }
         }
 
-        return name;
+        return dname;
     }
 
 }

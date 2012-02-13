@@ -95,6 +95,7 @@ public class CityManager {
 
     /**
      * Gets the district that a chunk is part of.
+     * This will create a district if it needs to.
      * 
      * @param chunk
      * @return 
@@ -102,16 +103,35 @@ public class CityManager {
     public District getDistrict(Chunk chunk) {
         int dx = chunk.getX() >> 4;
         int dz = chunk.getZ() >> 4;
-        int id = GeoUtils.coordsToDistrictId(dx, dz);
-        District d = getDistrictMap(chunk.getWorld()).get(id);
+        return getDistrict(chunk.getWorld(), dx, dz);
+    }
+
+    /**
+     * Gets the district in the specified world.
+     * This will create a district if it needs to.
+     * 
+     * @param world
+     * @param x
+     * @param z
+     * @return 
+     */
+    public District getDistrict(World world, int x, int z) {
+        int id = GeoUtils.coordsToDistrictId(x, z);
+        District d = getDistrictMap(world).get(id);
         if (d == null) {
-            d = (getDistrictList(chunk.getWorld()).size() <= 0)
-                    ? createDistrict(chunk).setType(DistrictType.ANARCHIC)
-                    : createDistrict(chunk).setType(DistrictType.RESERVED);
+            d = (getDistrictList(world).size() <= 0)
+                    ? createDistrict(world, x, z).setType(DistrictType.ANARCHIC)
+                    : createDistrict(world, x, z).setType(DistrictType.RESERVED);
         }
         return d;
     }
 
+    /**
+     * Creates a district based on a sample chunk within the potential district.
+     * 
+     * @param sample
+     * @return 
+     */
     public District createDistrict(Chunk sample) {
         Mafiacraft.logVerbose("A district was created upon entering " + sample.toString() + ".");
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
@@ -123,9 +143,9 @@ public class CityManager {
      * @param x
      * @param z
      * @param city
-     * @return 
+     * @return The created district, or the existing district
      */
-    public District createDistrict(World world, int x, int z) {
+    private District createDistrict(World world, int x, int z) {
         District d = new District(world, x, z);
         d.setName("Unexplored");
         getDistrictMap(world).put(d.getId(), d);

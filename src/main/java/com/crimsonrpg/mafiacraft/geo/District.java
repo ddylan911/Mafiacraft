@@ -45,53 +45,117 @@ public class District implements LandOwner {
         this.z = z;
     }
 
+    /**
+     * Gets the id of the district.
+     * 
+     * @return 
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the name of the district
+     * 
+     * @return The name of the district
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the district
+     * 
+     * @param name The name to set
+     * @return The district that the name was changed of
+     */
     public District setName(String name) {
         this.name = name;
         return this;
     }
 
+    /**
+     * Gets the world this district is in.
+     * 
+     * @return 
+     */
     public World getWorld() {
         return world;
     }
 
+    /**
+     * Gets the X coordinate of this district.
+     * 
+     * @return 
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Gets the Z coordinate of this district.
+     * 
+     * @return 
+     */
     public int getZ() {
         return z;
     }
 
+    /**
+     * Gets the city this district is part of.
+     * 
+     * @return 
+     */
     public City getCity() {
         return city;
     }
 
+    /**
+     * Sets the city of this district.
+     * 
+     * @param city
+     * @return 
+     */
     public District setCity(City city) {
         this.city = city;
         return this;
     }
 
+    /**
+     * Gets the type of district this city is.
+     * 
+     * @return 
+     */
     public DistrictType getType() {
         return type;
     }
 
+    /**
+     * Sets the type of district this district is.
+     * 
+     * @param type
+     * @return 
+     */
     public District setType(DistrictType type) {
         this.type = type;
         return this;
     }
 
+    /**
+     * Gets the description of the district.
+     * 
+     * @return 
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets the description of the district.
+     * 
+     * @param description
+     * @return 
+     */
     public District setDescription(String description) {
         this.description = description;
         return this;
@@ -110,6 +174,13 @@ public class District implements LandOwner {
         return getOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
     }
 
+    /**
+     * Gets the owner of the specified section.
+     * 
+     * @param x
+     * @param z
+     * @return 
+     */
     public LandOwner getOwner(int x, int z) {
         byte id = GeoUtils.coordsToSectionId(x, z);
         LandOwner owner = owners.get(id);
@@ -119,6 +190,12 @@ public class District implements LandOwner {
         return owner;
     }
 
+    /**
+     * Gets the id of the specified section.
+     * 
+     * @param chunk
+     * @return 
+     */
     public byte getSectionId(Chunk chunk) {
         if (!contains(chunk)) {
             return -1;
@@ -156,6 +233,7 @@ public class District implements LandOwner {
         return type.isBuild();
     }
 
+    
     public String getOwnerName() {
         return "District " + name;
     }
