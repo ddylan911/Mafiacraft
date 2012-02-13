@@ -41,7 +41,8 @@ public class Mafiacraft extends JavaPlugin {
 
     public void onEnable() {
         //Setup config
-        setupConfig();
+        MConfig.bind(this);
+		saveConfig();
         
         //Setup commands
         Commands.registerAll(this);
@@ -72,16 +73,6 @@ public class Mafiacraft extends JavaPlugin {
 
     public VaultHelper getVaultHelper() {
         return vaultHelper;
-    }
-    
-    private void setupConfig() {
-        Configuration c = getConfig();
-        
-        //Mafia prices
-        c.set("prices.mafia.found", c.getDouble("prices.mafia.found", 1000000.0));
-        
-        //City prices
-        c.set("prices.city.found", c.getDouble("prices.city.found", 1000000.0));
     }
 
     public static void log(String message) {
