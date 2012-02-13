@@ -73,7 +73,7 @@ public class GovernmentManager {
      * @param government 
      */
     public void setCityGovernment(City city, Government government) {
-        government.setType(GovType.CITY);
+        government.setType(GovType.POLICE);
         cities.put(city.getId(), government.getId());
     }
     

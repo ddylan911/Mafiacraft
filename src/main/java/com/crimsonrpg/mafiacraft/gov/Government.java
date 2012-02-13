@@ -6,6 +6,7 @@ package com.crimsonrpg.mafiacraft.gov;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -406,4 +407,15 @@ public class Government implements LandOwner {
         return "G-" + id;
     }
 
+    public boolean dispatchInvite(MPlayer inviter, MPlayer invited) {
+        Government them = invited.getGovernment();
+        if (them.equals(this)) {
+            return false;
+        }
+        
+        invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name + " has invited you to their ranks.");
+        invited.sendMessage(MsgColor.INFO + "Type /" + type.getLocale("command") + " accept to join.");
+        
+        return true;
+    }
 }

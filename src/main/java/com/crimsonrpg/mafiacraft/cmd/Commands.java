@@ -25,7 +25,7 @@ public class Commands {
         });
         plugin.getCommand("city").setExecutor(new CommandExecutor() {
             public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-                GovernmentCommand.parseCmd(cs, cmnd, string, strings, GovType.CITY);
+                GovernmentCommand.parseCmd(cs, cmnd, string, strings, GovType.POLICE);
                 return true;
             }
 

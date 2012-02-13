@@ -14,7 +14,7 @@ import java.util.Map;
 public abstract class GovType {
     public static GovType MAFIA;
 
-    public static GovType CITY;
+    public static GovType POLICE;
 
     private Map<String, String> locale = new HashMap<String, String>();
 
@@ -38,23 +38,27 @@ public abstract class GovType {
         MAFIA = new GovType() {
             @Override
             public String getName() {
-                return "Mafia";
+                return "mafia";
             }
 
             @Override
             public void locale() {
+                m("command", "mafia");
+                
                 m("leader", "godfather");
             }
 
         };
-        CITY = new GovType() {
+        POLICE = new GovType() {
             @Override
             public String getName() {
-                return "City";
+                return "police";
             }
 
             @Override
             public void locale() {
+                m("command", "police");
+                
                 m("leader", "chief of police");
             }
 

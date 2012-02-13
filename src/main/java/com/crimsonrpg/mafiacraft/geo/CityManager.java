@@ -66,7 +66,7 @@ public class CityManager {
         cities.put(city.getId(), city);
 
         //Make government
-        Government government = mc.getGovernmentManager().createGovernment(name, GovType.CITY);
+        Government government = mc.getGovernmentManager().createGovernment(name, GovType.POLICE);
         mc.getGovernmentManager().setCityGovernment(city, government);
 
         return city;

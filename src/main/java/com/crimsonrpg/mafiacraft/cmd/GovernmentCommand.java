@@ -79,14 +79,18 @@ public class GovernmentCommand {
         return null;
     }
 
-    public static String doPlayer(CommandSender sender, MPlayer target) {
-        sender.sendMessage(MsgColor.INFO + "TODO: info for " + target.getDisplayName());
+    public static String doPlayer(MPlayer player, MPlayer target) {
+        player.sendMessage(MsgColor.INFO + "TODO: info for " + target.getDisplayName());
         //TODO: add stats
         return null;
     }
 
-    public static String doWho(CommandSender sender, Government government) {
-        sender.sendMessage(MsgColor.INFO + "=== Info for " + government.getName() + " ===");
+    public static String doWho(MPlayer player) {
+        return doWho(player, player.getGovernment());
+    }
+    
+    public static String doWho(MPlayer player, Government government) {
+        player.sendMessage(MsgColor.INFO + "=== Info for " + government.getName() + " ===");
         //TODO: add stats
         return null;
     }
