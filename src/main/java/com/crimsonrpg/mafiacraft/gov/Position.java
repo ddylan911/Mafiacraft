@@ -12,6 +12,7 @@ public enum Position {
     AFFILIATE(-1, false),
     WORKER(-1, true),
     MANAGER(-1, true),
+    OFFICER(10, false),
     VICE_LEADER(1, false),
     LEADER(1, false);
 
