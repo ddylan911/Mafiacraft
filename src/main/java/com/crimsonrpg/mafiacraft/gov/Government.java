@@ -255,6 +255,20 @@ public class Government implements LandOwner {
         int count = getMemberCount(position);
         return (count < position.getLimit(this));
     }
+    
+    public boolean canHaveLess(Position position) {
+        if (position.isDivision()) {
+            return true;
+        }
+        
+        int memberCount = getMemberCount(position);
+        
+        if (memberCount <= position.getMinimum(this)) {
+            return false;
+        }
+        
+        return true;
+    }
 
     /**
      * Gets the position of a certain player.
@@ -298,11 +312,19 @@ public class Government implements LandOwner {
             return false;
         }
 
+        if (!canHaveMore(position)) {
+            return false;
+        }
+        
         switch (position) {
             case AFFILIATE:
                 addMember(player);
                 break;
 
+            case OFFICER:
+                officers.add(player);
+                break;
+                
             case VICE_LEADER:
                 String oldV = getViceLeader();
                 viceLeader = player;
@@ -347,6 +369,12 @@ public class Government implements LandOwner {
                 case VICE_LEADER:
                     return false;
 
+                case OFFICER:
+                    if (canHaveLess(Position.OFFICER)) {
+                        //TODO
+                    }
+                    break;
+                    
                 case AFFILIATE:
                     affiliates.remove(player);
                     break;
