@@ -4,13 +4,17 @@
  */
 package com.crimsonrpg.mafiacraft;
 
+import com.crimsonrpg.mafiacraft.chat.ChatHandler;
+import com.crimsonrpg.mafiacraft.geo.CityManager;
+import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.player.PlayerManager;
+import com.crimsonrpg.mafiacraft.vault.VaultHelper;
 import java.util.List;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author simplyianm
+ * Mafiacraft API accessor static class.
  */
 public class Mafiacraft {
     private static MafiacraftPlugin plugin;
@@ -42,5 +46,50 @@ public class Mafiacraft {
      */
     public static List<MPlayer> getOnlinePlayers() {
         return getPlugin().getPlayerManager().getPlayerList();
+    }
+
+    /**
+     * Gets the chat handler.
+     * 
+     * @return 
+     */
+    public ChatHandler getChatHandler() {
+        return getPlugin().getChatHandler();
+    }
+
+    /**
+     * Gets the city manager.
+     * 
+     * @return 
+     */
+    public CityManager getCityManager() {
+        return getPlugin().getCityManager();
+    }
+
+    /**
+     * Gets the government manager.
+     * 
+     * @return 
+     */
+    public GovernmentManager getGovernmentManager() {
+        return getPlugin().getGovernmentManager();
+    }
+
+    /**
+     * Gets the player manager.
+     * 
+     * @return 
+     */
+    public PlayerManager getPlayerManager() {
+        return getPlugin().getPlayerManager();
+    }
+
+    /**
+     * Gets the vault helper.
+     * 
+     * @return 
+     */
+    public VaultHelper getVaultHelper() {
+        return getPlugin().getVaultHelper();
     }
 }
