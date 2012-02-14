@@ -371,7 +371,7 @@ public class Government implements LandOwner {
 
                 case OFFICER:
                     if (canHaveLess(Position.OFFICER)) {
-                        //TODO
+                        officers.remove(player);
                     }
                     break;
                     
