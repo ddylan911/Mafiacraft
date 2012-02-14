@@ -46,6 +46,11 @@ public abstract class GovType {
                 m("command", "mafia");
                 
                 m("leader", "godfather");
+                m("vice leader", "consigliere");
+                m("officer", "officer");
+                m("manager", "caporegime");
+                m("worker", "soldier");
+                m("affiliate", "associate");
             }
 
         };
@@ -60,6 +65,11 @@ public abstract class GovType {
                 m("command", "police");
                 
                 m("leader", "chief of police");
+                m("vice leader", "assistant chief");
+                m("officer", "commander");
+                m("manager", "major");
+                m("worker", "officer");
+                m("affiliate", "citizen");
             }
 
         };
