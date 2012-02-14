@@ -53,7 +53,7 @@ public class Mafiacraft {
      * 
      * @return 
      */
-    public ChatHandler getChatHandler() {
+    public static ChatHandler getChatHandler() {
         return getPlugin().getChatHandler();
     }
 
@@ -62,7 +62,7 @@ public class Mafiacraft {
      * 
      * @return 
      */
-    public CityManager getCityManager() {
+    public static CityManager getCityManager() {
         return getPlugin().getCityManager();
     }
 
@@ -71,7 +71,7 @@ public class Mafiacraft {
      * 
      * @return 
      */
-    public GovernmentManager getGovernmentManager() {
+    public static GovernmentManager getGovernmentManager() {
         return getPlugin().getGovernmentManager();
     }
 
@@ -80,7 +80,7 @@ public class Mafiacraft {
      * 
      * @return 
      */
-    public PlayerManager getPlayerManager() {
+    public static PlayerManager getPlayerManager() {
         return getPlugin().getPlayerManager();
     }
 
@@ -89,7 +89,7 @@ public class Mafiacraft {
      * 
      * @return 
      */
-    public VaultHelper getVaultHelper() {
+    public static VaultHelper getVaultHelper() {
         return getPlugin().getVaultHelper();
     }
 }
