@@ -4,13 +4,15 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import java.util.List;
 
 import org.bukkit.Chunk;
-import org.bukkit.World;
 
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Government;
+import com.crimsonrpg.mafiacraft.player.MPlayer;
+import java.util.ArrayList;
 
 /**
  * Represents a... CITY!
@@ -102,5 +104,17 @@ public class City {
 
         return dname;
     }
-
+    
+    /**
+     * Gets all players in the city.
+     * 
+     * @return 
+     */
+    public List<MPlayer> getPlayers() {
+        List<MPlayer> players = new ArrayList<MPlayer>();
+        for (District district : getDistricts()) {
+            players.addAll(district.getPlayers());
+        }
+        return players;
+    }
 }
