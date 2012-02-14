@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.vault;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -16,7 +16,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
  * @author simplyianm
  */
 public class VaultHelper {
-    private final Mafiacraft mc;
+    private final MafiacraftPlugin mc;
 
     private Permission permission = null;
 
@@ -24,7 +24,7 @@ public class VaultHelper {
 
     private Chat chat = null;
 
-    public VaultHelper(Mafiacraft mc) {
+    public VaultHelper(MafiacraftPlugin mc) {
         this.mc = mc;
         setupEconomy();
     }

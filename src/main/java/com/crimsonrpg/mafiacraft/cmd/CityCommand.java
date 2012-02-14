@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.cmd;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
@@ -17,7 +17,7 @@ import org.bukkit.Chunk;
 public class CityCommand {
     public static String doFound(MPlayer player, String name) {
         double balance = player.getMoney();
-        double required = Mafiacraft.getInstance().getConfig().getDouble("prices.city.found", 1000000.0);
+        double required = MafiacraftPlugin.getInstance().getConfig().getDouble("prices.city.found", 1000000.0);
 
         if (balance < required) {
             return "You don't have enough money to found a city! (Costs $1,000,000)";
@@ -27,14 +27,14 @@ public class CityCommand {
             return "That city name is invalid; city names must be less than 25 characters in length and alphanumeric.";
         }
 
-        if (Mafiacraft.getInstance().getCityManager().cityExists(name)) {
+        if (MafiacraftPlugin.getInstance().getCityManager().cityExists(name)) {
             return "A city with that name already exists; please try another name.";
         }
 
         //Found a city
         Chunk sample = player.getPlayer().getLocation().getChunk();
-        District district = Mafiacraft.getInstance().getCityManager().createDistrict(sample);
-        City city = Mafiacraft.getInstance().getCityManager().foundCity(name, district);
+        District district = MafiacraftPlugin.getInstance().getCityManager().createDistrict(sample);
+        City city = MafiacraftPlugin.getInstance().getCityManager().foundCity(name, district);
 
         //Notify
         player.getPlayer().sendMessage(MsgColor.SUCCESS + "Your city has been founded successfully.");
@@ -42,7 +42,7 @@ public class CityCommand {
     }
 
     public static String doSetSpawn(MPlayer player) {
-        City city = Mafiacraft.getInstance().getCityManager().getDistrict(player).getCity();
+        City city = MafiacraftPlugin.getInstance().getCityManager().getDistrict(player).getCity();
         if (city == null) {
             return "You aren't in a city.";
         }

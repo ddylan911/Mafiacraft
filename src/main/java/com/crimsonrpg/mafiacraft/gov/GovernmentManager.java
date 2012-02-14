@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.geo.City;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
@@ -22,9 +22,9 @@ public class GovernmentManager {
     
     private TIntIntMap cities = new TIntIntHashMap();
 
-    private Mafiacraft mc;
+    private MafiacraftPlugin mc;
 
-    public GovernmentManager(Mafiacraft mc) {
+    public GovernmentManager(MafiacraftPlugin mc) {
         this.mc = mc;
     }
 

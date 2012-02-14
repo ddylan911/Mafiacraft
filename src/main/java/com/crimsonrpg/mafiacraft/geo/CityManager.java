@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
@@ -28,9 +28,9 @@ public class CityManager {
 
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
 
-    private final Mafiacraft mc;
+    private final MafiacraftPlugin mc;
 
-    public CityManager(Mafiacraft mc) {
+    public CityManager(MafiacraftPlugin mc) {
         this.mc = mc;
     }
 
@@ -133,7 +133,7 @@ public class CityManager {
      * @return 
      */
     public District createDistrict(Chunk sample) {
-        Mafiacraft.logVerbose("A district was created upon entering " + sample.toString() + ".");
+        MafiacraftPlugin.logVerbose("A district was created upon entering " + sample.toString() + ".");
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
     }
 

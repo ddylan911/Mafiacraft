@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.player;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.gov.Position;
@@ -30,17 +30,17 @@ public class MPlayer implements LandOwner {
     }
     
     public double addMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getInstance().getVaultHelper().getEconomy().depositPlayer(player.getName(), amount);
+        EconomyResponse response = MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().depositPlayer(player.getName(), amount);
         return response.balance;
     }
     
     public double subtractMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getInstance().getVaultHelper().getEconomy().withdrawPlayer(player.getName(), amount);
+        EconomyResponse response = MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().withdrawPlayer(player.getName(), amount);
         return response.balance;
     }
     
     public double getMoney() {
-        return Mafiacraft.getInstance().getVaultHelper().getEconomy().getBalance(player.getName());
+        return MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().getBalance(player.getName());
     }
 
     public Player getPlayer() {
@@ -56,7 +56,7 @@ public class MPlayer implements LandOwner {
     }
     
     public Government getGovernment() {
-        for (Government gov : Mafiacraft.getInstance().getGovernmentManager().getGovernments()) {
+        for (Government gov : MafiacraftPlugin.getInstance().getGovernmentManager().getGovernments()) {
             if (gov.isMember(this)) {
                 return gov;
             }

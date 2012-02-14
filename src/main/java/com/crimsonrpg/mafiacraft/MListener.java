@@ -27,9 +27,9 @@ import org.bukkit.util.Vector;
  * @author simplyianm
  */
 public class MListener implements Listener {
-    private final Mafiacraft mc;
+    private final MafiacraftPlugin mc;
 
-    public MListener(Mafiacraft mc) {
+    public MListener(MafiacraftPlugin mc) {
         this.mc = mc;
     }
 
@@ -115,7 +115,7 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = Mafiacraft.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+        MPlayer player = MafiacraftPlugin.getInstance().getPlayerManager().getPlayer(event.getPlayer());
         mc.getChatHandler().handleMessage(player, event.getMessage());
         event.setCancelled(true);
 

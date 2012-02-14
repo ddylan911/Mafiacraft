@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.player;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +19,9 @@ import org.bukkit.entity.Player;
 public class PlayerManager {
     private Map<Player, MPlayer> mplayers = new HashMap<Player, MPlayer>();
 
-    private final Mafiacraft mc;
+    private final MafiacraftPlugin mc;
 
-    public PlayerManager(Mafiacraft mc) {
+    public PlayerManager(MafiacraftPlugin mc) {
         this.mc = mc;
     }
 

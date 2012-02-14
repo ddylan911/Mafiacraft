@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.cmd;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
@@ -29,7 +29,7 @@ public class GovernmentCommand {
             return;
         }
         
-        MPlayer player = Mafiacraft.getInstance().getPlayerManager().getPlayer((Player) sender);
+        MPlayer player = MafiacraftPlugin.getInstance().getPlayerManager().getPlayer((Player) sender);
         
         if (args.length < 1) {
             doHelp(player);
@@ -60,7 +60,7 @@ public class GovernmentCommand {
     
     public static String doFound(MPlayer player, String name, GovType type) {
         double balance = player.getMoney();
-        double cost = Mafiacraft.getInstance().getConfig().getDouble("prices.mafia.found", 1000000.0);
+        double cost = MafiacraftPlugin.getInstance().getConfig().getDouble("prices.mafia.found", 1000000.0);
 
         if (balance < cost) {
             return "You don't have enough money to do this. (Costs $" + cost + ")";
@@ -71,7 +71,7 @@ public class GovernmentCommand {
         }
 
         //Found the government
-        Government founded = Mafiacraft.getInstance().getGovernmentManager().createGovernment(name, type);
+        Government founded = MafiacraftPlugin.getInstance().getGovernmentManager().createGovernment(name, type);
         if (!founded.addMember(player).setPosition(player, Position.LEADER)) {
             return "The government specified has too many leaders. Speak to a server admin.";
         }

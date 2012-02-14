@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
@@ -225,7 +225,7 @@ public class Government implements LandOwner {
      */
     public List<MPlayer> getOnlineMembers() {
         ArrayList<MPlayer> members = new ArrayList<MPlayer>();
-        for (MPlayer player : Mafiacraft.getInstance().getPlayerManager().getPlayerList()) {
+        for (MPlayer player : MafiacraftPlugin.getInstance().getPlayerManager().getPlayerList()) {
             if (isMember(player)) {
                 members.add(player);
             }

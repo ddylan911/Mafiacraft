@@ -9,7 +9,7 @@ import java.util.List;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Government;
 
 /**
@@ -43,7 +43,7 @@ public class City {
      * @return 
      */
     public Government getGovernment() {
-        return Mafiacraft.getInstance().getGovernmentManager().getCityGovernment(this);
+        return MafiacraftPlugin.getInstance().getGovernmentManager().getCityGovernment(this);
     }
 
     /**
@@ -52,7 +52,7 @@ public class City {
      * @return 
      */
     public List<District> getDistricts() {
-        return Mafiacraft.getInstance().getCityManager().getCityDistricts(this);
+        return MafiacraftPlugin.getInstance().getCityManager().getCityDistricts(this);
     }
 
     /**
@@ -77,7 +77,7 @@ public class City {
      * @return 
      */
     public District getDistrict(Chunk chunk) {
-        return Mafiacraft.getInstance().getCityManager().getDistrict(chunk);
+        return MafiacraftPlugin.getInstance().getCityManager().getDistrict(chunk);
     }
 
     /**
