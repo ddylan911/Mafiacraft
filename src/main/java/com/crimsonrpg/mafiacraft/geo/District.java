@@ -29,6 +29,8 @@ public class District implements LandOwner {
     private final int x;
 
     private final int z;
+    
+    private Location busStop;
 
     private City city;
 
@@ -240,6 +242,24 @@ public class District implements LandOwner {
 
     public String getOwnerId() {
         return "R-" + id;
+    }
+
+    /**
+     * Gets the bus stop of the district.
+     * 
+     * @return 
+     */
+    public Location getBusStop() {
+        return busStop;
+    }
+
+    /**
+     * Sets the bus stop of the district.
+     * 
+     * @param busStop 
+     */
+    public void setBusStop(Location busStop) {
+        this.busStop = busStop;
     }
 
 }
