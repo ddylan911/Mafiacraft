@@ -14,6 +14,7 @@ public abstract class ChatType {
     //TODO chattypes
     public static final ChatType GOVERNMENT = new GovernmentChat();
     public static final ChatType DIVISION = new DivisionChat();
+    public static final ChatType OFFICER = new OfficerChat();
     
     public abstract void chat(MPlayer player, String message);
 }

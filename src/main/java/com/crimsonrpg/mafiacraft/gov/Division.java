@@ -16,20 +16,18 @@ import org.bukkit.configuration.ConfigurationSection;
  * @author simplyianm
  */
 public class Division implements LandOwner {
+
     private int id;
-
     private Government government;
-
     private String name;
-
     private String description;
-
     private String manager;
-
+    private String prefix;
     private List<String> workers = new ArrayList<String>();
 
-    public Division(int id, Government government) {
+    public Division(int id, Government government, String prefix) {
         this.id = id;
+        this.prefix = prefix;
         this.government = government;
     }
 
@@ -39,6 +37,15 @@ public class Division implements LandOwner {
 
     public String getName() {
         return name;
+    }
+
+    public String getPrefix() {
+        return this.prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+
     }
 
     public String getOwnerName() {
@@ -145,7 +152,7 @@ public class Division implements LandOwner {
         workers = source.getStringList("members.workers");
         return this;
     }
-    
+
     /**
      * Saves the division to a ConfigurationSection.
      * 
@@ -170,7 +177,7 @@ public class Division implements LandOwner {
         members.add(manager);
         return members;
     }
-    
+
     /**
      * Gets a list of all members currently online in the division.
      * 
