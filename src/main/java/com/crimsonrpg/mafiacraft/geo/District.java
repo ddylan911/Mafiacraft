@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import gnu.trove.map.TByteObjectMap;
@@ -14,6 +15,8 @@ import org.bukkit.Location;
 
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.World;
 
 /**
@@ -29,7 +32,7 @@ public class District implements LandOwner {
     private final int x;
 
     private final int z;
-    
+
     private Location busStop;
 
     private City city;
@@ -235,7 +238,6 @@ public class District implements LandOwner {
         return type.isBuild();
     }
 
-    
     public String getOwnerName() {
         return "District " + name;
     }
@@ -262,4 +264,18 @@ public class District implements LandOwner {
         this.busStop = busStop;
     }
 
+    /**
+     * Gets a list of all players in the district.
+     * 
+     * @return 
+     */
+    public List<MPlayer> getPlayers() {
+        List<MPlayer> players = new ArrayList<MPlayer>();
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
+            if (this.contains(player.getChunk())) {
+                players.add(player);
+            }
+        }
+        return players;
+    }
 }
