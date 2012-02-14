@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.MConfig;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import java.util.ArrayList;
@@ -16,13 +17,18 @@ import org.bukkit.configuration.ConfigurationSection;
  * @author simplyianm
  */
 public class Division implements LandOwner {
-
     private int id;
+
     private Government government;
+
     private String name;
+
     private String description;
+
     private String manager;
+
     private String prefix;
+
     private List<String> workers = new ArrayList<String>();
 
     public Division(int id, Government government, String prefix) {
@@ -192,5 +198,18 @@ public class Division implements LandOwner {
             }
         }
         return online;
+    }
+
+    public static String validateName(String name) {
+        int max = MConfig.getInt("division.maxnamelength");
+        if (name.length() < max) {
+            return "Name must be under " + max + " characters.";
+        }
+        
+        if (!name.matches("[A-Za-z0-9]+")) {
+            return "Name must be alphanumeric.";
+        }
+        
+        return null;
     }
 }
