@@ -18,6 +18,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
@@ -106,6 +107,18 @@ public class MListener implements Listener {
             event.setCancelled(true);
             return;
         }
+    }
+
+    @EventHandler
+    public void onPlayerChat(PlayerChatEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
+        MPlayer player = Mafiacraft.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+        mc.getChatHandler().handleMessage(player, event.getMessage());
+        event.setCancelled(true);
+
     }
 
     @EventHandler

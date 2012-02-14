@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft;
 
+import com.crimsonrpg.mafiacraft.chat.ChatHandler;
 import com.crimsonrpg.mafiacraft.cmd.Commands;
 import com.crimsonrpg.mafiacraft.geo.CityManager;
 import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
@@ -12,7 +13,6 @@ import com.crimsonrpg.mafiacraft.vault.VaultHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -22,6 +22,8 @@ public class Mafiacraft extends JavaPlugin {
     private static Mafiacraft instance;
 
     private static final Logger LOGGER = Logger.getLogger("Minecraft");
+
+    private ChatHandler chatHandler;
 
     private CityManager cityManager;
 
@@ -42,21 +44,27 @@ public class Mafiacraft extends JavaPlugin {
     public void onEnable() {
         //Setup config
         MConfig.bind(this);
-		saveConfig();
-        
+        saveConfig();
+
         //Setup commands
         Commands.registerAll(this);
-        
+
         //Initialize the listener
         MListener l = new MListener(this);
         Bukkit.getPluginManager().registerEvents(l, this);
 
-        //Initialize managers
+        //Initialize managers/handlers/helpers
+        chatHandler = new ChatHandler(this);
         cityManager = new CityManager(this);
-		governmentManager = new GovernmentManager(this);
+        governmentManager = new GovernmentManager(this);
         playerManager = new PlayerManager(this);
+        vaultHelper = new VaultHelper(this);
 
         log("Mafiacraft enabled.");
+    }
+
+    public ChatHandler getChatHandler() {
+        return chatHandler;
     }
 
     public CityManager getCityManager() {
@@ -88,11 +96,11 @@ public class Mafiacraft extends JavaPlugin {
         msg = "[MC] " + msg;
         LOGGER.log(level, msg, thrown);
     }
-    
+
     public static void logVerbose(String message) {
         logVerbose(message, 1);
     }
-    
+
     public static void logVerbose(String message, int level) {
         log("[V" + level + "] " + message);
     }
