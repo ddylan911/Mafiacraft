@@ -67,8 +67,8 @@ public class MPlayer implements LandOwner {
      * @param player
      * @return 
      */
-    public Division getDivision(MPlayer player) {
-        return player.getGovernment().getDivision(player.getName());
+    public Division getDivision() {
+        return this.getGovernment().getDivision(this.getName());
     }
 
     public void setChatType(ChatType chatType) {

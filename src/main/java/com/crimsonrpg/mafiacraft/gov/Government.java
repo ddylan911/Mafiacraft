@@ -20,22 +20,15 @@ import org.bukkit.Chunk;
  * @author simplyianm
  */
 public class Government implements LandOwner {
+
     private final int id;
-
     private String name;
-
     private String chatTag;
-
     private GovType type;
-
     private String leader;
-
     private String viceLeader;
-
     private List<Division> divisions;
-    
     private List<String> officers;
-
     private List<String> affiliates;
 
     public Government(int id) {
@@ -255,18 +248,18 @@ public class Government implements LandOwner {
         int count = getMemberCount(position);
         return (count < position.getLimit(this));
     }
-    
+
     public boolean canHaveLess(Position position) {
         if (position.isDivision()) {
             return true;
         }
-        
+
         int memberCount = getMemberCount(position);
-        
+
         if (memberCount <= position.getMinimum(this)) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -315,7 +308,7 @@ public class Government implements LandOwner {
         if (!canHaveMore(position)) {
             return false;
         }
-        
+
         switch (position) {
             case AFFILIATE:
                 addMember(player);
@@ -324,13 +317,13 @@ public class Government implements LandOwner {
             case OFFICER:
                 officers.add(player);
                 break;
-                
+
             case VICE_LEADER:
                 String oldV = getViceLeader();
                 viceLeader = player;
                 addMember(oldV);
                 break;
-                
+
             case LEADER:
                 String oldL = getLeader();
                 leader = player;
@@ -339,7 +332,7 @@ public class Government implements LandOwner {
         }
         return true;
     }
-    
+
     /**
      * Sets a player's position to the one specified.
      * 
@@ -374,7 +367,7 @@ public class Government implements LandOwner {
                         officers.remove(player);
                     }
                     break;
-                    
+
                 case AFFILIATE:
                     affiliates.remove(player);
                     break;
@@ -433,7 +426,7 @@ public class Government implements LandOwner {
     public Government addMember(MPlayer player) {
         return addMember(player.getName());
     }
-    
+
     /**
      * Gets a list of all officers.
      * 
@@ -442,7 +435,7 @@ public class Government implements LandOwner {
     public List<String> getOfficers() {
         return new ArrayList<String>(officers);
     }
-    
+
     /**
      * Gets a list of all officers currently online.
      * 
@@ -463,22 +456,22 @@ public class Government implements LandOwner {
         return "G-" + id;
     }
 
-	/**
-	 * Dispatches an invite to the given player as the specified player.
-	 * 
-	 * @param inviter
-	 * @param invited
-	 * @return 
-	 */
+    /**
+     * Dispatches an invite to the given player as the specified player.
+     * 
+     * @param inviter
+     * @param invited
+     * @return 
+     */
     public boolean dispatchInvite(MPlayer inviter, MPlayer invited) {
         Government them = invited.getGovernment();
         if (them.equals(this)) {
             return false;
         }
-        
+
         invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name + " has invited you to their ranks.");
         invited.sendMessage(MsgColor.INFO + "Type /" + type.getLocale("command") + " accept to join.");
-        
+
         return true;
     }
 }
