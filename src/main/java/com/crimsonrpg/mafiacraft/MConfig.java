@@ -114,5 +114,8 @@ public class MConfig {
 
 		//City prices
 		addDefault("prices.city.found", 10000000.0);
+        
+        //Division
+        addDefault("division.maxnamelength", 15);
 	}
 }

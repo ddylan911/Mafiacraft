@@ -194,6 +194,34 @@ public class District implements LandOwner {
         }
         return owner;
     }
+    
+    /**
+     * Sets the owner of a section.
+     * 
+     * @param chunk
+     * @param owner
+     * @return 
+     */
+    public District setOwner(Chunk chunk, LandOwner owner) {
+        if (!contains(chunk)) {
+            throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
+        }
+        return setOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10, owner);
+    }
+    
+    /**
+     * Sets the owner of a section.
+     * 
+     * @param x
+     * @param z
+     * @param owner
+     * @return 
+     */
+    public District setOwner(int x, int z, LandOwner owner) {
+        byte id = GeoUtils.coordsToSectionId(x, z);
+        owners.put(id, owner);
+        return this;
+    }
 
     /**
      * Gets the id of the specified section.
