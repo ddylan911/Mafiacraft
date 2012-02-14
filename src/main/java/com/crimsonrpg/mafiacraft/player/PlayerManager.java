@@ -48,6 +48,7 @@ public class PlayerManager {
         MPlayer mplayer = mplayers.get(player);
         if (mplayer == null) {
             mplayer = loadPlayer(player);
+            mplayers.put(player, mplayer);
         }
         return mplayer;
     }
@@ -58,9 +59,9 @@ public class PlayerManager {
      * @param player
      * @return 
      */
-    public MPlayer loadPlayer(Player player) {
+    private MPlayer loadPlayer(Player player) {
         MPlayer mplayer = new MPlayer(player);
-        mplayers.put(player, mplayer);
+        //TODO: actually load the player's data
         return mplayer;
     }
 

@@ -20,8 +20,6 @@ public class MPlayer implements LandOwner {
     private final Player player;
 
     private String title;
-    
-    private Position position;
 	
 	private SessionStore store;
     
