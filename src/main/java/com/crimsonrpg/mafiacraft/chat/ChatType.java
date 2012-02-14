@@ -12,7 +12,8 @@ import com.crimsonrpg.mafiacraft.player.MPlayer;
  */
 public abstract class ChatType {
     //TODO chattypes
-    public static final ChatType GOVERNMENT = null;
+    public static final ChatType GOVERNMENT = new GovernmentChat();
+    public static final ChatType OFFICER = new OfficerChat();
     
     public abstract void chat(MPlayer player, String message);
 }

@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.player;
 
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.gov.Position;
@@ -22,6 +23,8 @@ public class MPlayer implements LandOwner {
     private String title;
 	
 	private SessionStore store;
+    
+    private ChatType chatType;
     
     public MPlayer(Player player) {
         this.player = player;
@@ -51,6 +54,15 @@ public class MPlayer implements LandOwner {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public ChatType getChatType() {
+        return chatType;
+        
+    }
+    
+    public void setChatType(ChatType chatType) {
+        this.chatType = chatType;
     }
     
     public Government getGovernment() {
