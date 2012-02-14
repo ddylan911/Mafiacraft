@@ -69,6 +69,7 @@
                                 <excludes>
                                     <exclude>org.bukkit:bukkit</exclude>
                                     <exclude>junit:junit</exclude>
+                                    <exclude>net.milkbowl:vault</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>

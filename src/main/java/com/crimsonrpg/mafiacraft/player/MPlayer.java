@@ -4,8 +4,10 @@
  */
 package com.crimsonrpg.mafiacraft.player;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.chat.ChatType;
+import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
@@ -108,7 +110,7 @@ public class MPlayer implements LandOwner {
     }
 
     public String getOwnerName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return player.getName();
     }
 
     public void sendMessage(String message) {
@@ -117,5 +119,23 @@ public class MPlayer implements LandOwner {
 
     public String getOwnerId() {
         return "P-" + getName();
+    }
+    
+    /**
+     * Gets the chunk the player is currently in.
+     * 
+     * @return 
+     */
+    public Chunk getChunk() {
+        return player.getLocation().getChunk();
+    }
+    
+    /**
+     * Gets the district the player is currently in.
+     * 
+     * @return 
+     */
+    public District getDistrict() {
+        return Mafiacraft.getCityManager().getDistrict(getChunk());
     }
 }
