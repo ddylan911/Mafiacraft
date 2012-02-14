@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.cmd;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
@@ -29,7 +30,7 @@ public class GovernmentCommand {
             return;
         }
         
-        MPlayer player = MafiacraftPlugin.getInstance().getPlayerManager().getPlayer((Player) sender);
+        MPlayer player = Mafiacraft.getPlayer((Player) sender);
         
         if (args.length < 1) {
             doHelp(player);

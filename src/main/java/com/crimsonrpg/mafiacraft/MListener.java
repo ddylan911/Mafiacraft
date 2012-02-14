@@ -39,7 +39,7 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         Chunk c = player.getPlayer().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
@@ -63,7 +63,7 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         Chunk c = player.getPlayer().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
@@ -96,8 +96,8 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = mc.getPlayerManager().getPlayer((Player) e.getEntity());
-        MPlayer damager = mc.getPlayerManager().getPlayer((Player) e.getDamager());
+        MPlayer player = Mafiacraft.getPlayer((Player) e.getEntity());
+        MPlayer damager = Mafiacraft.getPlayer((Player) e.getDamager());
 
         District d = mc.getCityManager().getDistrict(player.getPlayer().getLocation().getChunk());
 
@@ -115,7 +115,7 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = MafiacraftPlugin.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         mc.getChatHandler().handleMessage(player, event.getMessage());
         event.setCancelled(true);
 
@@ -127,7 +127,7 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = mc.getPlayerManager().getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         SessionStore store = player.getSessionStore();
 
         Chunk last = store.getObject("lastchunk", Chunk.class);
