@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
@@ -32,6 +33,8 @@ public class Government implements LandOwner {
     private String viceLeader;
 
     private List<Division> divisions;
+    
+    private List<String> officers;
 
     private List<String> affiliates;
 
@@ -401,6 +404,31 @@ public class Government implements LandOwner {
      */
     public Government addMember(MPlayer player) {
         return addMember(player.getName());
+    }
+    
+    /**
+     * Gets a list of all officers.
+     * 
+     * @return 
+     */
+    public List<String> getOfficers() {
+        return new ArrayList<String>(officers);
+    }
+    
+    /**
+     * Gets a list of all officers currently online.
+     * 
+     * @return The list of officers.
+     */
+    public List<MPlayer> getOnlineOfficers() {
+        List<MPlayer> online = new ArrayList<MPlayer>();
+        List<String> offics = getOfficers();
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
+            if (offics.contains(player.getName())) {
+                online.add(player);
+            }
+        }
+        return online;
     }
 
     public String getOwnerId() {
