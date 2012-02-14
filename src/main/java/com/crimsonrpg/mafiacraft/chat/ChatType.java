@@ -15,6 +15,7 @@ public abstract class ChatType {
     public static final ChatType GOVERNMENT = new GovernmentChat();
     public static final ChatType DIVISION = new DivisionChat();
     public static final ChatType OFFICER = new OfficerChat();
+    public static final ChatType LOCAL = new LocalChat();
     
     public abstract void chat(MPlayer player, String message);
 }
