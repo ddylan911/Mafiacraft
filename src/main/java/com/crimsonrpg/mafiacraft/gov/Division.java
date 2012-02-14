@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +132,26 @@ public class Division implements LandOwner {
         return isWorker(player) || isManager(player);
     }
 
+    /**
+     * Loads the division from a ConfigurationSection.
+     * 
+     * @param source
+     * @return 
+     */
+    public Division load(ConfigurationSection source) {
+        name = source.getString("name", "null");
+        description = source.getString("desc", "Default division description...");
+        manager = source.getString("members.manager");
+        workers = source.getStringList("members.workers");
+        return this;
+    }
+    
+    /**
+     * Saves the division to a ConfigurationSection.
+     * 
+     * @param dest
+     * @return 
+     */
     public Division save(ConfigurationSection dest) {
         dest.set("name", name);
         dest.set("desc", description);
@@ -139,4 +160,30 @@ public class Division implements LandOwner {
         return this;
     }
 
+    /**
+     * Gets a list of all members of the division.
+     * 
+     * @return 
+     */
+    public List<String> getMembers() {
+        List<String> members = getWorkers();
+        members.add(manager);
+        return members;
+    }
+    
+    /**
+     * Gets a list of all members currently online in the division.
+     * 
+     * @return 
+     */
+    public List<MPlayer> getOnlineMembers() {
+        List<MPlayer> online = new ArrayList<MPlayer>();
+        List<String> members = getMembers();
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
+            if (members.contains(player.getName())) {
+                online.add(player);
+            }
+        }
+        return online;
+    }
 }

@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import java.util.List;
 import org.bukkit.entity.Player;
 
 /**
@@ -32,5 +33,14 @@ public class Mafiacraft {
      */
     public static MPlayer getPlayer(Player player) {
         return getPlugin().getPlayerManager().getPlayer(player);
+    }
+
+    /**
+     * Returns a list of all MPlayers currently online the server.
+     * 
+     * @return 
+     */
+    public static List<MPlayer> getOnlinePlayers() {
+        return getPlugin().getPlayerManager().getPlayerList();
     }
 }
