@@ -8,6 +8,7 @@ package com.crimsonrpg.mafiacraft.geo;
  * Represents a type of district.
  */
 public enum DistrictType {
+
     CONTESTED(true, true, true),
     ANARCHIC(true, true, false),
     LAWLESS(true, false, true),
@@ -15,11 +16,8 @@ public enum DistrictType {
     OPEN(false, true, true),
     RESERVED(false, false, false),
     GOVERNMENT(false, false, false);
-
     private boolean pvp;
-
     private boolean build;
-
     private boolean claim;
 
     private DistrictType(boolean pvp, boolean build, boolean claim) {
@@ -39,5 +37,4 @@ public enum DistrictType {
     public boolean isClaim() {
         return claim;
     }
-
 }
