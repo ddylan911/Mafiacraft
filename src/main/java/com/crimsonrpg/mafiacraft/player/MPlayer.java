@@ -76,12 +76,7 @@ public class MPlayer implements LandOwner {
     }
 
     public Government getGovernment() {
-        for (Government gov : MafiacraftPlugin.getInstance().getGovernmentManager().getGovernments()) {
-            if (gov.isMember(this)) {
-                return gov;
-            }
-        }
-        return null;
+        return MafiacraftPlugin.getInstance().getGovernmentManager().getGovernment(this);
     }
 
     public Position getPosition() {

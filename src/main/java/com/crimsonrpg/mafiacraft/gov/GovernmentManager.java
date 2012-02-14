@@ -6,6 +6,7 @@ package com.crimsonrpg.mafiacraft.gov;
 
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.geo.City;
+import com.crimsonrpg.mafiacraft.player.MPlayer;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntIntHashMap;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class GovernmentManager {
     private TIntObjectMap<Government> governments = new TIntObjectHashMap<Government>();
-    
+
     private TIntIntMap cities = new TIntIntHashMap();
 
     private MafiacraftPlugin mc;
@@ -31,7 +32,7 @@ public class GovernmentManager {
     public List<Government> getGovernments() {
         return new ArrayList<Government>(governments.valueCollection());
     }
-    
+
     /**
      * Gets the government associated with the id.
      * 
@@ -67,6 +68,21 @@ public class GovernmentManager {
     }
 
     /**
+     * Get the government of a player.
+     * 
+     * @param player
+     * @return 
+     */
+    public Government getGovernment(MPlayer player) {
+        for (Government gov : getGovernments()) {
+            if (gov.isMember(player)) {
+                return gov;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Sets the city government of a city.
      * 
      * @param city
@@ -76,7 +92,7 @@ public class GovernmentManager {
         government.setType(GovType.POLICE);
         cities.put(city.getId(), government.getId());
     }
-    
+
     private int getNextGovernmentId() {
         int id = 0;
         for (int i = 1; getGovernment(i) != null; ++i) {

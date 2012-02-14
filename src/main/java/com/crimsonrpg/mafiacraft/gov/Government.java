@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
@@ -32,6 +33,8 @@ public class Government implements LandOwner {
     private String viceLeader;
 
     private List<Division> divisions;
+    
+    private List<String> officers;
 
     private List<String> affiliates;
 
@@ -252,6 +255,20 @@ public class Government implements LandOwner {
         int count = getMemberCount(position);
         return (count < position.getLimit(this));
     }
+    
+    public boolean canHaveLess(Position position) {
+        if (position.isDivision()) {
+            return true;
+        }
+        
+        int memberCount = getMemberCount(position);
+        
+        if (memberCount <= position.getMinimum(this)) {
+            return false;
+        }
+        
+        return true;
+    }
 
     /**
      * Gets the position of a certain player.
@@ -295,11 +312,19 @@ public class Government implements LandOwner {
             return false;
         }
 
+        if (!canHaveMore(position)) {
+            return false;
+        }
+        
         switch (position) {
             case AFFILIATE:
                 addMember(player);
                 break;
 
+            case OFFICER:
+                officers.add(player);
+                break;
+                
             case VICE_LEADER:
                 String oldV = getViceLeader();
                 viceLeader = player;
@@ -344,6 +369,12 @@ public class Government implements LandOwner {
                 case VICE_LEADER:
                     return false;
 
+                case OFFICER:
+                    if (canHaveLess(Position.OFFICER)) {
+                        officers.remove(player);
+                    }
+                    break;
+                    
                 case AFFILIATE:
                     affiliates.remove(player);
                     break;
@@ -401,6 +432,31 @@ public class Government implements LandOwner {
      */
     public Government addMember(MPlayer player) {
         return addMember(player.getName());
+    }
+    
+    /**
+     * Gets a list of all officers.
+     * 
+     * @return 
+     */
+    public List<String> getOfficers() {
+        return new ArrayList<String>(officers);
+    }
+    
+    /**
+     * Gets a list of all officers currently online.
+     * 
+     * @return The list of officers.
+     */
+    public List<MPlayer> getOnlineOfficers() {
+        List<MPlayer> online = new ArrayList<MPlayer>();
+        List<String> offics = getOfficers();
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
+            if (offics.contains(player.getName())) {
+                online.add(player);
+            }
+        }
+        return online;
     }
 
     public String getOwnerId() {
