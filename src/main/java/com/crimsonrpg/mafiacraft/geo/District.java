@@ -6,6 +6,7 @@ package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
@@ -23,24 +24,16 @@ import org.bukkit.World;
  * Represents a 8x8 section area.
  */
 public class District implements LandOwner {
+
     private final int id;
-
     private String name;
-
     private final World world;
-
     private final int x;
-
     private final int z;
-
     private Location busStop;
-
     private City city;
-
     private DistrictType type;
-
     private String description;
-
     private TByteObjectMap<LandOwner> owners = new TByteObjectHashMap<LandOwner>();
 
     public District(World world, int x, int z) {
@@ -86,6 +79,20 @@ public class District implements LandOwner {
      */
     public World getWorld() {
         return world;
+    }
+
+    public boolean canClaim(Chunk chunk) {
+        LandOwner owner = getOwner(chunk);
+        if (owner.equals(this) && getType().isClaim()) {
+            return true;
+        }
+        if (owner instanceof Division) {
+            Division div = (Division) owner;
+            if (div.getGovernment().getPower() < div.getGovernment().getLand()) {
+                return true;            
+            }
+        }
+        return false;
     }
 
     /**
@@ -194,7 +201,7 @@ public class District implements LandOwner {
         }
         return owner;
     }
-    
+
     /**
      * Sets the owner of a section.
      * 
@@ -208,7 +215,7 @@ public class District implements LandOwner {
         }
         return setOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10, owner);
     }
-    
+
     /**
      * Sets the owner of a section.
      * 

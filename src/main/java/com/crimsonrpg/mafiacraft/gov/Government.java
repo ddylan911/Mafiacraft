@@ -30,6 +30,8 @@ public class Government implements LandOwner {
     private List<Division> divisions;
     private List<String> officers;
     private List<String> affiliates;
+    private int power;
+    private int land = 0;
 
     public Government(int id) {
         this.id = id;
@@ -46,6 +48,22 @@ public class Government implements LandOwner {
      */
     public String getName() {
         return name;
+    }
+    
+    public void incrementLand() {
+        land++;
+    }
+    
+    public int getLand() {
+        return 1;
+    }
+
+    public int getPower() {
+        return this.power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
     }
 
     /**
