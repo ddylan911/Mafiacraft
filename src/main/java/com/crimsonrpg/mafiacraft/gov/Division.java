@@ -30,6 +30,8 @@ public class Division implements LandOwner {
     private String prefix;
 
     private List<String> workers = new ArrayList<String>();
+    
+    private int land = 0;
 
     public Division(int id, Government government, String prefix) {
         this.id = id;
@@ -39,6 +41,14 @@ public class Division implements LandOwner {
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
         return true;
+    }
+    
+    public void decrementLand() {
+        land--;
+    }
+    
+    public void incrementLand() {
+        land++;
     }
 
     public String getName() {
