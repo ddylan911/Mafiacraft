@@ -194,6 +194,15 @@ public class Government implements LandOwner {
         }
         return null;
     }
+    
+    /**
+     * Gets a list of all divisions in this Government.
+     * 
+     * @return 
+     */
+    public List<Division> getDivisions() {
+        return new ArrayList<Division>(divisions);
+    }
 
     /**
      * Gets the total member count of the entire government.
