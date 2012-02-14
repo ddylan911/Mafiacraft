@@ -22,6 +22,8 @@ public class Mafiacraft extends JavaPlugin {
     private static Mafiacraft instance;
 
     private static final Logger LOGGER = Logger.getLogger("Minecraft");
+    
+    private static final int VERBOSITY = 5;
 
     private ChatHandler chatHandler;
 
@@ -102,6 +104,9 @@ public class Mafiacraft extends JavaPlugin {
     }
 
     public static void logVerbose(String message, int level) {
+        if (level > VERBOSITY) {
+            return;
+        }
         log("[V" + level + "] " + message);
     }
 
