@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.chat;
 
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import org.bukkit.ChatColor;
 
 /**
  *
@@ -14,7 +15,12 @@ public class CityChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (player.getCity() == null) {
+            player.sendMessage(ChatColor.RED + "You are not in a city.");
+            return;
+        }
+        for (MPlayer players : player.getCity().getPlayers()) {
+            players.sendMessage("<" + player.getDisplayName() + "> " + message);
+        }
     }
-    
 }

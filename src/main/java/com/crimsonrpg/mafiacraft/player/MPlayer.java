@@ -7,12 +7,13 @@ package com.crimsonrpg.mafiacraft.player;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.chat.ChatType;
+import com.crimsonrpg.mafiacraft.classes.ClassType;
+import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.gov.Position;
-import java.util.List;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
@@ -25,8 +26,8 @@ public class MPlayer implements LandOwner {
 
     private final Player player;
     private String title;
-    private List<Division> divisions;
     private SessionStore store;
+    private ClassType classType;
     private ChatType chatType;
 
     public MPlayer(Player player) {
@@ -62,17 +63,23 @@ public class MPlayer implements LandOwner {
     public ChatType getChatType() {
         return chatType;
     }
+    
+    public ClassType getClassType() {
+        return classType;
+    }
+    
+    public void setClassType(ClassType classType) {
+        this.classType = classType;
+    }
 
-    /**
-     * Gets the division a certain player is part of.
-     * 
-     * @param player
-     * @return 
-     */
     public Division getDivision() {
         return this.getGovernment().getDivision(this.getName());
     }
 
+    public City getCity() {
+        return this.getDistrict().getCity();
+    }
+    
     public void setChatType(ChatType chatType) {
         this.chatType = chatType;
     }
