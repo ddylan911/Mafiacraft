@@ -121,7 +121,7 @@ public class Division implements LandOwner {
     }
 
     public boolean isManager(String player) {
-        return manager.equalsIgnoreCase(player);
+        return manager.equals(player);
     }
 
     public boolean isManager(MPlayer player) {
