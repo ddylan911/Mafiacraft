@@ -8,8 +8,8 @@ package com.crimsonrpg.mafiacraft.gov;
  * Represents a position within the government.
  */
 public enum Position {
-    NONE(-1, false, 0),
-    AFFILIATE(-1, false, 0),
+    NONE(-2, false, 0),
+    AFFILIATE(-2, false, 0),
     WORKER(-1, true, 0),
     MANAGER(-1, true, 0),
     OFFICER(10, false, 0),
@@ -36,6 +36,11 @@ public enum Position {
         if (limit > 0) {
             return limit;
         }
+        
+        if (limit == -2) {
+            return 1000000; //Unlimited players
+        }
+        
         //TODO: write size checking for the worker/manager pizzazz
         return 100;
     }
