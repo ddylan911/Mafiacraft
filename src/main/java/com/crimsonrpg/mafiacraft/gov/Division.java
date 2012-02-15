@@ -52,10 +52,6 @@ public class Division implements LandOwner {
     public void incrementLand() {
         land++;
     }
-    
-    public int getLand() {
-        return land;
-    }
 
     public String getName() {
         return name;
