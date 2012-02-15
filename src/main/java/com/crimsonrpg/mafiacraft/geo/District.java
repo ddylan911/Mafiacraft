@@ -24,16 +24,24 @@ import org.bukkit.World;
  * Represents a 8x8 section area.
  */
 public class District implements LandOwner {
-
     private final int id;
+
     private String name;
+
     private final World world;
+
     private final int x;
+
     private final int z;
+
     private Location busStop;
+
     private City city;
+
     private DistrictType type;
+
     private String description;
+
     private TByteObjectMap<LandOwner> owners = new TByteObjectHashMap<LandOwner>();
 
     public District(World world, int x, int z) {
@@ -81,6 +89,12 @@ public class District implements LandOwner {
         return world;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @param chunk
+     * @return 
+     */
     public boolean canBeClaimed(Chunk chunk) {
         LandOwner owner = getOwner(chunk);
         if (owner.equals(this) && getType().isClaim()) {
@@ -89,7 +103,7 @@ public class District implements LandOwner {
         if (owner instanceof Division) {
             Division div = (Division) owner;
             if (div.getGovernment().getMaxPower() < div.getGovernment().getLand()) {
-                return true;            
+                return true;
             }
         }
         return false;
@@ -270,7 +284,7 @@ public class District implements LandOwner {
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
-        return type.isBuild();
+        return type.canBuildAnywhere();
     }
 
     public String getOwnerName() {
@@ -313,4 +327,5 @@ public class District implements LandOwner {
         }
         return players;
     }
+
 }

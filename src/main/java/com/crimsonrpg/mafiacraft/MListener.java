@@ -48,7 +48,7 @@ public class MListener implements Listener {
         Chunk c = player.getPlayer().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
-        if (!d.getType().isBuild()) {
+        if (!d.getType().canBuildAnywhere()) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
             event.setCancelled(true);
             return;
@@ -72,7 +72,7 @@ public class MListener implements Listener {
         Chunk c = player.getPlayer().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
-        if (!d.getType().isBuild()) {
+        if (!d.getType().canBuildAnywhere()) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
             event.setCancelled(true);
             return;
