@@ -26,6 +26,7 @@ import org.bukkit.World;
 public class District implements LandOwner {
     private final int id;
 
+    private final int id;
     private String name;
 
     private final World world;
@@ -102,9 +103,10 @@ public class District implements LandOwner {
         }
         if (owner instanceof Division) {
             Division div = (Division) owner;
-            if (div.getGovernment().getMaxPower() < div.getGovernment().getLand()) {
+            if (div.getGovernment().getPower() < div.getGovernment().getLand()) {
                 return true;
             }
+
         }
         return false;
     }
