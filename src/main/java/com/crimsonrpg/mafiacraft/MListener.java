@@ -8,6 +8,7 @@ import com.crimsonrpg.mafiacraft.classes.ClassType;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
+import com.crimsonrpg.mafiacraft.player.KillTracker;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.player.SessionStore;
@@ -136,6 +137,12 @@ public class MListener implements Listener {
         attacker.addMoney(attacked.getMoney() * .1);
         attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + ", and gained " + (attacked.getMoney() * .1) + " of their money.");
         attacked.sendMessage(ChatColor.RED + "You died, and lost " + (attacked.getMoney() * .1) + " of your money.");
+        KillTracker kt = new KillTracker();
+        kt.incScore(attacker);
+        if (kt.getKillScore(attacked) <= 0) {
+            return;
+        }
+        kt.decScore(attacked);
     }
 
     @EventHandler

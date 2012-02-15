@@ -89,7 +89,7 @@ public class District implements LandOwner {
         if (owner instanceof Division) {
             Division div = (Division) owner;
             if (div.getGovernment().getPower() < div.getGovernment().getLand()) {
-                return true;            
+                return true;
             }
         }
         return false;

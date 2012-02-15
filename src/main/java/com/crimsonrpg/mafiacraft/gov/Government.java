@@ -49,13 +49,16 @@ public class Government implements LandOwner {
     public String getName() {
         return name;
     }
-    
+
     public void incrementLand() {
         land++;
     }
-    
+
     public int getLand() {
-        return 1;
+        for (Division divs : getDivisions()) {
+            land += divs.getLand();
+        }
+        return land;
     }
 
     public int getPower() {
@@ -212,7 +215,7 @@ public class Government implements LandOwner {
         }
         return null;
     }
-    
+
     /**
      * Gets a list of all divisions in this Government.
      * 
