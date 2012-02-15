@@ -26,7 +26,6 @@ import org.bukkit.World;
 public class District implements LandOwner {
     private final int id;
 
-    private final int id;
     private String name;
 
     private final World world;
