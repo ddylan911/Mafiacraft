@@ -6,6 +6,7 @@ package com.crimsonrpg.mafiacraft.cmd;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
@@ -121,8 +122,47 @@ public class GovernmentCommand {
             return "Your position in your " + gov.getType().getName() + " is not high enough to invite people to your government.";
         }
         
+        Government other = target.getGovernment();
+        if (other != null) {
+            if (other.equals(gov)) {
+                return "The other player you specified is already in your " + gov.getType().getName() + ".";
+            }
+            return "The player you specified is already affiliated with a government.";
+        }
         
+        gov.dispatchInvite(player, target);
+        player.sendMessage(MsgColor.INFO + "An invite to the mafia has been dispatched to " + target.getName() + ".");
         return null;
     }
 
+    public static String doKick(MPlayer player, MPlayer target) {
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You are not part of a government.";
+        }
+
+        if (player.getPosition().compareTo(Position.WORKER) < 0) {
+            return "Your position in your " + gov.getType().getName() + " is not high enough to kick people from your government.";
+        }
+                
+        Government other = target.getGovernment();
+        if (other == null) {
+            return "That player is not in a " + gov.getType().getName() + ".";
+        }
+        
+        if (!other.equals(gov)) {
+            return "That player is not in your " + gov.getType().getName() + ".";
+        }
+        
+        if (!target.getPosition().equals(Position.AFFILIATE)) {
+            return "Only " + gov.getType().getLocale("affiliates") + " may be kicked from a " + gov.getType().getName() + ".";
+        }
+        
+        boolean removed = gov.removeMember(target);
+        if (!removed) {
+            return "Unknown error!";
+        }
+        player.sendMessage(MsgColor.SUCCESS + "The player " + target.getName() + " has been kicked out of the " + gov.getType().getName() + ".");
+        return null;
+    }
 }

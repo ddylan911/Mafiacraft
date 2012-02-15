@@ -447,6 +447,10 @@ public class Government implements LandOwner {
      */
     public boolean removeMember(String player) {
         Position position = getPosition(player);
+        if (position.equals(Position.NONE)) {
+            return false;
+        }
+        
         if (position.isDivision()) {
             getDivision(player).remove(player);
         } else {
