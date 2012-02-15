@@ -31,7 +31,9 @@ public class Division implements LandOwner {
 
     private List<String> workers = new ArrayList<String>();
     
-    private int land = 0;
+    private int land;
+    
+    private int maxLand;
 
     public Division(int id, Government government, String prefix) {
         this.id = id;
@@ -221,5 +223,41 @@ public class Division implements LandOwner {
         }
         
         return null;
+    }
+    
+    /**
+     * Gets the amount of land this division owns.
+     * 
+     * @return 
+     */
+    public int getLand() {
+        return land;
+    }
+
+    public void setLand(int land) {
+        this.land = land;
+    }
+    
+    /**
+     * Gets the maximum amount of land this division can own.
+     * This is determined by the Government.
+     * 
+     * @return 
+     */
+    public int getMaxLand() {
+        return maxLand;
+    }
+
+    /**
+     * Sets the max land.
+     * 
+     * @param maxLand 
+     */
+    public void setMaxLand(int maxLand) {
+        this.maxLand = maxLand;
+    }
+
+    public boolean canBeClaimed(Chunk chunk) {
+        return government.canRetainAllLand();
     }
 }

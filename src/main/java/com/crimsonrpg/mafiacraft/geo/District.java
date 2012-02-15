@@ -81,14 +81,14 @@ public class District implements LandOwner {
         return world;
     }
 
-    public boolean canClaim(Chunk chunk) {
+    public boolean canBeClaimed(Chunk chunk) {
         LandOwner owner = getOwner(chunk);
         if (owner.equals(this) && getType().isClaim()) {
             return true;
         }
         if (owner instanceof Division) {
             Division div = (Division) owner;
-            if (div.getGovernment().getPower() < div.getGovernment().getLand()) {
+            if (div.getGovernment().getMaxPower() < div.getGovernment().getLand()) {
                 return true;            
             }
         }
