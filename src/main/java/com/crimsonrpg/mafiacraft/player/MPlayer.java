@@ -145,4 +145,8 @@ public class MPlayer implements LandOwner {
     public District getDistrict() {
         return Mafiacraft.getCityManager().getDistrict(getChunk());
     }
+
+    public boolean canBeClaimed(Chunk chunk) {
+        return false;
+    }
 }

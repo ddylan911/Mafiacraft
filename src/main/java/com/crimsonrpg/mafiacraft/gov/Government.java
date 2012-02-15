@@ -20,18 +20,33 @@ import org.bukkit.Chunk;
  * @author simplyianm
  */
 public class Government implements LandOwner {
-
     private final int id;
+
     private String name;
+
     private String chatTag;
+
     private GovType type;
+
     private String leader;
+
     private String viceLeader;
+
     private List<Division> divisions;
+
     private List<String> officers;
+
     private List<String> affiliates;
-    private int power;
-    private int land = 0;
+
+    /**
+     * Holds the land of the government. (Not divisions!)
+     */
+    private int land;
+    
+    /**
+     * Holds the money of the government.
+     */
+    private double money;
 
     public Government(int id) {
         this.id = id;
@@ -50,23 +65,73 @@ public class Government implements LandOwner {
         return name;
     }
 
-    public void incrementLand() {
-        land++;
-    }
-
+    /**
+     * Gets the amount of land the government owns.
+     * 
+     * @return 
+     */
     public int getLand() {
-        for (Division divs : getDivisions()) {
-            land += divs.getLand();
-        }
         return land;
     }
-
-    public int getPower() {
-        return this.power;
+    
+    /**
+     * Gets the total amount of land the government owns.
+     * 
+     * @return 
+     */
+    public int getTotalLand() {
+        int totalLand = getLand();
+        for (Division division : getDivisions()) {
+            totalLand += division.getLand();
+        }
+        return totalLand;
     }
 
-    public void setPower(int power) {
-        this.power = power;
+    /**
+     * Increments the amount of land.
+     * 
+     * @return 
+     */
+    public Government incLand() {
+        land++;
+        return this;
+    }
+
+    /**
+     * Decrements the amount of land.
+     * 
+     * @return 
+     */
+    public Government decLand() {
+        land--;
+        return this;
+    }
+    
+    /**
+     * Gets the power the government has over its land.
+     * For now, this is the same as getMaxPower().
+     * 
+     * <p>NOTE: In my opinion, it should be lessened based on
+     * other factors so it's actually possible to claim other
+     * governments after wars or something.</p>
+     */
+    public int getPower() {
+        return getMaxPower();
+    }
+
+    /**
+     * Gets the power of the government.
+     * 
+     * <p>The power of a government is calculated by
+     * the integer of money divided by 1024.
+     * Mafias should start out with 128 sections worth of
+     * power, or 128 power, or 128 * 1024 dollars =
+     * $131,072 to start out. This is better rounded to $150k.</p>
+     * 
+     * @return 
+     */
+    public int getMaxPower() {
+        return ((int) Math.floor(money)) >> 10; //2 to the 10th, aka 1024
     }
 
     /**
@@ -503,5 +568,29 @@ public class Government implements LandOwner {
         invited.sendMessage(MsgColor.INFO + "Type /" + type.getLocale("command") + " accept to join.");
 
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>This only applies to the land directly owned
+     * by the government, not division land.</p>
+     * 
+     * @param chunk
+     * @return 
+     */
+    public boolean canBeClaimed(Chunk chunk) {
+        return getPower() >= getLand();
+    }
+
+    /**
+     * Returns true if the government is able to
+     * retain all of its land, including
+     * division land.
+     * 
+     * @return 
+     */
+    public boolean canRetainAllLand() {
+        return getPower() >= getTotalLand();
     }
 }
