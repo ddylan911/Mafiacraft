@@ -18,6 +18,10 @@ public abstract class GovType {
 
     private Map<String, String> locale = new HashMap<String, String>();
 
+    public GovType() {
+        locale();
+    }
+    
     public abstract String getName();
 
     public abstract void locale();
