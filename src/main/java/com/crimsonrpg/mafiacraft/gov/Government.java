@@ -280,6 +280,16 @@ public class Government extends Transactable implements LandOwner {
         }
         return null;
     }
+    
+    /**
+     * Gets the division the player is part of.
+     * 
+     * @param player
+     * @return 
+     */
+    public Division getDivision(MPlayer player) {
+        return getDivision(player.getName());
+    }
 
     /**
      * Gets a list of all divisions in this Government.
@@ -288,6 +298,21 @@ public class Government extends Transactable implements LandOwner {
      */
     public List<Division> getDivisions() {
         return new ArrayList<Division>(divisions);
+    }
+    
+    /**
+     * Gets a division by its name.
+     * 
+     * @param name
+     * @return 
+     */
+    public Division getDivisionByName(String name) {
+        for (Division division : getDivisions()) {
+            if (division.getName().equalsIgnoreCase(name)) {
+                return division;
+            }
+        }
+        return null;
     }
 
     /**

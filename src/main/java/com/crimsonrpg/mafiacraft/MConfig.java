@@ -108,7 +108,11 @@ public class MConfig {
 	}
 
 	static {
-
+        //Currency
+        addDefault("currency.name", "dollar");
+        addDefault("currency.namepl" , "dollars");
+        
+        
 		//Mafia prices
 		addDefault("prices.mafia.found", 1000000.0);
 

@@ -82,7 +82,7 @@ public class MPlayer extends Transactable implements LandOwner {
     }
 
     public Division getDivision() {
-        return this.getGovernment().getDivision(this.getName());
+        return this.getGovernment().getDivision(this);
     }
 
     public City getCity() {

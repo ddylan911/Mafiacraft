@@ -7,6 +7,7 @@ package com.crimsonrpg.mafiacraft.gov;
 import com.crimsonrpg.mafiacraft.MConfig;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Chunk;
@@ -16,7 +17,7 @@ import org.bukkit.configuration.ConfigurationSection;
  *
  * @author simplyianm
  */
-public class Division implements LandOwner {
+public class Division extends Transactable implements LandOwner {
     private int id;
 
     private Government government;
@@ -246,15 +247,6 @@ public class Division implements LandOwner {
      */
     public int getMaxLand() {
         return ((int) getMoney()) >> 4;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-    
-    public Division setMoney(double amt) {
-        this.money = amt;
-        return this;
     }
     
     public boolean canBeClaimed(Chunk chunk) {
