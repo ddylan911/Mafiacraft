@@ -12,7 +12,8 @@ import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
-import com.crimsonrpg.mafiacraft.gov.LandOwner;
+import com.crimsonrpg.mafiacraft.geo.LandOwner;
+import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -158,7 +159,7 @@ public class MPlayer extends Transactable implements LandOwner {
     /**
      * {@inheritDoc}
      */
-    public boolean canBeClaimed(Chunk chunk) {
+    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
         return false;
     }
 
@@ -169,5 +170,9 @@ public class MPlayer extends Transactable implements LandOwner {
      */
     public int getKillScore() {
         return Mafiacraft.getPlayerManager().getKillTracker().getKillScore(this);
+    }
+
+    public OwnerType getOwnerType() {
+        return OwnerType.PLAYER;
     }
 }

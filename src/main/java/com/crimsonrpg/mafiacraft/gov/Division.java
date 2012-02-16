@@ -4,8 +4,10 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.MConfig;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
@@ -249,7 +251,11 @@ public class Division extends Transactable implements LandOwner {
         return ((int) getMoney()) >> 4;
     }
     
-    public boolean canBeClaimed(Chunk chunk) {
+    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
         return government.canRetainAllLand();
+    }
+
+    public OwnerType getOwnerType() {
+        return OwnerType.DIVISION;
     }
 }

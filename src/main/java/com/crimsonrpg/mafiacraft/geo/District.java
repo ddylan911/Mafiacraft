@@ -7,7 +7,6 @@ package com.crimsonrpg.mafiacraft.geo;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Division;
-import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TByteObjectMap;
@@ -93,13 +92,13 @@ public class District implements LandOwner {
      * @param chunk
      * @return 
      */
-    public boolean canBeClaimed(Chunk chunk) {
-        LandOwner owner = getOwner(chunk);
-        if (owner.equals(this) && getType().isClaim()) {
+    public boolean canBeClaimed(Chunk chunk, LandOwner owner) {
+        LandOwner currentOwner = getOwner(chunk);
+        if (currentOwner.equals(this) && getType().isClaim()) {
             return true;
         }
-        if (owner instanceof Division) {
-            Division div = (Division) owner;
+        if (currentOwner instanceof Division) {
+            Division div = (Division) currentOwner;
             if (div.getGovernment().getPower() < div.getGovernment().getLand()) {
                 return true;
             }
@@ -325,6 +324,10 @@ public class District implements LandOwner {
             }
         }
         return players;
+    }
+
+    public OwnerType getOwnerType() {
+        return OwnerType.DISTRICT;
     }
 
 }

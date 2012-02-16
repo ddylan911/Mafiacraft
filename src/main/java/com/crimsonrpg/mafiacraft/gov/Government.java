@@ -4,8 +4,10 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
@@ -608,7 +610,7 @@ public class Government extends Transactable implements LandOwner {
      * @param chunk
      * @return 
      */
-    public boolean canBeClaimed(Chunk chunk) {
+    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
         return getPower() >= getLand();
     }
 
@@ -621,5 +623,17 @@ public class Government extends Transactable implements LandOwner {
      */
     public boolean canRetainAllLand() {
         return getPower() >= getTotalLand();
+    }
+    
+    public boolean canClaimMoreLand() {
+        return getMaxGovernmentLand() < getLand();
+    }
+    
+    public int getMaxGovernmentLand() {
+        return getTotalLand() >> 4;
+    }
+
+    public OwnerType getOwnerType() {
+        return OwnerType.GOVERNMENT;
     }
 }

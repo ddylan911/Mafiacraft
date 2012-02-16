@@ -7,6 +7,7 @@ package com.crimsonrpg.mafiacraft.cmd;
 import com.crimsonrpg.mafiacraft.MConfig;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
@@ -17,6 +18,7 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -190,4 +192,20 @@ public class GovernmentCommand {
         return null;
     }
 
+    public static String doClaim(MPlayer player) {
+        Chunk section = player.getChunk();
+        District district = player.getDistrict();
+        
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You aren't in a government.";
+        }
+        
+        if (!district.canBeClaimed(section, gov)) {
+            return "Your government isn't allowed to claim the given district.";
+        }
+        
+        
+        return null;
+    }
 }
