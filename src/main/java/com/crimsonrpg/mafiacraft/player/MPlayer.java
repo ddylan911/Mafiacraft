@@ -7,7 +7,7 @@ package com.crimsonrpg.mafiacraft.player;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.chat.ChatType;
-import com.crimsonrpg.mafiacraft.classes.ClassType;
+import com.crimsonrpg.mafiacraft.classes.UtilityClass;
 import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Division;
@@ -28,7 +28,7 @@ public class MPlayer extends Transactable implements LandOwner {
     private final Player player;
     private String title;
     private SessionStore store;
-    private ClassType utilityClass;
+    private UtilityClass utilityClass;
     private ChatType chatType;
 
     public MPlayer(Player player) {
@@ -73,11 +73,11 @@ public class MPlayer extends Transactable implements LandOwner {
         return chatType;
     }
     
-    public ClassType getUtilityClass() {
+    public UtilityClass getUtilityClass() {
         return utilityClass;
     }
     
-    public void setUtilityClass(ClassType classType) {
+    public void setUtilityClass(UtilityClass classType) {
         this.utilityClass = classType;
     }
 

@@ -8,6 +8,6 @@ package com.crimsonrpg.mafiacraft.classes;
  *
  * @author Dylan
  */
-public enum ClassType {
+public enum UtilityClass {
     THIEF;
 }

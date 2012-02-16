@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft;
 
-import com.crimsonrpg.mafiacraft.classes.ClassType;
+import com.crimsonrpg.mafiacraft.classes.UtilityClass;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
@@ -136,7 +136,7 @@ public class MListener implements Listener {
         MPlayer attacked = Mafiacraft.getPlayer((Player) entity);
         
         //Check for thief
-        double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(ClassType.THIEF)) ? 0.5 : 0.1);
+        double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(UtilityClass.THIEF)) ? 0.5 : 0.1);
         
         //Subtract money
         attacked.subtractMoney(money);
