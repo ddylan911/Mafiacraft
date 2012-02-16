@@ -42,7 +42,7 @@ public class PlayerManager {
      * 
      * @return 
      */
-    public List<MPlayer> getPlayerList() {
+    public List<MPlayer> getOnlinePlayers() {
         List<MPlayer> players = new ArrayList<MPlayer>();
         for (Player player : Bukkit.getOnlinePlayers()) {
             players.add(getPlayer(player));

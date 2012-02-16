@@ -315,7 +315,7 @@ public class Government extends Transactable implements LandPurchaser {
      */
     public List<MPlayer> getOnlineMembers() {
         ArrayList<MPlayer> members = new ArrayList<MPlayer>();
-        for (MPlayer player : MafiacraftPlugin.getInstance().getPlayerManager().getPlayerList()) {
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (isMember(player)) {
                 members.add(player);
             }

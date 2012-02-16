@@ -47,7 +47,7 @@ public class Mafiacraft {
      * @return 
      */
     public static List<MPlayer> getOnlinePlayers() {
-        return getPlugin().getPlayerManager().getPlayerList();
+        return getPlugin().getPlayerManager().getOnlinePlayers();
     }
 
     /**

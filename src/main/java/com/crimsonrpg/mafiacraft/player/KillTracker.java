@@ -72,7 +72,7 @@ public class KillTracker {
         try {
             killFile.save(killFilePath);
         } catch (IOException ex) {
-            MafiacraftPlugin.getInstance().log(Level.SEVERE, "Could not save the kills!", ex);
+            MafiacraftPlugin.log(Level.SEVERE, "Could not save the kills!", ex);
         }
     }
 

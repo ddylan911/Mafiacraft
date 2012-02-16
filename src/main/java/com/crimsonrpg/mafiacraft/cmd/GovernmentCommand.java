@@ -64,7 +64,7 @@ public class GovernmentCommand {
 
     public static String doFound(MPlayer player, String name, GovType type) {
         double balance = player.getMoney();
-        double cost = MafiacraftPlugin.getInstance().getConfig().getDouble("prices.mafia.found", 1000000.0);
+        double cost = MConfig.getDouble("prices.mafia.found");
 
         if (balance < cost) {
             return "You don't have enough money to do this. (Costs $" + cost + ")";

@@ -40,7 +40,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     @Override
     public double getMoney() {
-        return MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().getBalance(player.getName());
+        return Mafiacraft.getVaultHelper().getEconomy().getBalance(player.getName());
     }
 
     @Override
@@ -50,13 +50,13 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     @Override
     public double addMoney(double amount) {
-        EconomyResponse response = MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().depositPlayer(player.getName(), amount);
+        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().depositPlayer(player.getName(), amount);
         return response.balance;
     }
 
     @Override
     public double subtractMoney(double amount) {
-        EconomyResponse response = MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().withdrawPlayer(player.getName(), amount);
+        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(player.getName(), amount);
         return response.balance;
     }
 
@@ -97,7 +97,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
     }
 
     public Government getGovernment() {
-        return MafiacraftPlugin.getInstance().getGovernmentManager().getGovernment(this);
+        return Mafiacraft.getGovernmentManager().getGovernment(this);
     }
 
     public Position getPosition() {

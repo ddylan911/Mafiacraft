@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
@@ -38,27 +39,27 @@ public class City {
 
     /**
      * Gets the government of this city.
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Government getGovernment() {
-        return MafiacraftPlugin.getInstance().getGovernmentManager().getCityGovernment(this);
+    public Government getPolice() {
+        return Mafiacraft.getGovernmentManager().getPolice(this);
     }
 
     /**
      * Gets a list of all districts of this city.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<District> getDistricts() {
-        return MafiacraftPlugin.getInstance().getCityManager().getCityDistricts(this);
+        return Mafiacraft.getCityManager().getCityDistricts(this);
     }
 
     /**
      * Checks if the city contains a district with the specified name.
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
     public boolean hasDistrict(String name) {
         for (District district : getDistricts()) {
@@ -71,18 +72,18 @@ public class City {
 
     /**
      * Gets the district in this city from the specified chunk.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public District getDistrict(Chunk chunk) {
-        return MafiacraftPlugin.getInstance().getCityManager().getDistrict(chunk);
+        return Mafiacraft.getDistrict(chunk);
     }
 
     /**
      * Gets the next free name to give a district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getNextDistrictName() {
         String chars = " ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -101,11 +102,11 @@ public class City {
 
         return dname;
     }
-    
+
     /**
      * Gets all players in the city.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<MPlayer> getPlayers() {
         List<MPlayer> players = new ArrayList<MPlayer>();
@@ -114,4 +115,5 @@ public class City {
         }
         return players;
     }
+
 }
