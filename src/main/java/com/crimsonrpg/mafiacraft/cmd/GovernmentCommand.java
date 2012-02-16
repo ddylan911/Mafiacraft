@@ -209,7 +209,7 @@ public class GovernmentCommand {
             return "Your government isn't allowed to claim the given district.";
         }
         
-        district.setOwner(section, gov);
+        gov.claim(section);
         player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.getSectionName(section) + " for your " + gov.getType().getName() + ".");
         return null;
     }
