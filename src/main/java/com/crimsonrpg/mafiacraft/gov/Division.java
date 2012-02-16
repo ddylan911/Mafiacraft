@@ -4,9 +4,14 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.MConfig;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.geo.LandPurchaser;
+import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Chunk;
@@ -16,7 +21,7 @@ import org.bukkit.configuration.ConfigurationSection;
  *
  * @author simplyianm
  */
-public class Division implements LandOwner {
+public class Division extends Transactable implements LandPurchaser {
     private int id;
 
     private Government government;
@@ -33,7 +38,7 @@ public class Division implements LandOwner {
     
     private int land;
     
-    private int maxLand;
+    private double money;
 
     public Division(int id, Government government, String prefix) {
         this.id = id;
@@ -226,38 +231,73 @@ public class Division implements LandOwner {
     }
     
     /**
-     * Gets the amount of land this division owns.
+     * Gets the maximum amount of land this division can own.
+     * This is determined by the money the division has.
      * 
      * @return 
+     */
+    public int getMaxLand() {
+        return ((int) getMoney()) >> 4;
+    }
+    
+    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
+        return government.canRetainAllLand();
+    }
+
+    public OwnerType getOwnerType() {
+        return OwnerType.DIVISION;
+    }
+    ////////////
+    // LAND STUFF
+    ////////////
+    /**
+     * {@inheritDoc}
      */
     public int getLand() {
         return land;
     }
 
-    public void setLand(int land) {
-        this.land = land;
-    }
-    
     /**
-     * Gets the maximum amount of land this division can own.
-     * This is determined by the Government.
-     * 
-     * @return 
+     * {@inheritDoc}
      */
-    public int getMaxLand() {
-        return maxLand;
+    public Division setLand(int amt) {
+        this.land = amt;
+        return this;
     }
 
     /**
-     * Sets the max land.
-     * 
-     * @param maxLand 
+     * {@inheritDoc}
      */
-    public void setMaxLand(int maxLand) {
-        this.maxLand = maxLand;
+    public Division incLand() {
+        land++;
+        return this;
     }
 
-    public boolean canBeClaimed(Chunk chunk) {
-        return government.canRetainAllLand();
+    /**
+     * {@inheritDoc}
+     */
+    public Division decLand() {
+        land--;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Division claim(Chunk chunk) {
+        District district = Mafiacraft.getDistrict(chunk);
+        district.setOwner(chunk, this);
+        incLand();
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Division unclaim(Chunk chunk) {
+        District district = Mafiacraft.getDistrict(chunk);
+        district.setOwner(chunk, null);
+        decLand();
+        return this;
     }
 }

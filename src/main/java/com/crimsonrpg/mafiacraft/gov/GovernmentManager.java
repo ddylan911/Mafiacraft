@@ -49,7 +49,7 @@ public class GovernmentManager {
      * @param city
      * @return 
      */
-    public Government getCityGovernment(City city) {
+    public Government getPolice(City city) {
         return getGovernment(cities.get(city.getId()));
     }
 
@@ -88,7 +88,7 @@ public class GovernmentManager {
      * @param city
      * @param government 
      */
-    public void setCityGovernment(City city, Government government) {
+    public void setPolice(City city, Government government) {
         government.setType(GovType.POLICE);
         cities.put(city.getId(), government.getId());
     }

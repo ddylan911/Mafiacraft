@@ -7,7 +7,6 @@ package com.crimsonrpg.mafiacraft.geo;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
-import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
@@ -67,7 +66,7 @@ public class CityManager {
 
         //Make government
         Government government = mc.getGovernmentManager().createGovernment(name, GovType.POLICE);
-        mc.getGovernmentManager().setCityGovernment(city, government);
+        mc.getGovernmentManager().setPolice(city, government);
 
         return city;
     }
@@ -132,11 +131,11 @@ public class CityManager {
      * @param sample
      * @return 
      */
-    public District createDistrict(Chunk sample) {
-        MafiacraftPlugin.logVerbose("A district was created upon entering " + sample.toString() + ".");
+    private District createDistrict(Chunk sample) {
+        MafiacraftPlugin.logVerbose("A district was created at " + sample.toString() + ".");
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
     }
-
+    
     /**
      * Creates a district for the specified city.
      * 

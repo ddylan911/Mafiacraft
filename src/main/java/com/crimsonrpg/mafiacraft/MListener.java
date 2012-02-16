@@ -4,16 +4,17 @@
  */
 package com.crimsonrpg.mafiacraft;
 
-import com.crimsonrpg.mafiacraft.classes.ClassType;
+import com.crimsonrpg.mafiacraft.classes.UtilityClass;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
-import com.crimsonrpg.mafiacraft.gov.LandOwner;
+import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.player.KillTracker;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.player.SessionStore;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,7 +50,7 @@ public class MListener implements Listener {
         Chunk c = player.getPlayer().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
-        if (!d.getType().isBuild()) {
+        if (!d.getType().canBuildAnywhere()) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
             event.setCancelled(true);
             return;
@@ -73,7 +74,7 @@ public class MListener implements Listener {
         Chunk c = player.getPlayer().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
-        if (!d.getType().isBuild()) {
+        if (!d.getType().canBuildAnywhere()) {
             player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
             event.setCancelled(true);
             return;
@@ -117,27 +118,34 @@ public class MListener implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!event.getEntity().getLastDamageCause().getCause().equals(DamageCause.ENTITY_ATTACK)) {
+        EntityDamageEvent cause = event.getEntity().getLastDamageCause();
+        
+        if (!cause.getCause().equals(DamageCause.ENTITY_ATTACK)) {
             return;
         }
-        EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) event.getEntity().getLastDamageCause();
-        if ((!(e.getDamager() instanceof Player)) || !(e.getEntity() instanceof Player)) {
+        
+        EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) cause;
+        
+        Entity damager = e.getDamager();
+        Entity entity = e.getEntity();
+        
+        if ((!(damager instanceof Player)) || !(entity instanceof Player)) {
             return;
         }
-        MPlayer attacker = Mafiacraft.getPlayer((Player) e.getDamager());
-        MPlayer attacked = Mafiacraft.getPlayer((Player) e.getEntity());
-        if (attacker.getClassType().equals(ClassType.THIEF)) {
-            attacked.subtractMoney(attacked.getMoney() * .5);
-            attacker.addMoney(attacked.getMoney() * .5);
-            attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + ", and stole " + (attacked.getMoney() * .5) + " of their money.");
-            attacked.sendMessage(ChatColor.RED + "You died, and lost " + (attacked.getMoney() * .5) + " of your money.");
-            return;
-        }
-        attacked.subtractMoney(attacked.getMoney() * .1);
-        attacker.addMoney(attacked.getMoney() * .1);
-        attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + ", and gained " + (attacked.getMoney() * .1) + " of their money.");
-        attacked.sendMessage(ChatColor.RED + "You died, and lost " + (attacked.getMoney() * .1) + " of your money.");
-        KillTracker kt = new KillTracker();
+        MPlayer attacker = Mafiacraft.getPlayer((Player) damager);
+        MPlayer attacked = Mafiacraft.getPlayer((Player) entity);
+        
+        //Check for thief
+        double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(UtilityClass.THIEF)) ? 0.5 : 0.1);
+        
+        //Subtract money
+        attacked.subtractMoney(money);
+        attacker.addMoney(money);
+        attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + " and took " + money + " of their money.");
+        attacked.sendMessage(ChatColor.RED + "You died and lost " + money + " of your money.");
+            
+        //Track the kill
+        KillTracker kt = Mafiacraft.getPlayerManager().getKillTracker();
         kt.incScore(attacker);
         if (kt.getKillScore(attacked) <= 0) {
             return;

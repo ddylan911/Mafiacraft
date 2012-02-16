@@ -18,6 +18,10 @@ public abstract class GovType {
 
     private Map<String, String> locale = new HashMap<String, String>();
 
+    public GovType() {
+        locale();
+    }
+    
     public abstract String getName();
 
     public abstract void locale();
@@ -29,7 +33,7 @@ public abstract class GovType {
     public String getLocale(String string) {
         String localized = locale.get(string);
         if (localized == null) {
-            localized = "unknown";
+            localized = "unnamed";
         }
         return localized;
     }
@@ -45,12 +49,17 @@ public abstract class GovType {
             public void locale() {
                 m("command", "mafia");
                 
+                //Ranks
                 m("leader", "godfather");
                 m("vice leader", "consigliere");
                 m("officer", "officer");
                 m("manager", "caporegime");
                 m("worker", "soldier");
                 m("affiliate", "associate");
+                m("affiliates", "associates");
+                
+                //Groups
+                m("division", "regime");
             }
 
         };
@@ -64,12 +73,17 @@ public abstract class GovType {
             public void locale() {
                 m("command", "police");
                 
+                //Ranks
                 m("leader", "chief of police");
                 m("vice leader", "assistant chief");
                 m("officer", "commander");
                 m("manager", "major");
-                m("worker", "officer");
-                m("affiliate", "citizen");
+                m("worker", "sergeant");
+                m("affiliate", "officer");
+                m("affiliates", "officers");
+                
+                //Groups
+                m("division", "squad");
             }
 
         };

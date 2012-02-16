@@ -8,32 +8,37 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
-
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-
-import com.crimsonrpg.mafiacraft.gov.LandOwner;
-import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.World;
 
 /**
  * Represents a 8x8 section area.
  */
 public class District implements LandOwner {
-
     private final int id;
+
     private String name;
+
     private final World world;
+
     private final int x;
+
     private final int z;
+
     private Location busStop;
+
     private City city;
+
     private DistrictType type;
+
     private String description;
+
     private TByteObjectMap<LandOwner> owners = new TByteObjectHashMap<LandOwner>();
 
     public District(World world, int x, int z) {
@@ -81,13 +86,19 @@ public class District implements LandOwner {
         return world;
     }
 
-    public boolean canBeClaimed(Chunk chunk) {
-        LandOwner owner = getOwner(chunk);
-        if (owner.equals(this) && getType().isClaim()) {
+    /**
+     * {@inheritDoc}
+     * 
+     * @param chunk
+     * @return 
+     */
+    public boolean canBeClaimed(Chunk chunk, LandOwner owner) {
+        LandOwner currentOwner = getOwner(chunk);
+        if (currentOwner.equals(this) && getType().isClaim()) {
             return true;
         }
-        if (owner instanceof Division) {
-            Division div = (Division) owner;
+        if (currentOwner instanceof Division) {
+            Division div = (Division) currentOwner;
             if (div.getGovernment().getPower() < div.getGovernment().getLand()) {
                 return true;
             }
@@ -232,6 +243,17 @@ public class District implements LandOwner {
     }
 
     /**
+     * Gets the user-friendly name of the section.
+     * 
+     * @param chunk
+     * @return 
+     */
+    public String getSectionName(Chunk chunk) {
+        short idUnsigned = (short) (getSectionId(chunk) + 127);
+        return getName() + '-' + idUnsigned;
+    }
+    
+    /**
      * Gets the id of the specified section.
      * 
      * @param chunk
@@ -271,7 +293,7 @@ public class District implements LandOwner {
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
-        return type.isBuild();
+        return type.canBuildAnywhere();
     }
 
     public String getOwnerName() {
@@ -313,5 +335,9 @@ public class District implements LandOwner {
             }
         }
         return players;
+    }
+
+    public OwnerType getOwnerType() {
+        return OwnerType.DISTRICT;
     }
 }

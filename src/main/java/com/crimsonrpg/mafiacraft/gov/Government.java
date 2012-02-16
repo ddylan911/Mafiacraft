@@ -4,10 +4,15 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.geo.LandPurchaser;
+import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -16,10 +21,9 @@ import java.util.Map.Entry;
 import org.bukkit.Chunk;
 
 /**
- *
- * @author simplyianm
+ * Represents a Government, a mafia or a police.
  */
-public class Government implements LandOwner {
+public class Government extends Transactable implements LandPurchaser {
     private final int id;
 
     private String name;
@@ -42,7 +46,7 @@ public class Government implements LandOwner {
      * Holds the land of the government. (Not divisions!)
      */
     private int land;
-    
+
     /**
      * Holds the money of the government.
      */
@@ -58,26 +62,17 @@ public class Government implements LandOwner {
 
     /**
      * Gets the name of this government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Gets the amount of land the government owns.
-     * 
-     * @return 
-     */
-    public int getLand() {
-        return land;
-    }
-    
-    /**
      * Gets the total amount of land the government owns.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getTotalLand() {
         int totalLand = getLand();
@@ -88,32 +83,12 @@ public class Government implements LandOwner {
     }
 
     /**
-     * Increments the amount of land.
-     * 
-     * @return 
-     */
-    public Government incLand() {
-        land++;
-        return this;
-    }
-
-    /**
-     * Decrements the amount of land.
-     * 
-     * @return 
-     */
-    public Government decLand() {
-        land--;
-        return this;
-    }
-    
-    /**
-     * Gets the power the government has over its land.
-     * For now, this is the same as getMaxPower().
-     * 
-     * <p>NOTE: In my opinion, it should be lessened based on
-     * other factors so it's actually possible to claim other
-     * governments after wars or something.</p>
+     * Gets the power the government has over its land. For now, this is the
+     * same as getMaxPower().
+     *
+     * <p>NOTE: In my opinion, it should be lessened based on other factors so
+     * it's actually possible to claim other governments after wars or
+     * something.</p>
      */
     public int getPower() {
         return getMaxPower();
@@ -121,14 +96,13 @@ public class Government implements LandOwner {
 
     /**
      * Gets the power of the government.
-     * 
-     * <p>The power of a government is calculated by
-     * the integer of money divided by 1024.
-     * Mafias should start out with 128 sections worth of
-     * power, or 128 power, or 128 * 1024 dollars =
-     * $131,072 to start out. This is better rounded to $150k.</p>
-     * 
-     * @return 
+     *
+     * <p>The power of a government is calculated by the integer of money
+     * divided by 1024. Mafias should start out with 128 sections worth of
+     * power, or 128 power, or 128 * 1024 dollars = $131,072 to start out. This
+     * is better rounded to $150k.</p>
+     *
+     * @return
      */
     public int getMaxPower() {
         return ((int) Math.floor(money)) >> 10; //2 to the 10th, aka 1024
@@ -136,9 +110,9 @@ public class Government implements LandOwner {
 
     /**
      * Sets the name of this government.
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
     public Government setName(String name) {
         this.name = name;
@@ -147,8 +121,8 @@ public class Government implements LandOwner {
 
     /**
      * Gets the chat tag of this government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getChatTag() {
         return chatTag;
@@ -156,8 +130,8 @@ public class Government implements LandOwner {
 
     /**
      * Sets the chat tag of this government.
-     * 
-     * @param chatTag 
+     *
+     * @param chatTag
      */
     public void setChatTag(String chatTag) {
         this.chatTag = chatTag;
@@ -184,8 +158,8 @@ public class Government implements LandOwner {
     ///////////////
     /**
      * Gets the leader of the government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getLeader() {
         return leader;
@@ -193,8 +167,8 @@ public class Government implements LandOwner {
 
     /**
      * Gets the vice leader of the government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getViceLeader() {
         return viceLeader;
@@ -202,8 +176,8 @@ public class Government implements LandOwner {
 
     /**
      * Gets a list of all members in the government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<String> getMembers() {
         List<String> members = new ArrayList<String>();
@@ -215,8 +189,8 @@ public class Government implements LandOwner {
 
     /**
      * Gets a map of all positions.
-     * 
-     * @return 
+     *
+     * @return
      */
     public Map<Position, List<String>> getPositions() {
         Map<Position, List<String>> positions = new EnumMap<Position, List<String>>(Position.class);
@@ -228,9 +202,9 @@ public class Government implements LandOwner {
 
     /**
      * Gets a list of all members in the specified position.
-     * 
+     *
      * @param position
-     * @return 
+     * @return
      */
     public List<String> getMembers(Position position) {
         List<String> members = new ArrayList<String>();
@@ -268,9 +242,9 @@ public class Government implements LandOwner {
 
     /**
      * Gets the division a certain player is part of.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public Division getDivision(String player) {
         for (Division division : divisions) {
@@ -282,18 +256,43 @@ public class Government implements LandOwner {
     }
 
     /**
+     * Gets the division the player is part of.
+     *
+     * @param player
+     * @return
+     */
+    public Division getDivision(MPlayer player) {
+        return getDivision(player.getName());
+    }
+
+    /**
      * Gets a list of all divisions in this Government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<Division> getDivisions() {
         return new ArrayList<Division>(divisions);
     }
 
     /**
+     * Gets a division by its name.
+     *
+     * @param name
+     * @return
+     */
+    public Division getDivisionByName(String name) {
+        for (Division division : getDivisions()) {
+            if (division.getName().equalsIgnoreCase(name)) {
+                return division;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Gets the total member count of the entire government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getMemberCount() {
         return getMembers().size();
@@ -301,9 +300,9 @@ public class Government implements LandOwner {
 
     /**
      * Gets the total member count of a position.
-     * 
+     *
      * @param position
-     * @return 
+     * @return
      */
     public int getMemberCount(Position position) {
         return getMembers(position).size();
@@ -311,12 +310,12 @@ public class Government implements LandOwner {
 
     /**
      * Gets a list of all online members of this government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<MPlayer> getOnlineMembers() {
         ArrayList<MPlayer> members = new ArrayList<MPlayer>();
-        for (MPlayer player : MafiacraftPlugin.getInstance().getPlayerManager().getPlayerList()) {
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (isMember(player)) {
                 members.add(player);
             }
@@ -326,8 +325,8 @@ public class Government implements LandOwner {
 
     /**
      * Gets the amount of members currently online the server.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getOnlineMemberCount() {
         return getOnlineMembers().size();
@@ -335,9 +334,9 @@ public class Government implements LandOwner {
 
     /**
      * Returns true if the government can have more players in a position.
-     * 
+     *
      * @param position
-     * @return 
+     * @return
      */
     public boolean canHaveMore(Position position) {
         int count = getMemberCount(position);
@@ -360,9 +359,9 @@ public class Government implements LandOwner {
 
     /**
      * Gets the position of a certain player.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public Position getPosition(String player) {
         Position pos = Position.NONE;
@@ -376,9 +375,9 @@ public class Government implements LandOwner {
 
     /**
      * Gets the position of a certain MPlayer.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public Position getPosition(MPlayer player) {
         return getPosition(player.getName());
@@ -386,10 +385,10 @@ public class Government implements LandOwner {
 
     /**
      * Sets a player's position.
-     * 
+     *
      * @param player
      * @param position
-     * @return 
+     * @return
      */
     public boolean setPosition(String player, Position position) {
         if (position.isDivision()) {
@@ -430,10 +429,10 @@ public class Government implements LandOwner {
 
     /**
      * Sets a player's position to the one specified.
-     * 
+     *
      * @param player
      * @param position
-     * @return 
+     * @return
      */
     public boolean setPosition(MPlayer player, Position position) {
         return setPosition(player.getName(), position);
@@ -441,12 +440,16 @@ public class Government implements LandOwner {
 
     /**
      * Removes a member from this government.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public boolean removeMember(String player) {
         Position position = getPosition(player);
+        if (position.equals(Position.NONE)) {
+            return false;
+        }
+
         if (position.isDivision()) {
             getDivision(player).remove(player);
         } else {
@@ -473,8 +476,8 @@ public class Government implements LandOwner {
 
     /**
      * Removes a member from this government.
-     * 
-     * @param player 
+     *
+     * @param player
      */
     public boolean removeMember(MPlayer player) {
         return removeMember(player.getName());
@@ -482,9 +485,9 @@ public class Government implements LandOwner {
 
     /**
      * Returns true if the player is a member of this government.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public boolean isMember(String player) {
         return getMembers().contains(player);
@@ -492,9 +495,9 @@ public class Government implements LandOwner {
 
     /**
      * Returns true if the player is a member of this government.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public boolean isMember(MPlayer player) {
         return isMember(player.getName());
@@ -502,9 +505,9 @@ public class Government implements LandOwner {
 
     /**
      * Adds a member to this government as an affiliate.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public Government addMember(String player) {
         affiliates.add(player);
@@ -513,7 +516,7 @@ public class Government implements LandOwner {
 
     /**
      * Adds a member to this government.
-     * 
+     *
      * @param player
      * @param position
      * @return True if the operation was allowed.
@@ -524,8 +527,8 @@ public class Government implements LandOwner {
 
     /**
      * Gets a list of all officers.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<String> getOfficers() {
         return new ArrayList<String>(officers);
@@ -533,7 +536,7 @@ public class Government implements LandOwner {
 
     /**
      * Gets a list of all officers currently online.
-     * 
+     *
      * @return The list of officers.
      */
     public List<MPlayer> getOnlineOfficers() {
@@ -553,10 +556,10 @@ public class Government implements LandOwner {
 
     /**
      * Dispatches an invite to the given player as the specified player.
-     * 
+     *
      * @param inviter
      * @param invited
-     * @return 
+     * @return
      */
     public boolean dispatchInvite(MPlayer inviter, MPlayer invited) {
         Government them = invited.getGovernment();
@@ -572,25 +575,88 @@ public class Government implements LandOwner {
 
     /**
      * {@inheritDoc}
-     * 
-     * <p>This only applies to the land directly owned
-     * by the government, not division land.</p>
-     * 
+     *
+     * <p>This only applies to the land directly owned by the government, not
+     * division land.</p>
+     *
      * @param chunk
-     * @return 
+     * @return
      */
-    public boolean canBeClaimed(Chunk chunk) {
+    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
         return getPower() >= getLand();
     }
 
     /**
-     * Returns true if the government is able to
-     * retain all of its land, including
-     * division land.
-     * 
-     * @return 
+     * Returns true if the government is able to retain all of its land,
+     * including division land.
+     *
+     * @return
      */
     public boolean canRetainAllLand() {
         return getPower() >= getTotalLand();
     }
+
+    public boolean canClaimMoreLand() {
+        return getMaxGovernmentLand() < getLand();
+    }
+
+    public int getMaxGovernmentLand() {
+        return getTotalLand() >> 4;
+    }
+
+    public OwnerType getOwnerType() {
+        return OwnerType.GOVERNMENT;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getLand() {
+        return land;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Government setLand(int amt) {
+        this.land = amt;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Government incLand() {
+        land++;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Government decLand() {
+        land--;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Government claim(Chunk chunk) {
+        District district = Mafiacraft.getDistrict(chunk);
+        district.setOwner(chunk, this);
+        incLand();
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Government unclaim(Chunk chunk) {
+        District district = Mafiacraft.getDistrict(chunk);
+        district.setOwner(chunk, null);
+        decLand();
+        return this;
+    }
+
 }

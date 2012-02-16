@@ -4,6 +4,8 @@
  */
 package com.crimsonrpg.mafiacraft.cmd;
 
+import com.crimsonrpg.mafiacraft.MConfig;
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
@@ -17,7 +19,7 @@ import org.bukkit.Chunk;
 public class CityCommand {
     public static String doFound(MPlayer player, String name) {
         double balance = player.getMoney();
-        double required = MafiacraftPlugin.getInstance().getConfig().getDouble("prices.city.found", 1000000.0);
+        double required = MConfig.getDouble("prices.city.found");
 
         if (balance < required) {
             return "You don't have enough money to found a city! (Costs $1,000,000)";
@@ -33,16 +35,16 @@ public class CityCommand {
 
         //Found a city
         Chunk sample = player.getPlayer().getLocation().getChunk();
-        District district = MafiacraftPlugin.getInstance().getCityManager().createDistrict(sample);
-        City city = MafiacraftPlugin.getInstance().getCityManager().foundCity(name, district);
-
+        District district = Mafiacraft.getDistrict(sample);
+        City city = Mafiacraft.getCityManager().foundCity(name, district);
+        
         //Notify
         player.getPlayer().sendMessage(MsgColor.SUCCESS + "Your city has been founded successfully.");
         return null;
     }
 
     public static String doSetSpawn(MPlayer player) {
-        City city = MafiacraftPlugin.getInstance().getCityManager().getDistrict(player).getCity();
+        City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
         }

@@ -20,9 +20,21 @@ public class PlayerManager {
 
     private Map<Player, MPlayer> mplayers = new HashMap<Player, MPlayer>();
     private final MafiacraftPlugin mc;
+    
+    private KillTracker killTracker;
 
     public PlayerManager(MafiacraftPlugin mc) {
         this.mc = mc;
+        this.killTracker = new KillTracker(mc);
+    }
+
+    /**
+     * Gets the KillTracker.
+     * 
+     * @return 
+     */
+    public KillTracker getKillTracker() {
+        return killTracker;
     }
 
     /**
@@ -30,7 +42,7 @@ public class PlayerManager {
      * 
      * @return 
      */
-    public List<MPlayer> getPlayerList() {
+    public List<MPlayer> getOnlinePlayers() {
         List<MPlayer> players = new ArrayList<MPlayer>();
         for (Player player : Bukkit.getOnlinePlayers()) {
             players.add(getPlayer(player));
