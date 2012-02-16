@@ -4,15 +4,12 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
-import com.crimsonrpg.mafiacraft.Mafiacraft;
-import java.util.List;
-
-import org.bukkit.Chunk;
-
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.Chunk;
 
 /**
  * Represents a... CITY!
