@@ -18,6 +18,7 @@ public abstract class ChatType {
     public static final ChatType LOCAL = new LocalChat();
     public static final ChatType CITY = new CityChat();
     public static final ChatType DISTRICT = new DistrictChat();
+    public static final ChatType GLOBAL = new GlobalChat();
     
     public abstract void chat(MPlayer player, String message);
 }

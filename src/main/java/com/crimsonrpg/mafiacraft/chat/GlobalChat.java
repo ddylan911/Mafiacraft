@@ -5,18 +5,20 @@
 package com.crimsonrpg.mafiacraft.chat;
 
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 /**
  *
  * @author Dylan
  */
-public class OfficerChat extends ChatType {
+public class GlobalChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
-        for (MPlayer officers : player.getGovernment().getOnlineOfficers()) {
-            officers.sendMessage(ChatColor.GRAY + "[O]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            players.sendMessage(ChatColor.GREEN + "[G]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
 }

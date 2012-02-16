@@ -20,7 +20,7 @@ public class DistrictChat extends ChatType {
             return;
         }
         for (MPlayer players : player.getDistrict().getPlayers()) {
-            players.sendMessage("<" + player.getDisplayName() + "> " + message);
+            players.sendMessage(ChatColor.BLUE + "[D]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
 }

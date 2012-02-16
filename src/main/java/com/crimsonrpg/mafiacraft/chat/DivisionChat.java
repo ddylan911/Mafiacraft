@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.chat;
 
+import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import org.bukkit.ChatColor;
 
@@ -20,7 +21,11 @@ public class DivisionChat extends ChatType {
             return;
         }
         for (MPlayer players : player.getDivision().getOnlineMembers()) {
-            players.sendMessage("[" + player.getDivision().getPrefix() + "]" +  player.getDisplayName() + " " + message);
+            if (player.getDivision().getGovernment().getType().equals(GovType.MAFIA)) {
+                players.sendMessage(ChatColor.GOLD + "[R]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
+                continue;
+            }
+            players.sendMessage(ChatColor.AQUA + "[S]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
 }

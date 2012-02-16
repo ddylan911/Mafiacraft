@@ -17,8 +17,8 @@ import org.bukkit.entity.Player;
  * @author simplyianm
  */
 public class PlayerManager {
-    private Map<Player, MPlayer> mplayers = new HashMap<Player, MPlayer>();
 
+    private Map<Player, MPlayer> mplayers = new HashMap<Player, MPlayer>();
     private final MafiacraftPlugin mc;
 
     public PlayerManager(MafiacraftPlugin mc) {
@@ -37,7 +37,7 @@ public class PlayerManager {
         }
         return players;
     }
-    
+
     /**
      * Gets a player from a Bukkit player.
      * 
@@ -64,5 +64,4 @@ public class PlayerManager {
         //TODO: actually load the player's data
         return mplayer;
     }
-
 }

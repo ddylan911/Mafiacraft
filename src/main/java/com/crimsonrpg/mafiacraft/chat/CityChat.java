@@ -20,7 +20,7 @@ public class CityChat extends ChatType {
             return;
         }
         for (MPlayer players : player.getCity().getPlayers()) {
-            players.sendMessage("<" + player.getDisplayName() + "> " + message);
+            players.sendMessage(ChatColor.RED + "[C]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
 }
