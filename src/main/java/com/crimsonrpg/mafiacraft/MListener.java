@@ -14,6 +14,7 @@ import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.player.SessionStore;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -117,15 +118,22 @@ public class MListener implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!event.getEntity().getLastDamageCause().getCause().equals(DamageCause.ENTITY_ATTACK)) {
+        EntityDamageEvent cause = event.getEntity().getLastDamageCause();
+        
+        if (!cause.getCause().equals(DamageCause.ENTITY_ATTACK)) {
             return;
         }
-        EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) event.getEntity().getLastDamageCause();
-        if ((!(e.getDamager() instanceof Player)) || !(e.getEntity() instanceof Player)) {
+        
+        EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) cause;
+        
+        Entity damager = e.getDamager();
+        Entity entity = e.getEntity();
+        
+        if ((!(damager instanceof Player)) || !(entity instanceof Player)) {
             return;
         }
-        MPlayer attacker = Mafiacraft.getPlayer((Player) e.getDamager());
-        MPlayer attacked = Mafiacraft.getPlayer((Player) e.getEntity());
+        MPlayer attacker = Mafiacraft.getPlayer((Player) damager);
+        MPlayer attacked = Mafiacraft.getPlayer((Player) entity);
         
         //Check for thief
         double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(ClassType.THIEF)) ? 0.5 : 0.1);
