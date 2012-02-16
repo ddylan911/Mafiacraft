@@ -6,11 +6,13 @@ package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.chat.ChatHandler;
 import com.crimsonrpg.mafiacraft.geo.CityManager;
+import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.PlayerManager;
 import com.crimsonrpg.mafiacraft.vault.VaultHelper;
 import java.util.List;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
 /**
@@ -91,5 +93,15 @@ public class Mafiacraft {
      */
     public static VaultHelper getVaultHelper() {
         return getPlugin().getVaultHelper();
+    }
+
+    /**
+     * Gets the district associated with the given chunk.
+     * 
+     * @param chunk
+     * @return 
+     */
+    public static District getDistrict(Chunk chunk) {
+        return getCityManager().getDistrict(chunk);
     }
 }

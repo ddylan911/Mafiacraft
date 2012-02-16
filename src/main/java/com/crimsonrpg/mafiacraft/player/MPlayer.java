@@ -8,12 +8,9 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.classes.UtilityClass;
-import com.crimsonrpg.mafiacraft.geo.City;
-import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.geo.*;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
-import com.crimsonrpg.mafiacraft.geo.LandOwner;
-import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -24,13 +21,18 @@ import org.bukkit.entity.Player;
  *
  * @author simplyianm
  */
-public class MPlayer extends Transactable implements LandOwner {
-
+public class MPlayer extends Transactable implements LandPurchaser {
     private final Player player;
+
     private String title;
+
     private SessionStore store;
+
     private UtilityClass utilityClass;
+
     private ChatType chatType;
+
+    private int land;
 
     public MPlayer(Player player) {
         this.player = player;
@@ -40,7 +42,7 @@ public class MPlayer extends Transactable implements LandOwner {
     public double getMoney() {
         return MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().getBalance(player.getName());
     }
-    
+
     @Override
     public double setMoney(double amt) {
         return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(player.getName(), amt - getMoney()).balance;
@@ -73,11 +75,11 @@ public class MPlayer extends Transactable implements LandOwner {
     public ChatType getChatType() {
         return chatType;
     }
-    
+
     public UtilityClass getUtilityClass() {
         return utilityClass;
     }
-    
+
     public void setUtilityClass(UtilityClass classType) {
         this.utilityClass = classType;
     }
@@ -89,7 +91,7 @@ public class MPlayer extends Transactable implements LandOwner {
     public City getCity() {
         return this.getDistrict().getCity();
     }
-    
+
     public void setChatType(ChatType chatType) {
         this.chatType = chatType;
     }
@@ -137,20 +139,20 @@ public class MPlayer extends Transactable implements LandOwner {
     public String getOwnerId() {
         return "P-" + getName();
     }
-    
+
     /**
      * Gets the chunk the player is currently in.
-     * 
-     * @return 
+     *
+     * @return
      */
     public Chunk getChunk() {
         return player.getLocation().getChunk();
     }
-    
+
     /**
      * Gets the district the player is currently in.
-     * 
-     * @return 
+     *
+     * @return
      */
     public District getDistrict() {
         return Mafiacraft.getCityManager().getDistrict(getChunk());
@@ -165,8 +167,8 @@ public class MPlayer extends Transactable implements LandOwner {
 
     /**
      * Gets the kill score of this player.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getKillScore() {
         return Mafiacraft.getPlayerManager().getKillTracker().getKillScore(this);
@@ -175,4 +177,56 @@ public class MPlayer extends Transactable implements LandOwner {
     public OwnerType getOwnerType() {
         return OwnerType.PLAYER;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getLand() {
+        return land;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MPlayer setLand(int amt) {
+        this.land = amt;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MPlayer incLand() {
+        land++;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MPlayer decLand() {
+        land--;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MPlayer claim(Chunk chunk) {
+        District district = Mafiacraft.getDistrict(chunk);
+        district.setOwner(chunk, this);
+        incLand();
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MPlayer unclaim(Chunk chunk) {
+        District district = Mafiacraft.getDistrict(chunk);
+        district.setOwner(chunk, null);
+        decLand();
+        return this;
+    }
+
 }

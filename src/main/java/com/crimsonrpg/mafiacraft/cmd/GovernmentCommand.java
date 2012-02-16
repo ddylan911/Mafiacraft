@@ -193,6 +193,10 @@ public class GovernmentCommand {
     }
 
     public static String doClaim(MPlayer player) {
+        if (player.getPosition().compareTo(Position.VICE_LEADER) < 0) {
+            return "You aren't allowed to claim land for your government.";
+        }
+        
         Chunk section = player.getChunk();
         District district = player.getDistrict();
         
@@ -205,7 +209,8 @@ public class GovernmentCommand {
             return "Your government isn't allowed to claim the given district.";
         }
         
-        
+        district.setOwner(section, gov);
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.getSectionName(section) + " for your " + gov.getType().getName() + ".");
         return null;
     }
 }

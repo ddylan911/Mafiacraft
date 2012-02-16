@@ -243,6 +243,17 @@ public class District implements LandOwner {
     }
 
     /**
+     * Gets the user-friendly name of the section.
+     * 
+     * @param chunk
+     * @return 
+     */
+    public String getSectionName(Chunk chunk) {
+        short idUnsigned = (short) (getSectionId(chunk) + 127);
+        return getName() + '-' + idUnsigned;
+    }
+    
+    /**
      * Gets the id of the specified section.
      * 
      * @param chunk
@@ -329,5 +340,4 @@ public class District implements LandOwner {
     public OwnerType getOwnerType() {
         return OwnerType.DISTRICT;
     }
-
 }
