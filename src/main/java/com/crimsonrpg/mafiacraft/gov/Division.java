@@ -33,7 +33,7 @@ public class Division implements LandOwner {
     
     private int land;
     
-    private int maxLand;
+    private double money;
 
     public Division(int id, Government government, String prefix) {
         this.id = id;
@@ -240,23 +240,23 @@ public class Division implements LandOwner {
     
     /**
      * Gets the maximum amount of land this division can own.
-     * This is determined by the Government.
+     * This is determined by the money the division has.
      * 
      * @return 
      */
     public int getMaxLand() {
-        return maxLand;
+        return ((int) getMoney()) >> 4;
     }
 
-    /**
-     * Sets the max land.
-     * 
-     * @param maxLand 
-     */
-    public void setMaxLand(int maxLand) {
-        this.maxLand = maxLand;
+    public double getMoney() {
+        return money;
     }
-
+    
+    public Division setMoney(double amt) {
+        this.money = amt;
+        return this;
+    }
+    
     public boolean canBeClaimed(Chunk chunk) {
         return government.canRetainAllLand();
     }

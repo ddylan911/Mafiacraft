@@ -20,9 +20,21 @@ public class PlayerManager {
     private Map<Player, MPlayer> mplayers = new HashMap<Player, MPlayer>();
 
     private final MafiacraftPlugin mc;
+    
+    private KillTracker killTracker;
 
     public PlayerManager(MafiacraftPlugin mc) {
         this.mc = mc;
+        this.killTracker = new KillTracker(mc);
+    }
+
+    /**
+     * Gets the KillTracker.
+     * 
+     * @return 
+     */
+    public KillTracker getKillTracker() {
+        return killTracker;
     }
 
     /**

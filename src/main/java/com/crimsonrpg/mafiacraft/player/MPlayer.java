@@ -27,7 +27,7 @@ public class MPlayer implements LandOwner {
     private final Player player;
     private String title;
     private SessionStore store;
-    private ClassType classType;
+    private ClassType utilityClass;
     private ChatType chatType;
 
     public MPlayer(Player player) {
@@ -64,12 +64,12 @@ public class MPlayer implements LandOwner {
         return chatType;
     }
     
-    public ClassType getClassType() {
-        return classType;
+    public ClassType getUtilityClass() {
+        return utilityClass;
     }
     
-    public void setClassType(ClassType classType) {
-        this.classType = classType;
+    public void setUtilityClass(ClassType classType) {
+        this.utilityClass = classType;
     }
 
     public Division getDivision() {
@@ -146,7 +146,19 @@ public class MPlayer implements LandOwner {
         return Mafiacraft.getCityManager().getDistrict(getChunk());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean canBeClaimed(Chunk chunk) {
         return false;
+    }
+
+    /**
+     * Gets the kill score of this player.
+     * 
+     * @return 
+     */
+    public int getKillScore() {
+        return Mafiacraft.getPlayerManager().getKillTracker().getKillScore(this);
     }
 }

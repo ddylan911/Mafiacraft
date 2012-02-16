@@ -126,18 +126,18 @@ public class MListener implements Listener {
         }
         MPlayer attacker = Mafiacraft.getPlayer((Player) e.getDamager());
         MPlayer attacked = Mafiacraft.getPlayer((Player) e.getEntity());
-        if (attacker.getClassType().equals(ClassType.THIEF)) {
-            attacked.subtractMoney(attacked.getMoney() * .5);
-            attacker.addMoney(attacked.getMoney() * .5);
-            attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + ", and stole " + (attacked.getMoney() * .5) + " of their money.");
-            attacked.sendMessage(ChatColor.RED + "You died, and lost " + (attacked.getMoney() * .5) + " of your money.");
-            return;
-        }
-        attacked.subtractMoney(attacked.getMoney() * .1);
-        attacker.addMoney(attacked.getMoney() * .1);
-        attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + ", and gained " + (attacked.getMoney() * .1) + " of their money.");
-        attacked.sendMessage(ChatColor.RED + "You died, and lost " + (attacked.getMoney() * .1) + " of your money.");
-        KillTracker kt = new KillTracker();
+        
+        //Check for thief
+        double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(ClassType.THIEF)) ? 0.5 : 0.1);
+        
+        //Subtract money
+        attacked.subtractMoney(money);
+        attacker.addMoney(money);
+        attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + " and took " + money + " of their money.");
+        attacked.sendMessage(ChatColor.RED + "You died and lost " + money + " of your money.");
+            
+        //Track the kill
+        KillTracker kt = Mafiacraft.getPlayerManager().getKillTracker();
         kt.incScore(attacker);
         if (kt.getKillScore(attacked) <= 0) {
             return;
