@@ -23,4 +23,9 @@ public class GovernmentChat extends ChatType {
             players.sendMessage(ChatColor.DARK_BLUE + "[P]" + ChatColor.WHITE + player.getDisplayName() + " " + message);
         }
     }
+
+	@Override
+	public String getName(MPlayer player) {
+		return player.getGovernment().getType().getName();
+	}
 }

@@ -23,4 +23,9 @@ public class LocalChat extends ChatType {
             }
         }
     }
+
+	@Override
+	public String getName(MPlayer player) {
+		return "local";
+	}
 }

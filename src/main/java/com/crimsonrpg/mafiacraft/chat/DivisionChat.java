@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.chat;
 
 import com.crimsonrpg.mafiacraft.gov.GovType;
+import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import org.bukkit.ChatColor;
 
@@ -28,4 +29,11 @@ public class DivisionChat extends ChatType {
             players.sendMessage(ChatColor.AQUA + "[S]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
+
+	@Override
+	public String getName(MPlayer player) {
+		Government gov = player.getGovernment();
+		String div = (gov == null) ? "division" : gov.getType().getLocale("division");
+		return div;
+	}
 }

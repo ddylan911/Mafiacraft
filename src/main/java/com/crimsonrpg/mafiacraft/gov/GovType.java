@@ -4,7 +4,9 @@
  */
 package com.crimsonrpg.mafiacraft.gov;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,12 +18,18 @@ public abstract class GovType {
 
     public static GovType POLICE;
 
+	private static List<GovType> types = new ArrayList<GovType>();
+	
     private Map<String, String> locale = new HashMap<String, String>();
 
     public GovType() {
         locale();
     }
     
+	public static List<GovType> getGovTypes() {
+		return new ArrayList<GovType>(types);
+	}
+	
     public abstract String getName();
 
     public abstract void locale();
@@ -60,6 +68,14 @@ public abstract class GovType {
                 
                 //Groups
                 m("division", "regime");
+				
+				//Chat
+				m("gov.chatpref", "m"); //Mafia
+				m("gov.chatalias", "maf");
+				m("div.chatpref", "r"); //Regime
+				m("div.chatalias", "reg");
+				m("off.chatpref", "o"); //Officer
+				m("off.chatalias", "off");
             }
 
         };
@@ -84,9 +100,20 @@ public abstract class GovType {
                 
                 //Groups
                 m("division", "squad");
+				
+				//Chat
+				m("gov.chatpref", "p"); //Police
+				m("gov.chatalias", "pol");
+				m("div.chatpref", "s"); //Squad
+				m("div.chatalias", "sq");
+				m("off.chatpref", "o"); //Commander
+				m("off.chatalias", "cmd");
             }
 
         };
+		
+		types.add(MAFIA);
+		types.add(POLICE);
     }
 
 }

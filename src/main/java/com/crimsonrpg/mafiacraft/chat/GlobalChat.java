@@ -21,4 +21,9 @@ public class GlobalChat extends ChatType {
             players.sendMessage(ChatColor.GREEN + "[G]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
+
+	@Override
+	public String getName(MPlayer player) {
+		return "global";
+	}
 }

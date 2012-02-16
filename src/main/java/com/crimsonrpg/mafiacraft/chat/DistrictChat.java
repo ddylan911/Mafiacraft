@@ -23,4 +23,9 @@ public class DistrictChat extends ChatType {
             players.sendMessage(ChatColor.BLUE + "[D]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
+
+	@Override
+	public String getName(MPlayer player) {
+		return "district";
+	}
 }
