@@ -14,6 +14,7 @@ import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.LandOwner;
 import com.crimsonrpg.mafiacraft.gov.Position;
+import com.crimsonrpg.mafiacraft.vault.Transactable;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ import org.bukkit.entity.Player;
  *
  * @author simplyianm
  */
-public class MPlayer implements LandOwner {
+public class MPlayer extends Transactable implements LandOwner {
 
     private final Player player;
     private String title;
@@ -34,18 +35,26 @@ public class MPlayer implements LandOwner {
         this.player = player;
     }
 
+    @Override
+    public double getMoney() {
+        return MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().getBalance(player.getName());
+    }
+    
+    @Override
+    public double setMoney(double amt) {
+        return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(player.getName(), amt - getMoney()).balance;
+    }
+
+    @Override
     public double addMoney(double amount) {
         EconomyResponse response = MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().depositPlayer(player.getName(), amount);
         return response.balance;
     }
 
+    @Override
     public double subtractMoney(double amount) {
         EconomyResponse response = MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().withdrawPlayer(player.getName(), amount);
         return response.balance;
-    }
-
-    public double getMoney() {
-        return MafiacraftPlugin.getInstance().getVaultHelper().getEconomy().getBalance(player.getName());
     }
 
     public Player getPlayer() {

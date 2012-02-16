@@ -8,6 +8,7 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -16,10 +17,9 @@ import java.util.Map.Entry;
 import org.bukkit.Chunk;
 
 /**
- *
- * @author simplyianm
+ * Represents a Government, a mafia or a police.
  */
-public class Government implements LandOwner {
+public class Government extends Transactable implements LandOwner {
     private final int id;
 
     private String name;
