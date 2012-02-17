@@ -219,4 +219,25 @@ public class GovernmentCommand {
         player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.getSectionName(section) + " for your " + gov.getType().getName() + ".");
         return null;
     }
+	
+	public static String doSetHq(MPlayer player) {
+        if (player.getPosition().compareTo(Position.VICE_LEADER) < 0) {
+            return "You aren't allowed to set the HQ of your government.";
+        }
+        
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You aren't in a government.";
+        }
+		
+        Chunk section = player.getChunk();
+		if (!Mafiacraft.getSectionOwner(section).equals(gov)) {
+			return "The HQ must be specified within HQ land.";
+		}
+		
+		//TODO: take money from the mafia, idk how much
+		
+		gov.setHq(player.getPlayer().getLocation());
+		return null;
+	}
 }

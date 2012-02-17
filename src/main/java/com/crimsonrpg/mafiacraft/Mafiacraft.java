@@ -7,6 +7,7 @@ package com.crimsonrpg.mafiacraft;
 import com.crimsonrpg.mafiacraft.chat.ChatHandler;
 import com.crimsonrpg.mafiacraft.geo.CityManager;
 import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.PlayerManager;
@@ -104,4 +105,14 @@ public class Mafiacraft {
     public static District getDistrict(Chunk chunk) {
         return getCityManager().getDistrict(chunk);
     }
+
+	/**
+	 * Gets the owner of the given section of land.
+	 * 
+	 * @param section
+	 * @return 
+	 */
+	public static LandOwner getSectionOwner(Chunk section) {
+		return getCityManager().getSectionOwner(section);
+	}
 }
