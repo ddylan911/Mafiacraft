@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.chat;
 
+import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import org.bukkit.ChatColor;
 
@@ -19,4 +20,9 @@ public class OfficerChat extends ChatType {
             officers.sendMessage(ChatColor.GRAY + "[O]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
+
+	@Override
+	public String getName(MPlayer player) {
+		return player.getGovernment().getType().getLocale("officer");
+	}
 }

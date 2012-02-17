@@ -23,4 +23,9 @@ public class CityChat extends ChatType {
             players.sendMessage(ChatColor.RED + "[C]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
+
+	@Override
+	public String getName(MPlayer player) {
+		return "city";
+	}
 }
