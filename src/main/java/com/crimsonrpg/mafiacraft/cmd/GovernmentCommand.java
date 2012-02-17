@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -110,7 +111,12 @@ public class GovernmentCommand {
             return "Your position in your " + gov.getType().getName() + " is not high enough to use HQ teleport.";
         }
 
-        //TODO: teleport to gov HQ.
+        Location hq = gov.getHq();
+		if (hq == null) {
+			return "Your " + gov.getType().getName() + " does not have a HQ set.";
+		}
+		
+		//TODO: add countdown timer and teleport
         return null;
     }
 
