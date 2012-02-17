@@ -59,7 +59,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return response.balance;
     }
 
-    public Player getPlayer() {
+    public Player getBukkitEntity() {
         return player;
     }
 

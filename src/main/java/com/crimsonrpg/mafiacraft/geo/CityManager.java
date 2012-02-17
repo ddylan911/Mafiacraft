@@ -89,7 +89,7 @@ public class CityManager {
      * @return 
      */
     public District getDistrict(MPlayer player) {
-        return getDistrict(player.getPlayer().getLocation().getChunk());
+        return getDistrict(player.getBukkitEntity().getLocation().getChunk());
     }
 
     /**

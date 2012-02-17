@@ -18,7 +18,7 @@ public class LocalChat extends ChatType {
     @Override
     public void chat(MPlayer player, String message) {
         for (Player players : Bukkit.getOnlinePlayers()) {
-            if (players.getLocation().distanceSquared(player.getPlayer().getLocation()) <= 2500) {
+            if (players.getLocation().distanceSquared(player.getBukkitEntity().getLocation()) <= 2500) {
                 players.sendMessage(ChatColor.LIGHT_PURPLE + "[L]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
             }
         }

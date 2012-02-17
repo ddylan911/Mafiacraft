@@ -237,7 +237,7 @@ public class GovernmentCommand {
 		
 		//TODO: take money from the mafia, idk how much
 		
-		gov.setHq(player.getPlayer().getLocation());
+		gov.setHq(player.getBukkitEntity().getLocation());
 		return null;
 	}
 }
