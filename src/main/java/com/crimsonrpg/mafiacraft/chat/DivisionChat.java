@@ -36,4 +36,12 @@ public class DivisionChat extends ChatType {
 		String div = (gov == null) ? "division" : gov.getType().getLocale("division");
 		return div;
 	}
+
+    @Override
+    public boolean canJoin(MPlayer player) {
+        if (player.getDivision() == null) {
+            return false;
+        }
+        return true;
+    }
 }

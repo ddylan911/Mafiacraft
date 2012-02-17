@@ -28,4 +28,9 @@ public class LocalChat extends ChatType {
 	public String getName(MPlayer player) {
 		return "local";
 	}
+
+    @Override
+    public boolean canJoin(MPlayer player) {
+        return true;
+    }
 }
