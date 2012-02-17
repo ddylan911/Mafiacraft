@@ -5,7 +5,6 @@
 package com.crimsonrpg.mafiacraft.player;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
-import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.classes.UtilityClass;
 import com.crimsonrpg.mafiacraft.geo.*;
