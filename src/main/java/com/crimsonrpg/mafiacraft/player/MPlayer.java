@@ -72,7 +72,15 @@ public class MPlayer extends Transactable implements LandPurchaser {
         this.title = title;
     }
 
+    /**
+     * Gets the player's current chatType.
+     * 
+     * @return 
+     */
     public ChatType getChatType() {
+        if (chatType == null) {
+            chatType = ChatType.DEFAULT;
+        }
         return chatType;
     }
 
