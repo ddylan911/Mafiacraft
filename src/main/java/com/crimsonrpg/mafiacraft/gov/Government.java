@@ -232,7 +232,7 @@ public class Government extends Transactable implements LandPurchaser {
                     break;
 
                 case AFFILIATE:
-                    members.addAll(members);
+                    members.addAll(affiliates);
                     break;
             }
         }
@@ -503,6 +503,15 @@ public class Government extends Transactable implements LandPurchaser {
     }
 
     /**
+     * Gets a list of all affiliates.
+     * 
+     * @return 
+     */
+    public List<String> getAffiliates() {
+        return new ArrayList<String>(affiliates);
+    }
+
+    /**
      * Adds a member to this government as an affiliate.
      *
      * @param player
@@ -605,7 +614,9 @@ public class Government extends Transactable implements LandPurchaser {
     public OwnerType getOwnerType() {
         return OwnerType.GOVERNMENT;
     }
-
+    
+    
+    
     /**
      * {@inheritDoc}
      */
