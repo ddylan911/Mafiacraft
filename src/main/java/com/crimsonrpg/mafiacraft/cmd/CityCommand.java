@@ -59,16 +59,16 @@ public class CityCommand {
 
         District district = player.getDistrict();
         if (district.getCity() != null) {
-            return "That district is already associated with a city.";
+            return "This district is already associated with a city.";
         }
 
-        if (!city.isMember(player)) {
+        if (!city.isMayor(player)) {
             return "You aren't allowed to do this in the city.";
         }
 
         double cost = MConfig.getDouble("prices.city.claim");
         if (!city.hasEnough(cost)) {
-            return "You don't have enough money to do claim this land for the city.";
+            return "You don't have enough money to do claim this district for the city.";
         }
 
         city.subtractMoney(cost);
@@ -77,4 +77,27 @@ public class CityCommand {
         return null;
     }
 
+    public static String doUnclaim(MPlayer player) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+
+        District district = player.getDistrict();
+        if (district.getCity() == null) {
+            return "This district is not associated with a city.";
+        }
+
+        if (!district.getCity().equals(city)) {
+            return "This district is not part of your city.";
+        }
+        
+        if (!city.isMayor(player)) {
+            return "You aren't allowed to do this in the city.";
+        }
+        
+        district.detachFromCity();
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully unclaimed the district from your city.");
+        return null;
+    }
 }

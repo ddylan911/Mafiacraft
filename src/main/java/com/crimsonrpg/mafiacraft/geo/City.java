@@ -289,4 +289,14 @@ public class City extends Transactable implements LandOwner {
         district.setName(name);
         return name;
     }
+
+    /**
+     * Returns true if the given player is a mayor of the city.
+     * 
+     * @param player
+     * @return 
+     */
+    public boolean isMayor(MPlayer player) {
+        return isMayor(player.getName());
+    }
 }
