@@ -231,6 +231,10 @@ public class Government extends Transactable implements LandPurchaser {
                     members.add(viceLeader);
                     break;
 
+                case OFFICER:
+                    members.addAll(officers);
+                    break;
+
                 case AFFILIATE:
                     members.addAll(affiliates);
                     break;
@@ -313,9 +317,26 @@ public class Government extends Transactable implements LandPurchaser {
      * @return
      */
     public List<MPlayer> getOnlineMembers() {
-        ArrayList<MPlayer> members = new ArrayList<MPlayer>();
+        List<MPlayer> members = new ArrayList<MPlayer>();
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (isMember(player)) {
+                members.add(player);
+            }
+        }
+        return members;
+    }
+
+    /**
+     * Gets all of the online members in a position.
+     * 
+     * @param position
+     * @return 
+     */
+    public List<MPlayer> getOnlineMembers(Position position) {
+        List<MPlayer> members = new ArrayList<MPlayer>();
+        List<String> pos = getMembers(position);
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
+            if (pos.contains(player.getName())) {
                 members.add(player);
             }
         }
@@ -504,8 +525,8 @@ public class Government extends Transactable implements LandPurchaser {
 
     /**
      * Gets a list of all affiliates.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<String> getAffiliates() {
         return new ArrayList<String>(affiliates);
@@ -614,9 +635,7 @@ public class Government extends Transactable implements LandPurchaser {
     public OwnerType getOwnerType() {
         return OwnerType.GOVERNMENT;
     }
-    
-    
-    
+
     /**
      * {@inheritDoc}
      */
