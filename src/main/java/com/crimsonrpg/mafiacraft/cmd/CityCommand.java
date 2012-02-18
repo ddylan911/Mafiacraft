@@ -37,7 +37,7 @@ public class CityCommand {
         Chunk sample = player.getBukkitEntity().getLocation().getChunk();
         District district = Mafiacraft.getDistrict(sample);
         City city = Mafiacraft.getCityManager().foundCity(name, district);
-        
+
         //Notify
         player.getBukkitEntity().sendMessage(MsgColor.SUCCESS + "Your city has been founded successfully.");
         return null;
@@ -50,22 +50,25 @@ public class CityCommand {
         }
         return null;
     }
-    
+
     public static String doClaim(MPlayer player) {
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
         }
-        
+
         District district = player.getDistrict();
         if (district.getCity() != null) {
             return "That district is already associated with a city.";
         }
-        
-        
-        
+
+        if (!city.isMember(player)) {
+            return "You aren't allowed to do this in the city.";
+        }
+
         district.setCity(city);
         player.sendMessage(MsgColor.SUCCESS + "You have successfuly claimed the district for your city.");
         return null;
     }
+
 }
