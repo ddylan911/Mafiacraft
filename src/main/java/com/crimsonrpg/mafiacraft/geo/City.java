@@ -10,6 +10,7 @@ import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
@@ -21,10 +22,10 @@ public class City extends Transactable implements LandOwner {
     private final int id;
 
     private String name;
-    
+
     private String mayor;
-    
-    private List<String> advisors;
+
+    private Set<String> advisors;
 
     public City(int id) {
         this.id = id;
@@ -124,17 +125,17 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Gets the mayor of the city.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getMayor() {
         return mayor;
     }
-    
+
     /**
      * Gets the mayor of the city if online.
-     * 
-     * @return 
+     *
+     * @return
      */
     public MPlayer getMayorIfOnline() {
         Player p = Bukkit.getPlayer(mayor);
@@ -146,11 +147,55 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Sets the mayor of the city.
-     * 
-     * @param mayor 
+     *
+     * @param mayor
      */
     public void setMayor(String mayor) {
         this.mayor = mayor;
+    }
+
+    public List<String> getAdvisors() {
+        return new ArrayList<String>(advisors);
+    }
+
+    /**
+     * Adds an advisor to the city.
+     *
+     * @param advisor
+     * @return
+     */
+    public boolean addAdvisor(String advisor) {
+        return advisors.add(advisor);
+    }
+
+    /**
+     * Adds an MPlayer advisor to the city.
+     *
+     * @param player
+     * @return
+     */
+    public boolean addAdvisor(MPlayer player) {
+        return addAdvisor(player.getName());
+    }
+
+    /**
+     * Removes an advisor from the city.
+     *
+     * @param advisor
+     * @return
+     */
+    public boolean removeAdvisor(String advisor) {
+        return advisors.remove(advisor);
+    }
+
+    /**
+     * Returns true if the given player is an advisor for the city.
+     *
+     * @param name
+     * @return
+     */
+    public boolean isAdvisor(String name) {
+        return advisors.contains(name);
     }
 
     //////// 
@@ -175,4 +220,5 @@ public class City extends Transactable implements LandOwner {
     public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
         return false;
     }
+
 }
