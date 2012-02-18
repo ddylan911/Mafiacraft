@@ -43,7 +43,13 @@ public abstract class ChatType {
      * @return 
      */
     
+    /**
+     * Returns the name of the current chat type.
+     * 
+     * @return 
+     */
     public abstract String getName();
+    
         
     public abstract boolean canJoin(MPlayer player);
 
