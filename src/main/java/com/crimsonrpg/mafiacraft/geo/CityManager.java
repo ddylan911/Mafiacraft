@@ -63,7 +63,8 @@ public class CityManager {
         //Make city
         City city = new City(getNextCityId());
         city.setName(name);
-        center.setCity(null).setName(city.getNextDistrictName());
+        city.attachNewDistrict(center);
+        center.setType(DistrictType.GOVERNMENT);
         cities.put(city.getId(), city);
 
         //Make government
