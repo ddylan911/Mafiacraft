@@ -34,4 +34,9 @@ public class OfficerChat extends ChatType {
         }
         return gov.getOfficers().contains(player.getName());
     }
+
+    @Override
+    public String getName() {
+        return "officer";
+    }
 }

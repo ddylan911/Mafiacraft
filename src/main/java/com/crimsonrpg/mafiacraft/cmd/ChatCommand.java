@@ -30,6 +30,7 @@ public class ChatCommand {
         }
         if (chatType.canJoin(player)) {
             player.setChatType(chatType);
+            player.sendMessage(MsgColor.SUCCESS + "You have joined the chat " + chatType.getName() + ".");
         }
     }
 

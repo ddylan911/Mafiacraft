@@ -37,4 +37,9 @@ public class GovernmentChat extends ChatType {
         }
         return true;
     }
+
+    @Override
+    public String getName() {
+        return "government";
+    }
 }
