@@ -224,13 +224,23 @@ public class City extends Transactable implements LandOwner {
     }
 
     /**
-     * Returns true if the given player is in the government.
+     * Returns true if the given player is a member of the government.
      *
      * @param name
      * @return
      */
-    public boolean isInGovernment(String name) {
+    public boolean isMember(String name) {
         return isAdvisor(name) || isMayor(name);
+    }
+
+    /**
+     * Returns true if the given player is a member of the government.
+     *
+     * @param player
+     * @return
+     */
+    public boolean isMember(MPlayer player) {
+        return isMember(player.getName());
     }
 
     /**
@@ -260,7 +270,7 @@ public class City extends Transactable implements LandOwner {
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
-        return false; //TODO: city government
+        return isMember(player);
     }
 
     public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
