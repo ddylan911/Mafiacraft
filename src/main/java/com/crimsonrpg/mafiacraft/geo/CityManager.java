@@ -27,6 +27,8 @@ public class CityManager {
 
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
 
+    private Map<String, LandOwner> landOwners = new HashMap<String, LandOwner>();
+    
     private final MafiacraftPlugin mc;
 
     public CityManager(MafiacraftPlugin mc) {
@@ -226,4 +228,27 @@ public class CityManager {
     public void claimSection(Chunk chunk, LandOwner owner) {
     }
 
+    /////////////
+    // MISC
+    /////////////
+    /**
+     * Gets a LandOwner based on their id.
+     * 
+     * @param id
+     * @return 
+     */
+    public LandOwner getOwner(String id) {
+        return landOwners.get(id);
+    }
+    
+    /**
+     * Registers a landowner with the manager.
+     * 
+     * @param owner
+     * @return 
+     */
+    public CityManager registerLandOwner(LandOwner owner) {
+        landOwners.put(owner.getOwnerId(), owner);
+        return this;
+    }
 }

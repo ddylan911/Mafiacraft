@@ -39,7 +39,7 @@ public class City extends Transactable implements LandOwner {
     }
 
     /**
-     * Gets the government of this city.
+     * Gets the police of this city.
      *
      * @return
      */
