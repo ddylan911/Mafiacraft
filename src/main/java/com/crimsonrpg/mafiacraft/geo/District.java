@@ -341,4 +341,14 @@ public class District implements LandOwner {
     public OwnerType getOwnerType() {
         return OwnerType.DISTRICT;
     }
+    
+    public District detachFromCity() {
+        if (city == null) {
+            return this;
+        }
+        
+        setCity(null);
+        setName(null);
+        return this;
+    }
 }

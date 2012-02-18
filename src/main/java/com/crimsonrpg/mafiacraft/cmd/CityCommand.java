@@ -66,11 +66,13 @@ public class CityCommand {
             return "You aren't allowed to do this in the city.";
         }
 
-        if (!city.hasEnough(MConfig.getDouble("prices.city.claim"))) {
+        double cost = MConfig.getDouble("prices.city.claim");
+        if (!city.hasEnough(cost)) {
             return "You don't have enough money to do claim this land for the city.";
         }
 
-        district.setCity(city);
+        city.subtractMoney(cost);
+        city.attachNewDistrict(district);
         player.sendMessage(MsgColor.SUCCESS + "You have successfuly claimed the district for your city.");
         return null;
     }

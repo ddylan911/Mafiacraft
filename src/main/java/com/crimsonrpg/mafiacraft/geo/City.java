@@ -277,4 +277,16 @@ public class City extends Transactable implements LandOwner {
         return false;
     }
 
+    /**
+     * Attaches a new district to this city.
+     * 
+     * @param district
+     * @return 
+     */
+    public String attachNewDistrict(District district) {
+        district.setCity(this);
+        String name = getNextDistrictName();
+        district.setName(name);
+        return name;
+    }
 }
