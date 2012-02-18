@@ -76,4 +76,13 @@ public class PlayerManager {
         //TODO: actually load the player's data
         return mplayer;
     }
+
+    /**
+     * Frees an MPlayer from memory.
+     * 
+     * @param player 
+     */
+    public void freePlayer(Player player) {
+        mplayers.remove(player);
+    }
 }

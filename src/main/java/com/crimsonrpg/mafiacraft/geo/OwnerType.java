@@ -12,6 +12,7 @@ public enum OwnerType {
     DISTRICT,
     DIVISION,
     GOVERNMENT,
-    PLAYER;
+    PLAYER,
+    CITY;
 
 }

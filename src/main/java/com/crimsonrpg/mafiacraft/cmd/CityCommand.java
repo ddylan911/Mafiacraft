@@ -50,4 +50,22 @@ public class CityCommand {
         }
         return null;
     }
+    
+    public static String doClaim(MPlayer player) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+        
+        District district = player.getDistrict();
+        if (district.getCity() != null) {
+            return "That district is already associated with a city.";
+        }
+        
+        
+        
+        district.setCity(city);
+        player.sendMessage(MsgColor.SUCCESS + "You have successfuly claimed the district for your city.");
+        return null;
+    }
 }

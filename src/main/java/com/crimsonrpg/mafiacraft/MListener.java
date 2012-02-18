@@ -25,7 +25,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 
 /**
@@ -206,5 +208,14 @@ public class MListener implements Listener {
 
         //We've switched chunks!
         store.setData("lastchunk", current);
+    }
+    
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Mafiacraft.getPlayerManager().freePlayer(event.getPlayer());
+    }
+    
+    public void onPlayerKick(PlayerKickEvent event) {
+        Mafiacraft.getPlayerManager().freePlayer(event.getPlayer());
     }
 }
