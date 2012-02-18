@@ -5,13 +5,14 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
-import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.entity.Player;
 
 /**
  * Represents a... CITY!
@@ -20,6 +21,10 @@ public class City extends Transactable implements LandOwner {
     private final int id;
 
     private String name;
+    
+    private String mayor;
+    
+    private List<String> advisors;
 
     public City(int id) {
         this.id = id;
@@ -117,6 +122,40 @@ public class City extends Transactable implements LandOwner {
         return players;
     }
 
+    /**
+     * Gets the mayor of the city.
+     * 
+     * @return 
+     */
+    public String getMayor() {
+        return mayor;
+    }
+    
+    /**
+     * Gets the mayor of the city if online.
+     * 
+     * @return 
+     */
+    public MPlayer getMayorIfOnline() {
+        Player p = Bukkit.getPlayer(mayor);
+        if (p != null) {
+            return Mafiacraft.getPlayer(p);
+        }
+        return null;
+    }
+
+    /**
+     * Sets the mayor of the city.
+     * 
+     * @param mayor 
+     */
+    public void setMayor(String mayor) {
+        this.mayor = mayor;
+    }
+
+    //////// 
+    // Land owner stuff
+    ////////
     public OwnerType getOwnerType() {
         return OwnerType.CITY;
     }
