@@ -28,7 +28,7 @@ public class CityManager {
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
 
     private Map<String, LandOwner> landOwners = new HashMap<String, LandOwner>();
-    
+
     private final MafiacraftPlugin mc;
 
     public CityManager(MafiacraftPlugin mc) {
@@ -86,20 +86,20 @@ public class CityManager {
     /////////////////
     /**
      * Gets the district a player is in.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public District getDistrict(MPlayer player) {
         return getDistrict(player.getBukkitEntity().getLocation().getChunk());
     }
 
     /**
-     * Gets the district that a chunk is part of.
-     * This will create a district if it needs to.
-     * 
+     * Gets the district that a chunk is part of. This will create a district if
+     * it needs to.
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public District getDistrict(Chunk chunk) {
         int dx = chunk.getX() >> 4;
@@ -108,13 +108,13 @@ public class CityManager {
     }
 
     /**
-     * Gets the district in the specified world.
-     * This will create a district if it needs to.
-     * 
+     * Gets the district in the specified world. This will create a district if
+     * it needs to.
+     *
      * @param world
      * @param x
      * @param z
-     * @return 
+     * @return
      */
     public District getDistrict(World world, int x, int z) {
         int id = GeoUtils.coordsToDistrictId(x, z);
@@ -129,18 +129,18 @@ public class CityManager {
 
     /**
      * Creates a district based on a sample chunk within the potential district.
-     * 
+     *
      * @param sample
-     * @return 
+     * @return
      */
     private District createDistrict(Chunk sample) {
         MafiacraftPlugin.logVerbose("A district was created at " + sample.toString() + ".");
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
     }
-    
+
     /**
      * Creates a district for the specified city.
-     * 
+     *
      * @param x
      * @param z
      * @param city
@@ -155,9 +155,9 @@ public class CityManager {
 
     /**
      * Gets the map of districts to coordinates in a world.
-     * 
+     *
      * @param world
-     * @return 
+     * @return
      */
     private TIntObjectMap<District> getDistrictMap(World world) {
         TIntObjectMap<District> worldDistricts = worlds.get(world.getName());
@@ -170,9 +170,9 @@ public class CityManager {
 
     /**
      * Gets a list of all districts in a world.
-     * 
+     *
      * @param world
-     * @return 
+     * @return
      */
     public List<District> getDistrictList(World world) {
         return new ArrayList<District>(getDistrictMap(world).valueCollection());
@@ -180,9 +180,9 @@ public class CityManager {
 
     /**
      * Gets a list of all districts in a city.
-     * 
+     *
      * @param city
-     * @return 
+     * @return
      */
     public List<District> getCityDistricts(City city) {
         List<District> districts = new ArrayList<District>();
@@ -201,9 +201,9 @@ public class CityManager {
     /////////////////
     /**
      * Gets the owner of a section.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public LandOwner getSectionOwner(Chunk chunk) {
         int x = chunk.getX() % 0x10;
@@ -213,9 +213,9 @@ public class CityManager {
 
     /**
      * Gets the name of the specified section.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public String getSectionName(Chunk chunk) {
         District d = getDistrict(chunk);
@@ -225,30 +225,28 @@ public class CityManager {
         return nameBuilder.toString();
     }
 
-    public void claimSection(Chunk chunk, LandOwner owner) {
-    }
-
     /////////////
     // MISC
     /////////////
     /**
      * Gets a LandOwner based on their id.
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public LandOwner getLandOwner(String id) {
         return landOwners.get(id);
     }
-    
+
     /**
      * Registers a landowner with the manager.
-     * 
+     *
      * @param owner
-     * @return 
+     * @return
      */
     public CityManager registerLandOwner(LandOwner owner) {
         landOwners.put(owner.getOwnerId(), owner);
         return this;
     }
+
 }
