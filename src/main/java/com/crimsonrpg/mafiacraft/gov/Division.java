@@ -37,8 +37,6 @@ public class Division extends Transactable implements LandPurchaser {
     private List<String> workers = new ArrayList<String>();
     
     private int land;
-    
-    private double money;
 
     public Division(int id, Government government, String prefix) {
         this.id = id;

@@ -5,9 +5,10 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
-import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Chunk;
@@ -15,7 +16,7 @@ import org.bukkit.Chunk;
 /**
  * Represents a... CITY!
  */
-public class City {
+public class City extends Transactable implements LandOwner {
     private final int id;
 
     private String name;
@@ -116,4 +117,23 @@ public class City {
         return players;
     }
 
+    public OwnerType getOwnerType() {
+        return OwnerType.CITY;
+    }
+
+    public String getOwnerName() {
+        return "The City of " + name;
+    }
+
+    public String getOwnerId() {
+        return "C-" + id;
+    }
+
+    public boolean canBuild(MPlayer player, Chunk chunk) {
+        return false; //TODO: city government
+    }
+
+    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
+        return false;
+    }
 }
