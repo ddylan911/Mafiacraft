@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -26,6 +27,8 @@ public class City extends Transactable implements LandOwner {
     private String mayor;
 
     private Set<String> advisors;
+
+    private Location spawn;
 
     public City(int id) {
         this.id = id;
@@ -279,9 +282,9 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Attaches a new district to this city.
-     * 
+     *
      * @param district
-     * @return 
+     * @return
      */
     public String attachNewDistrict(District district) {
         district.setCity(this);
@@ -292,11 +295,21 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Returns true if the given player is a mayor of the city.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public boolean isMayor(MPlayer player) {
         return isMayor(player.getName());
     }
+
+    /**
+     * Sets the spawn location of the city.
+     * 
+     * @param location 
+     */
+    public void setSpawnLocation(Location location) {
+        this.spawn = location;
+    }
+
 }

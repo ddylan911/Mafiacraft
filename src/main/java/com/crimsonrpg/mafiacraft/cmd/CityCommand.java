@@ -48,6 +48,22 @@ public class CityCommand {
         if (city == null) {
             return "You aren't in a city.";
         }
+
+        if (!city.isMember(player)) {
+            return "You aren't allowed to do this in this city.";
+        }
+        
+        city.setSpawnLocation(player.getLocation());
+        player.sendMessage(MsgColor.SUCCESS + "You have set your city's spawn location successfully.");
+        return null;
+    }
+    
+    public static String doSpawn(MPlayer player) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+        //TODO: add in countown timers
         return null;
     }
 

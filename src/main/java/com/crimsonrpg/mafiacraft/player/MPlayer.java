@@ -14,6 +14,7 @@ import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -73,8 +74,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     /**
      * Gets the player's current chatType.
-     * 
-     * @return 
+     *
+     * @return
      */
     public ChatType getChatType() {
         if (chatType == null) {
@@ -234,6 +235,10 @@ public class MPlayer extends Transactable implements LandPurchaser {
         district.setOwner(chunk, null);
         decLand();
         return this;
+    }
+
+    public Location getLocation() {
+        return player.getLocation();
     }
 
 }
