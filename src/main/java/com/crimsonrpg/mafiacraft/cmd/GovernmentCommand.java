@@ -77,10 +77,15 @@ public class GovernmentCommand {
 
         //Found the government
         Government founded = MafiacraftPlugin.getInstance().getGovernmentManager().createGovernment(name, type);
-        if (!founded.addMember(player).setPosition(player, Position.LEADER)) {
+        if (!founded.addMember(player)) {
+            return "Error adding. We can't do math.";
+        }
+
+        if (!founded.setPosition(player, Position.LEADER)) {
             return "The government specified has too many leaders. Speak to a server admin.";
         }
 
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully founded a new " + type.getName() + ".");
         return null;
     }
 
@@ -112,11 +117,11 @@ public class GovernmentCommand {
         }
 
         Location hq = gov.getHq();
-		if (hq == null) {
-			return "Your " + gov.getType().getName() + " does not have a HQ set.";
-		}
-		
-		//TODO: add countdown timer and teleport
+        if (hq == null) {
+            return "Your " + gov.getType().getName() + " does not have a HQ set.";
+        }
+
+        //TODO: add countdown timer and teleport
         return null;
     }
 
@@ -202,42 +207,43 @@ public class GovernmentCommand {
         if (player.getPosition().compareTo(Position.VICE_LEADER) < 0) {
             return "You aren't allowed to claim land for your government.";
         }
-        
+
         Chunk section = player.getChunk();
         District district = player.getDistrict();
-        
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You aren't in a government.";
         }
-        
+
         if (!district.canBeClaimed(section, gov)) {
             return "Your government isn't allowed to claim the given district.";
         }
-        
+
         gov.claim(section);
         player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.getSectionName(section) + " for your " + gov.getType().getName() + ".");
         return null;
     }
-	
-	public static String doSetHq(MPlayer player) {
+
+    public static String doSetHq(MPlayer player) {
         if (player.getPosition().compareTo(Position.VICE_LEADER) < 0) {
             return "You aren't allowed to set the HQ of your government.";
         }
-        
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You aren't in a government.";
         }
-		
+
         Chunk section = player.getChunk();
-		if (!Mafiacraft.getSectionOwner(section).equals(gov)) {
-			return "The HQ must be specified within HQ land.";
-		}
-		
-		//TODO: take money from the mafia, idk how much
-		
-		gov.setHq(player.getBukkitEntity().getLocation());
-		return null;
-	}
+        if (!Mafiacraft.getSectionOwner(section).equals(gov)) {
+            return "The HQ must be specified within HQ land.";
+        }
+
+        //TODO: take money from the mafia, idk how much
+
+        gov.setHq(player.getBukkitEntity().getLocation());
+        return null;
+    }
+
 }
