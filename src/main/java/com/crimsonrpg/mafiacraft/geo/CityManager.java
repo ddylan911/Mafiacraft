@@ -237,7 +237,7 @@ public class CityManager {
      * @param id
      * @return 
      */
-    public LandOwner getOwner(String id) {
+    public LandOwner getLandOwner(String id) {
         return landOwners.get(id);
     }
     

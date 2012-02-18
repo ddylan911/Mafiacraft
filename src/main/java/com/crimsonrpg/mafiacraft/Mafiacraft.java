@@ -115,4 +115,14 @@ public class Mafiacraft {
 	public static LandOwner getSectionOwner(Chunk section) {
 		return getCityManager().getSectionOwner(section);
 	}
+
+    /**
+     * Gets the LandOwner from the given String id.
+     * 
+     * @param id
+     * @return 
+     */
+    public static LandOwner getLandOwner(String id) {
+        return getCityManager().getLandOwner(id);
+    }
 }
