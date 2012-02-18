@@ -328,9 +328,9 @@ public class Government extends Transactable implements LandPurchaser {
 
     /**
      * Gets all of the online members in a position.
-     * 
+     *
      * @param position
-     * @return 
+     * @return
      */
     public List<MPlayer> getOnlineMembers(Position position) {
         List<MPlayer> members = new ArrayList<MPlayer>();
@@ -521,15 +521,6 @@ public class Government extends Transactable implements LandPurchaser {
      */
     public boolean isMember(MPlayer player) {
         return isMember(player.getName());
-    }
-
-    /**
-     * Gets a list of all affiliates.
-     *
-     * @return
-     */
-    public List<String> getAffiliates() {
-        return new ArrayList<String>(affiliates);
     }
 
     /**

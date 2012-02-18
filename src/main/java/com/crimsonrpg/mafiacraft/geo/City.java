@@ -146,7 +146,7 @@ public class City extends Transactable implements LandOwner {
     }
 
     /**
-     * Sets the mayor of the city.
+     * Sets the mayor of the city. Case sensitive!
      *
      * @param mayor
      */
@@ -177,7 +177,7 @@ public class City extends Transactable implements LandOwner {
      * Adds an advisor to the city.
      *
      * @param advisor
-     * @return
+     * @return True if the operation was successful
      */
     public boolean addAdvisor(String advisor) {
         return advisors.add(advisor);
@@ -187,7 +187,7 @@ public class City extends Transactable implements LandOwner {
      * Adds an MPlayer advisor to the city.
      *
      * @param player
-     * @return
+     * @return True if the operation was successful
      */
     public boolean addAdvisor(MPlayer player) {
         return addAdvisor(player.getName());
@@ -197,10 +197,20 @@ public class City extends Transactable implements LandOwner {
      * Removes an advisor from the city.
      *
      * @param advisor
-     * @return
+     * @return True if the operation was successful
      */
     public boolean removeAdvisor(String advisor) {
         return advisors.remove(advisor);
+    }
+
+    /**
+     * Removes an advisor from the city.
+     *
+     * @param advisor
+     * @return True if the operation was successful
+     */
+    public boolean removeAdvisor(MPlayer advisor) {
+        return removeAdvisor(advisor.getName());
     }
 
     /**
