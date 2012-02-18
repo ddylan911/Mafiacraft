@@ -24,8 +24,21 @@ public class DistrictChat extends ChatType {
         }
     }
 
-	@Override
-	public String getName(MPlayer player) {
-		return "district";
-	}
+    @Override
+    public String getName(MPlayer player) {
+        return "district";
+    }
+
+    @Override
+    public boolean canJoin(MPlayer player) {
+        if (player.getDistrict() == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String getName() {
+        return "District";
+    }
 }

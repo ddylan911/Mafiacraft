@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 
 /**
  * Represents a Government, a mafia or a police.
@@ -41,6 +42,8 @@ public class Government extends Transactable implements LandPurchaser {
     private List<String> officers;
 
     private List<String> affiliates;
+	
+	private Location hq;
 
     /**
      * Holds the land of the government. (Not divisions!)
@@ -659,4 +662,12 @@ public class Government extends Transactable implements LandPurchaser {
         return this;
     }
 
+	public Location getHq() {
+		return hq;
+	}
+
+	public Government setHq(Location hq) {
+		this.hq = hq;
+		return this;
+	}
 }

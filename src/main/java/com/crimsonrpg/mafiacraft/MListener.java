@@ -49,18 +49,18 @@ public class MListener implements Listener {
         }
 
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
-        Chunk c = player.getPlayer().getLocation().getChunk();
+        Chunk c = player.getBukkitEntity().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
         if (!d.getType().canBuildAnywhere()) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
             event.setCancelled(true);
             return;
         }
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getOwnerName() + ".");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -73,18 +73,18 @@ public class MListener implements Listener {
         }
 
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
-        Chunk c = player.getPlayer().getLocation().getChunk();
+        Chunk c = player.getBukkitEntity().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
         if (!d.getType().canBuildAnywhere()) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
             event.setCancelled(true);
             return;
         }
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.getOwnerName() + ".");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -108,11 +108,11 @@ public class MListener implements Listener {
         MPlayer player = Mafiacraft.getPlayer((Player) e.getEntity());
         MPlayer damager = Mafiacraft.getPlayer((Player) e.getDamager());
 
-        District d = mc.getCityManager().getDistrict(player.getPlayer().getLocation().getChunk());
+        District d = mc.getCityManager().getDistrict(player.getBukkitEntity().getLocation().getChunk());
 
         //Check for PvP
         if (!d.getType().isPvp()) {
-            damager.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to PvP in this district.");
+            damager.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to PvP in this district.");
             event.setCancelled(true);
             return;
         }
@@ -176,10 +176,10 @@ public class MListener implements Listener {
         SessionStore store = player.getSessionStore();
 
         Chunk last = store.getObject("lastchunk", Chunk.class);
-        Chunk current = player.getPlayer().getLocation().getChunk();
+        Chunk current = player.getBukkitEntity().getLocation().getChunk();
 
         if (last == null) {
-            store.setData("lastchunk", player.getPlayer().getLocation().getChunk());
+            store.setData("lastchunk", player.getBukkitEntity().getLocation().getChunk());
             return;
         }
 
@@ -192,7 +192,7 @@ public class MListener implements Listener {
         District prev = mc.getCityManager().getDistrict(last);
 
         if (dest.getType().equals(DistrictType.RESERVED)) {
-            player.getPlayer().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
 
             //Move back
             Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.getZ() - last.getZ());

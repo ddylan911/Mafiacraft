@@ -5,7 +5,6 @@
 package com.crimsonrpg.mafiacraft.player;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
-import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.classes.UtilityClass;
 import com.crimsonrpg.mafiacraft.geo.*;
@@ -60,7 +59,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return response.balance;
     }
 
-    public Player getPlayer() {
+    public Player getBukkitEntity() {
         return player;
     }
 

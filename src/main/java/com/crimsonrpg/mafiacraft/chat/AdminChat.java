@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.chat;
 
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.player.MsgColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -13,27 +14,30 @@ import org.bukkit.entity.Player;
  *
  * @author Dylan
  */
-public class GlobalChat extends ChatType {
+public class AdminChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
         for (Player players : Bukkit.getOnlinePlayers()) {
-            players.sendMessage(ChatColor.GREEN + "[G]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
+            if (!players.hasPermission("mc.admin.chat")) {
+                continue;
+            }
+            players.sendMessage(MsgColor.CHAT_ADMIN + "[A]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
         }
     }
 
     @Override
-    public String getName(MPlayer player) {
-        return "global";
+    public boolean canJoin(MPlayer player) {
+        return player.getBukkitEntity().hasPermission("mc.admin.chat");
     }
 
     @Override
-    public boolean canJoin(MPlayer player) {
-        return true;
+    public String getName(MPlayer player) {
+        return "admin";
     }
 
     @Override
     public String getName() {
-        return "global";
+        return "admin";
     }
 }

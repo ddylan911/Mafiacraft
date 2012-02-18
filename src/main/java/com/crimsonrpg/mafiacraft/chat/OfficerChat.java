@@ -4,7 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.chat;
 
-import com.crimsonrpg.mafiacraft.gov.GovType;
+import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import org.bukkit.ChatColor;
 
@@ -21,8 +21,22 @@ public class OfficerChat extends ChatType {
         }
     }
 
-	@Override
-	public String getName(MPlayer player) {
-		return player.getGovernment().getType().getLocale("officer");
-	}
+    @Override
+    public String getName(MPlayer player) {
+        return player.getGovernment().getType().getLocale("officer");
+    }
+
+    @Override
+    public boolean canJoin(MPlayer player) {
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return false;
+        }
+        return gov.getOfficers().contains(player.getName());
+    }
+
+    @Override
+    public String getName() {
+        return "officer";
+    }
 }
