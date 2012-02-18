@@ -154,6 +154,21 @@ public class City extends Transactable implements LandOwner {
         this.mayor = mayor;
     }
 
+    /**
+     * Checks if the given player is mayor.
+     *
+     * @param name
+     * @return
+     */
+    public boolean isMayor(String name) {
+        return mayor.equals(name);
+    }
+
+    /**
+     * Gets a list of all advisors in the city.
+     *
+     * @return
+     */
     public List<String> getAdvisors() {
         return new ArrayList<String>(advisors);
     }
@@ -196,6 +211,27 @@ public class City extends Transactable implements LandOwner {
      */
     public boolean isAdvisor(String name) {
         return advisors.contains(name);
+    }
+
+    /**
+     * Returns true if the given player is in the government.
+     *
+     * @param name
+     * @return
+     */
+    public boolean isInGovernment(String name) {
+        return isAdvisor(name) || isMayor(name);
+    }
+
+    /**
+     * Gets a list of all members of the city.
+     *
+     * @return
+     */
+    public List<String> getMembers() {
+        List<String> members = getAdvisors();
+        members.add(getMayor());
+        return members;
     }
 
     //////// 
