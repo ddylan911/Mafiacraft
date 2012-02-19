@@ -124,6 +124,9 @@ public class MConfig {
 
         //Division
         addDefault("division.maxnamelength", 15);
+        
+        //Spawn times
+        addDefault("warmup.cityspawn", 10);
     }
 
 }

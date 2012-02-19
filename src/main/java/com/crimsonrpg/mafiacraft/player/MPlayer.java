@@ -92,12 +92,26 @@ public class MPlayer extends Transactable implements LandPurchaser {
         this.utilityClass = classType;
     }
 
+    /**
+     * Gets the division the player is part of, if it exists.
+     *
+     * @return
+     */
     public Division getDivision() {
-        return this.getGovernment().getDivision(this);
+        Government gov = getGovernment();
+        if (gov == null) {
+            return null;
+        }
+        return gov.getDivision(this);
     }
 
+    /**
+     * Gets the city the player is standing in.
+     *
+     * @return
+     */
     public City getCity() {
-        return this.getDistrict().getCity();
+        return getDistrict().getCity();
     }
 
     public void setChatType(ChatType chatType) {

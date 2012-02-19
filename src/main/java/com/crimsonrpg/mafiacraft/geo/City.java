@@ -312,4 +312,13 @@ public class City extends Transactable implements LandOwner {
         this.spawn = location;
     }
 
+    /**
+     * Gets the spawn location of the city.
+     * 
+     * @return 
+     */
+    public Location getSpawnLocation() {
+        return spawn;
+    }
+
 }

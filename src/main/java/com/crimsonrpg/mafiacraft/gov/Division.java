@@ -214,19 +214,6 @@ public class Division extends Transactable implements LandPurchaser {
         }
         return online;
     }
-
-    public static String validateName(String name) {
-        int max = MConfig.getInt("division.maxnamelength");
-        if (name.length() < max) {
-            return "Name must be under " + max + " characters.";
-        }
-        
-        if (!name.matches("[A-Za-z0-9]+")) {
-            return "Name must be alphanumeric.";
-        }
-        
-        return null;
-    }
     
     /**
      * Gets the maximum amount of land this division can own.

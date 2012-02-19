@@ -11,6 +11,9 @@ import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.util.TPCD;
+import com.crimsonrpg.mafiacraft.util.TPCD;
+import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import org.bukkit.Chunk;
 
 /**
@@ -52,18 +55,20 @@ public class CityCommand {
         if (!city.isMember(player)) {
             return "You aren't allowed to do this in this city.";
         }
-        
+
         city.setSpawnLocation(player.getLocation());
         player.sendMessage(MsgColor.SUCCESS + "You have set your city's spawn location successfully.");
         return null;
     }
-    
+
     public static String doSpawn(MPlayer player) {
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
         }
-        //TODO: add in countown timers
+
+        int citySpawnTime = MConfig.getInt("warmup.cityspawn");
+        TPCD.makeCountdown(MafiacraftPlugin.getInstance(), citySpawnTime, TPCD.Type.CSPAWN, player.getBukkitEntity(), city.getSpawnLocation());
         return null;
     }
 
@@ -107,13 +112,34 @@ public class CityCommand {
         if (!district.getCity().equals(city)) {
             return "This district is not part of your city.";
         }
-        
+
         if (!city.isMayor(player)) {
             return "You aren't allowed to do this in the city.";
         }
-        
+
         district.detachFromCity();
         player.sendMessage(MsgColor.SUCCESS + "You have successfully unclaimed the district from your city.");
         return null;
     }
+
+    public static String doRename(MPlayer player, String name) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You must be the mayor of this city to rename it.";
+        }
+
+        String valid = ValidationUtils.validateName(name);
+        if (valid != null) {
+            return valid;
+        }
+
+        player.sendMessage(MsgColor.SUCCESS + city.getName() + " has been renamed to " + name + ".");
+        city.setName(name);
+        return null;
+    }
+
 }
