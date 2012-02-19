@@ -1,14 +1,18 @@
 name: Mafiacraft
 description: A mafia server plugin.
-authors: [AlbireoX, Camaroow]
+author: AlbireoX
+authors: [Camaroow]
 version: 0.1
 
-main: com.crimsonrpg.mafiacraft.Mafiacraft
+main: com.crimsonrpg.mafiacraft.MafiacraftPlugin
 
 commands:
   mafia:
     description: Mafia base command
     usage: /mafia <tool>
+  police:
+    description: Police base command
+    usage: /police <tool>
   city:
     description: City base command
     usage: /city <tool>

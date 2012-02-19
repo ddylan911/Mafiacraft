@@ -27,6 +27,8 @@ public class CityManager {
 
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
 
+    private Map<String, LandOwner> landOwners = new HashMap<String, LandOwner>();
+
     private final MafiacraftPlugin mc;
 
     public CityManager(MafiacraftPlugin mc) {
@@ -61,7 +63,8 @@ public class CityManager {
         //Make city
         City city = new City(getNextCityId());
         city.setName(name);
-        center.setCity(null).setName(city.getNextDistrictName());
+        city.attachNewDistrict(center);
+        center.setType(DistrictType.GOVERNMENT);
         cities.put(city.getId(), city);
 
         //Make government
@@ -84,20 +87,20 @@ public class CityManager {
     /////////////////
     /**
      * Gets the district a player is in.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public District getDistrict(MPlayer player) {
         return getDistrict(player.getBukkitEntity().getLocation().getChunk());
     }
 
     /**
-     * Gets the district that a chunk is part of.
-     * This will create a district if it needs to.
-     * 
+     * Gets the district that a chunk is part of. This will create a district if
+     * it needs to.
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public District getDistrict(Chunk chunk) {
         int dx = chunk.getX() >> 4;
@@ -106,13 +109,13 @@ public class CityManager {
     }
 
     /**
-     * Gets the district in the specified world.
-     * This will create a district if it needs to.
-     * 
+     * Gets the district in the specified world. This will create a district if
+     * it needs to.
+     *
      * @param world
      * @param x
      * @param z
-     * @return 
+     * @return
      */
     public District getDistrict(World world, int x, int z) {
         int id = GeoUtils.coordsToDistrictId(x, z);
@@ -120,25 +123,24 @@ public class CityManager {
         if (d == null) {
             d = (getDistrictList(world).size() <= 0)
                     ? createDistrict(world, x, z).setType(DistrictType.ANARCHIC)
-                    : createDistrict(world, x, z).setType(DistrictType.RESERVED);
+                    : createDistrict(world, x, z).setType(DistrictType.UNEXPLORED);
         }
         return d;
     }
 
     /**
      * Creates a district based on a sample chunk within the potential district.
-     * 
+     *
      * @param sample
-     * @return 
+     * @return
      */
     private District createDistrict(Chunk sample) {
-        MafiacraftPlugin.logVerbose("A district was created at " + sample.toString() + ".");
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
     }
-    
+
     /**
      * Creates a district for the specified city.
-     * 
+     *
      * @param x
      * @param z
      * @param city
@@ -148,14 +150,15 @@ public class CityManager {
         District d = new District(world, x, z);
         d.setName("Unexplored");
         getDistrictMap(world).put(d.getId(), d);
+        MafiacraftPlugin.logVerbose("A district was created in the world '" + world.getName() + "' at (" + x + ", " + z + ").");
         return d;
     }
 
     /**
      * Gets the map of districts to coordinates in a world.
-     * 
+     *
      * @param world
-     * @return 
+     * @return
      */
     private TIntObjectMap<District> getDistrictMap(World world) {
         TIntObjectMap<District> worldDistricts = worlds.get(world.getName());
@@ -168,9 +171,9 @@ public class CityManager {
 
     /**
      * Gets a list of all districts in a world.
-     * 
+     *
      * @param world
-     * @return 
+     * @return
      */
     public List<District> getDistrictList(World world) {
         return new ArrayList<District>(getDistrictMap(world).valueCollection());
@@ -178,9 +181,9 @@ public class CityManager {
 
     /**
      * Gets a list of all districts in a city.
-     * 
+     *
      * @param city
-     * @return 
+     * @return
      */
     public List<District> getCityDistricts(City city) {
         List<District> districts = new ArrayList<District>();
@@ -194,14 +197,27 @@ public class CityManager {
         return districts;
     }
 
+    /**
+     * Disbands a city and wipes it off of the map. Forever.
+     *
+     * @param city
+     * @return
+     */
+    public CityManager disbandCity(City city) {
+        for (District district : city.getDistricts()) {
+            district.detachFromCity();
+        }
+        return this;
+    }
+
     /////////////////
     // SECTION METHODS
     /////////////////
     /**
      * Gets the owner of a section.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public LandOwner getSectionOwner(Chunk chunk) {
         int x = chunk.getX() % 0x10;
@@ -211,9 +227,9 @@ public class CityManager {
 
     /**
      * Gets the name of the specified section.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public String getSectionName(Chunk chunk) {
         District d = getDistrict(chunk);
@@ -223,7 +239,28 @@ public class CityManager {
         return nameBuilder.toString();
     }
 
-    public void claimSection(Chunk chunk, LandOwner owner) {
+    /////////////
+    // MISC
+    /////////////
+    /**
+     * Gets a LandOwner based on their id.
+     *
+     * @param id
+     * @return
+     */
+    public LandOwner getLandOwner(String id) {
+        return landOwners.get(id);
+    }
+
+    /**
+     * Registers a landowner with the manager.
+     *
+     * @param owner
+     * @return
+     */
+    public CityManager registerLandOwner(LandOwner owner) {
+        landOwners.put(owner.getOwnerId(), owner);
+        return this;
     }
 
 }

@@ -39,7 +39,7 @@ public class District implements LandOwner {
 
     private String description;
 
-    private TByteObjectMap<LandOwner> owners = new TByteObjectHashMap<LandOwner>();
+    private TByteObjectMap<String> owners = new TByteObjectHashMap<String>();
 
     public District(World world, int x, int z) {
         this.id = GeoUtils.coordsToDistrictId(x, z);
@@ -207,7 +207,8 @@ public class District implements LandOwner {
      */
     public LandOwner getOwner(int x, int z) {
         byte id = GeoUtils.coordsToSectionId(x, z);
-        LandOwner owner = owners.get(id);
+        String ownerStr = owners.get(id);
+        LandOwner owner = Mafiacraft.getLandOwner(ownerStr);
         if (owner == null) {
             owner = this;
         }
@@ -238,7 +239,7 @@ public class District implements LandOwner {
      */
     public District setOwner(int x, int z, LandOwner owner) {
         byte id = GeoUtils.coordsToSectionId(x, z);
-        owners.put(id, owner);
+        owners.put(id, owner.getOwnerId());
         return this;
     }
 
@@ -339,5 +340,16 @@ public class District implements LandOwner {
 
     public OwnerType getOwnerType() {
         return OwnerType.DISTRICT;
+    }
+    
+    public District detachFromCity() {
+        if (city == null) {
+            return this;
+        }
+        
+        setCity(null);
+        setName(null);
+        setType(DistrictType.ANARCHIC);
+        return this;
     }
 }

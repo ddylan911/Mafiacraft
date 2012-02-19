@@ -14,6 +14,7 @@ import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -73,8 +74,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     /**
      * Gets the player's current chatType.
-     * 
-     * @return 
+     *
+     * @return
      */
     public ChatType getChatType() {
         if (chatType == null) {
@@ -91,12 +92,26 @@ public class MPlayer extends Transactable implements LandPurchaser {
         this.utilityClass = classType;
     }
 
+    /**
+     * Gets the division the player is part of, if it exists.
+     *
+     * @return
+     */
     public Division getDivision() {
-        return this.getGovernment().getDivision(this);
+        Government gov = getGovernment();
+        if (gov == null) {
+            return null;
+        }
+        return gov.getDivision(this);
     }
 
+    /**
+     * Gets the city the player is standing in.
+     *
+     * @return
+     */
     public City getCity() {
-        return this.getDistrict().getCity();
+        return getDistrict().getCity();
     }
 
     public void setChatType(ChatType chatType) {
@@ -234,6 +249,25 @@ public class MPlayer extends Transactable implements LandPurchaser {
         district.setOwner(chunk, null);
         decLand();
         return this;
+    }
+
+    public Location getLocation() {
+        return player.getLocation();
+    }
+
+    /**
+     * Gets the city the player owns. Only works if the player is a mayor over a
+     * city.
+     *
+     * @return
+     */
+    public City getOwnedCity() {
+        for (City city : Mafiacraft.getCityManager().getCityList()) {
+            if (city.isMayor(this)) {
+                return city;
+            }
+        }
+        return null;
     }
 
 }
