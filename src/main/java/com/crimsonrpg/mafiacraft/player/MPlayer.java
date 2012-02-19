@@ -270,4 +270,13 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return null;
     }
 
+    /**
+     * Returns true if the given player is a mayor of a city.
+     * 
+     * @return 
+     */
+    public boolean isAMayor() {
+        return getOwnedCity() != null;
+    }
+
 }

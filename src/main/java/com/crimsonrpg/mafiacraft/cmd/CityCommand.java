@@ -82,6 +82,11 @@ public class CityCommand {
     }
 
     public static String doFound(MPlayer player, String name) {
+        City ct = player.getCity();
+        if (ct != null) {
+            return "You are already in a city.";
+        }
+
         double balance = player.getMoney();
         double required = MConfig.getDouble("prices.city.found");
 

@@ -148,7 +148,6 @@ public class CityManager {
      */
     private District createDistrict(World world, int x, int z) {
         District d = new District(world, x, z);
-        d.setName("Unexplored");
         getDistrictMap(world).put(d.getId(), d);
         MafiacraftPlugin.logVerbose("A district was created in the world '" + world.getName() + "' at (" + x + ", " + z + ").");
         return d;

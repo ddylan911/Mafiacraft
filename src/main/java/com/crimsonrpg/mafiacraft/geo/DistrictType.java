@@ -4,6 +4,8 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.player.MPlayer;
+
 /**
  * Represents a type of district.
  */
@@ -44,8 +46,11 @@ public enum DistrictType {
         return claim;
     }
 
-    public boolean canEnter() {
-        return enter;
+    public boolean canEnter(MPlayer player) {
+        if (!enter) {
+            return (player.isAMayor()); 
+        }
+        return true;
     }
 
 }

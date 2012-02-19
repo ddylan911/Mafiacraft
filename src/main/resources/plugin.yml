@@ -16,3 +16,7 @@ commands:
   city:
     description: City base command
     usage: /city <tool>
+    
+permissions:
+  mafiacraft.admin:
+    description: Allows an admin to do many things.
