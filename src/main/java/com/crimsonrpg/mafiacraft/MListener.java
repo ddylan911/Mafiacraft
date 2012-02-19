@@ -190,8 +190,8 @@ public class MListener implements Listener {
         District dest = mc.getCityManager().getDistrict(current);
         District prev = mc.getCityManager().getDistrict(last);
 
-        if (!dest.getType().canEnter()) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
+        if (!dest.getType().canEnter(player)) {
+            player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.getNameInChat() + ".");
 
             //Move back
             Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.getZ() - last.getZ());
