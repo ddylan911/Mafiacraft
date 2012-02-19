@@ -38,6 +38,7 @@ public class CityCommand {
 
         if (args.length < 1) {
             doHelp(player);
+            return;
         }
 
         //Get the function we want to do.
