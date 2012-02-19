@@ -14,6 +14,8 @@ import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.crimsonrpg.mafiacraft.util.ValidationUtils;
+import java.text.NumberFormat;
+import java.util.Locale;
 import org.bukkit.Chunk;
 
 /**
@@ -139,6 +141,22 @@ public class CityCommand {
 
         player.sendMessage(MsgColor.SUCCESS + city.getName() + " has been renamed to " + name + ".");
         city.setName(name);
+        return null;
+    }
+
+    public static String doFunds(MPlayer player) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+
+        if (!city.isMember(player)) {
+            return "You must be part of the city government to view the funds of the city.";
+        }
+
+        double funds = city.getMoney();
+        String fundsStr = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(funds);
+        player.sendMessage(MsgColor.INFO + city.getOwnerName() + " has " + fundsStr + " in funds.");
         return null;
     }
 
