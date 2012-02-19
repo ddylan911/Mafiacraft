@@ -159,5 +159,19 @@ public class CityCommand {
         player.sendMessage(MsgColor.INFO + city.getOwnerName() + " has " + fundsStr + " in funds.");
         return null;
     }
+    
+    public static String doDisband(MPlayer player) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
 
+        if (!city.isMayor(player)) {
+            return "Only the mayor can disband the city. This is very dangerous.";
+        }
+
+        city.disband(); //Holy crap!
+        player.sendMessage(MsgColor.SUCCESS + "The city has been disbanded. Anarchy will likely take place.");
+        return null;
+    }
 }

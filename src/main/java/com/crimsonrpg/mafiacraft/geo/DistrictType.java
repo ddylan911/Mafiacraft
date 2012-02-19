@@ -8,13 +8,14 @@ package com.crimsonrpg.mafiacraft.geo;
  * Represents a type of district.
  */
 public enum DistrictType {
-    CONTESTED(true, true, true),
-    ANARCHIC(true, true, false),
-    LAWLESS(true, false, true),
-    SHARED(false, true, false),
-    OPEN(false, true, true),
-    RESERVED(false, false, false),
-    GOVERNMENT(false, false, false);
+    CONTESTED(true, true, true, true),
+    ANARCHIC(true, true, false, true),
+    LAWLESS(true, false, true, true),
+    SHARED(false, true, false, true),
+    OPEN(false, true, true, true),
+    GOVERNMENT(false, false, false, true),
+    RESERVED(false, false, false, false),
+    UNEXPLORED(false, false, false, false);
 
     private boolean pvp;
 
@@ -22,10 +23,13 @@ public enum DistrictType {
 
     private boolean claim;
 
-    private DistrictType(boolean pvp, boolean build, boolean claim) {
+    private boolean enter;
+
+    private DistrictType(boolean pvp, boolean build, boolean claim, boolean enter) {
         this.pvp = pvp;
         this.buildAnywhere = build;
         this.claim = claim;
+        this.enter = enter;
     }
 
     public boolean canBuildAnywhere() {
@@ -38,6 +42,10 @@ public enum DistrictType {
 
     public boolean isClaim() {
         return claim;
+    }
+
+    public boolean canEnter() {
+        return enter;
     }
 
 }

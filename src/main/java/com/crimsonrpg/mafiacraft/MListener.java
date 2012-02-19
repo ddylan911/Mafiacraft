@@ -190,7 +190,7 @@ public class MListener implements Listener {
         District dest = mc.getCityManager().getDistrict(current);
         District prev = mc.getCityManager().getDistrict(last);
 
-        if (dest.getType().equals(DistrictType.RESERVED)) {
+        if (!dest.getType().canEnter()) {
             player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
 
             //Move back

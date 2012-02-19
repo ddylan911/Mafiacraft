@@ -305,8 +305,8 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Sets the spawn location of the city.
-     * 
-     * @param location 
+     *
+     * @param location
      */
     public void setSpawnLocation(Location location) {
         this.spawn = location;
@@ -314,11 +314,22 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Gets the spawn location of the city.
-     * 
-     * @return 
+     *
+     * @return
      */
     public Location getSpawnLocation() {
         return spawn;
+    }
+
+    /**
+     * Disbands the city. This method removes all references to the city
+     * anywhere.
+     *
+     * @return
+     */
+    public City disband() {
+        Mafiacraft.getCityManager().disbandCity(this);
+        return this;
     }
 
 }

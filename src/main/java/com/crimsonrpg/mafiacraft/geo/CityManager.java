@@ -123,7 +123,7 @@ public class CityManager {
         if (d == null) {
             d = (getDistrictList(world).size() <= 0)
                     ? createDistrict(world, x, z).setType(DistrictType.ANARCHIC)
-                    : createDistrict(world, x, z).setType(DistrictType.RESERVED);
+                    : createDistrict(world, x, z).setType(DistrictType.UNEXPLORED);
         }
         return d;
     }
@@ -135,7 +135,6 @@ public class CityManager {
      * @return
      */
     private District createDistrict(Chunk sample) {
-        MafiacraftPlugin.logVerbose("A district was created at " + sample.toString() + ".");
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
     }
 
@@ -151,6 +150,7 @@ public class CityManager {
         District d = new District(world, x, z);
         d.setName("Unexplored");
         getDistrictMap(world).put(d.getId(), d);
+        MafiacraftPlugin.logVerbose("A district was created in the world '" + world.getName() + "' at (" + x + ", " + z + ").");
         return d;
     }
 
@@ -195,6 +195,19 @@ public class CityManager {
             }
         }
         return districts;
+    }
+
+    /**
+     * Disbands a city and wipes it off of the map. Forever.
+     *
+     * @param city
+     * @return
+     */
+    public CityManager disbandCity(City city) {
+        for (District district : city.getDistricts()) {
+            district.detachFromCity();
+        }
+        return this;
     }
 
     /////////////////

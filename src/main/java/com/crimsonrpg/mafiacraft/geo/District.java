@@ -349,6 +349,7 @@ public class District implements LandOwner {
         
         setCity(null);
         setName(null);
+        setType(DistrictType.ANARCHIC);
         return this;
     }
 }
