@@ -69,6 +69,8 @@ public class CityCommand {
             } else {
                 doHelp(player);
             }
+        } else {
+            doHelp(player);
         }
     }
 
