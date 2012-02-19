@@ -165,7 +165,7 @@ public class City extends Transactable implements LandOwner {
      * @return
      */
     public boolean isMayor(String name) {
-        return mayor.equals(name);
+        return mayor != null && mayor.equals(name);
     }
 
     /**

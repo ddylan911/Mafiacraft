@@ -59,10 +59,11 @@ public class CityManager {
         return getCity(name) != null;
     }
 
-    public City foundCity(String name, District center) {
+    public City foundCity(MPlayer player, String name, District center) {
         //Make city
         City city = new City(getNextCityId());
         city.setName(name);
+        city.setMayor(player.getName());
         city.attachNewDistrict(center);
         center.setType(DistrictType.GOVERNMENT);
         cities.put(city.getId(), city);

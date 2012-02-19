@@ -105,7 +105,7 @@ public class CityCommand {
         //Found a city
         Chunk sample = player.getBukkitEntity().getLocation().getChunk();
         District district = Mafiacraft.getDistrict(sample);
-        City city = Mafiacraft.getCityManager().foundCity(name, district);
+        City city = Mafiacraft.getCityManager().foundCity(player, name, district);
 
         //Notify
         player.getBukkitEntity().sendMessage(MsgColor.SUCCESS + "Your city has been founded successfully.");
