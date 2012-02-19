@@ -46,32 +46,38 @@ public class CityCommand {
         List<String> largs = new ArrayList<String>(Arrays.asList(args));
         largs.remove(0);
 
+        String result = null;
+
         if (largs.size() < 1) {
             if (function.equalsIgnoreCase("claim")) {
-                doClaim(player);
+                result = doClaim(player);
             } else if (function.equalsIgnoreCase("funds")) {
-                doFunds(player);
+                result = doFunds(player);
             } else if (function.equalsIgnoreCase("spawn")) {
-                doSpawn(player);
+                result = doSpawn(player);
             } else if (function.equalsIgnoreCase("setspawn")) {
-                doSetSpawn(player);
+                result = doSetSpawn(player);
             } else if (function.equalsIgnoreCase("unclaim")) {
-                doUnclaim(player);
+                result = doUnclaim(player);
             } else {
-                doHelp(player);
+                result = doHelp(player);
             }
         } else if (largs.size() < 2) {
             if (function.equalsIgnoreCase("bus")) {
-                doBus(player, largs.get(0));
+                result = doBus(player, largs.get(0));
             } else if (function.equalsIgnoreCase("found")) {
-                doFound(player, largs.get(0));
+                result = doFound(player, largs.get(0));
             } else if (function.equalsIgnoreCase("rename")) {
-                doRename(player, largs.get(0));
+                result = doRename(player, largs.get(0));
             } else {
-                doHelp(player);
+                result = doHelp(player);
             }
         } else {
-            doHelp(player);
+            result = doHelp(player);
+        }
+
+        if (result != null) {
+            player.sendMessage(MsgColor.ERROR + result);
         }
     }
 
@@ -102,7 +108,8 @@ public class CityCommand {
     }
 
     public static String doHelp(MPlayer player) {
-        //TODO: write content
+        player.sendMessage("TODO:help");
+        //TODO: help
         return null;
     }
 
