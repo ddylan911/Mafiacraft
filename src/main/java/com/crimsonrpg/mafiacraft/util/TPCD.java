@@ -68,7 +68,8 @@ public class TPCD implements Runnable {
     public enum Type {
         FHOME("your faction home"),
         CSPAWN("the city spawn"),
-        SPAWN("spawn");
+        SPAWN("spawn"),
+        DBUS("the district's bus stop");
 
         private String name;
 

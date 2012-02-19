@@ -288,9 +288,9 @@ public class City extends Transactable implements LandOwner {
      */
     public String attachNewDistrict(District district) {
         district.setCity(this);
-        String name = getNextDistrictName();
-        district.setName(name);
-        return name;
+        String newName = getNextDistrictName();
+        district.setName(newName);
+        return newName;
     }
 
     /**
@@ -330,6 +330,21 @@ public class City extends Transactable implements LandOwner {
     public City disband() {
         Mafiacraft.getCityManager().disbandCity(this);
         return this;
+    }
+
+    /**
+     * Gets a district of this city by name.
+     *
+     * @param districtName
+     * @return
+     */
+    public District getDistrictByName(String districtName) {
+        for (District district : getDistricts()) {
+            if (district.getName().equalsIgnoreCase(districtName)) {
+                return district;
+            }
+        }
+        return null;
     }
 
 }

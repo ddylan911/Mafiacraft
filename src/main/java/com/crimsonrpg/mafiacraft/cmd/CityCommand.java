@@ -12,11 +12,11 @@ import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.TPCD;
-import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import java.text.NumberFormat;
 import java.util.Locale;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 
 /**
  * Contains all city-related commands.
@@ -172,6 +172,28 @@ public class CityCommand {
 
         city.disband(); //Holy crap!
         player.sendMessage(MsgColor.SUCCESS + "The city has been disbanded. Anarchy will likely take place.");
+        return null;
+    }
+    
+    public static String doBus(MPlayer player, String districtName) {
+        //TODO: check permissions.
+        
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+        
+        District d = city.getDistrictByName(districtName);
+        if (d == null) {
+            return "That district does not exist.";
+        }
+        
+        Location bus = d.getBusStop();
+        if (bus == null) {
+            return "That district does not have a bus stop.";
+        }
+        
+        TPCD.makeCountdown(MafiacraftPlugin.getInstance(), 10, TPCD.Type.DBUS, player.getBukkitEntity(), bus);
         return null;
     }
 }
