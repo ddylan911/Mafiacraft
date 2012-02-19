@@ -8,6 +8,7 @@ import com.crimsonrpg.mafiacraft.chat.ChatHandler;
 import com.crimsonrpg.mafiacraft.geo.CityManager;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.LandOwner;
+import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.GovernmentManager;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.PlayerManager;
@@ -20,8 +21,9 @@ import org.bukkit.entity.Player;
  * Mafiacraft API accessor static class.
  */
 public class Mafiacraft {
+
     private static MafiacraftPlugin plugin;
-    
+
     public static void setPlugin(MafiacraftPlugin mcp) {
         if (Mafiacraft.plugin == null) {
             Mafiacraft.plugin = mcp;
@@ -31,7 +33,7 @@ public class Mafiacraft {
     public static MafiacraftPlugin getPlugin() {
         return plugin;
     }
-    
+
     /**
      * Gets an MPlayer from a Player.
      * 
@@ -106,13 +108,13 @@ public class Mafiacraft {
         return getCityManager().getDistrict(chunk);
     }
 
-	/**
-	 * Gets the owner of the given section of land.
-	 * 
-	 * @param section
-	 * @return 
-	 */
-	public static LandOwner getSectionOwner(Chunk section) {
-		return getCityManager().getSectionOwner(section);
-	}
+    /**
+     * Gets the owner of the given section of land.
+     * 
+     * @param section
+     * @return 
+     */
+    public static LandOwner getSectionOwner(Chunk section) {
+        return getCityManager().getSectionOwner(section);
+    }
 }

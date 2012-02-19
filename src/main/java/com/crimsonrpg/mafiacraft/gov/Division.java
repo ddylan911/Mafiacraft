@@ -22,20 +22,14 @@ import org.bukkit.configuration.ConfigurationSection;
  * @author simplyianm
  */
 public class Division extends Transactable implements LandPurchaser {
+
     private int id;
-
     private Government government;
-
     private String name;
-
     private String description;
-
     private String manager;
-
     private String prefix;
-
     private List<String> workers = new ArrayList<String>();
-    
     private int land;
 
     public Division(int id, Government government, String prefix) {
@@ -47,17 +41,21 @@ public class Division extends Transactable implements LandPurchaser {
     public boolean canBuild(MPlayer player, Chunk chunk) {
         return true;
     }
-    
+
     public void decrementLand() {
         land--;
     }
-    
+
     public void incrementLand() {
         land++;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPrefix() {
@@ -220,14 +218,14 @@ public class Division extends Transactable implements LandPurchaser {
         if (name.length() < max) {
             return "Name must be under " + max + " characters.";
         }
-        
+
         if (!name.matches("[A-Za-z0-9]+")) {
             return "Name must be alphanumeric.";
         }
-        
+
         return null;
     }
-    
+
     /**
      * Gets the maximum amount of land this division can own.
      * This is determined by the money the division has.
@@ -237,7 +235,7 @@ public class Division extends Transactable implements LandPurchaser {
     public int getMaxLand() {
         return ((int) getMoney()) >> 4;
     }
-    
+
     public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
         return government.canRetainAllLand();
     }
@@ -248,6 +246,7 @@ public class Division extends Transactable implements LandPurchaser {
     ////////////
     // LAND STUFF
     ////////////
+
     /**
      * {@inheritDoc}
      */
