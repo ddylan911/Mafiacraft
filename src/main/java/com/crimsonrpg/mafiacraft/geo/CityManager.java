@@ -189,7 +189,8 @@ public class CityManager {
         List<District> districts = new ArrayList<District>();
         for (World world : Bukkit.getWorlds()) {
             for (District district : getDistrictList(world)) {
-                if (district.getCity().equals(city)) {
+                City dc = district.getCity();
+                if (dc != null && dc.equals(city)) {
                     districts.add(district);
                 }
             }
