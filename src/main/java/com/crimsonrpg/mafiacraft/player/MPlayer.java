@@ -255,4 +255,19 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return player.getLocation();
     }
 
+    /**
+     * Gets the city the player owns. Only works if the player is a mayor over a
+     * city.
+     *
+     * @return
+     */
+    public City getOwnedCity() {
+        for (City city : Mafiacraft.getCityManager().getCityList()) {
+            if (city.isMayor(this)) {
+                return city;
+            }
+        }
+        return null;
+    }
+
 }
