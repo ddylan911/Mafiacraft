@@ -34,7 +34,12 @@ public enum DistrictType {
         this.enter = enter;
     }
 
-    public boolean canBuildAnywhere() {
+    /**
+     * Returns true if you can generally build anywhere.
+     * 
+     * @return 
+     */
+    public boolean canBuild() {
         return buildAnywhere;
     }
 

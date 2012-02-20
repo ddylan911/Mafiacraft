@@ -295,7 +295,15 @@ public class District implements LandOwner {
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
-        return type.canBuildAnywhere();
+        if (type.canBuild()) {
+            return true;
+        }
+
+        if (type.equals(DistrictType.GOVERNMENT) && getCity().isMember(player)) {
+            return true;
+        }
+
+        return false;
     }
 
     public String getOwnerName() {
