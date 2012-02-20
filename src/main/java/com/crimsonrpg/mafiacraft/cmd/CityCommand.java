@@ -330,18 +330,26 @@ public class CityCommand {
             return "You are not in a city.";
         }
 
-        if (!city.isMayor(player)) {
-            return "You must be mayor or above to perform this action.";
+        if (!city.isMember(player)) {
+            return "You must be a member of the city to perform this action.";
+        }
+
+        District d = player.getDistrict();
+        if (d.getType().isGovBuild()) {
+            return "This district is already a government district.";
         }
 
         double amt = MConfig.getDouble("prices.city.claim");
         String af = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
         if (!city.hasEnough(amt)) {
-            return "The city doesn't have enough money to claim land. (Costs " + amt + ")";
+            return "The city doesn't have enough money to claim land. (Costs " + af + ")";
         }
 
         Chunk chunk = player.getChunk();
         String sn = city.getSectionName(chunk);
+
+        //Claim the section
+        d.setOwner(chunk, city);
 
         player.sendMessage(MsgColor.SUCCESS + "You have claimed the section " + sn + " for your city.");
         return null;
@@ -353,8 +361,20 @@ public class CityCommand {
             return "You are not in a city.";
         }
 
+        if (!city.isMember(player)) {
+            return "You must be a member of the city to perform this action.";
+        }
+
+        District d = player.getDistrict();
+        if (d.getType().isGovBuild()) {
+            return "This district is already a government district.";
+        }
+
         Chunk chunk = player.getChunk();
         String sn = city.getSectionName(chunk);
+
+        //Unclaim the section
+        d.removeOwner(chunk);
 
         player.sendMessage(MsgColor.SUCCESS + "You have unclaimed the section " + sn + " for your city.");
         return null;

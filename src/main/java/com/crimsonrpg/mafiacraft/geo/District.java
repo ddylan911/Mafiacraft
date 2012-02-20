@@ -9,6 +9,7 @@ import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
+import gnu.trove.iterator.TByteObjectIterator;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
 import java.util.ArrayList;
@@ -241,6 +242,42 @@ public class District implements LandOwner {
     public District setOwner(int x, int z, LandOwner owner) {
         byte id = GeoUtils.coordsToSectionId(x, z);
         owners.put(id, owner.getOwnerId());
+        return this;
+    }
+
+    /**
+     * Removes the owner of a section.
+     *
+     * @param chunk
+     * @return
+     */
+    public District removeOwner(Chunk chunk) {
+        if (!contains(chunk)) {
+            throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
+        }
+        return removeOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
+    }
+
+    /**
+     * Removes an owner of a section.
+     *
+     * @param x
+     * @param z
+     * @return
+     */
+    public District removeOwner(int x, int z) {
+        byte id = GeoUtils.coordsToSectionId(x, z);
+        owners.remove(id);
+        return this;
+    }
+
+    /**
+     * Resets all ownerships in the district.
+     * 
+     * @return 
+     */
+    public District resetOwnerships() {
+        owners = new TByteObjectHashMap<String>();
         return this;
     }
 
