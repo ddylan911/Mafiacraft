@@ -224,7 +224,7 @@ public class City extends Transactable implements LandOwner {
      * @return
      */
     public boolean isAdvisor(String name) {
-        return advisors.contains(name);
+        return advisors != null && advisors.contains(name);
     }
 
     /**
