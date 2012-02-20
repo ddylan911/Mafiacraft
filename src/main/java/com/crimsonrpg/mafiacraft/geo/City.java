@@ -72,13 +72,7 @@ public class City extends Transactable implements LandOwner {
      * @return
      */
     public boolean hasDistrict(String name) {
-        for (District district : getDistricts()) {
-            String n = district.getName();
-            if (n != null && n.equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
+        return getDistrictByName(name) != null;
     }
 
     /**
@@ -103,7 +97,7 @@ public class City extends Transactable implements LandOwner {
         for (char c : chars.toCharArray()) {
             for (char d : chars.toCharArray()) {
                 for (char e : chars.toCharArray()) {
-                    dname = new StringBuilder(c).append(d).append(e).toString().trim();
+                    dname = new StringBuilder(e).append(d).append(c).toString().trim();
                     if (dname.isEmpty() || hasDistrict(dname)) {
                         continue;
                     }
@@ -341,7 +335,8 @@ public class City extends Transactable implements LandOwner {
      */
     public District getDistrictByName(String districtName) {
         for (District district : getDistricts()) {
-            if (district.getName().equalsIgnoreCase(districtName)) {
+            String n = district.getName();
+            if (n != null && n.equalsIgnoreCase(districtName)) {
                 return district;
             }
         }
