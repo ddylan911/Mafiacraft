@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.cmd;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
@@ -50,4 +51,12 @@ public class DistrictCommand {
         return null;
     }
 
+    public static String doZone(MPlayer player, String typeString) {
+        DistrictType type = DistrictType.fromString(typeString);
+        if (type == null) {
+            return "No such zone!";
+        }
+        
+        return null;
+    }
 }

@@ -5,6 +5,8 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a type of district.
@@ -93,6 +95,35 @@ public enum DistrictType {
             return (player.isAMayor());
         }
         return true;
+    }
+
+    private static Map<String, DistrictType> typeMap;
+
+    /**
+     * Retrieves a district type from a string.
+     *
+     * @param typeString
+     * @return
+     */
+    public static DistrictType fromString(String typeString) {
+        DistrictType maybe = DistrictType.valueOf(typeString);
+        if (maybe == null) {
+            maybe = typeMap.get(typeString);
+        }
+        return maybe;
+    }
+
+    static {
+        typeMap = new HashMap<String, DistrictType>();
+
+        typeMap.put("s", DistrictType.SHARED);
+        typeMap.put("c", DistrictType.CONTESTED);
+        typeMap.put("a", DistrictType.ANARCHIC);
+        typeMap.put("r", DistrictType.RESERVED);
+        typeMap.put("l", DistrictType.LAWLESS);
+        typeMap.put("o", DistrictType.OPEN);
+        typeMap.put("g", DistrictType.GOVERNMENT);
+        typeMap.put("u", DistrictType.UNEXPLORED);
     }
 
 }
