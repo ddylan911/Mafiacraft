@@ -162,7 +162,7 @@ public class CityCommand {
 
         double cost = MConfig.getDouble("prices.city.claim");
         if (!city.hasEnough(cost)) {
-            return "You don't have enough money to do claim this district for the city.";
+            return "The city doesn't have enough money to do claim this district for the city.";
         }
 
         city.subtractMoney(cost);
