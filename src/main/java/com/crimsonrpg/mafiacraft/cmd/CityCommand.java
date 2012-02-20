@@ -59,6 +59,8 @@ public class CityCommand {
                 result = doSetSpawn(player);
             } else if (function.equalsIgnoreCase("unclaim")) {
                 result = doUnclaim(player);
+            } else if (function.equalsIgnoreCase("disband")) {
+                result = doDisband(player);
             } else {
                 result = doHelp(player);
             }
