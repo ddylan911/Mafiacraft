@@ -57,6 +57,7 @@ public class DistrictCommand {
             return "There is no district with the name specified.";
         }
         
+        player.sendMessage(MsgColor.SUCCESS + "The district has been zoned to a " + type.niceName() + " district.");
         return null;
     }
 }

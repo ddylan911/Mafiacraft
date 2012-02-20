@@ -97,6 +97,15 @@ public enum DistrictType {
         return true;
     }
 
+    /**
+     * Gets a player-friendly name of the type of district.
+     * 
+     * @return 
+     */
+    public String niceName() {
+        return name().toLowerCase();
+    }
+
     private static Map<String, DistrictType> typeMap;
 
     /**
