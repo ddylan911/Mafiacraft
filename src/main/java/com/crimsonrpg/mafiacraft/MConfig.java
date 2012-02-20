@@ -119,7 +119,8 @@ public class MConfig {
         addDefault("prices.mafia.found", 150000.0);
 
         //City prices
-        addDefault("prices.city.claim", 10000.0);
+        addDefault("prices.city.annex", 10000.0);
+        addDefault("prices.city.claim", 100.0);
         addDefault("prices.city.found", 1000000.0);
 
         //Division

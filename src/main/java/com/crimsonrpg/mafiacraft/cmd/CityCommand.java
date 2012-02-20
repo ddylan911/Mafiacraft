@@ -49,16 +49,16 @@ public class CityCommand {
         String result = null;
 
         if (largs.size() < 1) {
-            if (function.equalsIgnoreCase("claim")) {
-                result = doClaim(player);
+            if (function.equalsIgnoreCase("annex")) {
+                result = doAnnex(player);
             } else if (function.equalsIgnoreCase("funds")) {
                 result = doFunds(player);
             } else if (function.equalsIgnoreCase("spawn")) {
                 result = doSpawn(player);
             } else if (function.equalsIgnoreCase("setspawn")) {
                 result = doSetSpawn(player);
-            } else if (function.equalsIgnoreCase("unclaim")) {
-                result = doUnclaim(player);
+            } else if (function.equalsIgnoreCase("unannex")) {
+                result = doUnannex(player);
             } else if (function.equalsIgnoreCase("disband")) {
                 result = doDisband(player);
             } else {
@@ -151,7 +151,7 @@ public class CityCommand {
         return null;
     }
 
-    public static String doClaim(MPlayer player) {
+    public static String doAnnex(MPlayer player) {
         City city = player.getOwnedCity();
         if (city == null) {
             return "You aren't a mayor of any city.";
@@ -166,7 +166,7 @@ public class CityCommand {
             return "You aren't allowed to do this in the city.";
         }
 
-        double cost = MConfig.getDouble("prices.city.claim");
+        double cost = MConfig.getDouble("prices.city.annex");
         if (!city.hasEnough(cost)) {
             return "The city doesn't have enough money to do claim this district.";
         }
@@ -177,7 +177,7 @@ public class CityCommand {
         return null;
     }
 
-    public static String doUnclaim(MPlayer player) {
+    public static String doUnannex(MPlayer player) {
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
@@ -321,6 +321,42 @@ public class CityCommand {
         city.transferMoney(player, amt);
         String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
         player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt + " into " + city.getOwnerName() + ".");
+        return null;
+    }
+
+    public static String doClaim(MPlayer player) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You are not in a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You must be mayor or above to perform this action.";
+        }
+
+        double amt = MConfig.getDouble("prices.city.claim");
+        String af = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+        if (!city.hasEnough(amt)) {
+            return "The city doesn't have enough money to claim land. (Costs " + amt + ")";
+        }
+
+        Chunk chunk = player.getChunk();
+        String sn = city.getSectionName(chunk);
+
+        player.sendMessage(MsgColor.SUCCESS + "You have claimed the section " + sn + " for your city.");
+        return null;
+    }
+
+    public static String doUnclaim(MPlayer player) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You are not in a city.";
+        }
+
+        Chunk chunk = player.getChunk();
+        String sn = city.getSectionName(chunk);
+
+        player.sendMessage(MsgColor.SUCCESS + "You have unclaimed the section " + sn + " for your city.");
         return null;
     }
 

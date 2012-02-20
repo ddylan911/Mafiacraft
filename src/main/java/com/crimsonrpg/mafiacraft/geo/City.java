@@ -343,4 +343,14 @@ public class City extends Transactable implements LandOwner {
         return null;
     }
 
+    /**
+     * Gets a section's name.
+     * 
+     * @param chunk
+     * @return 
+     */
+    public String getSectionName(Chunk chunk) {
+        return getDistrict(chunk).getSectionName(chunk);
+    }
+
 }
