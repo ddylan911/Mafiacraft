@@ -98,14 +98,14 @@ public class City extends Transactable implements LandOwner {
             for (char d : chars.toCharArray()) {
                 for (char e : chars.toCharArray()) {
                     dname = new StringBuilder(e).append(d).append(c).toString().trim();
-                    if (dname.isEmpty() || hasDistrict(dname)) {
-                        continue;
+                    if (!(dname.isEmpty() || hasDistrict(dname))) {
+                        return dname;
                     }
                 }
             }
         }
 
-        return dname;
+        throw new IllegalStateException("Too many districts in the city!");
     }
 
     /**

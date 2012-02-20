@@ -202,7 +202,7 @@ public class MListener implements Listener {
         }
 
         if (prev != dest) {
-            player.sendMessage(ChatColor.GRAY + "You are now entering " + dest.getName() + ".");
+            player.sendMessage(ChatColor.GRAY + "You are now entering " + dest.getNameInChat() + ".");
         }
 
         //We've switched chunks!

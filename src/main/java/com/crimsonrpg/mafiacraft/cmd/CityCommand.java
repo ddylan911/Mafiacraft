@@ -69,6 +69,8 @@ public class CityCommand {
                 result = doFound(player, largs.get(0));
             } else if (function.equalsIgnoreCase("rename")) {
                 result = doRename(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("deposit")) {
+                result = doDeposit(player, largs.get(0));
             } else {
                 result = doHelp(player);
             }
@@ -162,7 +164,7 @@ public class CityCommand {
 
         double cost = MConfig.getDouble("prices.city.claim");
         if (!city.hasEnough(cost)) {
-            return "The city doesn't have enough money to do claim this district for the city.";
+            return "The city doesn't have enough money to do claim this district.";
         }
 
         city.subtractMoney(cost);
@@ -265,6 +267,29 @@ public class CityCommand {
         }
 
         TPCD.makeCountdown(MafiacraftPlugin.getInstance(), 10, TPCD.Type.DBUS, player.getBukkitEntity(), bus);
+        return null;
+    }
+
+    public static String doDeposit(MPlayer player, String amount) {
+        double amt;
+        try {
+            amt = Double.parseDouble(amount);
+        } catch (NumberFormatException ex) {
+            return "The amount you specified is an invalid number.";
+        }
+
+        if (!player.hasEnough(amt)) {
+            return "You don't have that much money to burn.";
+        }
+
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+
+        player.transferMoney(city, amt);
+        String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+        player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt + " into " + city.getOwnerName() + ".");
         return null;
     }
 
