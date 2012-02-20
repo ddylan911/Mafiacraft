@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -20,7 +21,6 @@ public class PlayerManager {
 
     private Map<Player, MPlayer> mplayers = new HashMap<Player, MPlayer>();
     private final MafiacraftPlugin mc;
-    
     private KillTracker killTracker;
 
     public PlayerManager(MafiacraftPlugin mc) {
@@ -63,6 +63,10 @@ public class PlayerManager {
             mplayers.put(player, mplayer);
         }
         return mplayer;
+    }
+
+    public MPlayer getPlayer(String name) {
+        return this.getPlayer(Bukkit.getPlayer(name));
     }
 
     /**

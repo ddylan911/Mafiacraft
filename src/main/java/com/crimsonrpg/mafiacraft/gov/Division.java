@@ -60,7 +60,7 @@ public class Division extends Transactable implements LandPurchaser {
         return name;
     }
 
-    public String getPrefix() {
+    public void setName(String name) {        this.name = name;    }    public String getPrefix() {
         return this.prefix;
     }
 
