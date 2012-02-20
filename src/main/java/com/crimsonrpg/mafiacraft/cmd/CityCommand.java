@@ -61,6 +61,10 @@ public class CityCommand {
                 result = doUnannex(player);
             } else if (function.equalsIgnoreCase("disband")) {
                 result = doDisband(player);
+            } else if (function.equalsIgnoreCase("claim")) {
+                result = doClaim(player);
+            } else if (function.equalsIgnoreCase("unclaim")) {
+                result = doUnclaim(player);
             } else {
                 result = doHelp(player);
             }
