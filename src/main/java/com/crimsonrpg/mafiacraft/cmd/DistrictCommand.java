@@ -54,7 +54,7 @@ public class DistrictCommand {
     public static String doZone(MPlayer player, String typeString) {
         DistrictType type = DistrictType.fromString(typeString);
         if (type == null) {
-            return "No such zone!";
+            return "There is no district with the name specified.";
         }
         
         return null;

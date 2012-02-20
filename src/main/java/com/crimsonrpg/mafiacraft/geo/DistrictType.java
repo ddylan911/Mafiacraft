@@ -106,7 +106,7 @@ public enum DistrictType {
      * @return
      */
     public static DistrictType fromString(String typeString) {
-        DistrictType maybe = DistrictType.valueOf(typeString);
+        DistrictType maybe = DistrictType.valueOf(typeString.toUpperCase());
         if (maybe == null) {
             maybe = typeMap.get(typeString);
         }
