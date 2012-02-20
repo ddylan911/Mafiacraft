@@ -299,7 +299,7 @@ public class District implements LandOwner {
             return true;
         }
 
-        if (type.equals(DistrictType.GOVERNMENT) && getCity().isMember(player)) {
+        if (type.isGovBuild() && getCity().isMember(player)) {
             return true;
         }
 
