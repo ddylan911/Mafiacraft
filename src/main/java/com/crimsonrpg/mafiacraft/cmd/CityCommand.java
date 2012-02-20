@@ -71,6 +71,8 @@ public class CityCommand {
                 result = doRename(player, largs.get(0));
             } else if (function.equalsIgnoreCase("deposit")) {
                 result = doDeposit(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("withdraw")) {
+                result = doWithdraw(player, largs.get(0));
             } else {
                 result = doHelp(player);
             }
@@ -90,9 +92,9 @@ public class CityCommand {
         }
 
         double balance = player.getMoney();
-        double required = MConfig.getDouble("prices.city.found");
+        double foundCost = MConfig.getDouble("prices.city.found");
 
-        if (balance < required) {
+        if (balance < foundCost) {
             return "You don't have enough money to found a city! (Costs $1,000,000)";
         }
 
@@ -108,7 +110,7 @@ public class CityCommand {
         Chunk sample = player.getBukkitEntity().getLocation().getChunk();
         District district = Mafiacraft.getDistrict(sample);
         City city = Mafiacraft.getCityManager().foundCity(player, name, district);
-        player.subtractMoney(balance);
+        player.transferMoney(city, foundCost);
 
         //Notify
         player.getBukkitEntity().sendMessage(MsgColor.SUCCESS + "Your city has been founded successfully.");
@@ -290,6 +292,33 @@ public class CityCommand {
         player.transferMoney(city, amt);
         String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
         player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt + " into " + city.getOwnerName() + ".");
+        return null;
+    }
+
+    public static String doWithdraw(MPlayer player, String amount) {
+        double amt;
+        try {
+            amt = Double.parseDouble(amount);
+        } catch (NumberFormatException ex) {
+            return "The amount you specified is an invalid number.";
+        }
+
+        City city = player.getCity();
+        if (city == null) {
+            return "You aren't in a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You must be mayor or above to perform this action.";
+        }
+
+        if (!city.hasEnough(amt)) {
+            return "The city doesn't have that much money.";
+        }
+
+        city.transferMoney(player, amt);
+        String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+        player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt + " into " + city.getOwnerName() + ".");
         return null;
     }
 
