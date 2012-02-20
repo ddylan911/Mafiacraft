@@ -372,7 +372,7 @@ public class District implements LandOwner {
             City c = getCity();
             return "district " + name + ((c == null) ? "" : " of " + c.getOwnerName());
         }
-        return "this unexplored district";
+        return "an unexplored district";
     }
 
 }
