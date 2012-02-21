@@ -80,6 +80,12 @@ public class DistrictCommand {
         return null;
     }
 
+    public static String doInfo(MPlayer player) {
+        //TODO add real info
+        player.sendMessage("You are in the district " + player.getDistrict().getNameInChat());
+        return null;
+    }
+    
     public static String doSetBus(MPlayer player) {
         District district = player.getDistrict();
         City city = district.getCity();
