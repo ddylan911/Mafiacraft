@@ -11,6 +11,7 @@ import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.ValidationUtils;
+import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,31 @@ public class DistrictCommand {
 
         String result = null;
 
-        if (largs.size() < 0) {
+        if (largs.size() < 1) {
+            if (function.equalsIgnoreCase("setbus")) {
+                result = doSetBus(player);
+            } else if (function.equalsIgnoreCase("info")) {
+                result = doInfo(player);
+            } else {
+                result = doHelp(player);
+            }
+        } else if (largs.size() < 2) {
+            if (function.equalsIgnoreCase("zone")) {
+                result = doZone(player, largs.get(0));
+            } else {
+                result = doHelp(player);
+            }
+        } else {
+            if (function.equalsIgnoreCase("desc")) {
+                String desc = Joiner.on(' ').join(largs);
+                result = doDesc(player, desc);
+            } else {
+                result = doHelp(player);
+            }
+        }
+        
+        if (result != null) {
+            player.sendMessage(MsgColor.ERROR + result);
         }
     }
 
