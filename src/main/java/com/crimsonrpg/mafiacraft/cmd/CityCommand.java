@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -381,6 +382,36 @@ public class CityCommand {
         d.removeOwner(chunk);
 
         player.sendMessage(MsgColor.SUCCESS + "You have unclaimed the section " + sn + " for your city.");
+        return null;
+    }
+
+    public static String doMakePolice(MPlayer player, String chief, String assistant) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You are not in a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You must be a member of the city to perform this action.";
+        }
+
+        MPlayer c = Mafiacraft.getPlayer(Bukkit.getPlayer(chief));
+        if (c == null) {
+            return "That player is either offline or does not exist.";
+        }
+
+        MPlayer a = Mafiacraft.getPlayer(Bukkit.getPlayer(assistant));
+        if (a == null) {
+            return "That player is either offline or does not exist.";
+        }
+
+        double amt = MConfig.getDouble("prices.city.makepolice");
+        if (!city.hasEnough(amt)) {
+            return "The city does not have enough money to establish police. (Costs " + amt + ")";
+        }
+
+        city.establishPolice(c, a);
+        player.sendMessage(MsgColor.SUCCESS + "A police force has been established in your city.");
         return null;
     }
 
