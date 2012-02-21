@@ -28,7 +28,7 @@ public class SectionCommand {
         MPlayer player = Mafiacraft.getPlayer((Player) sender);
 
         if (args.length < 1) {
-//            doHelp(player);
+            doHelp(player);
             return;
         }
 
@@ -39,10 +39,22 @@ public class SectionCommand {
 
         String result = null;
         if (largs.size() < 1) {
+            if (function.equalsIgnoreCase("info")) {
+            } else {
+                result = doHelp(player);
+            }
+        } else {
+            result = doHelp(player);
         }
+
         if (result != null) {
             player.sendMessage(MsgColor.ERROR + result);
         }
+    }
+
+    public static String doHelp(MPlayer player) {
+        player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOL");
+        return null;
     }
 
 }
