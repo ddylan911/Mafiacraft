@@ -273,8 +273,8 @@ public class District implements LandOwner {
 
     /**
      * Resets all ownerships in the district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public District resetOwnerships() {
         owners = new TByteObjectHashMap<String>();
@@ -388,17 +388,34 @@ public class District implements LandOwner {
         return OwnerType.DISTRICT;
     }
 
+    /**
+     * Detaches the district from whatever city it was part of. It completely
+     * resets the district, too.
+     *
+     * @return
+     */
     public District detachFromCity() {
         if (city == null) {
             return this;
         }
 
-        setCity(null);
-        setName(null);
-        setType(DistrictType.ANARCHIC);
+        reset().setType(DistrictType.ANARCHIC);
         return this;
     }
 
+    /**
+     * Completely resets the district to how it was before, other than buildings.
+     * 
+     * @return 
+     */
+    public District reset() {
+        setCity(null);
+        setName(null);
+        resetOwnerships();
+        setType(DistrictType.UNEXPLORED);
+        return this;
+    }
+    
     /**
      * Gets a chat friendly name of the district.
      *
