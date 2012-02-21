@@ -51,9 +51,44 @@ public class GovernmentCommand {
         String result = null;
 
         if (largs.size() < 1) {
+            if (function.equalsIgnoreCase("who")) {
+                result = doWho(player);
+            } else if (function.equalsIgnoreCase("claim")) {
+                result = doClaim(player);
+            } else if (function.equalsIgnoreCase("hq")) {
+                result = doHq(player);
+            } else if (function.equalsIgnoreCase("sethq")) {
+                result = doSetHq(player);
+            } else {
+                result = doHelp(player);
+            }
+        } else if (largs.size() < 2) {
+            if (function.equalsIgnoreCase("who")) {
+                result = doWho(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("invite")) {
+                result = doInvite(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("kick")) {
+                result = doKick(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("player")) {
+                result = doPlayer(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("found")) {
+                result = doFound(player, Joiner.on(' ').join(largs), type);
+            } else {
+                result = doHelp(player);
+            }
+        } else if (largs.size() < 3) {
+            if (function.equalsIgnoreCase("allocate")) {
+                result = doAllocate(player, largs.get(0), largs.get(1));
+            } else if (function.equalsIgnoreCase("found")) {
+                result = doFound(player, Joiner.on(' ').join(largs), type);
+            } else {
+                result = doHelp(player);
+            }
         } else {
             if (function.equalsIgnoreCase("found")) {
                 result = doFound(player, Joiner.on(' ').join(largs), type);
+            } else {
+                result = doHelp(player);
             }
         }
 
@@ -150,7 +185,12 @@ public class GovernmentCommand {
         return null;
     }
 
-    public static String doInvite(MPlayer player, MPlayer target) {
+    public static String doInvite(MPlayer player, String target) {
+        MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
+        if (tgt == null) {
+            return "The player you specified is either not online or does not exist.";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not part of a government.";
@@ -160,7 +200,7 @@ public class GovernmentCommand {
             return "Your position in your " + gov.getType().getName() + " is not high enough to invite people to your government.";
         }
 
-        Government other = target.getGovernment();
+        Government other = tgt.getGovernment();
         if (other != null) {
             if (other.equals(gov)) {
                 return "The other player you specified is already in your " + gov.getType().getName() + ".";
@@ -168,12 +208,17 @@ public class GovernmentCommand {
             return "The player you specified is already affiliated with a government.";
         }
 
-        gov.dispatchInvite(player, target);
-        player.sendMessage(MsgColor.INFO + "An invite to the mafia has been dispatched to " + target.getName() + ".");
+        gov.dispatchInvite(player, tgt);
+        player.sendMessage(MsgColor.INFO + "An invite to the mafia has been dispatched to " + tgt.getName() + ".");
         return null;
     }
 
-    public static String doKick(MPlayer player, MPlayer target) {
+    public static String doKick(MPlayer player, String target) {
+        MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
+        if (tgt == null) {
+            return "The player you specified is either not online or does not exist.";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not part of a government.";
@@ -183,7 +228,7 @@ public class GovernmentCommand {
             return "Your position in your " + gov.getType().getName() + " is not high enough to kick people from your government.";
         }
 
-        Government other = target.getGovernment();
+        Government other = tgt.getGovernment();
         if (other == null) {
             return "That player is not in a " + gov.getType().getName() + ".";
         }
@@ -192,7 +237,7 @@ public class GovernmentCommand {
             return "That player is not in your " + gov.getType().getName() + ".";
         }
 
-        if (!target.getPosition().equals(Position.AFFILIATE)) {
+        if (!tgt.getPosition().equals(Position.AFFILIATE)) {
             return "Only " + gov.getType().getLocale("affiliates") + " may be kicked from a " + gov.getType().getName() + ".";
         }
 
@@ -200,11 +245,18 @@ public class GovernmentCommand {
         if (!removed) {
             return "Unknown error!";
         }
-        player.sendMessage(MsgColor.SUCCESS + "The player " + target.getName() + " has been kicked out of the " + gov.getType().getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been kicked out of the " + gov.getType().getName() + ".");
         return null;
     }
 
-    public static String doAllocate(MPlayer player, String division, double amount) {
+    public static String doAllocate(MPlayer player, String division, String amt) {
+        double amount;
+        try {
+            amount = Double.parseDouble(amt);
+        } catch (NumberFormatException ex) {
+            return "The amount you specified is an invalid number.";
+        }
+
         if (player.getPosition().compareTo(Position.OFFICER) < 0) {
             return "You must be an officer or higher to do this.";
         }
