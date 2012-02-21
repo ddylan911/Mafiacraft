@@ -431,14 +431,39 @@ public class CityCommand {
         if (c == null) {
             return "That player is either offline or does not exist.";
         }
-        
+
         Government police = city.getPolice();
         if (police == null) {
             return "The city does not have a police force established.";
         }
-        
+
         police.setPosition(c, Position.LEADER);
-        player.sendMessage(MsgColor.SUCCESS + "The chief of police has successfully been changed to " + c.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "The chief of police of the city has successfully been changed to " + c.getName() + ".");
+        return null;
+    }
+
+    public static String doSetAssistant(MPlayer player, String assistant) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You are not in a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You must be a member of the city to perform this action.";
+        }
+
+        MPlayer a = Mafiacraft.getPlayer(Bukkit.getPlayer(assistant));
+        if (a == null) {
+            return "That player is either offline or does not exist.";
+        }
+
+        Government police = city.getPolice();
+        if (police == null) {
+            return "The city does not have a police force established.";
+        }
+
+        police.setPosition(a, Position.LEADER);
+        player.sendMessage(MsgColor.SUCCESS + "The assistant chief of the city has successfully been changed to " + a.getName() + ".");
         return null;
     }
 
