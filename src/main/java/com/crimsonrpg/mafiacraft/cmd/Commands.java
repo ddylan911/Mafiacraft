@@ -37,6 +37,13 @@ public class Commands {
             }
 
         });
+        plugin.getCommand("district").setExecutor(new CommandExecutor() {
+            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+                DistrictCommand.parseCmd(cs, cmnd, string, strings);
+                return true;
+            }
+
+        });
     }
 
 }
