@@ -5,6 +5,8 @@
 package com.crimsonrpg.mafiacraft.cmd;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.geo.City;
+import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
@@ -39,9 +41,8 @@ public class DistrictCommand {
         largs.remove(0);
 
         String result = null;
-        
+
         if (largs.size() < 0) {
-            
         }
     }
 
@@ -52,12 +53,29 @@ public class DistrictCommand {
     }
 
     public static String doZone(MPlayer player, String typeString) {
+        District district = player.getDistrict();
+        City city = district.getCity();
+        if (city == null) {
+            return "You aren't in a district that is part of a city.";
+        }
+
+        City oc = player.getOwnedCity();
+        if (oc == null || city.equals(oc)) {
+            return "You must be a mayor of this city.";
+        }
+
         DistrictType type = DistrictType.fromString(typeString);
         if (type == null) {
-            return "There is no district with the name specified.";
+            return "There is no district type with the name specified.";
         }
-        
-        player.sendMessage(MsgColor.SUCCESS + "The district has been zoned to a " + type.niceName() + " district.");
+
+        if (type.equals(DistrictType.UNEXPLORED)) {
+            return "You are not allowed to unexplore districts. That would not make much sense, would it?";
+        }
+
+        district.resetOwnerships().setType(type);
+        player.sendMessage(MsgColor.SUCCESS + "The district has been zoned to a " + type.niceName() + " district successfully.");
         return null;
     }
+
 }
