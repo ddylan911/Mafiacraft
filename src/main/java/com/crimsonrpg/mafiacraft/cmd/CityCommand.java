@@ -82,6 +82,16 @@ public class CityCommand {
                 result = doDeposit(player, largs.get(0));
             } else if (function.equalsIgnoreCase("withdraw")) {
                 result = doWithdraw(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("setchief")) {
+                result = doSetChief(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("setassistant")) {
+                result = doSetAssistant(player, largs.get(0));
+            } else {
+                result = doHelp(player);
+            }
+        } else if (largs.size() < 3) {
+            if (function.equalsIgnoreCase("makepolice")) {
+                result = doMakePolice(player, largs.get(0), largs.get(1));
             } else {
                 result = doHelp(player);
             }
