@@ -30,7 +30,7 @@ import org.bukkit.entity.Player;
 public class GovernmentCommand {
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args, GovType type) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("The person who made this plugin is too lazy to make them work in the console.");
+            sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
             return;
         }
 
@@ -41,20 +41,23 @@ public class GovernmentCommand {
             return;
         }
 
-        List<String> argList = new ArrayList<String>(Arrays.asList(args));
+        //Get the function we want to do.
+        String function = args[0];
+        List<String> largs = new ArrayList<String>(Arrays.asList(args));
+        largs.remove(0);
 
-        String utility = args[0];
+        String result = null;
 
-        if (utility.equalsIgnoreCase("found")) {
-            if (argList.size() < 2) {
-                player.sendMessage(MsgColor.ERROR + "You need to specify a name for your " + type.getName() + ".");
-                return;
+        if (largs.size() < 1) {
+        } else {
+            if (function.equalsIgnoreCase("found")) {
+                result = doFound(player, Joiner.on(' ').join(largs), type);
             }
-            argList.remove(0);
-            doFound(player, Joiner.on(' ').join(argList), type);
         }
 
-        return;
+        if (result != null) {
+            player.sendMessage(MsgColor.ERROR + result);
+        }
     }
 
     public static String doHelp(MPlayer player) {
