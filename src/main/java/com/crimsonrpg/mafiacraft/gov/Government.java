@@ -435,12 +435,18 @@ public class Government extends Transactable implements LandPurchaser {
             case VICE_LEADER:
                 String oldV = getViceLeader();
                 viceLeader = player;
+                if (oldV == null) {
+                    break;
+                }
                 addMember(oldV);
                 break;
 
             case LEADER:
                 String oldL = getLeader();
                 leader = player;
+                if (oldL == null) {
+                    break;
+                }
                 addMember(oldL);
                 break;
         }

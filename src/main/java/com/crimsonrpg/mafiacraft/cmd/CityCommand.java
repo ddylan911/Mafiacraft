@@ -9,6 +9,8 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
+import com.crimsonrpg.mafiacraft.gov.Government;
+import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.TPCD;
@@ -412,6 +414,31 @@ public class CityCommand {
 
         city.establishPolice(c, a);
         player.sendMessage(MsgColor.SUCCESS + "A police force has been established in your city.");
+        return null;
+    }
+
+    public static String doSetChief(MPlayer player, String chief) {
+        City city = player.getCity();
+        if (city == null) {
+            return "You are not in a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You must be a member of the city to perform this action.";
+        }
+
+        MPlayer c = Mafiacraft.getPlayer(Bukkit.getPlayer(chief));
+        if (c == null) {
+            return "That player is either offline or does not exist.";
+        }
+        
+        Government police = city.getPolice();
+        if (police == null) {
+            return "The city does not have a police force established.";
+        }
+        
+        police.setPosition(c, Position.LEADER);
+        player.sendMessage(MsgColor.SUCCESS + "The chief of police has successfully been changed to " + c.getName() + ".");
         return null;
     }
 
