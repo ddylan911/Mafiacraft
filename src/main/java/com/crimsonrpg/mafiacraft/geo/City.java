@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
@@ -54,6 +55,30 @@ public class City extends Transactable implements LandOwner {
      */
     public Government getPolice() {
         return Mafiacraft.getGovernmentManager().getPolice(this);
+    }
+
+    /**
+     * Sets the police of the city.
+     *
+     * @param police
+     * @return
+     */
+    public City setPolice(Government police) {
+        Mafiacraft.getGovernmentManager().setPolice(this, police);
+        return this;
+    }
+
+    /**
+     * Establishes a police force within the city.
+     *
+     * @param chief The chief of police
+     * @param assistant The assistant chief
+     * @return The police force created
+     */
+    public Government establishPolice(MPlayer chief, MPlayer assistant) {
+        Government police = Mafiacraft.getGovernmentManager().createGovernment(getName(), GovType.POLICE);
+        setPolice(police);
+        return police;
     }
 
     /**
@@ -345,9 +370,9 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Gets a section's name.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public String getSectionName(Chunk chunk) {
         return getDistrict(chunk).getSectionName(chunk);
