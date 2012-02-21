@@ -4,6 +4,14 @@
  */
 package com.crimsonrpg.mafiacraft.chat;
 
+import com.crimsonrpg.mafiacraft.chat.type.GovernmentChat;
+import com.crimsonrpg.mafiacraft.chat.type.DistrictChat;
+import com.crimsonrpg.mafiacraft.chat.type.OfficerChat;
+import com.crimsonrpg.mafiacraft.chat.type.LocalChat;
+import com.crimsonrpg.mafiacraft.chat.type.AdminChat;
+import com.crimsonrpg.mafiacraft.chat.type.DivisionChat;
+import com.crimsonrpg.mafiacraft.chat.type.CityChat;
+import com.crimsonrpg.mafiacraft.chat.type.GlobalChat;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import java.util.HashMap;

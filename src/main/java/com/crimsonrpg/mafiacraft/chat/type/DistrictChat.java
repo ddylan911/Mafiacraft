@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.crimsonrpg.mafiacraft.chat;
+package com.crimsonrpg.mafiacraft.chat.type;
 
+import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import org.bukkit.ChatColor;
 
