@@ -11,8 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 /**
- *
- * @author simplyianm
+ * Registers all commands with the server.
  */
 public class Commands {
     public static void registerAll(MafiacraftPlugin plugin) {
@@ -40,6 +39,13 @@ public class Commands {
         plugin.getCommand("district").setExecutor(new CommandExecutor() {
             public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
                 DistrictCommand.parseCmd(cs, cmnd, string, strings);
+                return true;
+            }
+
+        });
+        plugin.getCommand("section").setExecutor(new CommandExecutor() {
+            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+                SectionCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
 

@@ -19,6 +19,9 @@ commands:
   district:
     description: District base command
     usage: /district <tool>
+  section:
+    description: Section base command
+    usage: /section <tool>
     
 permissions:
   mafiacraft.admin:
