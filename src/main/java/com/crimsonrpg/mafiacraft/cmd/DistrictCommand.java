@@ -13,6 +13,7 @@ import com.crimsonrpg.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -49,6 +50,24 @@ public class DistrictCommand {
     public static String doHelp(MPlayer player) {
         //TODO: be helpful
         player.sendMessage(MsgColor.ERROR + "TODO: help");
+        return null;
+    }
+
+    public static String doSetBus(MPlayer player) {
+        District district = player.getDistrict();
+        City city = district.getCity();
+        if (city == null) {
+            return "You aren't in a district that is part of a city.";
+        }
+
+        if (city.isMember(player)) {
+            return "You must be a mayor of this city.";
+        }
+
+        Location bus = player.getLocation();
+        district.setBusStop(bus);
+
+        player.sendMessage(MsgColor.SUCCESS + "The bus stop of " + district.getNameInChat() + " has been set to your location.");
         return null;
     }
 

@@ -411,6 +411,7 @@ public class District implements LandOwner {
     public District reset() {
         setCity(null);
         setName(null);
+        setBusStop(null);
         resetOwnerships();
         setType(DistrictType.UNEXPLORED);
         return this;
