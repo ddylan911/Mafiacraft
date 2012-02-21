@@ -22,6 +22,9 @@ commands:
   section:
     description: Section base command
     usage: /section <tool>
+  chat:
+    description: Chat command
+    usage: /chat [type]
     
 permissions:
   mafiacraft.admin:

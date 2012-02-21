@@ -76,6 +76,11 @@ public abstract class ChatType {
     }
 
     static {
+        //Default
+        chatTypes.put("", DEFAULT);
+        chatTypes.put("default", DEFAULT);
+        chatTypes.put("def", DEFAULT);
+        
         //City
         chatTypes.put("city", CITY);
         chatTypes.put("c", CITY);

@@ -50,6 +50,13 @@ public class Commands {
             }
 
         });
+        plugin.getCommand("chat").setExecutor(new CommandExecutor() {
+            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+                ChatCommand.parseCmd(cs, cmnd, string, strings);
+                return true;
+            }
+
+        });
     }
 
 }
