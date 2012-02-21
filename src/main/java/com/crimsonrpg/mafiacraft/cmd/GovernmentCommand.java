@@ -104,6 +104,10 @@ public class GovernmentCommand {
     }
 
     public static String doFound(MPlayer player, String name, GovType type) {
+        if (!type.canFound()) {
+            return "You can't found a " + type.getName() + ".";
+        }
+        
         double balance = player.getMoney();
         double cost = MConfig.getDouble("prices.mafia.found");
 

@@ -18,18 +18,21 @@ public abstract class GovType {
 
     public static GovType POLICE;
 
-	private static List<GovType> types = new ArrayList<GovType>();
-	
+    private static List<GovType> types = new ArrayList<GovType>();
+
     private Map<String, String> locale = new HashMap<String, String>();
 
-    public GovType() {
+    private final boolean canFound;
+
+    public GovType(boolean canFound) {
         locale();
+        this.canFound = canFound;
     }
-    
-	public static List<GovType> getGovTypes() {
-		return new ArrayList<GovType>(types);
-	}
-	
+
+    public static List<GovType> getGovTypes() {
+        return new ArrayList<GovType>(types);
+    }
+
     public abstract String getName();
 
     public abstract void locale();
@@ -46,8 +49,12 @@ public abstract class GovType {
         return localized;
     }
 
+    public boolean canFound() {
+        return canFound;
+    }
+
     static {
-        MAFIA = new GovType() {
+        MAFIA = new GovType(true) {
             @Override
             public String getName() {
                 return "mafia";
@@ -56,7 +63,7 @@ public abstract class GovType {
             @Override
             public void locale() {
                 m("command", "mafia");
-                
+
                 //Ranks
                 m("leader", "godfather");
                 m("vice leader", "consigliere");
@@ -65,21 +72,21 @@ public abstract class GovType {
                 m("worker", "soldier");
                 m("affiliate", "associate");
                 m("affiliates", "associates");
-                
+
                 //Groups
                 m("division", "regime");
-				
-				//Chat
-				m("gov.chatpref", "m"); //Mafia
-				m("gov.chatalias", "maf");
-				m("div.chatpref", "r"); //Regime
-				m("div.chatalias", "reg");
-				m("off.chatpref", "o"); //Officer
-				m("off.chatalias", "off");
+
+                //Chat
+                m("gov.chatpref", "m"); //Mafia
+                m("gov.chatalias", "maf");
+                m("div.chatpref", "r"); //Regime
+                m("div.chatalias", "reg");
+                m("off.chatpref", "o"); //Officer
+                m("off.chatalias", "off");
             }
 
         };
-        POLICE = new GovType() {
+        POLICE = new GovType(false) {
             @Override
             public String getName() {
                 return "police";
@@ -88,7 +95,7 @@ public abstract class GovType {
             @Override
             public void locale() {
                 m("command", "police");
-                
+
                 //Ranks
                 m("leader", "chief of police");
                 m("vice leader", "assistant chief");
@@ -97,23 +104,23 @@ public abstract class GovType {
                 m("worker", "sergeant");
                 m("affiliate", "officer");
                 m("affiliates", "officers");
-                
+
                 //Groups
                 m("division", "squad");
-				
-				//Chat
-				m("gov.chatpref", "p"); //Police
-				m("gov.chatalias", "pol");
-				m("div.chatpref", "s"); //Squad
-				m("div.chatalias", "sq");
-				m("off.chatpref", "o"); //Commander
-				m("off.chatalias", "cmd");
+
+                //Chat
+                m("gov.chatpref", "p"); //Police
+                m("gov.chatalias", "pol");
+                m("div.chatpref", "s"); //Squad
+                m("div.chatalias", "sq");
+                m("off.chatpref", "o"); //Commander
+                m("off.chatalias", "cmd");
             }
 
         };
-		
-		types.add(MAFIA);
-		types.add(POLICE);
+
+        types.add(MAFIA);
+        types.add(POLICE);
     }
 
 }
