@@ -10,6 +10,7 @@ import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +48,32 @@ public class DistrictCommand {
         }
     }
 
+    public static String doDesc(MPlayer player, String description) {
+        District district = player.getDistrict();
+        City city = district.getCity();
+        if (city == null) {
+            return "You aren't in a district that is part of a city.";
+        }
+
+        if (city.isMember(player)) {
+            return "You must be a member of this city.";
+        }
+
+        description = description.trim();
+        String result = ValidationUtils.validateDescription(description);
+        if (result != null) {
+            return result;
+        }
+
+        //Set the description
+        district.setDescription(description);
+
+        //Success!
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully changed the description of the district to:");
+        player.sendMessage(MsgColor.INFO + description);
+        return null;
+    }
+
     public static String doHelp(MPlayer player) {
         //TODO: be helpful
         player.sendMessage(MsgColor.ERROR + "TODO: help");
@@ -61,7 +88,7 @@ public class DistrictCommand {
         }
 
         if (city.isMember(player)) {
-            return "You must be a mayor of this city.";
+            return "You must be a member of this city.";
         }
 
         Location bus = player.getLocation();
