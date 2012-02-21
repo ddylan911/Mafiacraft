@@ -18,6 +18,7 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -92,18 +93,28 @@ public class GovernmentCommand {
         return null;
     }
 
-    public static String doPlayer(MPlayer player, MPlayer target) {
-        player.sendMessage(MsgColor.INFO + "TODO: info for " + target.getDisplayName());
+    public static String doPlayer(MPlayer player, String target) {
+        MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
+        if (tgt == null) {
+            return "The player you specified is either not online or does not exist.";
+        }
+
+        player.sendMessage(MsgColor.INFO + "TODO: info for " + tgt.getDisplayName());
         //TODO: add stats
         return null;
     }
 
     public static String doWho(MPlayer player) {
-        return doWho(player, player.getGovernment());
+        return doWho(player, player.getGovernment().getName());
     }
 
-    public static String doWho(MPlayer player, Government government) {
-        player.sendMessage(MsgColor.INFO + "=== Info for " + government.getName() + " ===");
+    public static String doWho(MPlayer player, String govName) {
+        Government gov = Mafiacraft.getGovernmentManager().getGovernment(govName);
+        if (gov == null) {
+            return "The government you specified does not exist.";
+        }
+
+        player.sendMessage(MsgColor.INFO + "=== Info for " + gov.getName() + " ===");
         //TODO: add stats
         return null;
     }
