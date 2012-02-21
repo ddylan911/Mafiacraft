@@ -40,6 +40,7 @@ public class SectionCommand {
         String result = null;
         if (largs.size() < 1) {
             if (function.equalsIgnoreCase("info")) {
+                result = doInfo(player);
             } else {
                 result = doHelp(player);
             }
@@ -53,7 +54,14 @@ public class SectionCommand {
     }
 
     public static String doHelp(MPlayer player) {
+        //TODO: help
         player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOL");
+        return null;
+    }
+
+    public static String doInfo(MPlayer player) {
+        //TODO: info
+        player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOLO");
         return null;
     }
 
