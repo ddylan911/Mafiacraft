@@ -14,6 +14,7 @@ import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,6 +78,16 @@ public class GovernmentCommand {
 
         if (player.getGovernment() != null) {
             return "You are already in a government!";
+        }
+
+        name = name.trim();
+        String result = ValidationUtils.validateName(name);
+        if (result != null) {
+            return result;
+        }
+
+        if (Mafiacraft.getGovernmentManager().getGovernment(name) != null) {
+            return "Another government with that name already exists.";
         }
 
         //Found the government
