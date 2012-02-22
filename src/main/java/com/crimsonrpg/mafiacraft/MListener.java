@@ -25,7 +25,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 
 /**
@@ -33,7 +35,6 @@ import org.bukkit.util.Vector;
  * @author simplyianm
  */
 public class MListener implements Listener {
-
     private final MafiacraftPlugin mc;
 
     public MListener(MafiacraftPlugin mc) {
@@ -50,7 +51,7 @@ public class MListener implements Listener {
         Chunk c = player.getBukkitEntity().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
-        if (!d.getType().canBuildAnywhere()) {
+        if (!d.canBuild(player, c)) {
             player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
             event.setCancelled(true);
             return;
@@ -74,7 +75,7 @@ public class MListener implements Listener {
         Chunk c = player.getBukkitEntity().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
-        if (!d.getType().canBuildAnywhere()) {
+        if (!d.canBuild(player, c)) {
             player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
             event.setCancelled(true);
             return;
@@ -119,31 +120,31 @@ public class MListener implements Listener {
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
         EntityDamageEvent cause = event.getEntity().getLastDamageCause();
-        
+
         if (!cause.getCause().equals(DamageCause.ENTITY_ATTACK)) {
             return;
         }
-        
+
         EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) cause;
-        
+
         Entity damager = e.getDamager();
         Entity entity = e.getEntity();
-        
+
         if ((!(damager instanceof Player)) || !(entity instanceof Player)) {
             return;
         }
         MPlayer attacker = Mafiacraft.getPlayer((Player) damager);
         MPlayer attacked = Mafiacraft.getPlayer((Player) entity);
-        
+
         //Check for thief
         double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(UtilityClass.THIEF)) ? 0.5 : 0.1);
-        
+
         //Subtract money
         attacked.subtractMoney(money);
         attacker.addMoney(money);
         attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + " and took " + money + " of their money.");
         attacked.sendMessage(ChatColor.RED + "You died and lost " + money + " of your money.");
-            
+
         //Track the kill
         KillTracker kt = Mafiacraft.getPlayerManager().getKillTracker();
         kt.incScore(attacker);
@@ -189,8 +190,8 @@ public class MListener implements Listener {
         District dest = mc.getCityManager().getDistrict(current);
         District prev = mc.getCityManager().getDistrict(last);
 
-        if (dest.getType().equals(DistrictType.RESERVED)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to enter District " + dest.getName() + ".");
+        if (!dest.getType().canEnter(player)) {
+            player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.getNameInChat() + ".");
 
             //Move back
             Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.getZ() - last.getZ());
@@ -201,10 +202,20 @@ public class MListener implements Listener {
         }
 
         if (prev != dest) {
-            player.sendMessage(ChatColor.GRAY + "You are now entering " + dest.getName() + ".");
+            player.sendMessage(ChatColor.GRAY + "You are now entering " + dest.getNameInChat() + ".");
         }
 
         //We've switched chunks!
         store.setData("lastchunk", current);
     }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Mafiacraft.getPlayerManager().freePlayer(event.getPlayer());
+    }
+
+    public void onPlayerKick(PlayerKickEvent event) {
+        Mafiacraft.getPlayerManager().freePlayer(event.getPlayer());
+    }
+
 }

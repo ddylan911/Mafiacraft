@@ -6,17 +6,13 @@ package com.crimsonrpg.mafiacraft.gov;
 
 import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
-import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.LandPurchaser;
 import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -39,11 +35,11 @@ public class Government extends Transactable implements LandPurchaser {
 
     private List<Division> divisions;
 
-    private List<String> officers;
+    private Set<String> officers;
 
-    private List<String> affiliates;
-	
-	private Location hq;
+    private Set<String> affiliates;
+
+    private Location hq;
 
     /**
      * Holds the land of the government. (Not divisions!)
@@ -235,8 +231,12 @@ public class Government extends Transactable implements LandPurchaser {
                     members.add(viceLeader);
                     break;
 
+                case OFFICER:
+                    members.addAll(officers);
+                    break;
+
                 case AFFILIATE:
-                    members.addAll(members);
+                    members.addAll(affiliates);
                     break;
             }
         }
@@ -317,9 +317,26 @@ public class Government extends Transactable implements LandPurchaser {
      * @return
      */
     public List<MPlayer> getOnlineMembers() {
-        ArrayList<MPlayer> members = new ArrayList<MPlayer>();
+        List<MPlayer> members = new ArrayList<MPlayer>();
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (isMember(player)) {
+                members.add(player);
+            }
+        }
+        return members;
+    }
+
+    /**
+     * Gets all of the online members in a position.
+     *
+     * @param position
+     * @return
+     */
+    public List<MPlayer> getOnlineMembers(Position position) {
+        List<MPlayer> members = new ArrayList<MPlayer>();
+        List<String> pos = getMembers(position);
+        for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
+            if (pos.contains(player.getName())) {
                 members.add(player);
             }
         }
@@ -398,11 +415,11 @@ public class Government extends Transactable implements LandPurchaser {
             return false;
         }
 
-        if (!removeMember(player)) {
+        if (!canHaveMore(position)) {
             return false;
         }
 
-        if (!canHaveMore(position)) {
+        if (!removeMember(player)) {
             return false;
         }
 
@@ -510,11 +527,10 @@ public class Government extends Transactable implements LandPurchaser {
      * Adds a member to this government as an affiliate.
      *
      * @param player
-     * @return
+     * @return True if the operation was allowed.
      */
-    public Government addMember(String player) {
-        affiliates.add(player);
-        return this;
+    public boolean addMember(String player) {
+        return affiliates.add(player);
     }
 
     /**
@@ -524,7 +540,7 @@ public class Government extends Transactable implements LandPurchaser {
      * @param position
      * @return True if the operation was allowed.
      */
-    public Government addMember(MPlayer player) {
+    public boolean addMember(MPlayer player) {
         return addMember(player.getName());
     }
 
@@ -662,12 +678,13 @@ public class Government extends Transactable implements LandPurchaser {
         return this;
     }
 
-	public Location getHq() {
-		return hq;
-	}
+    public Location getHq() {
+        return hq;
+    }
 
-	public Government setHq(Location hq) {
-		this.hq = hq;
-		return this;
-	}
+    public Government setHq(Location hq) {
+        this.hq = hq;
+        return this;
+    }
+
 }

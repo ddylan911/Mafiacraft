@@ -38,4 +38,9 @@ public class CityChat extends ChatType {
     public boolean canJoin(MPlayer player) {
         return true;
     }
+
+    @Override
+    public String getName() {
+        return "city";
+    }
 }

@@ -38,4 +38,9 @@ public class AdminChat extends ChatType {
     public String getName(MPlayer player) {
         return "admin";
     }
+
+    @Override
+    public String getName() {
+        return "admin";
+    }
 }

@@ -26,12 +26,12 @@ public class DivisionChat extends ChatType {
         }
     }
 
-	@Override
-	public String getName(MPlayer player) {
-		Government gov = player.getGovernment();
-		String div = (gov == null) ? "division" : gov.getType().getLocale("division");
-		return div;
-	}
+    @Override
+    public String getName(MPlayer player) {
+        Government gov = player.getGovernment();
+        String div = (gov == null) ? "division" : gov.getType().getLocale("division");
+        return div;
+    }
 
     @Override
     public boolean canJoin(MPlayer player) {
@@ -39,5 +39,10 @@ public class DivisionChat extends ChatType {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return "division";
     }
 }

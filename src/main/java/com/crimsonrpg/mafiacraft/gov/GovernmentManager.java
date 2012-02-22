@@ -35,19 +35,34 @@ public class GovernmentManager {
 
     /**
      * Gets the government associated with the id.
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public Government getGovernment(int id) {
         return governments.get(id);
     }
 
     /**
+     * Gets a government by its name. Case insensitive.
+     *
+     * @param name
+     * @return
+     */
+    public Government getGovernment(String name) {
+        for (Government government : getGovernments()) {
+            if (government.getName().equalsIgnoreCase(name)) {
+                return government;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Gets the government of the specified city.
-     * 
+     *
      * @param city
-     * @return 
+     * @return
      */
     public Government getPolice(City city) {
         return getGovernment(cities.get(city.getId()));
@@ -55,9 +70,9 @@ public class GovernmentManager {
 
     /**
      * Creates a new government.
-     * 
+     *
      * @param name The name of the government.
-     * @return 
+     * @return
      */
     public Government createGovernment(String name, GovType type) {
         int id = getNextGovernmentId();
@@ -69,9 +84,9 @@ public class GovernmentManager {
 
     /**
      * Get the government of a player.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public Government getGovernment(MPlayer player) {
         for (Government gov : getGovernments()) {
@@ -84,9 +99,9 @@ public class GovernmentManager {
 
     /**
      * Sets the city government of a city.
-     * 
+     *
      * @param city
-     * @param government 
+     * @param government
      */
     public void setPolice(City city, Government government) {
         government.setType(GovType.POLICE);

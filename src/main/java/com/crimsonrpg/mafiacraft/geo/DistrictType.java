@@ -4,32 +4,82 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.player.MPlayer;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Represents a type of district.
  */
 public enum DistrictType {
-    CONTESTED(true, true, true),
-    ANARCHIC(true, true, false),
-    LAWLESS(true, false, true),
-    SHARED(false, true, false),
-    OPEN(false, true, true),
-    RESERVED(false, false, false),
-    GOVERNMENT(false, false, false);
+    /**
+     * PvP enabled shared zone. Do whatever the crap you want.
+     */
+    ANARCHIC(true, true, false, false, true),
+    /**
+     * Mafias can do whatever they want.
+     */
+    CONTESTED(true, false, false, true, true),
+    /**
+     * Goverment district with PvP enabled. Good for arenas or some sort of
+     * shady RP alley thing.
+     */
+    LAWLESS(true, false, true, true, true),
+    /**
+     * People cannot claim sections of these districts. These districts can only
+     * be broken. Admins will likely regen them. This is for scrubs who just
+     * join and need some materials.
+     */
+    SHARED(false, true, false, false, true),
+    /**
+     * People can do anything they want in these districts. This is the default
+     * zoning of a district. Individuals can purchase sections for themselves.
+     * Mafias cannot purchase land here, though. With PvP.
+     */
+    OPEN(false, false, false, true, true),
+    /**
+     * City government, cannot be built in or claimed. Peaceful, no PvP.
+     */
+    GOVERNMENT(false, false, true, false, true),
+    /**
+     * You cannot walk into these districts. Admins can worldedit, build, and
+     * crap here, though. Mayors can walk into these too to claim them.
+     */
+    RESERVED(false, false, false, false, false),
+    /**
+     * Basically a reserved district with a different name.
+     */
+    UNEXPLORED(false, false, false, false, false);
 
     private boolean pvp;
 
-    private boolean buildAnywhere;
+    private boolean build;
+
+    private boolean govBuild;
 
     private boolean claim;
 
-    private DistrictType(boolean pvp, boolean build, boolean claim) {
+    private boolean enter;
+
+    private DistrictType(boolean pvp, boolean build, boolean govBuild, boolean claim, boolean enter) {
         this.pvp = pvp;
-        this.buildAnywhere = build;
+        this.build = build;
+        this.govBuild = govBuild;
         this.claim = claim;
+        this.enter = enter;
     }
 
-    public boolean canBuildAnywhere() {
-        return buildAnywhere;
+    /**
+     * Returns true if you can build in unclaimed land.
+     *
+     * @return
+     */
+    public boolean canBuild() {
+        return build;
+    }
+
+    public boolean isGovBuild() {
+        return govBuild;
     }
 
     public boolean isPvp() {
@@ -38,6 +88,51 @@ public enum DistrictType {
 
     public boolean isClaim() {
         return claim;
+    }
+
+    public boolean canEnter(MPlayer player) {
+        if (!enter) {
+            return (player.isAMayor());
+        }
+        return true;
+    }
+
+    /**
+     * Gets a player-friendly name of the type of district.
+     * 
+     * @return 
+     */
+    public String niceName() {
+        return name().toLowerCase();
+    }
+
+    private static Map<String, DistrictType> typeMap;
+
+    /**
+     * Retrieves a district type from a string.
+     *
+     * @param typeString
+     * @return
+     */
+    public static DistrictType fromString(String typeString) {
+        DistrictType maybe = DistrictType.valueOf(typeString.toUpperCase());
+        if (maybe == null) {
+            maybe = typeMap.get(typeString);
+        }
+        return maybe;
+    }
+
+    static {
+        typeMap = new HashMap<String, DistrictType>();
+
+        typeMap.put("s", DistrictType.SHARED);
+        typeMap.put("c", DistrictType.CONTESTED);
+        typeMap.put("a", DistrictType.ANARCHIC);
+        typeMap.put("r", DistrictType.RESERVED);
+        typeMap.put("l", DistrictType.LAWLESS);
+        typeMap.put("o", DistrictType.OPEN);
+        typeMap.put("g", DistrictType.GOVERNMENT);
+        typeMap.put("u", DistrictType.UNEXPLORED);
     }
 
 }

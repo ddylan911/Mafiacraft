@@ -24,13 +24,18 @@ public class GlobalChat extends ChatType {
         }
     }
 
-	@Override
-	public String getName(MPlayer player) {
-		return "global";
-	}
+    @Override
+    public String getName(MPlayer player) {
+        return "global";
+    }
 
     @Override
     public boolean canJoin(MPlayer player) {
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return "global";
     }
 }

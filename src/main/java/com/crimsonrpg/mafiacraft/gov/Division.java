@@ -37,8 +37,6 @@ public class Division extends Transactable implements LandPurchaser {
     private List<String> workers = new ArrayList<String>();
     
     private int land;
-    
-    private double money;
 
     public Division(int id, Government government, String prefix) {
         this.id = id;
@@ -62,7 +60,7 @@ public class Division extends Transactable implements LandPurchaser {
         return name;
     }
 
-    public String getPrefix() {
+    public void setName(String name) {        this.name = name;    }    public String getPrefix() {
         return this.prefix;
     }
 
@@ -215,19 +213,6 @@ public class Division extends Transactable implements LandPurchaser {
             }
         }
         return online;
-    }
-
-    public static String validateName(String name) {
-        int max = MConfig.getInt("division.maxnamelength");
-        if (name.length() < max) {
-            return "Name must be under " + max + " characters.";
-        }
-        
-        if (!name.matches("[A-Za-z0-9]+")) {
-            return "Name must be alphanumeric.";
-        }
-        
-        return null;
     }
     
     /**

@@ -41,4 +41,9 @@ public class DistrictChat extends ChatType {
         }
         return true;
     }
+
+    @Override
+    public String getName() {
+        return "District";
+    }
 }

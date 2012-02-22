@@ -45,6 +45,19 @@ public abstract class ChatType {
      */
     public abstract void chat(MPlayer player, String message);
 
+    /**
+     * Checks if the given {@link MPlayer} player can join the chat type.
+     * 
+     * @param player
+     * @return 
+     */
+    /**
+     * Returns the name of the current chat type.
+     * 
+     * @return 
+     */
+    public abstract String getName();
+
     public abstract boolean canJoin(MPlayer player);
 
     /**

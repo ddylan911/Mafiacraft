@@ -9,6 +9,7 @@ import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
+import gnu.trove.iterator.TByteObjectIterator;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class District implements LandOwner {
 
     private String description;
 
-    private TByteObjectMap<LandOwner> owners = new TByteObjectHashMap<LandOwner>();
+    private TByteObjectMap<String> owners = new TByteObjectHashMap<String>();
 
     public District(World world, int x, int z) {
         this.id = GeoUtils.coordsToDistrictId(x, z);
@@ -50,8 +51,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the id of the district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getId() {
         return id;
@@ -59,7 +60,7 @@ public class District implements LandOwner {
 
     /**
      * Gets the name of the district
-     * 
+     *
      * @return The name of the district
      */
     public String getName() {
@@ -68,7 +69,7 @@ public class District implements LandOwner {
 
     /**
      * Sets the name of the district
-     * 
+     *
      * @param name The name to set
      * @return The district that the name was changed of
      */
@@ -79,8 +80,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the world this district is in.
-     * 
-     * @return 
+     *
+     * @return
      */
     public World getWorld() {
         return world;
@@ -88,9 +89,9 @@ public class District implements LandOwner {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public boolean canBeClaimed(Chunk chunk, LandOwner owner) {
         LandOwner currentOwner = getOwner(chunk);
@@ -109,8 +110,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the X coordinate of this district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getX() {
         return x;
@@ -118,8 +119,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the Z coordinate of this district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getZ() {
         return z;
@@ -127,8 +128,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the city this district is part of.
-     * 
-     * @return 
+     *
+     * @return
      */
     public City getCity() {
         return city;
@@ -136,9 +137,9 @@ public class District implements LandOwner {
 
     /**
      * Sets the city of this district.
-     * 
+     *
      * @param city
-     * @return 
+     * @return
      */
     public District setCity(City city) {
         this.city = city;
@@ -147,8 +148,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the type of district this city is.
-     * 
-     * @return 
+     *
+     * @return
      */
     public DistrictType getType() {
         return type;
@@ -156,9 +157,9 @@ public class District implements LandOwner {
 
     /**
      * Sets the type of district this district is.
-     * 
+     *
      * @param type
-     * @return 
+     * @return
      */
     public District setType(DistrictType type) {
         this.type = type;
@@ -167,8 +168,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the description of the district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getDescription() {
         return description;
@@ -176,9 +177,9 @@ public class District implements LandOwner {
 
     /**
      * Sets the description of the district.
-     * 
+     *
      * @param description
-     * @return 
+     * @return
      */
     public District setDescription(String description) {
         this.description = description;
@@ -187,9 +188,10 @@ public class District implements LandOwner {
 
     /**
      * Gets the owner of a chunk.
-     * 
+     *
      * @param chunk
-     * @return The government assigned to the chunk, or null if the chunk is not part of the district.
+     * @return The government assigned to the chunk, or null if the chunk is not
+     * part of the district.
      */
     public LandOwner getOwner(Chunk chunk) {
         if (!contains(chunk)) {
@@ -200,14 +202,15 @@ public class District implements LandOwner {
 
     /**
      * Gets the owner of the specified section.
-     * 
+     *
      * @param x
      * @param z
-     * @return 
+     * @return
      */
     public LandOwner getOwner(int x, int z) {
         byte id = GeoUtils.coordsToSectionId(x, z);
-        LandOwner owner = owners.get(id);
+        String ownerStr = owners.get(id);
+        LandOwner owner = Mafiacraft.getLandOwner(ownerStr);
         if (owner == null) {
             owner = this;
         }
@@ -216,10 +219,10 @@ public class District implements LandOwner {
 
     /**
      * Sets the owner of a section.
-     * 
+     *
      * @param chunk
      * @param owner
-     * @return 
+     * @return
      */
     public District setOwner(Chunk chunk, LandOwner owner) {
         if (!contains(chunk)) {
@@ -230,34 +233,70 @@ public class District implements LandOwner {
 
     /**
      * Sets the owner of a section.
-     * 
+     *
      * @param x
      * @param z
      * @param owner
-     * @return 
+     * @return
      */
     public District setOwner(int x, int z, LandOwner owner) {
         byte id = GeoUtils.coordsToSectionId(x, z);
-        owners.put(id, owner);
+        owners.put(id, owner.getOwnerId());
+        return this;
+    }
+
+    /**
+     * Removes the owner of a section.
+     *
+     * @param chunk
+     * @return
+     */
+    public District removeOwner(Chunk chunk) {
+        if (!contains(chunk)) {
+            throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
+        }
+        return removeOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
+    }
+
+    /**
+     * Removes an owner of a section.
+     *
+     * @param x
+     * @param z
+     * @return
+     */
+    public District removeOwner(int x, int z) {
+        byte id = GeoUtils.coordsToSectionId(x, z);
+        owners.remove(id);
+        return this;
+    }
+
+    /**
+     * Resets all ownerships in the district.
+     *
+     * @return
+     */
+    public District resetOwnerships() {
+        owners = new TByteObjectHashMap<String>();
         return this;
     }
 
     /**
      * Gets the user-friendly name of the section.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public String getSectionName(Chunk chunk) {
         short idUnsigned = (short) (getSectionId(chunk) + 127);
         return getName() + '-' + idUnsigned;
     }
-    
+
     /**
      * Gets the id of the specified section.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public byte getSectionId(Chunk chunk) {
         if (!contains(chunk)) {
@@ -268,9 +307,9 @@ public class District implements LandOwner {
 
     /**
      * Checks if the district contains the specified location.
-     * 
+     *
      * @param location
-     * @return 
+     * @return
      */
     public boolean contains(Location location) {
         return contains(location.getChunk());
@@ -278,9 +317,9 @@ public class District implements LandOwner {
 
     /**
      * Checks if the district contains the specified chunk.
-     * 
+     *
      * @param c
-     * @return 
+     * @return
      */
     public boolean contains(Chunk c) {
         int sx = x << 4;
@@ -293,7 +332,15 @@ public class District implements LandOwner {
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
-        return type.canBuildAnywhere();
+        if (type.canBuild()) {
+            return true;
+        }
+
+        if (type.isGovBuild() && getCity().isMember(player)) {
+            return true;
+        }
+
+        return false;
     }
 
     public String getOwnerName() {
@@ -306,8 +353,8 @@ public class District implements LandOwner {
 
     /**
      * Gets the bus stop of the district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public Location getBusStop() {
         return busStop;
@@ -315,8 +362,8 @@ public class District implements LandOwner {
 
     /**
      * Sets the bus stop of the district.
-     * 
-     * @param busStop 
+     *
+     * @param busStop
      */
     public void setBusStop(Location busStop) {
         this.busStop = busStop;
@@ -324,8 +371,8 @@ public class District implements LandOwner {
 
     /**
      * Gets a list of all players in the district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<MPlayer> getPlayers() {
         List<MPlayer> players = new ArrayList<MPlayer>();
@@ -340,4 +387,47 @@ public class District implements LandOwner {
     public OwnerType getOwnerType() {
         return OwnerType.DISTRICT;
     }
+
+    /**
+     * Detaches the district from whatever city it was part of. It completely
+     * resets the district, too.
+     *
+     * @return
+     */
+    public District detachFromCity() {
+        if (city == null) {
+            return this;
+        }
+
+        reset().setType(DistrictType.ANARCHIC);
+        return this;
+    }
+
+    /**
+     * Completely resets the district to how it was before, other than buildings.
+     * 
+     * @return 
+     */
+    public District reset() {
+        setCity(null);
+        setName(null);
+        setBusStop(null);
+        resetOwnerships();
+        setType(DistrictType.UNEXPLORED);
+        return this;
+    }
+    
+    /**
+     * Gets a chat friendly name of the district.
+     *
+     * @return
+     */
+    public String getNameInChat() {
+        if (name != null) {
+            City c = getCity();
+            return "district " + name + ((c == null) ? "" : " of " + c.getOwnerName());
+        }
+        return "an unexplored district";
+    }
+
 }
