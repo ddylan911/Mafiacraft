@@ -34,9 +34,14 @@ public enum DistrictType {
     /**
      * People can do anything they want in these districts. This is the default
      * zoning of a district. Individuals can purchase sections for themselves.
-     * Mafias cannot purchase land here, though. With PvP.
+     * Mafias cannot purchase land here, though. No PvP.
      */
     OPEN(false, false, false, true, true),
+    /**
+     * Trade districts are open districts that are generally closer to spawn.
+     * They are only open to donators to the server.
+     */
+    TRADE(false, false, false, true, true),
     /**
      * City government, cannot be built in or claimed. Peaceful, no PvP.
      */
@@ -99,8 +104,8 @@ public enum DistrictType {
 
     /**
      * Gets a player-friendly name of the type of district.
-     * 
-     * @return 
+     *
+     * @return
      */
     public String niceName() {
         return name().toLowerCase();
