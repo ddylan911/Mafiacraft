@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.crimsonrpg.mafiacraft.chat;
+package com.crimsonrpg.mafiacraft.chat.type;
 
+import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import org.bukkit.ChatColor;
@@ -16,8 +17,11 @@ public class OfficerChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
-        for (MPlayer officers : player.getGovernment().getOnlineOfficers()) {
-            officers.sendMessage(ChatColor.GRAY + "[O]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
+		String pref = player.getGovernment().getType().getLocale("off.chatp");
+		String msg = pref + " " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+		
+        for (MPlayer o : player.getGovernment().getOnlineOfficers()) {
+			o.sendMessage(msg);
         }
     }
 

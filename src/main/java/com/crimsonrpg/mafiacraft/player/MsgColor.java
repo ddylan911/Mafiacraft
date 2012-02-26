@@ -16,4 +16,8 @@ public class MsgColor {
     public static String INFO = ChatColor.YELLOW.toString();
     public static String SUCCESS = ChatColor.GREEN.toString();
     public static String CHAT_ADMIN = ChatColor.GOLD.toString();
+	public static String CHAT_CITY = ChatColor.DARK_GREEN.toString();
+	public static String CHAT_DISTRICT = ChatColor.BLUE.toString();
+	public static String CHAT_GLOBAL = ChatColor.GREEN.toString();
+	public static String CHAT_LOCAL = ChatColor.LIGHT_PURPLE.toString();
 }

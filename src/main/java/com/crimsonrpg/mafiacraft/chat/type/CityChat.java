@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.crimsonrpg.mafiacraft.chat;
+package com.crimsonrpg.mafiacraft.chat.type;
 
+import com.crimsonrpg.mafiacraft.chat.ChatType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.player.MsgColor;
 import org.bukkit.ChatColor;
 
 /**
@@ -19,8 +21,11 @@ public class CityChat extends ChatType {
             player.sendMessage(ChatColor.RED + "You are not in a city.");
             return;
         }
+		
+		String msg = MsgColor.CHAT_CITY + "[C] " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+		
         for (MPlayer players : player.getCity().getPlayers()) {
-            players.sendMessage(ChatColor.RED + "[C]" + ChatColor.WHITE + player.getDisplayName() + ": " + message);
+            players.sendMessage(msg);
         }
     }
 

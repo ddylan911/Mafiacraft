@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.bukkit.ChatColor;
 
 /**
  *
@@ -75,14 +76,17 @@ public abstract class GovType {
 
                 //Groups
                 m("division", "regime");
-
-                //Chat
-                m("gov.chatpref", "m"); //Mafia
-                m("gov.chatalias", "maf");
-                m("div.chatpref", "r"); //Regime
-                m("div.chatalias", "reg");
-                m("off.chatpref", "o"); //Officer
-                m("off.chatalias", "off");
+				
+				//Chat
+				m("gov.chatpref", "m"); //Mafia
+				m("gov.chatp", ChatColor.DARK_RED + "[M]");
+				m("gov.chatalias", "maf");
+				m("div.chatpref", "r"); //Regime
+				m("div.chatp", ChatColor.GOLD + "[R]");
+				m("div.chatalias", "reg");
+				m("off.chatpref", "o"); //Officer
+				m("off.chatp", ChatColor.GREEN + "[O]");
+				m("off.chatalias", "off");
             }
 
         };
@@ -107,14 +111,17 @@ public abstract class GovType {
 
                 //Groups
                 m("division", "squad");
-
-                //Chat
-                m("gov.chatpref", "p"); //Police
-                m("gov.chatalias", "pol");
-                m("div.chatpref", "s"); //Squad
-                m("div.chatalias", "sq");
-                m("off.chatpref", "o"); //Commander
-                m("off.chatalias", "cmd");
+				
+				//Chat
+				m("gov.chatpref", "p"); //Police
+				m("gov.chatp", ChatColor.DARK_BLUE + "[P]");
+				m("gov.chatalias", "pol");
+				m("div.chatpref", "s"); //Squad
+				m("div.chatp", ChatColor.AQUA + "[S]");
+				m("div.chatalias", "sq");
+				m("off.chatpref", "o"); //Commander
+				m("off.chatp", ChatColor.GRAY + "[CM]");
+				m("off.chatalias", "cmd");
             }
 
         };
