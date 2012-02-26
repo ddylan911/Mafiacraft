@@ -32,7 +32,7 @@ public class PlayerManager {
     public PlayerManager(MafiacraftPlugin mc) {
         this.mc = mc;
         this.killTracker = new KillTracker(mc);
-        
+
         buildCache();
     }
 
@@ -72,9 +72,15 @@ public class PlayerManager {
         return players;
     }
 
-    public MPlayer getOfflinePlayer(OfflinePlayer player) {
+    /**
+     * Gets a player by their name.
+     * 
+     * @param name
+     * @return 
+     */
+    public MPlayer getPlayer(String name) {
         try {
-            return players.get(player.getName());
+            return players.get(name);
         } catch (ExecutionException ex) {
             MafiacraftPlugin.log(Level.SEVERE + "Execution exception for getting a player!");
         }
@@ -88,7 +94,7 @@ public class PlayerManager {
      * @return
      */
     public MPlayer getPlayer(Player player) {
-        return getOfflinePlayer(player);
+        return getPlayer(player.getName());
     }
 
     /**
