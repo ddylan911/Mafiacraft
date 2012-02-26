@@ -21,10 +21,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MafiacraftPlugin extends JavaPlugin {
     private static MafiacraftPlugin instance;
 
-    private static final Logger LOGGER = Logger.getLogger("Minecraft");
-    
-    private static final int VERBOSITY = 5;
-
     private ChatHandler chatHandler;
 
     private CityManager cityManager;
@@ -40,13 +36,13 @@ public class MafiacraftPlugin extends JavaPlugin {
     }
 
     public void onDisable() {
-        log("Mafiacraft disabled.");
+        MLogger.log("Mafiacraft disabled.");
     }
 
     public void onEnable() {
         //Setup the helper static class
         Mafiacraft.setPlugin(this);
-        
+
         //Setup config
         MConfig.bind(this);
         saveConfig();
@@ -65,7 +61,7 @@ public class MafiacraftPlugin extends JavaPlugin {
         playerManager = new PlayerManager(this);
         vaultHelper = new VaultHelper(this);
 
-        log("Mafiacraft enabled.");
+        MLogger.log("Mafiacraft enabled.");
     }
 
     public ChatHandler getChatHandler() {
@@ -86,31 +82,6 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     public VaultHelper getVaultHelper() {
         return vaultHelper;
-    }
-
-    public static void log(String message) {
-        log(Level.INFO, message);
-    }
-
-    public static void log(Level level, String msg) {
-        msg = "[MC] " + msg;
-        LOGGER.log(level, msg);
-    }
-
-    public static void log(Level level, String msg, Throwable thrown) {
-        msg = "[MC] " + msg;
-        LOGGER.log(level, msg, thrown);
-    }
-
-    public static void logVerbose(String message) {
-        logVerbose(message, 1);
-    }
-
-    public static void logVerbose(String message, int level) {
-        if (level > VERBOSITY) {
-            return;
-        }
-        log("[V" + level + "] " + message);
     }
 
     public static MafiacraftPlugin getInstance() {

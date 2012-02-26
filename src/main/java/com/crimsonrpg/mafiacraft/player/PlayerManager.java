@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.player;
 
+import com.crimsonrpg.mafiacraft.MLogger;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -85,7 +85,7 @@ public class PlayerManager {
         try {
             return players.get(name);
         } catch (ExecutionException ex) {
-            MafiacraftPlugin.log(Level.SEVERE + "Execution exception for getting a player!");
+            MLogger.log(Level.SEVERE + "Execution exception for getting a player!");
         }
         return null;
     }
@@ -149,7 +149,7 @@ public class PlayerManager {
         try {
             file.createNewFile();
         } catch (IOException ex) {
-            MafiacraftPlugin.log(player + "'s file could not be created!");
+            MLogger.log(player + "'s file could not be created!");
         }
 
         return file;
@@ -187,7 +187,7 @@ public class PlayerManager {
             yml.save(getPlayerFile(player));
             return true;
         } catch (IOException ex) {
-            MafiacraftPlugin.log(Level.SEVERE, "The file for the player " + player + " could not be saved!");
+            MLogger.log(Level.SEVERE, "The file for the player " + player + " could not be saved!");
         }
         return false;
     }

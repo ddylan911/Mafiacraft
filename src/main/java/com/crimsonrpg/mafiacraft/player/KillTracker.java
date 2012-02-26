@@ -4,6 +4,7 @@
  */
 package com.crimsonrpg.mafiacraft.player;
 
+import com.crimsonrpg.mafiacraft.MLogger;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import java.io.File;
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class KillTracker {
             try {
                 killFilePath.createNewFile();
             } catch (IOException ex) {
-                MafiacraftPlugin.log(Level.SEVERE, "Could not create the kill file!", ex);
+                MLogger.log(Level.SEVERE, "Could not create the kill file!", ex);
             }
         }
         killFile = YamlConfiguration.loadConfiguration(killFilePath);
@@ -72,7 +73,7 @@ public class KillTracker {
         try {
             killFile.save(killFilePath);
         } catch (IOException ex) {
-            MafiacraftPlugin.log(Level.SEVERE, "Could not save the kills!", ex);
+            MLogger.log(Level.SEVERE, "Could not save the kills!", ex);
         }
     }
 

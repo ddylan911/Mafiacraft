@@ -4,9 +4,8 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.MLogger;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
-import com.crimsonrpg.mafiacraft.gov.GovType;
-import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
@@ -146,7 +145,7 @@ public class CityManager {
     private District createDistrict(World world, int x, int z) {
         District d = new District(world, x, z);
         getDistrictMap(world).put(d.getId(), d);
-        MafiacraftPlugin.logVerbose("A district was created in the world '" + world.getName() + "' at (" + x + ", " + z + ").");
+        MLogger.logVerbose("A district was created in the world '" + world.getName() + "' at (" + x + ", " + z + ").");
         return d;
     }
 

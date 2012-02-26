@@ -4,12 +4,11 @@
  */
 package com.crimsonrpg.mafiacraft.geo;
 
+import com.crimsonrpg.mafiacraft.MLogger;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
-import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
-import gnu.trove.iterator.TByteObjectIterator;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
 import java.util.ArrayList;
@@ -324,7 +323,7 @@ public class District implements LandOwner {
     public boolean contains(Chunk c) {
         int sx = x << 4;
         int sz = z << 4;
-        MafiacraftPlugin.logVerbose("Checking if chunk " + c.getX() + ", " + c.getZ() + " is within the bounds of " + sx + ", " + sz + ".", 5);
+        MLogger.logVerbose("Checking if chunk " + c.getX() + ", " + c.getZ() + " is within the bounds of " + sx + ", " + sz + ".", 5);
         return (c.getX() >= sx)
                 && (c.getX() < (sx + 0x10))
                 && (c.getZ() >= sz)
@@ -404,9 +403,10 @@ public class District implements LandOwner {
     }
 
     /**
-     * Completely resets the district to how it was before, other than buildings.
-     * 
-     * @return 
+     * Completely resets the district to how it was before, other than
+     * buildings.
+     *
+     * @return
      */
     public District reset() {
         setCity(null);
@@ -416,7 +416,7 @@ public class District implements LandOwner {
         setType(DistrictType.UNEXPLORED);
         return this;
     }
-    
+
     /**
      * Gets a chat friendly name of the district.
      *
