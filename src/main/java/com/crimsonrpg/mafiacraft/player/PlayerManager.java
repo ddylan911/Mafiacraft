@@ -8,6 +8,8 @@ import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -16,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 /**
@@ -74,9 +77,9 @@ public class PlayerManager {
 
     /**
      * Gets a player by their name.
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
     public MPlayer getPlayer(String name) {
         try {
@@ -115,8 +118,89 @@ public class PlayerManager {
      */
     private MPlayer loadPlayer(OfflinePlayer player) {
         MPlayer mplayer = new MPlayer(player);
-        //TODO: actually load the player's data
+
+        YamlConfiguration pf = getPlayerYml(player);
+
         return mplayer;
+    }
+
+    /**
+     * Gets the folder where player info is kept. s
+     *
+     * @return
+     */
+    private File getPlayerFolder() {
+        File folder = new File(mc.getDataFolder().getPath() + "players" + File.separator);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        return folder;
+    }
+
+    /**
+     * Gets a player's file.
+     *
+     * @param player
+     * @return
+     */
+    private File getPlayerFile(String player) {
+        File file = new File(getPlayerFolder().getPath() + player + ".yml");
+
+        try {
+            file.createNewFile();
+        } catch (IOException ex) {
+            MafiacraftPlugin.log(player + "'s file could not be created!");
+        }
+
+        return file;
+    }
+
+    /**
+     * Gets a player's YML file.
+     *
+     * @param player
+     * @return
+     */
+    private YamlConfiguration getPlayerYml(String player) {
+        return YamlConfiguration.loadConfiguration(getPlayerFile(player));
+    }
+
+    /**
+     * Gets a player's YML file.
+     *
+     * @param player
+     * @return
+     */
+    private YamlConfiguration getPlayerYml(OfflinePlayer player) {
+        return getPlayerYml(player.getName());
+    }
+
+    /**
+     * Saves a player's YAML file.
+     *
+     * @param player
+     * @param yml
+     * @return
+     */
+    private boolean savePlayerYml(String player, YamlConfiguration yml) {
+        try {
+            yml.save(getPlayerFile(player));
+            return true;
+        } catch (IOException ex) {
+            MafiacraftPlugin.log(Level.SEVERE, "The file for the player " + player + " could not be saved!");
+        }
+        return false;
+    }
+
+    /**
+     * Saves a player's YML file.
+     *
+     * @param player
+     * @param yml
+     * @return
+     */
+    private boolean savePlayerYml(OfflinePlayer player, YamlConfiguration yml) {
+        return savePlayerYml(player.getName(), yml);
     }
 
 }

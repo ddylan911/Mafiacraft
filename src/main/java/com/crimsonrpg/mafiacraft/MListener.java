@@ -209,13 +209,4 @@ public class MListener implements Listener {
         store.setData("lastchunk", current);
     }
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        Mafiacraft.getPlayerManager().freePlayer(event.getPlayer());
-    }
-
-    public void onPlayerKick(PlayerKickEvent event) {
-        Mafiacraft.getPlayerManager().freePlayer(event.getPlayer());
-    }
-
 }
