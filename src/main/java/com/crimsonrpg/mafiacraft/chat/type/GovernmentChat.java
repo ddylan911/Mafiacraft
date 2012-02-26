@@ -32,4 +32,9 @@ public class GovernmentChat extends ChatType {
     public boolean canJoin(MPlayer player) {
         return player.getGovernment() != null;
     }
+
+    @Override
+    public String getName() {
+        return "government";
+    }
 }
