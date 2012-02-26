@@ -108,12 +108,16 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     public Player getBukkitEntity() {
         if (onlinePlayer == null) {
-            onlinePlayer = Bukkit.getPlayer(offlinePlayer.getName());
+            onlinePlayer = offlinePlayer.getPlayer();
             if (onlinePlayer == null) {
                 return null;
             }
         }
         return onlinePlayer;
+    }
+
+    public boolean isOnline() {
+        return getBukkitEntity() != null;
     }
 
     public String getTitle() {
