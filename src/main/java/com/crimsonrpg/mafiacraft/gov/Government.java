@@ -720,5 +720,4 @@ public class Government extends Transactable implements LandPurchaser {
         }
         return members;
     }
-
 }

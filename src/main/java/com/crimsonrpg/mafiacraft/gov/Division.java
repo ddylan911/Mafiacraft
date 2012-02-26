@@ -5,23 +5,24 @@
 package com.crimsonrpg.mafiacraft.gov;
 
 import com.crimsonrpg.mafiacraft.geo.LandOwner;
-import com.crimsonrpg.mafiacraft.MConfig;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.LandPurchaser;
 import com.crimsonrpg.mafiacraft.geo.OwnerType;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.util.ConfigSerializable;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
 /**
  *
  * @author simplyianm
  */
-public class Division extends Transactable implements LandPurchaser {
+public class Division extends Transactable implements LandPurchaser, ConfigSerializable {
     private int id;
 
     private Government government;
@@ -38,22 +39,47 @@ public class Division extends Transactable implements LandPurchaser {
 
     private int land;
 
+    private Location hq;
+
     public Division(int id, Government government, String prefix) {
         this.id = id;
         this.prefix = prefix;
         this.government = government;
     }
 
+    /**
+     * Gets the HQ location.
+     *
+     * @return
+     */
+    public Location getHq() {
+        return hq;
+    }
+
+    /**
+     * Sets the HQ to the given location.
+     *
+     * @param hq
+     */
+    public void setHq(Location hq) {
+        this.hq = hq;
+    }
+
+    /**
+     * Gets the section in which the HQ is located.
+     *
+     * @return
+     */
+    public Chunk getHqSection() {
+        if (hq == null) {
+            return null;
+        }
+
+        return hq.getChunk();
+    }
+
     public boolean canBuild(MPlayer player, Chunk chunk) {
-        return true;
-    }
-
-    public void decrementLand() {
-        land--;
-    }
-
-    public void incrementLand() {
-        land++;
+        return getOnlineMembers().contains(player);
     }
 
     public String getName() {
@@ -204,6 +230,15 @@ public class Division extends Transactable implements LandPurchaser {
     }
 
     /**
+     * Gets the amount of members in the divison.
+     *
+     * @return
+     */
+    private int getMemberCount() {
+        return getMembers().size();
+    }
+
+    /**
      * Gets all division members as MPlayers. Potentially expensive!
      *
      * @return
@@ -235,16 +270,63 @@ public class Division extends Transactable implements LandPurchaser {
 
     /**
      * Gets the maximum amount of land this division can own. This is determined
-     * by the money the division has.
+     * by the money the division has. This is also known as the "L" variable as
+     * described in the Google doc:
+     *
+     * <p>L = the maximum amount of land the regime can own. (money / 1024)</p>
      *
      * @return
      */
     public int getMaxLand() {
-        return ((int) getMoney()) >> 4;
+        return ((int) getMoney()) >> 10;
+    }
+
+    /**
+     * Gets the "P" variable as described in the Google doc:
+     *
+     * <p>P = (L / players)</p>
+     *
+     * @return
+     */
+    public int getPlayerPower() {
+        return getMaxLand() / getMemberCount();
+    }
+
+    /**
+     * Gets the maximum amount of player power for this division. Each player
+     * has a "power" between -2P and 2P.
+     *
+     * @return
+     */
+    public int getMaxPlayerPower() {
+        return getPlayerPower() << 1;
+    }
+
+    /**
+     * Gets the minimum amount of player power for this division.
+     *
+     * @return
+     */
+    public int getMinPlayerPower() {
+        return -getMaxPlayerPower();
+    }
+
+    /**
+     * Gets the combined power of all players in the division.
+     *
+     * @return
+     */
+    public int getPower() {
+        int power = 0;
+        for (MPlayer player : getMembersAsMPlayers()) {
+            power += player.getPower();
+        }
+
+        return power;
     }
 
     public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
-        return government.canRetainAllLand();
+        return getPower() >= getLand();
     }
 
     public OwnerType getOwnerType() {
