@@ -13,8 +13,10 @@ import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 /**
@@ -22,7 +24,9 @@ import org.bukkit.entity.Player;
  * @author simplyianm
  */
 public class MPlayer extends Transactable implements LandPurchaser {
-    private final Player player;
+    private final OfflinePlayer offlinePlayer;
+
+    private Player onlinePlayer = null;
 
     private String title;
 
@@ -31,19 +35,19 @@ public class MPlayer extends Transactable implements LandPurchaser {
     private UtilityClass utilityClass;
 
     private ChatType chatType;
-    
+
     private int power;
 
     private int land;
 
-    public MPlayer(Player player) {
-        this.player = player;
+    public MPlayer(OfflinePlayer player) {
+        this.offlinePlayer = player;
     }
 
     /**
      * Gets the player's power.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getPower() {
         return power;
@@ -51,20 +55,20 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     /**
      * Sets power of the player.
-     * 
+     *
      * @param power
-     * @return 
+     * @return
      */
     public MPlayer setPower(int power) {
         this.power = power;
         return this;
     }
-    
+
     /**
      * Adds power to the player.
-     * 
+     *
      * @param power
-     * @return 
+     * @return
      */
     public MPlayer addPower(int power) {
         return setPower(getPower() + power);
@@ -72,38 +76,44 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     /**
      * Subtracts power from the player.
-     * 
+     *
      * @param power
-     * @return 
+     * @return
      */
     public MPlayer subtractPower(int power) {
         return setPower(getPower() - power);
     }
-    
+
     @Override
     public double getMoney() {
-        return Mafiacraft.getVaultHelper().getEconomy().getBalance(player.getName());
+        return Mafiacraft.getVaultHelper().getEconomy().getBalance(offlinePlayer.getName());
     }
 
     @Override
     public double setMoney(double amt) {
-        return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(player.getName(), amt - getMoney()).balance;
+        return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.getName(), amt - getMoney()).balance;
     }
 
     @Override
     public double addMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().depositPlayer(player.getName(), amount);
+        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.getName(), amount);
         return response.balance;
     }
 
     @Override
     public double subtractMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(player.getName(), amount);
+        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(offlinePlayer.getName(), amount);
         return response.balance;
     }
 
     public Player getBukkitEntity() {
-        return player;
+        if (onlinePlayer == null) {
+            onlinePlayer = Bukkit.getPlayer(offlinePlayer.getName());
+            if (onlinePlayer == null) {
+                return null;
+            }
+        }
+        return onlinePlayer;
     }
 
     public String getTitle() {
@@ -185,19 +195,19 @@ public class MPlayer extends Transactable implements LandPurchaser {
     }
 
     public String getName() {
-        return player.getName();
+        return offlinePlayer.getName();
     }
 
     public String getDisplayName() {
-        return player.getDisplayName();
+        return getBukkitEntity().getDisplayName();
     }
 
     public String getOwnerName() {
-        return player.getName();
+        return offlinePlayer.getName();
     }
 
     public void sendMessage(String message) {
-        player.sendMessage(message);
+        getBukkitEntity().sendMessage(message);
     }
 
     public String getOwnerId() {
@@ -210,7 +220,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * @return
      */
     public Chunk getChunk() {
-        return player.getLocation().getChunk();
+        return getBukkitEntity().getLocation().getChunk();
     }
 
     /**
@@ -294,7 +304,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
     }
 
     public Location getLocation() {
-        return player.getLocation();
+        return getBukkitEntity().getLocation();
     }
 
     /**
@@ -314,8 +324,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     /**
      * Returns true if the given player is a mayor of a city.
-     * 
-     * @return 
+     *
+     * @return
      */
     public boolean isAMayor() {
         return getOwnedCity() != null;
