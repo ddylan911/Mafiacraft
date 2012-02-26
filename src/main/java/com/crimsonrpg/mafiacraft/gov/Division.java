@@ -19,8 +19,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
 /**
- *
- * @author simplyianm
+ * Represents a government division.
  */
 public class Division extends Transactable implements LandPurchaser, ConfigSerializable {
     private int id;
@@ -33,17 +32,14 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
 
     private String manager;
 
-    private String prefix;
-
     private List<String> workers = new ArrayList<String>();
 
     private int land;
 
     private Location hq;
 
-    public Division(int id, Government government, String prefix) {
+    public Division(int id, Government government) {
         this.id = id;
-        this.prefix = prefix;
         this.government = government;
     }
 
@@ -86,17 +82,13 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
         return name;
     }
 
-    public void setName(String name) {
+    public Division setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getPrefix() {
-        return this.prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-
+        return name;
     }
 
     public String getOwnerName() {
@@ -115,16 +107,18 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
         return description;
     }
 
-    public void setDescription(String description) {
+    public Division setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public String getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
+    public Division setManager(String manager) {
         this.manager = manager;
+        return this;
     }
 
     public Division addWorker(String player) {

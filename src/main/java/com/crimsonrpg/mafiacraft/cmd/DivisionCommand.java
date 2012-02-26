@@ -131,8 +131,8 @@ public class DivisionCommand {
             return "You do not have the proper rank to do this.";
         }
         Random rand = new Random();
-        Division div = new Division(rand.nextInt(1000), gov, name);
-        div.setManager(player.getName());
+        Division div = new Division(rand.nextInt(1000), gov);
+        div.setManager(player.getName()).setName(name);
         player.sendMessage(MsgColor.SUCCESS + "You have founder a " + gov.getType().getLocale("division") + " successfully.");
         return null;
     }
