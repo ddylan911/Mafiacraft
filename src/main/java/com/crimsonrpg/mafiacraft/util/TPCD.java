@@ -69,7 +69,8 @@ public class TPCD implements Runnable {
         FHOME("your faction home"),
         CSPAWN("the city spawn"),
         SPAWN("spawn"),
-        DBUS("the district's bus stop");
+        DBUS("the district's bus stop"),
+        GOVHQ("your government's HQ");
 
         private String name;
 

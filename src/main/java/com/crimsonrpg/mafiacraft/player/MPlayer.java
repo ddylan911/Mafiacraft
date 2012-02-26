@@ -31,6 +31,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
     private UtilityClass utilityClass;
 
     private ChatType chatType;
+    
+    private int power;
 
     private int land;
 
@@ -38,6 +40,46 @@ public class MPlayer extends Transactable implements LandPurchaser {
         this.player = player;
     }
 
+    /**
+     * Gets the player's power.
+     * 
+     * @return 
+     */
+    public int getPower() {
+        return power;
+    }
+
+    /**
+     * Sets power of the player.
+     * 
+     * @param power
+     * @return 
+     */
+    public MPlayer setPower(int power) {
+        this.power = power;
+        return this;
+    }
+    
+    /**
+     * Adds power to the player.
+     * 
+     * @param power
+     * @return 
+     */
+    public MPlayer addPower(int power) {
+        return setPower(getPower() + power);
+    }
+
+    /**
+     * Subtracts power from the player.
+     * 
+     * @param power
+     * @return 
+     */
+    public MPlayer subtractPower(int power) {
+        return setPower(getPower() - power);
+    }
+    
     @Override
     public double getMoney() {
         return Mafiacraft.getVaultHelper().getEconomy().getBalance(player.getName());

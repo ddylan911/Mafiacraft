@@ -14,6 +14,8 @@ import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.util.TPCD;
+import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
 import java.util.ArrayList;
@@ -78,7 +80,7 @@ public class GovernmentCommand {
             }
         } else if (largs.size() < 3) {
             if (function.equalsIgnoreCase("allocate")) {
-                result = doAllocate(player, largs.get(0), largs.get(1));
+                result = doGrant(player, largs.get(0), largs.get(1));
             } else if (function.equalsIgnoreCase("found")) {
                 result = doFound(player, Joiner.on(' ').join(largs), type);
             } else {
@@ -107,7 +109,7 @@ public class GovernmentCommand {
         if (!type.canFound()) {
             return "You can't found a " + type.getName() + ".";
         }
-        
+
         double balance = player.getMoney();
         double cost = MConfig.getDouble("prices.mafia.found");
 
@@ -185,7 +187,8 @@ public class GovernmentCommand {
             return "Your " + gov.getType().getName() + " does not have a HQ set.";
         }
 
-        //TODO: add countdown timer and teleport
+        //Teleport.
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.GOVHQ, player.getBukkitEntity(), hq);
         return null;
     }
 
@@ -253,7 +256,7 @@ public class GovernmentCommand {
         return null;
     }
 
-    public static String doAllocate(MPlayer player, String division, String amt) {
+    public static String doGrant(MPlayer player, String division, String amt) {
         double amount;
         try {
             amount = Double.parseDouble(amt);
@@ -276,11 +279,11 @@ public class GovernmentCommand {
         }
 
         if (!gov.transferWithCheck(div, amount)) {
-            return "Your government doesn't have enough money to perform this transaction.";
+            return "Your " + gov.getType().getName() + " doesn't have enough money to perform this transaction.";
         }
 
         player.sendMessage(MsgColor.SUCCESS + amount + " " + MConfig.getString("currency.namepl")
-                + " have been allocated to the division " + div.getName() + ".");
+                + " have been granted to the " + gov.getType().getLocale("division") + " " + div.getName() + ".");
         return null;
     }
 
