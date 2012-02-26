@@ -21,7 +21,7 @@ import org.bukkit.entity.Player;
  */
 public class Mafiacraft {
     private static MafiacraftPlugin plugin;
-    
+
     public static void setPlugin(MafiacraftPlugin mcp) {
         if (Mafiacraft.plugin == null) {
             Mafiacraft.plugin = mcp;
@@ -31,12 +31,12 @@ public class Mafiacraft {
     public static MafiacraftPlugin getPlugin() {
         return plugin;
     }
-    
+
     /**
      * Gets an MPlayer from a Player.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public static MPlayer getPlayer(Player player) {
         return getPlugin().getPlayerManager().getPlayer(player);
@@ -44,8 +44,8 @@ public class Mafiacraft {
 
     /**
      * Returns a list of all MPlayers currently online the server.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static List<MPlayer> getOnlinePlayers() {
         return getPlugin().getPlayerManager().getOnlinePlayers();
@@ -53,8 +53,8 @@ public class Mafiacraft {
 
     /**
      * Gets the chat handler.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static ChatHandler getChatHandler() {
         return getPlugin().getChatHandler();
@@ -62,8 +62,8 @@ public class Mafiacraft {
 
     /**
      * Gets the city manager.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static CityManager getCityManager() {
         return getPlugin().getCityManager();
@@ -71,8 +71,8 @@ public class Mafiacraft {
 
     /**
      * Gets the government manager.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static GovernmentManager getGovernmentManager() {
         return getPlugin().getGovernmentManager();
@@ -80,8 +80,8 @@ public class Mafiacraft {
 
     /**
      * Gets the player manager.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static PlayerManager getPlayerManager() {
         return getPlugin().getPlayerManager();
@@ -89,8 +89,8 @@ public class Mafiacraft {
 
     /**
      * Gets the vault helper.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static VaultHelper getVaultHelper() {
         return getPlugin().getVaultHelper();
@@ -98,31 +98,42 @@ public class Mafiacraft {
 
     /**
      * Gets the district associated with the given chunk.
-     * 
+     *
      * @param chunk
-     * @return 
+     * @return
      */
     public static District getDistrict(Chunk chunk) {
         return getCityManager().getDistrict(chunk);
     }
 
-	/**
-	 * Gets the owner of the given section of land.
-	 * 
-	 * @param section
-	 * @return 
-	 */
-	public static LandOwner getSectionOwner(Chunk section) {
-		return getCityManager().getSectionOwner(section);
-	}
+    /**
+     * Gets the owner of the given section of land.
+     *
+     * @param section
+     * @return
+     */
+    public static LandOwner getSectionOwner(Chunk section) {
+        return getCityManager().getSectionOwner(section);
+    }
 
     /**
      * Gets the LandOwner from the given String id.
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public static LandOwner getLandOwner(String id) {
         return getCityManager().getLandOwner(id);
     }
+
+    /**
+     * Gets a player based on their string name, online or not.
+     *
+     * @param player
+     * @return
+     */
+    public static MPlayer getPlayer(String player) {
+        return getPlayerManager().getPlayer(player);
+    }
+
 }

@@ -187,6 +187,19 @@ public class Government extends Transactable implements LandPurchaser {
     }
 
     /**
+     * Gets a list of all members in the government's council.
+     *
+     * @return
+     */
+    public List<String> getCouncilMembers() {
+        List<String> members = new ArrayList<String>();
+        members.add(leader);
+        members.add(viceLeader);
+        members.addAll(getMembers(Position.OFFICER));
+        return members;
+    }
+
+    /**
      * Gets a map of all positions.
      *
      * @return
@@ -691,6 +704,21 @@ public class Government extends Transactable implements LandPurchaser {
     public Government setHq(Location hq) {
         this.hq = hq;
         return this;
+    }
+
+    /**
+     * Gets all council members as MPlayers. Potentially expensive if you're not
+     * careful!
+     *
+     * @return
+     */
+    public List<MPlayer> getCouncilMembersAsMPlayers() {
+        List<MPlayer> members = new ArrayList<MPlayer>();
+        for (String player : getCouncilMembers()) {
+            MPlayer mp = Mafiacraft.getPlayer(player);
+            members.add(mp);
+        }
+        return members;
     }
 
 }

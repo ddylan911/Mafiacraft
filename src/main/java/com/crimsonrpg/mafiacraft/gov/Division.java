@@ -35,7 +35,7 @@ public class Division extends Transactable implements LandPurchaser {
     private String prefix;
 
     private List<String> workers = new ArrayList<String>();
-    
+
     private int land;
 
     public Division(int id, Government government, String prefix) {
@@ -47,11 +47,11 @@ public class Division extends Transactable implements LandPurchaser {
     public boolean canBuild(MPlayer player, Chunk chunk) {
         return true;
     }
-    
+
     public void decrementLand() {
         land--;
     }
-    
+
     public void incrementLand() {
         land++;
     }
@@ -60,7 +60,11 @@ public class Division extends Transactable implements LandPurchaser {
         return name;
     }
 
-    public void setName(String name) {        this.name = name;    }    public String getPrefix() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrefix() {
         return this.prefix;
     }
 
@@ -120,7 +124,7 @@ public class Division extends Transactable implements LandPurchaser {
 
     /**
      * Removes a player from the division.
-     * 
+     *
      * @param player
      * @return True if the operation was allowed.
      */
@@ -162,9 +166,9 @@ public class Division extends Transactable implements LandPurchaser {
 
     /**
      * Loads the division from a ConfigurationSection.
-     * 
+     *
      * @param source
-     * @return 
+     * @return
      */
     public Division load(ConfigurationSection source) {
         name = source.getString("name", "null");
@@ -176,9 +180,9 @@ public class Division extends Transactable implements LandPurchaser {
 
     /**
      * Saves the division to a ConfigurationSection.
-     * 
+     *
      * @param dest
-     * @return 
+     * @return
      */
     public Division save(ConfigurationSection dest) {
         dest.set("name", name);
@@ -190,8 +194,8 @@ public class Division extends Transactable implements LandPurchaser {
 
     /**
      * Gets a list of all members of the division.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<String> getMembers() {
         List<String> members = getWorkers();
@@ -200,9 +204,23 @@ public class Division extends Transactable implements LandPurchaser {
     }
 
     /**
+     * Gets all division members as MPlayers. Potentially expensive!
+     *
+     * @return
+     */
+    public List<MPlayer> getMembersAsMPlayers() {
+        List<MPlayer> members = new ArrayList<MPlayer>();
+        for (String player : getMembers()) {
+            MPlayer mp = Mafiacraft.getPlayer(player);
+            members.add(mp);
+        }
+        return members;
+    }
+
+    /**
      * Gets a list of all members currently online in the division.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<MPlayer> getOnlineMembers() {
         List<MPlayer> online = new ArrayList<MPlayer>();
@@ -214,17 +232,17 @@ public class Division extends Transactable implements LandPurchaser {
         }
         return online;
     }
-    
+
     /**
-     * Gets the maximum amount of land this division can own.
-     * This is determined by the money the division has.
-     * 
-     * @return 
+     * Gets the maximum amount of land this division can own. This is determined
+     * by the money the division has.
+     *
+     * @return
      */
     public int getMaxLand() {
         return ((int) getMoney()) >> 4;
     }
-    
+
     public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
         return government.canRetainAllLand();
     }
@@ -235,6 +253,7 @@ public class Division extends Transactable implements LandPurchaser {
     ////////////
     // LAND STUFF
     ////////////
+
     /**
      * {@inheritDoc}
      */
@@ -285,4 +304,5 @@ public class Division extends Transactable implements LandPurchaser {
         decLand();
         return this;
     }
+
 }
