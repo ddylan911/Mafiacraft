@@ -54,7 +54,7 @@ public enum Position {
         }
 
         //TODO: write size checking for the worker/manager pizzazz
-        return 100;
+        return 1000000;
     }
 
     /**

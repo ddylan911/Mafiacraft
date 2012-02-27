@@ -122,6 +122,9 @@ public class MConfig {
         addDefault("prices.city.annex", 10000.0);
         addDefault("prices.city.claim", 100.0);
         addDefault("prices.city.found", 1000000.0);
+        
+        //Government
+        addDefault("prices.gov.sethq", 100.0);
 
         //Division
         addDefault("division.maxnamelength", 15);

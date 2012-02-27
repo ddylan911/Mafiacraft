@@ -324,9 +324,12 @@ public class GovernmentCommand {
             return "The HQ must be specified within HQ land.";
         }
 
-        //TODO: take money from the mafia, idk how much
+        double needed = MConfig.getDouble("prices.gov.sethq");
+        if (!gov.hasEnough(needed)) {
+            return "Your " + gov.getType().getName() + " does not have enough money to set its HQ. (Costs " + needed + ")";
+        }
 
-        gov.setHq(player.getBukkitEntity().getLocation());
+        gov.setHq(player.getBukkitEntity().getLocation()).subtractMoney(needed);
         player.sendMessage(MsgColor.SUCCESS + "Your " + gov.getType().getName() + " HQ has been set to your current location.");
         return null;
     }

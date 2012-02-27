@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.bukkit.ChatColor;
 
 /**
  *
@@ -38,9 +39,8 @@ public abstract class HelpMenu {
     }
 
     public void initialize() {
-        //TODO: make the menu correctly.
         for (Entry<String, String> entry : help.entrySet()) {
-            realHelp.add(entry.getKey() + " -- " + entry.getValue());
+            realHelp.add(ChatColor.GREEN + entry.getKey() + ": " + ChatColor.YELLOW + entry.getValue());
         }
     }
 
