@@ -376,7 +376,7 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
      */
     public Division unclaim(Chunk chunk) {
         District district = Mafiacraft.getDistrict(chunk);
-        district.setOwner(chunk, null);
+        district.removeOwner(chunk);
         decLand();
         return this;
     }

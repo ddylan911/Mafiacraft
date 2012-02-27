@@ -79,7 +79,7 @@ public class DivisionCommand {
             }
             result = doInvite(player, Mafiacraft.getPlayerManager().getPlayer(argList.get(1)));
         } else if (option.equalsIgnoreCase("unclaim")) {
-            result = doUnClaim(player);
+            result = doUnclaim(player);
         }
         if (result != null) {
             player.sendMessage(MsgColor.ERROR + result);
@@ -231,20 +231,23 @@ public class DivisionCommand {
         return null;
     }
 
-    public static String doUnClaim(MPlayer player) {
+    public static String doUnclaim(MPlayer player) {
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government.";
         }
+
         Division div = player.getDivision();
         if (div == null) {
             return "You are not part of a " + gov.getType().getLocale("division") + ".";
         }
-        if (!player.getPosition().equals(Position.MANAGER)) {
+
+        if (!player.getPosition().isAtLeast(Position.MANAGER)) {
             return "You do not have the proper rank to do this.";
         }
+
         div.unclaim(player.getChunk());
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully unclaimed this chunk.");
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully unclaimed this section.");
         return null;
     }
 
@@ -276,7 +279,7 @@ public class DivisionCommand {
         Division div = player.getDivision();
 
         if (div == null) {
-            return "You are not part of a government.";
+            return "You are not part of a " + div.getGovernment().getType().getLocale("division") + ".";
         }
 
         if (player.getPosition().isAtLeast(Position.WORKER)) {
