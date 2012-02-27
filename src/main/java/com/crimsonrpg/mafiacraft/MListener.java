@@ -6,7 +6,6 @@ package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.classes.UtilityClass;
 import com.crimsonrpg.mafiacraft.geo.District;
-import com.crimsonrpg.mafiacraft.geo.DistrictType;
 import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.player.KillTracker;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
@@ -25,9 +24,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 
 /**
@@ -41,12 +39,8 @@ public class MListener implements Listener {
         this.mc = mc;
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         Chunk c = player.getBukkitEntity().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
@@ -65,12 +59,8 @@ public class MListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         Chunk c = player.getBukkitEntity().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
@@ -89,12 +79,8 @@ public class MListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDamage(EntityDamageEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-
         if (!(event instanceof EntityDamageByEntityEvent)) {
             return;
         }
@@ -117,7 +103,7 @@ public class MListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent event) {
         EntityDamageEvent cause = event.getEntity().getLastDamageCause();
 
@@ -154,23 +140,20 @@ public class MListener implements Listener {
         kt.decScore(attacked);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerChat(PlayerChatEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         mc.getChatHandler().handleMessage(player, event.getMessage());
         event.setCancelled(true);
     }
 
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        mc.getChatHandler().updateDisplayName(Mafiacraft.getPlayer(event.getPlayer()));
+    }
 
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerMove(PlayerMoveEvent event) {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         SessionStore store = player.getSessionStore();
 
