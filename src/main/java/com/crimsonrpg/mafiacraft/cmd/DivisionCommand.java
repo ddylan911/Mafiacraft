@@ -10,22 +10,22 @@ import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author Dylan
+ * Division related commands.
  */
 public class DivisionCommand {
-
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "You can not use this command through console.");
@@ -87,11 +87,12 @@ public class DivisionCommand {
     }
 
     /**
-     * Takes in a kickee and a kicked, and checks the proper st00f, then kicks the kicked.
-     * 
+     * Takes in a kickee and a kicked, and checks the proper st00f, then kicks
+     * the kicked.
+     *
      * @param player
      * @param kicked
-     * @return 
+     * @return
      */
     public static String doKick(MPlayer player, MPlayer kicked) {
         Government gov = player.getGovernment();
@@ -114,10 +115,10 @@ public class DivisionCommand {
 
     /**
      * Creates a division with the given player, and name.
-     * 
+     *
      * @param player
      * @param name
-     * @return 
+     * @return
      */
     public static String doCreate(MPlayer player, String name) {
         Government gov = player.getGovernment();
@@ -139,9 +140,9 @@ public class DivisionCommand {
 
     /**
      * Accepts an invite if there is one.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public static String doAccept(MPlayer player) {
         Government gov = player.getGovernment();
@@ -171,9 +172,9 @@ public class DivisionCommand {
 
     /**
      * Claims the current chunk you are in if it is claimable.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public static String doClaim(MPlayer player) {
         Government gov = player.getGovernment();
@@ -192,10 +193,10 @@ public class DivisionCommand {
 
     /**
      * Invites the given player to the division.
-     * 
+     *
      * @param player
      * @param invited
-     * @return 
+     * @return
      */
     public static String doInvite(MPlayer player, MPlayer invited) {
         if (!player.getPosition().equals(Position.MANAGER)) {
@@ -208,10 +209,10 @@ public class DivisionCommand {
 
     /**
      * Names the division the given name.
-     * 
+     *
      * @param player
      * @param name
-     * @return 
+     * @return
      */
     public static String doName(MPlayer player, String name) {
         Government gov = player.getGovernment();
@@ -249,10 +250,10 @@ public class DivisionCommand {
 
     /**
      * Sets the description of the division.
-     * 
+     *
      * @param player
      * @param desc
-     * @return 
+     * @return
      */
     public static String doDesc(MPlayer player, String desc) {
         Government gov = player.getGovernment();
@@ -270,4 +271,48 @@ public class DivisionCommand {
         player.sendMessage(MsgColor.SUCCESS + "You have changed your " + gov.getType().getLocale("division") + "'s description.");
         return null;
     }
+
+    public static String doHq(MPlayer player) {
+        Division div = player.getDivision();
+
+        if (div == null) {
+            return "You are not part of a government.";
+        }
+
+        if (player.getPosition().isAtLeast(Position.WORKER)) {
+            return "Your position in your " + div.getGovernment().getType().getLocale("division") + " is not high enough to use HQ teleport.";
+        }
+
+        Location hq = div.getHq();
+        if (hq == null) {
+            return "Your " + div.getGovernment().getType().getLocale("division") + " does not have a HQ set.";
+        }
+
+        //Teleport.
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.GOVHQ, player.getBukkitEntity(), hq);
+        return null;
+    }
+
+    public static String doSetHq(MPlayer player) {
+        Division div = player.getDivision();
+        if (div == null) {
+            return "You are not part of a government.";
+        }
+
+        if (player.getPosition().isAtLeast(Position.MANAGER)) {
+            return "You aren't allowed to set the HQ of your " + div.getGovernment().getType().getLocale("division") + ".";
+        }
+
+        Chunk section = player.getChunk();
+        if (!Mafiacraft.getSectionOwner(section).equals(div)) {
+            return "The HQ must be specified within HQ land.";
+        }
+
+        //TODO: take money from the mafia, idk how much
+
+        div.setHq(player.getBukkitEntity().getLocation());
+        player.sendMessage(MsgColor.SUCCESS + "Your " + div.getGovernment().getType().getLocale("division") + " HQ has been set.");
+        return null;
+    }
+
 }

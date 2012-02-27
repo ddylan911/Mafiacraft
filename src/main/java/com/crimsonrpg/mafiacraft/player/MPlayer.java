@@ -83,6 +83,15 @@ public class MPlayer extends Transactable implements LandPurchaser {
     public MPlayer subtractPower(int power) {
         return setPower(getPower() - power);
     }
+    
+    /**
+     * Resets a player's power.
+     * 
+     * @return 
+     */
+    public MPlayer resetPower() {
+        return setPower(0);
+    }
 
     @Override
     public double getMoney() {

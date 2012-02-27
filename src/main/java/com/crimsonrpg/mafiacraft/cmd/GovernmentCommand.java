@@ -310,7 +310,7 @@ public class GovernmentCommand {
     }
 
     public static String doSetHq(MPlayer player) {
-        if (player.getPosition().compareTo(Position.VICE_LEADER) < 0) {
+        if (player.getPosition().isAtLeast(Position.VICE_LEADER)) {
             return "You aren't allowed to set the HQ of your government.";
         }
 
@@ -327,6 +327,7 @@ public class GovernmentCommand {
         //TODO: take money from the mafia, idk how much
 
         gov.setHq(player.getBukkitEntity().getLocation());
+        player.sendMessage(MsgColor.SUCCESS + "Your " + gov.getType().getName() + " HQ has been set to your current location.");
         return null;
     }
 

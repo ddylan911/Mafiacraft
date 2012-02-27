@@ -8,13 +8,18 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
+import com.crimsonrpg.mafiacraft.gov.Division;
+import com.crimsonrpg.mafiacraft.gov.Government;
+import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
+import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -67,7 +72,7 @@ public class DistrictCommand {
                 result = doHelp(player);
             }
         }
-        
+
         if (result != null) {
             player.sendMessage(MsgColor.ERROR + result);
         }
@@ -110,7 +115,7 @@ public class DistrictCommand {
         player.sendMessage("You are in the district " + player.getDistrict().getNameInChat());
         return null;
     }
-    
+
     public static String doSetBus(MPlayer player) {
         District district = player.getDistrict();
         City city = district.getCity();
