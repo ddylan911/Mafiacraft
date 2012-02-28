@@ -11,6 +11,7 @@ import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.TPCD;
+import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -125,16 +126,23 @@ public class DivisionCommand {
         if (gov == null) {
             return "You are not in a government!";
         }
+
         if (player.getDivision() != null) {
             return "You are already part of a " + gov.getType().getLocale("division") + ".";
         }
+
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank to do this.";
         }
-        Random rand = new Random();
-        Division div = new Division(rand.nextInt(1000), gov);
-        div.setManager(player.getName()).setName(name);
-        player.sendMessage(MsgColor.SUCCESS + "You have founder a " + gov.getType().getLocale("division") + " successfully.");
+
+        name = name.trim();
+        String validName = ValidationUtils.validateName(name);
+        if (validName != null) {
+            return validName;
+        }
+
+        Division div = gov.createDivision().setManager(player.getName()).setName(name);
+        player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.getType().getLocale("division") + " successfully.");
         return null;
     }
 

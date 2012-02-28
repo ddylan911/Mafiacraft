@@ -33,8 +33,6 @@ public class Government extends Transactable implements LandPurchaser {
 
     private String viceLeader;
 
-    private List<Division> divisions;
-
     private Set<String> officers;
 
     private Set<String> affiliates;
@@ -223,13 +221,13 @@ public class Government extends Transactable implements LandPurchaser {
         if (position.isDivision()) {
             switch (position) {
                 case WORKER:
-                    for (Division division : divisions) {
+                    for (Division division : getDivisions()) {
                         members.addAll(division.getWorkers());
                     }
                     break;
 
                 case MANAGER:
-                    for (Division division : divisions) {
+                    for (Division division : getDivisions()) {
                         members.add(division.getManager());
                     }
                     break;
@@ -263,7 +261,7 @@ public class Government extends Transactable implements LandPurchaser {
      * @return
      */
     public Division getDivision(String player) {
-        for (Division division : divisions) {
+        for (Division division : getDivisions()) {
             if (division.isMember(player)) {
                 return division;
             }
@@ -287,7 +285,7 @@ public class Government extends Transactable implements LandPurchaser {
      * @return
      */
     public List<Division> getDivisions() {
-        return new ArrayList<Division>(divisions);
+        return Mafiacraft.getGovernmentManager().getGovDivisions(this);
     }
 
     /**
@@ -303,6 +301,15 @@ public class Government extends Transactable implements LandPurchaser {
             }
         }
         return null;
+    }
+
+    /**
+     * Creates a division for this government. (No validation)
+     *
+     * @return
+     */
+    public Division createDivision() {
+        return Mafiacraft.getGovernmentManager().createDivision(this);
     }
 
     /**
@@ -720,4 +727,5 @@ public class Government extends Transactable implements LandPurchaser {
         }
         return members;
     }
+
 }

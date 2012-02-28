@@ -21,6 +21,8 @@ import java.util.List;
 public class GovernmentManager {
     private TIntObjectMap<Government> governments = new TIntObjectHashMap<Government>();
 
+    private TIntObjectMap<Division> divisions = new TIntObjectHashMap<Division>();
+
     private TIntIntMap cities = new TIntIntHashMap();
 
     private MafiacraftPlugin mc;
@@ -111,6 +113,70 @@ public class GovernmentManager {
     private int getNextGovernmentId() {
         int id = 0;
         for (int i = 1; getGovernment(i) != null; ++i) {
+            id = i;
+        }
+        return id;
+    }
+
+    ///////////
+    // DIVISION METHODS
+    ///////////
+    /**
+     * Gets a division.
+     *
+     * @param id
+     * @return
+     */
+    public Division getDivision(int id) {
+        return divisions.get(id);
+    }
+
+    /**
+     * Gets a list of all divisions on the server.
+     *
+     * @return
+     */
+    public List<Division> getDivisions() {
+        return new ArrayList<Division>(divisions.valueCollection());
+    }
+
+    /**
+     * Gets a list of all divisions in a government.
+     *
+     * @param gov
+     * @return
+     */
+    public List<Division> getGovDivisions(Government gov) {
+        List<Division> divisions = new ArrayList<Division>();
+        for (Division division : getDivisions()) {
+            if (division.getGovernment().equals(gov)) {
+                divisions.add(division);
+            }
+        }
+        return divisions;
+    }
+
+    /**
+     * Creates a division. (No validation)
+     *
+     * @param gov
+     * @return
+     */
+    public Division createDivision(Government gov) {
+        int id = getNextDivisionId();
+        Division div = new Division(id, gov);
+        divisions.put(id, div);
+        return div;
+    }
+
+    /**
+     * Gets the next available ID for a division.
+     *
+     * @return
+     */
+    private int getNextDivisionId() {
+        int id = 0;
+        for (int i = 1; getDivision(i) != null; ++i) {
             id = i;
         }
         return id;
