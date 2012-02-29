@@ -8,13 +8,13 @@ package com.crimsonrpg.mafiacraft.gov;
  * Represents a position within the government.
  */
 public enum Position {
-    NONE(-2, false, 0),
-    AFFILIATE(-2, false, 0),
-    WORKER(-1, true, 0),
-    MANAGER(-1, true, 0),
-    OFFICER(10, false, 0),
-    VICE_LEADER(1, false, 1),
-    LEADER(1, false, 1);
+    NONE(-2, false, 0, 0),
+    AFFILIATE(-2, false, 0, 0),
+    WORKER(-1, true, 0, 2),
+    MANAGER(-1, true, 0, 5),
+    OFFICER(10, false, 0, 10),
+    VICE_LEADER(1, false, 1, 12),
+    LEADER(1, false, 1, 15);
 
     private int limit;
 
@@ -22,10 +22,13 @@ public enum Position {
 
     private int minimum;
 
-    private Position(int limit, boolean division, int minimum) {
+    private int killCost;
+
+    private Position(int limit, boolean division, int minimum, int killCost) {
         this.limit = limit;
         this.division = division;
         this.minimum = minimum;
+        this.killCost = killCost;
     }
 
     /**
@@ -74,6 +77,15 @@ public enum Position {
      */
     public boolean isAtLeast(Position other) {
         return compareTo(other) >= 0;
+    }
+
+    /**
+     * Gets the cost of killing a player with this position.
+     * 
+     * @return 
+     */
+    public int getKillCost() {
+        return killCost;
     }
 
 }

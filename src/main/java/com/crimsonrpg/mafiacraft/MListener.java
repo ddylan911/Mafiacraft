@@ -131,6 +131,10 @@ public class MListener implements Listener {
         attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + " and took " + money + " of their money.");
         attacked.sendMessage(ChatColor.RED + "You died and lost " + money + " of your money.");
 
+        //Update power
+        attacker.tryToAddPower(1);
+        attacked.tryToSubtractPower(attacked.getPosition().getKillCost());
+
         //Track the kill
         KillTracker kt = Mafiacraft.getPlayerManager().getKillTracker();
         kt.incScore(attacker);

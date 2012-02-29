@@ -76,6 +76,19 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
     }
 
     /**
+     * Tries to add as much of the power as possible to the player.
+     *
+     * @param power
+     * @return
+     */
+    public MPlayer tryToAddPower(int power) {
+        if (!canGainPower(power)) {
+            return setPower(getMaxPower());
+        }
+        return addPower(power);
+    }
+
+    /**
      * Subtracts power from the player.
      *
      * @param power
@@ -83,6 +96,19 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
      */
     public MPlayer subtractPower(int power) {
         return setPower(getPower() - power);
+    }
+
+    /**
+     * Tries to subtract as much of the power as possible from the player.
+     *
+     * @param power
+     * @return
+     */
+    public MPlayer tryToSubtractPower(int power) {
+        if (!canLosePower(power)) {
+            return setPower(getMinPower());
+        }
+        return subtractPower(power);
     }
 
     /**
@@ -113,20 +139,52 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
      * @return
      */
     public boolean canHavePower(int potential) {
+        return (potential <= getMaxPower()) && (potential >= getMinPower());
+    }
+
+    /**
+     * Gets the maximum amount of power the player can have.
+     *
+     * @return
+     */
+    public int getMaxPower() {
         switch (getPosition()) {
             default:
             case NONE:
             case AFFILIATE:
-                return false;
+                return 0;
 
             case WORKER:
             case MANAGER:
-                return !(potential > getDivision().getMaxPlayerPower());
+                return getDivision().getMaxPlayerPower();
 
             case OFFICER:
             case VICE_LEADER:
             case LEADER:
-                return !(potential > getGovernment().getMaxPlayerPower());
+                return getGovernment().getMaxPlayerPower();
+        }
+    }
+
+    /**
+     * Gets the minimum amount of power the player can have.
+     *
+     * @return
+     */
+    public int getMinPower() {
+        switch (getPosition()) {
+            default:
+            case NONE:
+            case AFFILIATE:
+                return 0;
+
+            case WORKER:
+            case MANAGER:
+                return getDivision().getMinPlayerPower();
+
+            case OFFICER:
+            case VICE_LEADER:
+            case LEADER:
+                return getGovernment().getMinPlayerPower();
         }
     }
 
