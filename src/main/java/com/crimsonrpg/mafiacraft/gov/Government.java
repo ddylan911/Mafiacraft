@@ -25,8 +25,6 @@ public class Government extends Transactable implements LandPurchaser {
 
     private String name;
 
-    private String chatTag;
-
     private GovType type;
 
     private String leader;
@@ -142,24 +140,6 @@ public class Government extends Transactable implements LandPurchaser {
     public Government setName(String name) {
         this.name = name;
         return this;
-    }
-
-    /**
-     * Gets the chat tag of this government.
-     *
-     * @return
-     */
-    public String getChatTag() {
-        return chatTag;
-    }
-
-    /**
-     * Sets the chat tag of this government.
-     *
-     * @param chatTag
-     */
-    public void setChatTag(String chatTag) {
-        this.chatTag = chatTag;
     }
 
     public GovType getType() {
@@ -462,42 +442,42 @@ public class Government extends Transactable implements LandPurchaser {
 
     /**
      * Unseats the leader from the government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public Government unseatLeader() {
         addAffiliate(leader);
         succeedLeader();
         return this;
     }
-    
+
     /**
      * Unseats the vice leader from office.
-     * 
-     * @return 
+     *
+     * @return
      */
     public Government unseatViceLeader() {
         addAffiliate(viceLeader);
         viceLeader = null;
         return this;
     }
-    
+
     /**
      * Makes the vice leader succeed the leader.
-     * 
-     * @return 
+     *
+     * @return
      */
     public Government succeedLeader() {
         setLeader(viceLeader);
         unseatViceLeader();
         return this;
     }
-    
+
     /**
      * Adds an officer to the government.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public Government addOfficer(MPlayer player) {
         return addOfficer(player.getName());
@@ -505,15 +485,15 @@ public class Government extends Transactable implements LandPurchaser {
 
     /**
      * Adds an officer to the government.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     public Government addOfficer(String player) {
         officers.add(player);
         return this;
     }
-    
+
     /**
      * Sets the government's HQ.
      *
