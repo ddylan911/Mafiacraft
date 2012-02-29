@@ -69,6 +69,8 @@ public class GovernmentCommand {
                 result = doWho(player, largs.get(0));
             } else if (function.equalsIgnoreCase("invite")) {
                 result = doInvite(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("createregime")) {
+                result = doCreateRegime(player, largs.get(0));
             } else if (function.equalsIgnoreCase("kick")) {
                 result = doKick(player, largs.get(0));
             } else if (function.equalsIgnoreCase("player")) {
@@ -279,6 +281,31 @@ public class GovernmentCommand {
 
         player.sendMessage(MsgColor.SUCCESS + amount + " " + MConfig.getString("currency.namepl")
                 + " have been granted to the " + gov.getType().getLocale("division") + " " + div.getName() + ".");
+        return null;
+    }
+
+    public static String doCreateRegime(MPlayer player, String name) {
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You are not in a government!";
+        }
+
+        if (player.getDivision() != null) {
+            return "You are already part of a " + gov.getType().getLocale("division") + ".";
+        }
+
+        if (!player.getPosition().equals(Position.VICE_LEADER)) {
+            return "You do not have the proper rank to do this.";
+        }
+
+        name = name.trim();
+        String validName = ValidationUtils.validateName(name);
+        if (validName != null) {
+            return validName;
+        }
+
+        Division div = gov.createDivision().setManager(player.getName()).setName(name);
+        player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.getType().getLocale("division") + " successfully.");
         return null;
     }
 
