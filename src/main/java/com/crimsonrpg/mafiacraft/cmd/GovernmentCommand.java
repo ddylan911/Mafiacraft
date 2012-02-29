@@ -304,6 +304,10 @@ public class GovernmentCommand {
             return validName;
         }
 
+        if (!gov.canHaveMoreDivisions()) {
+            return "The " + gov.getType().getName() + " has too many " + gov.getType().getLocale("divisions") + ". Make sure all of your " + gov.getType().getLocale("divisions") + " have greater than 5 players each.";
+        }
+
         Division div = gov.createDivision().setManager(player.getName()).setName(name);
         player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.getType().getLocale("division") + " successfully.");
         return null;

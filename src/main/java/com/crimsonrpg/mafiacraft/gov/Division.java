@@ -228,7 +228,7 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
      *
      * @return
      */
-    private int getMemberCount() {
+    public int getMemberCount() {
         return getMembers().size();
     }
 

@@ -797,4 +797,13 @@ public class Government extends Transactable implements LandPurchaser {
         return members;
     }
 
+    public boolean canHaveMoreDivisions() {
+        for (Division division : getDivisions()) {
+            if (division.getMemberCount() < 5) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
