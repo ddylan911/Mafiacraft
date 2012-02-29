@@ -133,14 +133,11 @@ public class GovernmentCommand {
 
         //Found the government
         Government founded = MafiacraftPlugin.getInstance().getGovernmentManager().createGovernment(name, type);
-        if (!founded.addMember(player)) {
+        if (!founded.addAffiliate(player)) {
             return "Error adding. We can't do math.";
         }
 
-        if (!founded.setPosition(player, Position.LEADER)) {
-            return "The government specified has too many leaders. Speak to a server admin.";
-        }
-
+        founded.setLeader(player);
         player.sendMessage(MsgColor.SUCCESS + "You have successfully founded a new " + type.getName() + ".");
         return null;
     }
@@ -248,10 +245,8 @@ public class GovernmentCommand {
             return "Only " + gov.getType().getLocale("affiliates") + " may be kicked from a " + gov.getType().getName() + ".";
         }
 
-        boolean removed = gov.removeMember(target);
-        if (!removed) {
-            return "Unknown error!";
-        }
+        gov.removeMember(tgt);
+        tgt.resetPower();
         player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been kicked out of the " + gov.getType().getName() + ".");
         return null;
     }

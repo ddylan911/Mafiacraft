@@ -81,13 +81,13 @@ public class Government extends Transactable implements LandPurchaser {
 
     /**
      * Returns true if the Government HQ can be claimed.
-     * 
-     * @return 
+     *
+     * @return
      */
     public boolean canHQBeClaimed() {
         return getLand() > getTotalLand();
     }
-    
+
     /**
      * Gets the power the government has over its land. For now, this is the
      * same as getMaxPower().
@@ -461,109 +461,156 @@ public class Government extends Transactable implements LandPurchaser {
     }
 
     /**
-     * Sets a player's position.
-     *
+     * Unseats the leader from the government.
+     * 
+     * @return 
+     */
+    public Government unseatLeader() {
+        addAffiliate(leader);
+        succeedLeader();
+        return this;
+    }
+    
+    /**
+     * Unseats the vice leader from office.
+     * 
+     * @return 
+     */
+    public Government unseatViceLeader() {
+        addAffiliate(viceLeader);
+        viceLeader = null;
+        return this;
+    }
+    
+    /**
+     * Makes the vice leader succeed the leader.
+     * 
+     * @return 
+     */
+    public Government succeedLeader() {
+        setLeader(viceLeader);
+        unseatViceLeader();
+        return this;
+    }
+    
+    /**
+     * Adds an officer to the government.
+     * 
      * @param player
-     * @param position
+     * @return 
+     */
+    public Government addOfficer(MPlayer player) {
+        return addOfficer(player.getName());
+    }
+
+    /**
+     * Adds an officer to the government.
+     * 
+     * @param player
+     * @return 
+     */
+    public Government addOfficer(String player) {
+        officers.add(player);
+        return this;
+    }
+    
+    /**
+     * Sets the government's HQ.
+     *
+     * @param hq
      * @return
      */
-    public boolean setPosition(String player, Position position) {
-        if (position.isDivision()) {
-            return false;
-        }
+    public Government setHq(Location hq) {
+        this.hq = hq;
+        return this;
+    }
 
-        if (!canHaveMore(position)) {
-            return false;
-        }
+    /**
+     * Sets the vice leader of the government.
+     *
+     * @param player
+     * @return
+     */
+    public Government setLeader(MPlayer player) {
+        return setLeader(player.getName());
+    }
 
-        if (!removeMember(player)) {
-            return false;
-        }
+    /**
+     * Sets the leader of the government.
+     *
+     * @param leader
+     * @return
+     */
+    public Government setLeader(String leader) {
+        this.leader = leader;
+        return this;
+    }
 
-        switch (position) {
-            case AFFILIATE:
-                addMember(player);
-                break;
+    /**
+     * Sets the vice leader of the government.
+     *
+     * @param viceLeader
+     * @return
+     */
+    public Government setViceLeader(MPlayer viceLeader) {
+        return setViceLeader(viceLeader.getName());
+    }
 
-            case OFFICER:
-                officers.add(player);
+    /**
+     * Sets the vice leader of the government.
+     *
+     * @param viceLeader
+     * @return
+     */
+    public Government setViceLeader(String viceLeader) {
+        this.viceLeader = viceLeader;
+        return this;
+    }
+
+    /**
+     * Checks if the given member can be removed from the government
+     * legitimately.
+     *
+     * @param player
+     * @return
+     */
+    public boolean canRemoveMember(MPlayer player) {
+        return canHaveLess(player.getPosition());
+    }
+
+    /**
+     * Removes a member from this government.
+     *
+     * @param player
+     */
+    public Government removeMember(MPlayer player) {
+        switch (player.getPosition()) {
+            case LEADER:
+                leader = null;
                 break;
 
             case VICE_LEADER:
-                String oldV = getViceLeader();
-                viceLeader = player;
-                if (oldV == null) {
-                    break;
-                }
-                addMember(oldV);
+                viceLeader = null;
                 break;
 
-            case LEADER:
-                String oldL = getLeader();
-                leader = player;
-                if (oldL == null) {
-                    break;
-                }
-                addMember(oldL);
+            case OFFICER:
+                officers.remove(player.getName());
+                break;
+
+            case MANAGER:
+            case WORKER:
+                player.getDivision().remove(player.getName());
+                break;
+
+            case AFFILIATE:
+                affiliates.remove(player.getName());
+                break;
+
+            case NONE:
+            default:
                 break;
         }
-        return true;
-    }
-
-    /**
-     * Sets a player's position to the one specified.
-     *
-     * @param player
-     * @param position
-     * @return
-     */
-    public boolean setPosition(MPlayer player, Position position) {
-        return setPosition(player.getName(), position);
-    }
-
-    /**
-     * Removes a member from this government.
-     *
-     * @param player
-     * @return
-     */
-    public boolean removeMember(String player) {
-        Position position = getPosition(player);
-        if (position.equals(Position.NONE)) {
-            return false;
-        }
-
-        if (position.isDivision()) {
-            getDivision(player).remove(player);
-        } else {
-            switch (position) {
-                case LEADER:
-                    return false;
-
-                case VICE_LEADER:
-                    return false;
-
-                case OFFICER:
-                    if (canHaveLess(Position.OFFICER)) {
-                        officers.remove(player);
-                    }
-                    break;
-
-                case AFFILIATE:
-                    affiliates.remove(player);
-                    break;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Removes a member from this government.
-     *
-     * @param player
-     */
-    public boolean removeMember(MPlayer player) {
-        return removeMember(player.getName());
+        return this;
     }
 
     /**
@@ -592,7 +639,7 @@ public class Government extends Transactable implements LandPurchaser {
      * @param player
      * @return True if the operation was allowed.
      */
-    public boolean addMember(String player) {
+    public boolean addAffiliate(String player) {
         return affiliates.add(player);
     }
 
@@ -603,8 +650,8 @@ public class Government extends Transactable implements LandPurchaser {
      * @param position
      * @return True if the operation was allowed.
      */
-    public boolean addMember(MPlayer player) {
-        return addMember(player.getName());
+    public boolean addAffiliate(MPlayer player) {
+        return addAffiliate(player.getName());
     }
 
     /**
@@ -684,8 +731,8 @@ public class Government extends Transactable implements LandPurchaser {
 
     /**
      * Gets the maximum amount of land the government can own.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getMaxGovernmentLand() {
         return getTotalLand() >> 4;
@@ -746,13 +793,13 @@ public class Government extends Transactable implements LandPurchaser {
         return this;
     }
 
+    /**
+     * Gets the HQ of the government.
+     *
+     * @return
+     */
     public Location getHq() {
         return hq;
-    }
-
-    public Government setHq(Location hq) {
-        this.hq = hq;
-        return this;
     }
 
     /**

@@ -447,7 +447,7 @@ public class CityCommand {
             return "The city does not have a police force established.";
         }
 
-        police.setPosition(c, Position.LEADER);
+        police.setLeader(c);
         player.sendMessage(MsgColor.SUCCESS + "The chief of police of the city has successfully been changed to " + c.getName() + ".");
         return null;
     }
@@ -472,7 +472,7 @@ public class CityCommand {
             return "The city does not have a police force established.";
         }
 
-        police.setPosition(a, Position.LEADER);
+        police.setViceLeader(a);
         player.sendMessage(MsgColor.SUCCESS + "The assistant chief of the city has successfully been changed to " + a.getName() + ".");
         return null;
     }
