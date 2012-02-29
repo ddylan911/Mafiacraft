@@ -86,6 +86,51 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
     }
 
     /**
+     * Returns true if a player can gain all of the specified power.
+     *
+     * @param amount
+     * @return
+     */
+    public boolean canGainPower(int amount) {
+        return canHavePower(getPower() + amount);
+    }
+
+    /**
+     * Returns true if a player can lose all of the specified power.
+     *
+     * @param amount
+     * @return
+     */
+    public boolean canLosePower(int amount) {
+        return canHavePower(getPower() - amount);
+    }
+
+    /**
+     * Returns true if it is possible for the player to follow the laws of the
+     * game with the given power level.
+     *
+     * @param potential
+     * @return
+     */
+    public boolean canHavePower(int potential) {
+        switch (getPosition()) {
+            default:
+            case NONE:
+            case AFFILIATE:
+                return false;
+
+            case WORKER:
+            case MANAGER:
+                return !(potential > getDivision().getMaxPlayerPower());
+
+            case OFFICER:
+            case VICE_LEADER:
+            case LEADER:
+                return !(potential > getGovernment().getMaxPlayerPower());
+        }
+    }
+
+    /**
      * Resets a player's power.
      *
      * @return
