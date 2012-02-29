@@ -6,6 +6,8 @@ package com.crimsonrpg.mafiacraft.player;
 
 import com.crimsonrpg.mafiacraft.MLogger;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
+import com.crimsonrpg.mafiacraft.chat.ChatType;
+import com.crimsonrpg.mafiacraft.classes.UtilityClass;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -120,6 +122,10 @@ public class PlayerManager {
         MPlayer mplayer = new MPlayer(player);
 
         YamlConfiguration pf = getPlayerYml(player);
+        mplayer.load(pf).save(pf);
+
+        //Just in case defaults were created.
+        savePlayerYml(player, pf);
 
         return mplayer;
     }

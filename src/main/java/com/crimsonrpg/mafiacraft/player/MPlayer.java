@@ -11,19 +11,20 @@ import com.crimsonrpg.mafiacraft.geo.*;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
+import com.crimsonrpg.mafiacraft.util.ConfigSerializable;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 /**
  *
  * @author simplyianm
  */
-public class MPlayer extends Transactable implements LandPurchaser {
+public class MPlayer extends Transactable implements LandPurchaser, ConfigSerializable {
     private final OfflinePlayer offlinePlayer;
 
     private Player onlinePlayer = null;
@@ -83,11 +84,11 @@ public class MPlayer extends Transactable implements LandPurchaser {
     public MPlayer subtractPower(int power) {
         return setPower(getPower() - power);
     }
-    
+
     /**
      * Resets a player's power.
-     * 
-     * @return 
+     *
+     * @return
      */
     public MPlayer resetPower() {
         return setPower(0);
@@ -129,10 +130,20 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return getBukkitEntity() != null;
     }
 
+    /**
+     * Gets the player's title.
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets the player's title.
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
@@ -342,6 +353,26 @@ public class MPlayer extends Transactable implements LandPurchaser {
      */
     public boolean isAMayor() {
         return getOwnedCity() != null;
+    }
+
+    public MPlayer load(ConfigurationSection source) {
+        chatType = ChatType.valueOf(source.getString("chattype", ChatType.DEFAULT.getName()));
+        land = source.getInt("land", 0);
+        power = source.getInt("power", 0);
+        title = source.getString("title", "");
+        utilityClass = UtilityClass.valueOf(source.getString("clazz.utility", "null"));
+
+        return this;
+    }
+
+    public MPlayer save(ConfigurationSection dest) {
+        dest.set("chattype", chatType.getName());
+        dest.set("land", land);
+        dest.set("power", power);
+        dest.set("title", (title == null) ? "" : title);
+        dest.set("clazz.utility", (utilityClass == null) ? "" : utilityClass.toString());
+
+        return this;
     }
 
 }
