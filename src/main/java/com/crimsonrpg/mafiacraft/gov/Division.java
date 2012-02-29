@@ -263,6 +263,15 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
     }
 
     /**
+     * Returns true if the division's HQ chunk can be claimed.
+     *
+     * @return
+     */
+    public boolean canHQBeClaimed() {
+        return getLand() <= 1;
+    }
+
+    /**
      * Gets the maximum amount of land this division can own. This is determined
      * by the money the division has. This is also known as the "L" variable as
      * described in the Google doc:
@@ -320,6 +329,9 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
     }
 
     public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
+        if (chunk.equals(getHqSection())) {
+            return canHQBeClaimed();
+        }
         return getPower() >= getLand();
     }
 

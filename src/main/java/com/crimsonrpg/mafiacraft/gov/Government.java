@@ -80,6 +80,15 @@ public class Government extends Transactable implements LandPurchaser {
     }
 
     /**
+     * Returns true if the Government HQ can be claimed.
+     * 
+     * @return 
+     */
+    public boolean canHQBeClaimed() {
+        return getLand() > getTotalLand();
+    }
+    
+    /**
      * Gets the power the government has over its land. For now, this is the
      * same as getMaxPower().
      *
@@ -88,21 +97,40 @@ public class Government extends Transactable implements LandPurchaser {
      * something.</p>
      */
     public int getPower() {
-        return getMaxPower();
+        int power = 0;
+        for (MPlayer player : getCouncilMembersAsMPlayers()) {
+            power += player.getPower();
+        }
+        return power;
     }
 
     /**
-     * Gets the power of the government.
-     *
-     * <p>The power of a government is calculated by the integer of money
-     * divided by 1024. Mafias should start out with 128 sections worth of
-     * power, or 128 power, or 128 * 1024 dollars = $131,072 to start out. This
-     * is better rounded to $150k.</p>
+     * Gets the minimum amount of power a player can have in the government.
      *
      * @return
      */
-    public int getMaxPower() {
-        return ((int) Math.floor(money)) >> 10; //2 to the 10th, aka 1024
+    public int getMinPlayerPower() {
+        return -getMaxPlayerPower();
+    }
+
+    /**
+     * Gets the maximum player power of the goverment.
+     *
+     * @return
+     */
+    public int getMaxPlayerPower() {
+        return getPlayerPower() << 1;
+    }
+
+    /**
+     * Gets the "P" variable as described in the Google doc:
+     *
+     * <p>P = (L / players)</p>
+     *
+     * @return
+     */
+    public int getPlayerPower() {
+        return getMaxGovernmentLand() / getCouncilMemberCount();
     }
 
     /**
@@ -310,6 +338,15 @@ public class Government extends Transactable implements LandPurchaser {
      */
     public Division createDivision() {
         return Mafiacraft.getGovernmentManager().createDivision(this);
+    }
+
+    /**
+     * Gets the amount of council members in the Government.
+     *
+     * @return
+     */
+    public int getCouncilMemberCount() {
+        return getCouncilMembers().size();
     }
 
     /**
@@ -645,6 +682,11 @@ public class Government extends Transactable implements LandPurchaser {
         return getMaxGovernmentLand() < getLand();
     }
 
+    /**
+     * Gets the maximum amount of land the government can own.
+     * 
+     * @return 
+     */
     public int getMaxGovernmentLand() {
         return getTotalLand() >> 4;
     }
