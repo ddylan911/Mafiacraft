@@ -136,7 +136,7 @@ public class PlayerManager {
      * @return
      */
     private File getPlayerFolder() {
-        File folder = new File(mc.getDataFolder().getPath() + "players" + File.separator);
+        File folder = new File(mc.getDataFolder().getPath() + File.separator + "players" + File.separator);
         if (!folder.exists()) {
             folder.mkdirs();
         }
@@ -150,7 +150,7 @@ public class PlayerManager {
      * @return
      */
     private File getPlayerFile(String player) {
-        File file = new File(getPlayerFolder().getPath() + player + ".yml");
+        File file = new File(getPlayerFolder().getPath() + File.separator + player + ".yml");
 
         try {
             file.createNewFile();

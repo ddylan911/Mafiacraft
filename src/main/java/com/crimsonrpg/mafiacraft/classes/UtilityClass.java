@@ -9,5 +9,5 @@ package com.crimsonrpg.mafiacraft.classes;
  * @author Dylan
  */
 public enum UtilityClass {
-    THIEF;
+    THIEF, NONE;
 }

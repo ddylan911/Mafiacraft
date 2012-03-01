@@ -8,9 +8,9 @@ import com.crimsonrpg.mafiacraft.MConfig;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.geo.City;
+import com.crimsonrpg.mafiacraft.geo.CityWorld;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Government;
-import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.TPCD;
@@ -105,7 +105,8 @@ public class CityCommand {
     }
 
     public static String doFound(MPlayer player, String name) {
-        City capital = player.getCityWorld().getCapital();
+        CityWorld cw = player.getCityWorld();
+        City capital = cw.getCapital();
         if (capital != null) {
             return "The world you are in already has a capital established.";
         }
@@ -170,6 +171,9 @@ public class CityCommand {
 
     public static String doAnnex(MPlayer player) {
         City city = player.getCityWorld().getCapital();
+        if (city == null) {
+            return "There is no city established in this world.";
+        }
 
         District district = player.getDistrict();
         if (district.getCity() != null) {
@@ -177,7 +181,7 @@ public class CityCommand {
         }
 
         if (!city.isMayor(player)) {
-            return "You aren't allowed to do this in the city.";
+            return "You must be the mayor of the city to annex new districts.";
         }
 
         double cost = MConfig.getDouble("prices.city.annex");
@@ -349,7 +353,7 @@ public class CityCommand {
         }
 
         District d = player.getDistrict();
-        if (d.getType().isGovBuild()) {
+        if (d.getType().isGovernment()) {
             return "This district is already a government district.";
         }
 
@@ -380,7 +384,7 @@ public class CityCommand {
         }
 
         District d = player.getDistrict();
-        if (d.getType().isGovBuild()) {
+        if (d.getType().isGovernment()) {
             return "This district is already a government district.";
         }
 

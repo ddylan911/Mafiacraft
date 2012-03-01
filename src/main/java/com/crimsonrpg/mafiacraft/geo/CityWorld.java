@@ -20,7 +20,7 @@ public class CityWorld implements ConfigSerializable {
      * True if players in this world are allowed to walk outside of the city and
      * build etc. there.
      */
-    private boolean freeRoam = false;
+    private boolean freeRoam = true;
 
     public CityWorld(World world) {
         this.world = world;

@@ -466,7 +466,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
         land = source.getInt("land", 0);
         power = source.getInt("power", 0);
         title = source.getString("title", "");
-        utilityClass = UtilityClass.valueOf(source.getString("clazz.utility", "null"));
+        utilityClass = UtilityClass.valueOf(source.getString("clazz.utility", UtilityClass.NONE.toString()));
 
         return this;
     }

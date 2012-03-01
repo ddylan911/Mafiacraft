@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.geo;
 
 import com.crimsonrpg.mafiacraft.MLogger;
+import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.MafiacraftPlugin;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
@@ -117,7 +118,7 @@ public class CityManager {
         city.attachNewDistrict(center);
         center.setType(DistrictType.GOVERNMENT);
         cities.put(city.getId(), city);
-
+        Mafiacraft.getCityManager().getCityWorld(center.getWorld()).setCapital(city);
         return city;
     }
 

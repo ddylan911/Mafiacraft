@@ -60,16 +60,16 @@ public enum DistrictType {
 
     private boolean build;
 
-    private boolean govBuild;
+    private boolean government;
 
     private boolean claim;
 
     private boolean enter;
 
-    private DistrictType(boolean pvp, boolean build, boolean govBuild, boolean claim, boolean enter) {
+    private DistrictType(boolean pvp, boolean build, boolean government, boolean claim, boolean enter) {
         this.pvp = pvp;
         this.build = build;
-        this.govBuild = govBuild;
+        this.government = government;
         this.claim = claim;
         this.enter = enter;
     }
@@ -83,8 +83,13 @@ public enum DistrictType {
         return build;
     }
 
-    public boolean isGovBuild() {
-        return govBuild;
+    /**
+     * Returns true if the district is only modifiable by the government.
+     * 
+     * @return 
+     */
+    public boolean isGovernment() {
+        return government;
     }
 
     public boolean isPvp() {

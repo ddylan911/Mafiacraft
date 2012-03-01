@@ -43,18 +43,18 @@ public class MListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
-        Chunk c = player.getBukkitEntity().getLocation().getChunk();
+        Chunk c = event.getBlock().getLocation().getChunk();
         District d = mc.getCityManager().getDistrict(c);
 
         if (!d.canBuild(player, c)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
+            player.sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
             event.setCancelled(true);
             return;
         }
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getOwnerName() + ".");
+            player.sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
