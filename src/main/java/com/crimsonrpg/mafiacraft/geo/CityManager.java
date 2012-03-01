@@ -57,6 +57,12 @@ public class CityManager {
     /////////////////
     // CITY
     /////////////////
+    /**
+     * Gets a city from its integer id.
+     * 
+     * @param id
+     * @return 
+     */
     public City getCity(int id) {
         return cities.get(id);
     }
@@ -76,14 +82,33 @@ public class CityManager {
         return null;
     }
 
+    /**
+     * Gets a list of all cities on the server.
+     * 
+     * @return 
+     */
     public List<City> getCityList() {
         return new ArrayList<City>(cities.valueCollection());
     }
 
+    /**
+     * Returns true if a city already exists with the given name.
+     * 
+     * @param name
+     * @return 
+     */
     public boolean cityExists(String name) {
         return getCity(name) != null;
     }
 
+    /**
+     * Founds a city.
+     * 
+     * @param player
+     * @param name
+     * @param center
+     * @return 
+     */
     public City foundCity(MPlayer player, String name, District center) {
         //Make city
         City city = new City(getNextCityId());
@@ -96,6 +121,11 @@ public class CityManager {
         return city;
     }
 
+    /**
+     * Gets the next available city ID.
+     * 
+     * @return 
+     */
     public int getNextCityId() {
         int id = 0;
         for (int i = 1; getCity(i) != null; ++i) {

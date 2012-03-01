@@ -105,9 +105,9 @@ public class CityCommand {
     }
 
     public static String doFound(MPlayer player, String name) {
-        City ct = player.getCity();
-        if (ct != null) {
-            return "You are already in a city.";
+        City capital = player.getCityWorld().getCapital();
+        if (capital != null) {
+            return "The world you are in already has a capital established.";
         }
 
         double balance = player.getMoney();
