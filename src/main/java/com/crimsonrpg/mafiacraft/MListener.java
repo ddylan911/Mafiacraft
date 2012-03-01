@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft;
 
 import com.crimsonrpg.mafiacraft.classes.UtilityClass;
+import com.crimsonrpg.mafiacraft.geo.CityWorld;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.LandOwner;
 import com.crimsonrpg.mafiacraft.player.KillTracker;
@@ -177,7 +178,8 @@ public class MListener implements Listener {
         District dest = mc.getCityManager().getDistrict(current);
         District prev = mc.getCityManager().getDistrict(last);
 
-        if (!dest.getType().canEnter(player)) {
+        CityWorld world = player.getCityWorld();
+        if (!world.isFreeRoam() && !dest.getType().canEnter(player)) {
             player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.getNameInChat() + ".");
 
             //Move back

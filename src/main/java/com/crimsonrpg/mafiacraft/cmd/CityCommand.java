@@ -169,14 +169,11 @@ public class CityCommand {
     }
 
     public static String doAnnex(MPlayer player) {
-        City city = player.getOwnedCity();
-        if (city == null) {
-            return "You aren't a mayor of any city.";
-        }
+        City city = player.getCityWorld().getCapital();
 
         District district = player.getDistrict();
         if (district.getCity() != null) {
-            return "This district is already associated with a city.";
+            return "This district is already associated with the city.";
         }
 
         if (!city.isMayor(player)) {

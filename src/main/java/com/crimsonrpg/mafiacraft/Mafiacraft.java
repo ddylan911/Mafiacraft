@@ -136,4 +136,14 @@ public class Mafiacraft {
         return getPlayerManager().getPlayer(player);
     }
 
+    /**
+     * Gets a player that is online.
+     *
+     * @param target
+     * @return
+     */
+    public static MPlayer getOnlinePlayer(String target) {
+        return getPlayerManager().getOnlinePlayer(target);
+    }
+
 }

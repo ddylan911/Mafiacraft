@@ -8,18 +8,13 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.geo.City;
 import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.geo.DistrictType;
-import com.crimsonrpg.mafiacraft.gov.Division;
-import com.crimsonrpg.mafiacraft.gov.Government;
-import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
-import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -141,9 +136,8 @@ public class DistrictCommand {
             return "You aren't in a district that is part of a city.";
         }
 
-        City oc = player.getOwnedCity();
-        if (oc == null || city.equals(oc)) {
-            return "You must be a mayor of this city.";
+        if (!city.isMayor(player)) {
+            return "You aren't the mayor of this city.";
         }
 
         DistrictType type = DistrictType.fromString(typeString);

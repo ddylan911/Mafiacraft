@@ -22,6 +22,8 @@ import org.bukkit.World;
  * Manager for handling district objects.
  */
 public class CityManager {
+    private Map<World, CityWorld> cityWorldMap = new HashMap<World, CityWorld>();
+
     private TIntObjectMap<City> cities = new TIntObjectHashMap<City>();
 
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
@@ -35,12 +37,36 @@ public class CityManager {
     }
 
     /////////////////
+    // CITY WORLD
+    /////////////////
+    /**
+     * Gets a city world from a world.
+     *
+     * @param world
+     * @return
+     */
+    public CityWorld getCityWorld(World world) {
+        CityWorld cworld = cityWorldMap.get(world);
+        if (cworld == null) {
+            cworld = new CityWorld(world);
+            cityWorldMap.put(world, cworld);
+        }
+        return cworld;
+    }
+    
+    /////////////////
     // CITY
     /////////////////
     public City getCity(int id) {
         return cities.get(id);
     }
 
+    /**
+     * Gets a city from its name.
+     * 
+     * @param name
+     * @return 
+     */
     public City getCity(String name) {
         for (City city : getCityList()) {
             if (city.getName().equalsIgnoreCase(name)) {

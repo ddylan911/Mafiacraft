@@ -13,6 +13,8 @@ import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.util.ConfigSerializable;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
+import java.util.ArrayList;
+import java.util.List;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -440,13 +442,14 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
      *
      * @return
      */
-    public City getOwnedCity() {
+    public List<City> getOwnedCities() {
+        List<City> cities = new ArrayList<City>();
         for (City city : Mafiacraft.getCityManager().getCityList()) {
             if (city.isMayor(this)) {
-                return city;
+                cities.add(city);
             }
         }
-        return null;
+        return cities;
     }
 
     /**
@@ -455,7 +458,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
      * @return
      */
     public boolean isAMayor() {
-        return getOwnedCity() != null;
+        return getOwnedCities().size() > 0;
     }
 
     public MPlayer load(ConfigurationSection source) {
@@ -476,6 +479,15 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
         dest.set("clazz.utility", (utilityClass == null) ? "" : utilityClass.toString());
 
         return this;
+    }
+
+    /**
+     * Gets the CityWorld the player is in.
+     *
+     * @return
+     */
+    public CityWorld getCityWorld() {
+        return Mafiacraft.getCityManager().getCityWorld(getLocation().getWorld());
     }
 
 }

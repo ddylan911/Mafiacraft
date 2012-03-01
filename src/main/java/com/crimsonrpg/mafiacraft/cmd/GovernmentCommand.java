@@ -69,8 +69,8 @@ public class GovernmentCommand {
                 result = doWho(player, largs.get(0));
             } else if (function.equalsIgnoreCase("invite")) {
                 result = doInvite(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("createregime")) {
-                result = doCreateRegime(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("createdivision")) {
+                result = doCreateDivision(player, largs.get(0));
             } else if (function.equalsIgnoreCase("kick")) {
                 result = doKick(player, largs.get(0));
             } else if (function.equalsIgnoreCase("player")) {
@@ -284,14 +284,10 @@ public class GovernmentCommand {
         return null;
     }
 
-    public static String doCreateRegime(MPlayer player, String name) {
+    public static String doCreateDivision(MPlayer player, String name) {
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government!";
-        }
-
-        if (player.getDivision() != null) {
-            return "You are already part of a " + gov.getType().getLocale("division") + ".";
         }
 
         if (!player.getPosition().equals(Position.VICE_LEADER)) {
@@ -310,6 +306,27 @@ public class GovernmentCommand {
 
         Division div = gov.createDivision().setManager(player.getName()).setName(name);
         player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.getType().getLocale("division") + " successfully.");
+        return null;
+    }
+
+    public static String doSetManager(MPlayer player, String division, String target) {
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You are not in a government!";
+        }
+
+        MPlayer manager = Mafiacraft.getOnlinePlayer(target);
+        if (manager == null) {
+            return "That player is either not online or doesn't exist.";
+        }
+
+        Division div = gov.getDivisionByName(division);
+        if (div == null) {
+            return "A " + gov.getType().getLocale("division") + " with the name '" + division + "' does not exist in your " + gov.getType().getName() + ".";
+        }
+
+        div.setManager(manager);
+        player.sendMessage(MsgColor.SUCCESS + "The capo for the regime ");
         return null;
     }
 

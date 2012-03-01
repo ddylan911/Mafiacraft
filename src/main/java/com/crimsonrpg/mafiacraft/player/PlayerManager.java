@@ -209,4 +209,18 @@ public class PlayerManager {
         return savePlayerYml(player.getName(), yml);
     }
 
+    /**
+     * Gets a player that is currently online.
+     *
+     * @param target The name of the player.
+     * @return
+     */
+    public MPlayer getOnlinePlayer(String target) {
+        Player player = Bukkit.getPlayer(target);
+        if (player == null) {
+            return null;
+        }
+        return getPlayer(player);
+    }
+
 }

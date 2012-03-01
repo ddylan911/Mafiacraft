@@ -122,7 +122,7 @@ public class DivisionCommand {
      * @return
      */
     public static String doCreate(MPlayer player, String name) {
-        return GovernmentCommand.doCreateRegime(player, name);
+        return GovernmentCommand.doCreateDivision(player, name);
     }
 
     /**
