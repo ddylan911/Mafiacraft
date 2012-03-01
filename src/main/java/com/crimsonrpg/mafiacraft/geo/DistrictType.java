@@ -85,8 +85,8 @@ public enum DistrictType {
 
     /**
      * Returns true if the district is only modifiable by the government.
-     * 
-     * @return 
+     *
+     * @return
      */
     public boolean isGovernment() {
         return government;
@@ -125,7 +125,12 @@ public enum DistrictType {
      * @return
      */
     public static DistrictType fromString(String typeString) {
-        DistrictType maybe = DistrictType.valueOf(typeString.toUpperCase());
+        DistrictType maybe = null;
+        try {
+            maybe = DistrictType.valueOf(typeString.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+        }
+
         if (maybe == null) {
             maybe = typeMap.get(typeString);
         }
