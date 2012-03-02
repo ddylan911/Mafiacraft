@@ -41,6 +41,8 @@ public class District implements LandOwner {
 
     private TByteObjectMap<String> owners = new TByteObjectHashMap<String>();
 
+    private double landCost;
+
     public District(World world, int x, int z) {
         this.id = GeoUtils.coordsToDistrictId(x, z);
         this.world = world;
@@ -428,6 +430,14 @@ public class District implements LandOwner {
             return "district " + name + ((c == null) ? "" : " of " + c.getOwnerName());
         }
         return "an unexplored district";
+    }
+
+    public double getLandCost() {
+        return landCost;
+    }
+
+    public void setLandCost(double landCost) {
+        this.landCost = landCost;
     }
 
 }

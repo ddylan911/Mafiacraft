@@ -118,9 +118,9 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
 
     /**
      * Sets the manager of the division to the player specified.
-     * 
+     *
      * @param manager
-     * @return 
+     * @return
      */
     public Division setManager(String manager) {
         this.manager = manager;
@@ -129,9 +129,9 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
 
     /**
      * Sets the manager of the division to the player specified.
-     * 
+     *
      * @param manager
-     * @return 
+     * @return
      */
     public Division setManager(MPlayer manager) {
         return setManager(manager.getName());

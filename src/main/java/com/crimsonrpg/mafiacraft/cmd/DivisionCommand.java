@@ -5,18 +5,19 @@
 package com.crimsonrpg.mafiacraft.cmd;
 
 import com.crimsonrpg.mafiacraft.Mafiacraft;
+import com.crimsonrpg.mafiacraft.geo.District;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.TPCD;
-import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -168,12 +169,32 @@ public class DivisionCommand {
         if (gov == null) {
             return "You are not in a government.";
         }
+
         Division div = player.getDivision();
         if (div == null) {
             return "You are not part of a " + gov.getType().getLocale("division") + ".";
         }
+
+        Position pos = player.getPosition();
+        if (!pos.isAtLeast(Position.MANAGER)) {
+            return "You are not the " + gov.getType().getLocale("manager") + " of this " + gov.getType().getName() + ".";
+        }
+
+        District dis = player.getDistrict();
+        double price = dis.getLandCost();
+        if (!player.hasEnough(price)) {
+            return "You do not have enough money to buy a plot in this district. "
+                    + "(Costs $" + NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(price) + ")";
+        }
+
         Chunk chunk = player.getChunk();
+        if (!dis.canBeClaimed(chunk, div)) {
+            return "You aren't allowed to buy land here.";
+        }
+
         div.claim(chunk);
+        player.subtractMoney(price);
+
         player.sendMessage(MsgColor.SUCCESS + "You have claimed this chunk successfully.");
         return null;
     }
