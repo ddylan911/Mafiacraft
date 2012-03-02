@@ -32,10 +32,10 @@ public class ChatCommand {
             return;
         }
 
-       String  result = doChat(player, args[0]);
-       if (result != null) {
-           player.sendMessage(MsgColor.ERROR + result);
-       }
+        String result = doChat(player, args[0]);
+        if (result != null) {
+            player.sendMessage(MsgColor.ERROR + result);
+        }
     }
 
     public static String doChat(MPlayer player) {

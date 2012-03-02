@@ -182,8 +182,8 @@ public class DivisionCommand {
 
         District dis = player.getDistrict();
         double price = dis.getLandCost();
-        if (!player.hasEnough(price)) {
-            return "You do not have enough money to buy a plot in this district. "
+        if (!div.hasEnough(price)) {
+            return "Your " + gov.getType().getLocale("division") + " does not have enough money to buy a plot in this district. "
                     + "(Costs $" + NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(price) + ")";
         }
 
@@ -193,7 +193,7 @@ public class DivisionCommand {
         }
 
         div.claim(chunk);
-        player.subtractMoney(price);
+        div.subtractMoney(price);
 
         player.sendMessage(MsgColor.SUCCESS + "You have claimed this chunk successfully.");
         return null;

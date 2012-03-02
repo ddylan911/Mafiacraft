@@ -28,4 +28,18 @@ commands:
     
 permissions:
   mafiacraft.admin:
-    description: Allows an admin to do many things.
+    description: Allows a player to do any command and override anything.
+    default: op
+    children:
+      mafiacraft.mod: true
+    
+  mafiacraft.mod:
+    description: Allows a player to do moderator-related commands.
+    children:
+      mafiacraft.mod.district: true
+    
+  mafiacraft.mod.district:
+    description: Allows a player to moderate a district.
+    
+  mafiacraft.mod.district.desc:
+    description: Allows the player to change the description of a district.

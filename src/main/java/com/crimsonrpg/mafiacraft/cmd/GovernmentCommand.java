@@ -331,6 +331,11 @@ public class GovernmentCommand {
     }
 
     public static String doClaim(MPlayer player) {
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You aren't in a government.";
+        }
+
         if (player.getPosition().compareTo(Position.VICE_LEADER) < 0) {
             return "You aren't allowed to claim land for your government.";
         }
@@ -338,16 +343,18 @@ public class GovernmentCommand {
         Chunk section = player.getChunk();
         District district = player.getDistrict();
 
-        Government gov = player.getGovernment();
-        if (gov == null) {
-            return "You aren't in a government.";
-        }
-
         if (!district.canBeClaimed(section, gov)) {
             return "Your government isn't allowed to claim the given district.";
         }
 
+        double price = district.getLandCost();
+        if (!gov.hasEnough(price)) {
+            return "Your government does not have enough money to purchase this land.";
+        }
+
         gov.claim(section);
+        gov.subtractMoney(price);
+
         player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.getSectionName(section) + " for your " + gov.getType().getName() + ".");
         return null;
     }
