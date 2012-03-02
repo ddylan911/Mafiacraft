@@ -206,7 +206,13 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
 
     @Override
     public double setMoney(double amt) {
-        return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.getName(), amt - getMoney()).balance;
+        double deposit = amt - getMoney();
+        if (deposit > 0) {
+            return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.getName(), deposit).balance;
+        } else if (deposit < 0) {
+            return Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(offlinePlayer.getName(), -deposit).balance;
+        }
+        return 0;
     }
 
     @Override
