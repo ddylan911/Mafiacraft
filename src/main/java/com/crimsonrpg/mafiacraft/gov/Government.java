@@ -27,13 +27,13 @@ public class Government extends Transactable implements LandPurchaser {
 
     private GovType type;
 
-    private String leader;
+    private String leader = null;
 
-    private String viceLeader;
+    private String viceLeader = null;
 
-    private Set<String> officers;
+    private Set<String> officers = new HashSet<String>();
 
-    private Set<String> affiliates;
+    private Set<String> affiliates = new HashSet<String>();
 
     private Location hq;
 
@@ -243,11 +243,15 @@ public class Government extends Transactable implements LandPurchaser {
         } else {
             switch (position) {
                 case LEADER:
-                    members.add(leader);
+                    if (leader != null) {
+                        members.add(leader);
+                    }
                     break;
 
                 case VICE_LEADER:
-                    members.add(viceLeader);
+                    if (viceLeader != null) {
+                        members.add(viceLeader);
+                    }
                     break;
 
                 case OFFICER:

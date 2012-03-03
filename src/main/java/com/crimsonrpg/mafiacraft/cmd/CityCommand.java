@@ -179,8 +179,13 @@ public class CityCommand {
             return "You aren't in a city.";
         }
 
+        Location spawn = city.getSpawnLocation();
+        if (spawn == null) {
+            return "The city does not have a spawn location set.";
+        }
+
         int citySpawnTime = MConfig.getInt("warmup.cityspawn");
-        TPCD.makeCountdown(MafiacraftPlugin.getInstance(), citySpawnTime, TPCD.Type.CSPAWN, player.getBukkitEntity(), city.getSpawnLocation());
+        TPCD.makeCountdown(MafiacraftPlugin.getInstance(), citySpawnTime, TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
         return null;
     }
 
