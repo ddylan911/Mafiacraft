@@ -57,6 +57,13 @@ public class Commands {
             }
 
         });
+        plugin.getCommand("cworld").setExecutor(new CommandExecutor() {
+            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+                CWorldCommand.parseCmd(cs, cmnd, string, strings);
+                return true;
+            }
+
+        });
     }
 
 }

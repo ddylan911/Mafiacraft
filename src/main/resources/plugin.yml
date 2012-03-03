@@ -25,6 +25,9 @@ commands:
   chat:
     description: Chat command
     usage: /chat [type]
+  cworld:
+    description: CWorld command
+    usage: /cworld <tool>
     
 permissions:
   mafiacraft.admin:
