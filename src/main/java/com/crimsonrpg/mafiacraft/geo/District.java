@@ -18,7 +18,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 /**
- * Represents a 8x8 section area.
+ * Represents a 16x16 section area.
  */
 public class District implements LandOwner {
     private final int id;

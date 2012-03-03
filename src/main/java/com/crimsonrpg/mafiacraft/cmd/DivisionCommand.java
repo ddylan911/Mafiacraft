@@ -33,59 +33,55 @@ public class DivisionCommand {
             sender.sendMessage(MsgColor.ERROR + "You can not use this command through console.");
             return;
         }
-        if (args.length < 1) {
-            sender.sendMessage(MsgColor.ERROR + "You need a utility!");
-            return;
-        }
 
         MPlayer player = Mafiacraft.getPlayer((Player) sender);
 
-        List<String> argList = new ArrayList<String>(Arrays.asList(args));
+        if (args.length < 1) {
+            doHelp(player);
+            return;
+        }
 
-        String option = args[0];
+        //Get the function we want to do.
+        String function = args[0];
+        List<String> largs = new ArrayList<String>(Arrays.asList(args));
+        largs.remove(0);
+
         String result = null;
 
-        if (option.equalsIgnoreCase("accept")) {
-            result = doAccept(player);
-        } else if (option.equalsIgnoreCase("claim")) {
-            result = doClaim(player);
-        } else if (option.equalsIgnoreCase("create")) {
-            if (args.length < 2) {
-                player.sendMessage(MsgColor.ERROR + "You need a name too.");
-                return;
+        if (largs.size() < 1) {
+            if (function.equalsIgnoreCase("accept")) {
+                result = doAccept(player);
+            } else if (function.equalsIgnoreCase("claim")) {
+                result = doClaim(player);
+            } else if (function.equalsIgnoreCase("unclaim")) {
+                result = doUnclaim(player);
+            } else {
+                result = doHelp(player);
             }
-            result = doCreate(player, argList.get(1));
-        } else if (option.equalsIgnoreCase("desc")) {
-            if (args.length < 2) {
-                player.sendMessage(MsgColor.ERROR + "You need a description too.");
-                return;
+        } else if (largs.size() < 2) {
+            if (function.equalsIgnoreCase("create")) {
+                result = doCreate(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("kick")) {
+                result = doKick(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("name")) {
+                result = doName(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("invite")) {
+                result = doInvite(player, largs.get(0));
+            } else {
+                result = doHelp(player);
             }
-            argList.remove(0);
-            result = doDesc(player, Joiner.on(' ').join(argList));
-        } else if (option.equalsIgnoreCase("kick")) {
-            if (args.length < 2) {
-                player.sendMessage(MsgColor.ERROR + "You need a player name too.");
-                return;
-            }
-            result = doKick(player, Mafiacraft.getPlayerManager().getPlayer(argList.get(1)));
-        } else if (option.equalsIgnoreCase("name")) {
-            if (args.length < 2) {
-                player.sendMessage(MsgColor.ERROR + "You need a divison name too.");
-                return;
-            }
-            result = doName(player, argList.get(1));
-        } else if (option.equalsIgnoreCase("invite")) {
-            if (args.length < 2) {
-                player.sendMessage(MsgColor.ERROR + "You need a player name too.");
-                return;
-            }
-            result = doInvite(player, Mafiacraft.getPlayerManager().getPlayer(argList.get(1)));
-        } else if (option.equalsIgnoreCase("unclaim")) {
-            result = doUnclaim(player);
+        } else {
+            result = doDesc(player, Joiner.on(' ').join(largs));
         }
+
         if (result != null) {
             player.sendMessage(MsgColor.ERROR + result);
         }
+    }
+
+    public static String doHelp(MPlayer player) {
+        player.sendMessage(MsgColor.INFO + "TODO: help.");
+        return null;
     }
 
     /**
@@ -93,13 +89,18 @@ public class DivisionCommand {
      * the kicked.
      *
      * @param player
-     * @param kicked
+     * @param tgt
      * @return
      */
-    public static String doKick(MPlayer player, MPlayer kicked) {
+    public static String doKick(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
+        MPlayer tgt = Mafiacraft.getOnlinePlayer(target);
+        if (tgt == null) {
+            return "The player you have specified is either offline or does not exist.";
         }
 
         Government gov = player.getGovernment();
@@ -112,11 +113,11 @@ public class DivisionCommand {
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank to do this.";
         }
-        boolean remove = player.getDivision().remove(kicked.getName());
+        boolean remove = player.getDivision().remove(tgt.getName());
         if (remove == false) {
             return "You can not kick this player out!";
         }
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully kicked out " + kicked.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully kicked out " + tgt.getName() + ".");
         return null;
     }
 
@@ -218,20 +219,25 @@ public class DivisionCommand {
      * Invites the given player to the division.
      *
      * @param player
-     * @param invited
+     * @param target
      * @return
      */
-    public static String doInvite(MPlayer player, MPlayer invited) {
+    public static String doInvite(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
         }
 
+        MPlayer tgt = Mafiacraft.getOnlinePlayer(target);
+        if (tgt == null) {
+            return "The player you have specified is either offline or does not exist.";
+        }
+
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank.";
         }
-        player.getSessionStore().setData(invited.getName() + ".inv." + player.getDivision().getName(), true);
-        player.sendMessage(MsgColor.SUCCESS + "You invited " + invited.getName() + ".");
+        player.getSessionStore().setData(tgt.getName() + ".inv." + player.getDivision().getName(), true);
+        player.sendMessage(MsgColor.SUCCESS + "You invited " + tgt.getName() + ".");
         return null;
     }
 
