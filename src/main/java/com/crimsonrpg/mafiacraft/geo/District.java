@@ -148,11 +148,14 @@ public class District implements LandOwner {
     }
 
     /**
-     * Gets the type of district this city is.
+     * Gets the type of this district.
      *
      * @return
      */
     public DistrictType getType() {
+        if (type == null) {
+            return (getCityWorld().isFreeRoam()) ? DistrictType.ANARCHIC : DistrictType.RESERVED;
+        }
         return type;
     }
 
@@ -333,7 +336,7 @@ public class District implements LandOwner {
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
-        if (type.canBuild()) {
+        if (getType().canBuild()) {
             return true;
         }
 
@@ -438,6 +441,15 @@ public class District implements LandOwner {
 
     public void setLandCost(double landCost) {
         this.landCost = landCost;
+    }
+
+    /**
+     * Gets the CityWorld this district is in.
+     *
+     * @return
+     */
+    public CityWorld getCityWorld() {
+        return Mafiacraft.getCityManager().getCityWorld(world);
     }
 
 }
