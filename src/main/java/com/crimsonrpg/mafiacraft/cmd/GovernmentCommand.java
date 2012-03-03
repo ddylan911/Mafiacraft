@@ -102,12 +102,21 @@ public class GovernmentCommand {
     }
 
     public static String doHelp(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.visitor")) {
+            return "You aren't allowed to use this command.";
+        }
+
         player.sendMessage("TODO: help");
         //TODO: help
         return null;
     }
 
     public static String doFound(MPlayer player, String name, GovType type) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         if (!type.canFound()) {
             return "You can't found a " + type.getName() + ".";
         }
@@ -145,6 +154,11 @@ public class GovernmentCommand {
     }
 
     public static String doPlayer(MPlayer player, String target) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
         if (tgt == null) {
             return "The player you specified is either not online or does not exist.";
@@ -160,6 +174,11 @@ public class GovernmentCommand {
     }
 
     public static String doWho(MPlayer player, String govName) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = Mafiacraft.getGovernmentManager().getGovernment(govName);
         if (gov == null) {
             return "The government you specified does not exist.";
@@ -171,6 +190,11 @@ public class GovernmentCommand {
     }
 
     public static String doHq(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
 
         if (gov == null) {
@@ -192,6 +216,11 @@ public class GovernmentCommand {
     }
 
     public static String doInvite(MPlayer player, String target) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
         if (tgt == null) {
             return "The player you specified is either not online or does not exist.";
@@ -220,6 +249,11 @@ public class GovernmentCommand {
     }
 
     public static String doKick(MPlayer player, String target) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
         if (tgt == null) {
             return "The player you specified is either not online or does not exist.";
@@ -285,6 +319,11 @@ public class GovernmentCommand {
     }
 
     public static String doCreateDivision(MPlayer player, String name) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government!";
@@ -310,6 +349,11 @@ public class GovernmentCommand {
     }
 
     public static String doSetManager(MPlayer player, String division, String target) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government!";
@@ -331,6 +375,11 @@ public class GovernmentCommand {
     }
 
     public static String doClaim(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You aren't in a government.";
@@ -360,6 +409,11 @@ public class GovernmentCommand {
     }
 
     public static String doSetHq(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         if (player.getPosition().isAtLeast(Position.VICE_LEADER)) {
             return "You aren't allowed to set the HQ of your government.";
         }

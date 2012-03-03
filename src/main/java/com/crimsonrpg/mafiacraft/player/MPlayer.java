@@ -496,4 +496,14 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
         return Mafiacraft.getCityManager().getCityWorld(getLocation().getWorld());
     }
 
+    /**
+     * Checks if the MPlayer has permission to do the given thing.
+     * 
+     * @param permission
+     * @return 
+     */
+    public boolean hasPermission(String permission) {
+        return getBukkitEntity().hasPermission(permission);
+    }
+
 }

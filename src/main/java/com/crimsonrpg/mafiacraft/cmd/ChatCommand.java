@@ -44,6 +44,10 @@ public class ChatCommand {
     }
 
     public static String doChat(MPlayer player, String type) {
+        if (!player.hasPermission("mafiacraft.visitor")) {
+            return "You aren't allowed to use this command.";
+        }
+
         ChatType chatType = ChatType.valueOf(type);
         if (chatType == null) {
             return "Invalid chat type given.";

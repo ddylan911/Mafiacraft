@@ -105,6 +105,11 @@ public class CityCommand {
     }
 
     public static String doFound(MPlayer player, String name) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         CityWorld cw = player.getCityWorld();
         City capital = cw.getCapital();
         if (capital != null) {
@@ -144,6 +149,11 @@ public class CityCommand {
     }
 
     public static String doSetSpawn(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
@@ -159,6 +169,11 @@ public class CityCommand {
     }
 
     public static String doSpawn(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
@@ -170,6 +185,11 @@ public class CityCommand {
     }
 
     public static String doAnnex(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCityWorld().getCapital();
         if (city == null) {
             return "There is no city established in this world.";
@@ -196,6 +216,11 @@ public class CityCommand {
     }
 
     public static String doUnannex(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
@@ -220,6 +245,11 @@ public class CityCommand {
     }
 
     public static String doRename(MPlayer player, String name) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
@@ -240,6 +270,11 @@ public class CityCommand {
     }
 
     public static String doFunds(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
@@ -256,6 +291,11 @@ public class CityCommand {
     }
 
     public static String doDisband(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
@@ -271,6 +311,11 @@ public class CityCommand {
     }
 
     public static String doBus(MPlayer player, String districtName) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         //TODO: check permissions.
 
         City city = player.getCity();
@@ -293,6 +338,11 @@ public class CityCommand {
     }
 
     public static String doDeposit(MPlayer player, String amount) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         double amt;
         try {
             amt = Double.parseDouble(amount);
@@ -316,6 +366,11 @@ public class CityCommand {
     }
 
     public static String doWithdraw(MPlayer player, String amount) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         double amt;
         try {
             amt = Double.parseDouble(amount);
@@ -343,6 +398,11 @@ public class CityCommand {
     }
 
     public static String doClaim(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You are not in a city.";
@@ -374,6 +434,11 @@ public class CityCommand {
     }
 
     public static String doUnclaim(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You are not in a city.";
@@ -399,6 +464,11 @@ public class CityCommand {
     }
 
     public static String doMakePolice(MPlayer player, String chief, String assistant) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You are not in a city.";
@@ -429,6 +499,11 @@ public class CityCommand {
     }
 
     public static String doSetChief(MPlayer player, String chief) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You are not in a city.";
@@ -454,6 +529,11 @@ public class CityCommand {
     }
 
     public static String doSetAssistant(MPlayer player, String assistant) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         City city = player.getCity();
         if (city == null) {
             return "You are not in a city.";

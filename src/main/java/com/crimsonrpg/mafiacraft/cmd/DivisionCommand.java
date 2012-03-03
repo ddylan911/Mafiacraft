@@ -97,6 +97,11 @@ public class DivisionCommand {
      * @return
      */
     public static String doKick(MPlayer player, MPlayer kicked) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government.";
@@ -133,6 +138,11 @@ public class DivisionCommand {
      * @return
      */
     public static String doAccept(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government.";
@@ -165,6 +175,11 @@ public class DivisionCommand {
      * @return
      */
     public static String doClaim(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government.";
@@ -207,6 +222,11 @@ public class DivisionCommand {
      * @return
      */
     public static String doInvite(MPlayer player, MPlayer invited) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank.";
         }
@@ -223,6 +243,11 @@ public class DivisionCommand {
      * @return
      */
     public static String doName(MPlayer player, String name) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government.";
@@ -240,6 +265,11 @@ public class DivisionCommand {
     }
 
     public static String doUnclaim(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government.";
@@ -267,6 +297,11 @@ public class DivisionCommand {
      * @return
      */
     public static String doDesc(MPlayer player, String desc) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You are not in a government.";
@@ -284,6 +319,11 @@ public class DivisionCommand {
     }
 
     public static String doHq(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Division div = player.getDivision();
 
         if (div == null) {
@@ -305,6 +345,11 @@ public class DivisionCommand {
     }
 
     public static String doSetHq(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         Division div = player.getDivision();
         if (div == null) {
             return "You are not part of a government.";

@@ -74,6 +74,10 @@ public class DistrictCommand {
     }
 
     public static String doDesc(MPlayer player, String description) {
+        if (!player.hasPermission("mafiacraft.mod")) {
+            return "You aren't allowed to use this command.";
+        }
+
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
@@ -100,18 +104,30 @@ public class DistrictCommand {
     }
 
     public static String doHelp(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.visitor")) {
+            return "You aren't allowed to use this command.";
+        }
+
         //TODO: be helpful
         player.sendMessage(MsgColor.ERROR + "TODO: help");
         return null;
     }
 
     public static String doInfo(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.visitor")) {
+            return "You aren't allowed to use this command.";
+        }
+
         //TODO add real info
         player.sendMessage("You are in the district " + player.getDistrict().getNameInChat());
         return null;
     }
 
     public static String doSetBus(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.mod")) {
+            return "You aren't allowed to use this command.";
+        }
+
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
@@ -130,6 +146,11 @@ public class DistrictCommand {
     }
 
     public static String doZone(MPlayer player, String typeString) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
