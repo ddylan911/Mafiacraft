@@ -15,7 +15,6 @@ import com.crimsonrpg.mafiacraft.gov.Position;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.TPCD;
-import com.crimsonrpg.mafiacraft.util.TPCD;
 import com.crimsonrpg.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
 import java.util.ArrayList;
@@ -76,15 +75,17 @@ public class GovernmentCommand {
             } else if (function.equalsIgnoreCase("player")) {
                 result = doPlayer(player, largs.get(0));
             } else if (function.equalsIgnoreCase("found")) {
-                result = doFound(player, Joiner.on(' ').join(largs), type);
+                result = doFound(player, largs.get(0), type);
             } else {
                 result = doHelp(player);
             }
         } else if (largs.size() < 3) {
-            if (function.equalsIgnoreCase("allocate")) {
+            if (function.equalsIgnoreCase("grant")) {
                 result = doGrant(player, largs.get(0), largs.get(1));
-            } else if (function.equalsIgnoreCase("found")) {
-                result = doFound(player, Joiner.on(' ').join(largs), type);
+            } else if (function.equalsIgnoreCase("setmanager")
+                    || function.equalsIgnoreCase("setcapo")
+                    || function.equalsIgnoreCase("setsergeant")) {
+                result = doSetManager(player, largs.get(0), largs.get(1));
             } else {
                 result = doHelp(player);
             }
