@@ -125,14 +125,14 @@ public enum DistrictType {
      * @return
      */
     public static DistrictType fromString(String typeString) {
-        return typeMap.get(typeString);
+        return typeMap.get(typeString.toLowerCase());
     }
 
     static {
         typeMap = new HashMap<String, DistrictType>();
 
         for (DistrictType type : DistrictType.values()) {
-            typeMap.put(type.name(), type);
+            typeMap.put(type.name().toLowerCase(), type);
         }
 
         typeMap.put("s", DistrictType.SHARED);
