@@ -395,8 +395,45 @@ public class City extends Transactable implements LandOwner {
      *
      * @param cityWorld
      */
-    public void setCityWorld(CityWorld cityWorld) {
+    public City setCityWorld(CityWorld cityWorld) {
         this.cityWorld = cityWorld;
+        return this;
+    }
+
+    /**
+     * Claims a grid for the given district with checking.
+     *
+     * @param district
+     * @return True if the district was part of the city and could be claimed.
+     */
+    public boolean claimGridAndCheck(District district) {
+        if (!district.getCity().equals(this)) {
+            return false;
+        }
+
+        if (!district.getType().isGovernment()) {
+            return false;
+        }
+
+        claimGrid(district);
+        return true;
+    }
+
+    /**
+     * Claims a grid.
+     *
+     * @param district
+     * @return
+     */
+    public City claimGrid(District district) {
+        for (int x = 0; x < 15; x++) {
+            for (int z = 0; z < 15; z++) {
+                if (x == 0 || z == 0 || x == 15 || z == 15 || (x + 1) % 5 == 0 || (z + 1) % 5 == 0) {
+                    district.setOwner(x, z, this);
+                }
+            }
+        }
+        return this;
     }
 
 }

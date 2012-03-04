@@ -50,6 +50,8 @@ public class DistrictCommand {
                 result = doSetBus(player);
             } else if (function.equalsIgnoreCase("info")) {
                 result = doInfo(player);
+            } else if (function.equalsIgnoreCase("claimgrid")) {
+                result = doInfo(player);
             } else {
                 result = doHelp(player);
             }
@@ -172,6 +174,31 @@ public class DistrictCommand {
 
         district.resetOwnerships().setType(type);
         player.sendMessage(MsgColor.SUCCESS + "The district has been zoned to a " + type.niceName() + " district successfully.");
+        return null;
+    }
+
+    public static String doClaimGrid(MPlayer player) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
+        District district = player.getDistrict();
+        City city = district.getCity();
+        if (city == null) {
+            return "You aren't in a district that is part of a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You aren't the mayor of this city.";
+        }
+
+        boolean check = city.claimGridAndCheck(district);
+        if (!check) {
+            return "You can't claim this.";
+        }
+
+        player.sendMessage(MsgColor.SUCCESS + "Claims a grid and checks.");
         return null;
     }
 

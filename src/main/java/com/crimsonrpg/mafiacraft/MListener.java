@@ -183,7 +183,7 @@ public class MListener implements Listener {
         District prev = mc.getCityManager().getDistrict(last);
 
         CityWorld world = player.getCityWorld();
-        if (!world.isFreeRoam() && !dest.getType().canEnter(player)) {
+        if (!dest.getType().canEnter(player)) {
             player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.getNameInChat() + ".");
 
             //Move back
