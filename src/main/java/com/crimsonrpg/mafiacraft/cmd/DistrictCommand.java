@@ -51,7 +51,7 @@ public class DistrictCommand {
             } else if (function.equalsIgnoreCase("info")) {
                 result = doInfo(player);
             } else if (function.equalsIgnoreCase("claimgrid")) {
-                result = doInfo(player);
+                result = doClaimGrid(player);
             } else {
                 result = doHelp(player);
             }
@@ -198,7 +198,7 @@ public class DistrictCommand {
             return "You can't claim this.";
         }
 
-        player.sendMessage(MsgColor.SUCCESS + "Claims a grid and checks.");
+        player.sendMessage(MsgColor.SUCCESS + "The grid for the city has been claimed.");
         return null;
     }
 
