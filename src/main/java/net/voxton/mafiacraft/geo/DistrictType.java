@@ -125,20 +125,15 @@ public enum DistrictType {
      * @return
      */
     public static DistrictType fromString(String typeString) {
-        DistrictType maybe = null;
-        try {
-            maybe = DistrictType.valueOf(typeString.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-        }
-
-        if (maybe == null) {
-            maybe = typeMap.get(typeString);
-        }
-        return maybe;
+        return typeMap.get(typeString);
     }
 
     static {
         typeMap = new HashMap<String, DistrictType>();
+
+        for (DistrictType type : DistrictType.values()) {
+            typeMap.put(type.name(), type);
+        }
 
         typeMap.put("s", DistrictType.SHARED);
         typeMap.put("c", DistrictType.CONTESTED);
