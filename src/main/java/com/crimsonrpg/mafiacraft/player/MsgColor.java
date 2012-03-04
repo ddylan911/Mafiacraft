@@ -15,6 +15,8 @@ public class MsgColor {
 
     public static String INFO = ChatColor.YELLOW.toString();
 
+    public static String INFO_HILIGHT = ChatColor.GOLD.toString();
+
     public static String SUCCESS = ChatColor.GREEN.toString();
 
     public static String URL = ChatColor.AQUA.toString();

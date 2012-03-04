@@ -691,12 +691,12 @@ public class Government extends Transactable implements LandPurchaser {
      */
     public boolean dispatchInvite(MPlayer inviter, MPlayer invited) {
         Government them = invited.getGovernment();
-        if (them.equals(this)) {
+        if (them != null && them.equals(this)) {
             return false;
         }
 
         invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name + " has invited you to their ranks.");
-        invited.sendMessage(MsgColor.INFO + "Type /" + type.getLocale("command") + " accept to join.");
+        invited.sendMessage(MsgColor.INFO + "Type " + MsgColor.INFO_HILIGHT + "/" + type.getLocale("command") + " accept" + MsgColor.INFO + " to join.");
 
         return true;
     }
