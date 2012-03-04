@@ -82,6 +82,10 @@ public class GovernmentCommand {
                 result = doPlayer(player, largs.get(0));
             } else if (function.equalsIgnoreCase("found")) {
                 result = doFound(player, largs.get(0), type);
+            } else if (function.equalsIgnoreCase("promoteofficer")) {
+                result = doPromoteOfficer(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("demoteofficer")) {
+                result = doDemoteOfficer(player, largs.get(0));
             } else {
                 result = doHelp(player);
             }
@@ -140,6 +144,10 @@ public class GovernmentCommand {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
+        if (type.equals(GovType.POLICE)) {
+            return "You can't found a police.";
         }
 
         if (!type.canFound()) {
@@ -479,6 +487,78 @@ public class GovernmentCommand {
 
         player.sendMessage(MsgColor.SUCCESS + "You have left " + gov.getName() + ".");
         gov.broadcastMessage(MsgColor.INFO + player.getName() + " has left the " + gov.getType().getName() + ".");
+        return null;
+    }
+
+    public static String doPromoteOfficer(MPlayer player, String target) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You are not in a government.";
+        }
+
+        if (!player.getPosition().equals(Position.VICE_LEADER)) {
+            return "You do not have the proper rank to do this.";
+        }
+
+        if (!gov.canHaveMore(Position.OFFICER)) {
+            return "Your government cannot have any more officers.";
+        }
+
+        MPlayer tgt = Mafiacraft.getOnlinePlayer(target);
+        if (tgt == null) {
+            return "The player you specified is either not online or does not exist.";
+        }
+
+        if (!gov.isMember(tgt)) {
+            return "You cannot promote a member that is not part of the " + gov.getType().getName() + ".";
+        }
+
+        if (tgt.getPosition().isAtLeast(Position.OFFICER)) {
+            return "That member is already either equal to or higher than an officer in rank.";
+        }
+
+        gov.removeMemberAndSucceed(tgt).addOfficer(tgt);
+
+        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been promoted to officer within your government.");
+        return null;
+    }
+
+    public static String doDemoteOfficer(MPlayer player, String target) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+        }
+
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You are not in a government.";
+        }
+
+        if (!player.getPosition().equals(Position.VICE_LEADER)) {
+            return "You do not have the proper rank to do this.";
+        }
+
+        MPlayer tgt = Mafiacraft.getOnlinePlayer(target);
+        if (tgt == null) {
+            return "The player you specified is either not online or does not exist.";
+        }
+
+        if (!gov.isMember(tgt)) {
+            return "You cannot demote a member that is not part of the " + gov.getType().getName() + ".";
+        }
+
+        if (tgt.getPosition().isAtLeast(Position.VICE_LEADER)) {
+            return "That member is higher than an officer in rank.";
+        }
+
+        gov.removeMemberAndSucceed(tgt).addAffiliate(tgt);
+
+        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been demoted from officer within your government.");
         return null;
     }
 
