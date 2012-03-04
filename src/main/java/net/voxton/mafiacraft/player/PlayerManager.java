@@ -81,7 +81,7 @@ public class PlayerManager {
      * Gets a player by their name.
      *
      * @param name
-     * @return
+     * @return The MPlayer corresponding with the name.
      */
     public MPlayer getPlayer(String name) {
         try {
@@ -96,7 +96,7 @@ public class PlayerManager {
      * Gets a player from a Bukkit player.
      *
      * @param player
-     * @return
+     * @return The player that corresponds to the given Bukkit player.
      */
     public MPlayer getPlayer(Player player) {
         if (player == null) {
@@ -109,7 +109,7 @@ public class PlayerManager {
      * Loads a player.
      *
      * @param player
-     * @return
+     * @return The player loaded from the given player.
      */
     private MPlayer loadPlayer(String player) {
         return loadPlayer(Bukkit.getOfflinePlayer(player));
@@ -118,8 +118,8 @@ public class PlayerManager {
     /**
      * Loads a player.
      *
-     * @param player
-     * @return
+     * @param player The player to load the MPlayer of.
+     * @return The player loaded from the OfflinePlayer.
      */
     private MPlayer loadPlayer(OfflinePlayer player) {
         MPlayer mplayer = new MPlayer(player);
@@ -134,9 +134,9 @@ public class PlayerManager {
     }
 
     /**
-     * Gets the folder where player info is kept. s
+     * Gets the folder where player info is kept.
      *
-     * @return
+     * @return The player info folder as a File.
      */
     private File getPlayerFolder() {
         File folder = new File(mc.getDataFolder().getPath() + File.separator + "players" + File.separator);
