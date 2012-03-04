@@ -234,7 +234,7 @@ public class GovernmentCommand {
             return "You are not part of a government.";
         }
 
-        if (player.getPosition().compareTo(Position.WORKER) < 0) {
+        if (!player.getPosition().isAtLeast(Position.WORKER)) {
             return "Your position in your " + gov.getType().getName() + " is not high enough to invite people to your government.";
         }
 
