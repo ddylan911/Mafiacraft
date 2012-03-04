@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.chat.type;
 
 import com.crimsonrpg.mafiacraft.chat.ChatType;
+import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import org.bukkit.Bukkit;
@@ -12,15 +13,21 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author Dylan
+ * Global chat.
  */
 public class GlobalChat extends ChatType {
-
     @Override
     public void chat(MPlayer player, String message) {
+        String govPref = "";
+        Government gov = player.getGovernment();
+        if (gov != null) {
+            govPref = gov.getChatPrefix() + " ";
+        }
+
+        String msg = MsgColor.CHAT_GLOBAL + "[G] " + govPref + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+
         for (Player players : Bukkit.getOnlinePlayers()) {
-            players.sendMessage(MsgColor.CHAT_GLOBAL + "[G] " + ChatColor.WHITE + player.getDisplayName() + ": " + message);
+            players.sendMessage(msg);
         }
     }
 
@@ -38,4 +45,5 @@ public class GlobalChat extends ChatType {
     public String getName() {
         return "global";
     }
+
 }

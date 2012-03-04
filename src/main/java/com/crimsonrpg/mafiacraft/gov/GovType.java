@@ -25,9 +25,12 @@ public abstract class GovType {
 
     private final boolean canFound;
 
-    public GovType(boolean canFound) {
+    private final ChatColor color;
+
+    public GovType(boolean canFound, ChatColor color) {
         locale();
         this.canFound = canFound;
+        this.color = color;
     }
 
     public static List<GovType> getGovTypes() {
@@ -37,6 +40,10 @@ public abstract class GovType {
     public abstract String getName();
 
     public abstract void locale();
+
+    public ChatColor getColor() {
+        return color;
+    }
 
     public void m(String string, String localized) {
         locale.put(string, localized);
@@ -55,7 +62,7 @@ public abstract class GovType {
     }
 
     static {
-        MAFIA = new GovType(true) {
+        MAFIA = new GovType(true, ChatColor.DARK_RED) {
             @Override
             public String getName() {
                 return "mafia";
@@ -76,21 +83,21 @@ public abstract class GovType {
 
                 //Groups
                 m("division", "regime");
-				
-				//Chat
-				m("gov.chatpref", "m"); //Mafia
-				m("gov.chatp", ChatColor.DARK_RED + "[M]");
-				m("gov.chatalias", "maf");
-				m("div.chatpref", "r"); //Regime
-				m("div.chatp", ChatColor.GOLD + "[R]");
-				m("div.chatalias", "reg");
-				m("off.chatpref", "o"); //Officer
-				m("off.chatp", ChatColor.GREEN + "[O]");
-				m("off.chatalias", "off");
+
+                //Chat
+                m("gov.chatpref", "m"); //Mafia
+                m("gov.chatp", ChatColor.DARK_RED + "[M]");
+                m("gov.chatalias", "maf");
+                m("div.chatpref", "r"); //Regime
+                m("div.chatp", ChatColor.GOLD + "[R]");
+                m("div.chatalias", "reg");
+                m("off.chatpref", "o"); //Officer
+                m("off.chatp", ChatColor.GREEN + "[O]");
+                m("off.chatalias", "off");
             }
 
         };
-        POLICE = new GovType(false) {
+        POLICE = new GovType(false, ChatColor.BLUE) {
             @Override
             public String getName() {
                 return "police";
@@ -111,17 +118,17 @@ public abstract class GovType {
 
                 //Groups
                 m("division", "squad");
-				
-				//Chat
-				m("gov.chatpref", "p"); //Police
-				m("gov.chatp", ChatColor.DARK_BLUE + "[P]");
-				m("gov.chatalias", "pol");
-				m("div.chatpref", "s"); //Squad
-				m("div.chatp", ChatColor.AQUA + "[S]");
-				m("div.chatalias", "sq");
-				m("off.chatpref", "o"); //Commander
-				m("off.chatp", ChatColor.GRAY + "[CM]");
-				m("off.chatalias", "cmd");
+
+                //Chat
+                m("gov.chatpref", "p"); //Police
+                m("gov.chatp", ChatColor.DARK_BLUE + "[P]");
+                m("gov.chatalias", "pol");
+                m("div.chatpref", "s"); //Squad
+                m("div.chatp", ChatColor.AQUA + "[S]");
+                m("div.chatalias", "sq");
+                m("off.chatpref", "o"); //Commander
+                m("off.chatp", ChatColor.GRAY + "[CM]");
+                m("off.chatalias", "cmd");
             }
 
         };

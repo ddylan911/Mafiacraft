@@ -5,6 +5,7 @@
 package com.crimsonrpg.mafiacraft.chat.type;
 
 import com.crimsonrpg.mafiacraft.chat.ChatType;
+import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
 import com.crimsonrpg.mafiacraft.player.MsgColor;
 import org.bukkit.ChatColor;
@@ -14,16 +15,21 @@ import org.bukkit.ChatColor;
  * @author Dylan
  */
 public class DistrictChat extends ChatType {
-
     @Override
     public void chat(MPlayer player, String message) {
         if (player.getDistrict() == null) {
-            player.sendMessage(ChatColor.RED + "You are not in a district.");
+            player.sendMessage(ChatColor.RED + "You are not in a district."); //Why
             return;
         }
-		
-		String msg = MsgColor.CHAT_DISTRICT + "[D] " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
-		
+
+        String govPref = "";
+        Government gov = player.getGovernment();
+        if (gov != null) {
+            govPref = gov.getChatPrefix() + " ";
+        }
+
+        String msg = MsgColor.CHAT_DISTRICT + "[D] " + govPref + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+
         for (MPlayer players : player.getDistrict().getPlayers()) {
             players.sendMessage(msg);
         }
@@ -46,4 +52,5 @@ public class DistrictChat extends ChatType {
     public String getName() {
         return "District";
     }
+
 }

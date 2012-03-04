@@ -801,4 +801,13 @@ public class Government extends Transactable implements LandPurchaser {
         return true;
     }
 
+    /**
+     * Gets the prefix of this government shown in chat.
+     *
+     * @return
+     */
+    public String getChatPrefix() {
+        return getType().getColor() + "[" + getName() + "]";
+    }
+
 }

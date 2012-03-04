@@ -30,6 +30,7 @@ public class ChatHandler {
      * @param message
      */
     public void handleMessage(MPlayer player, String message) {
+        updateDisplayName(player);
         player.getChatType().chat(player, message);
     }
 
