@@ -231,7 +231,7 @@ public class GovernmentCommand {
             return "You are not part of a government.";
         }
 
-        if (player.getPosition().compareTo(Position.WORKER) < 0) {
+        if (!player.getPosition().isAtLeast(Position.WORKER)) {
             return "Your position in your " + gov.getType().getName() + " is not high enough to use HQ teleport.";
         }
 
@@ -326,7 +326,7 @@ public class GovernmentCommand {
             return "The amount you specified is an invalid number.";
         }
 
-        if (player.getPosition().compareTo(Position.OFFICER) < 0) {
+        if (!player.getPosition().isAtLeast(Position.OFFICER)) {
             return "You must be an officer or higher to do this.";
         }
 
@@ -416,7 +416,7 @@ public class GovernmentCommand {
             return "You aren't in a government.";
         }
 
-        if (player.getPosition().compareTo(Position.VICE_LEADER) < 0) {
+        if (!player.getPosition().isAtLeast(Position.VICE_LEADER)) {
             return "You aren't allowed to claim land for your government.";
         }
 
