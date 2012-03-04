@@ -609,6 +609,8 @@ public class Government extends Transactable implements LandPurchaser {
             default:
                 break;
         }
+
+        removeMember(player);
         return this;
     }
 
@@ -695,7 +697,9 @@ public class Government extends Transactable implements LandPurchaser {
             return false;
         }
 
-        invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name + " has invited you to their ranks.");
+        invited.getSessionStore().setData("gov-inv", getId());
+
+        invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name + " has invited you to join their ranks.");
         invited.sendMessage(MsgColor.INFO + "Type " + MsgColor.INFO_HILIGHT + "/" + type.getLocale("command") + " accept" + MsgColor.INFO + " to join.");
 
         return true;
@@ -840,6 +844,8 @@ public class Government extends Transactable implements LandPurchaser {
      * @param message
      */
     public void broadcastMessage(String message) {
+        message = MsgColor.INFO_GOV + message;
+
         for (MPlayer player : getOnlineMembers()) {
             player.sendMessage(message);
         }

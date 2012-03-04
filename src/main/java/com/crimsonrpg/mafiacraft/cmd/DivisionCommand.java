@@ -336,7 +336,7 @@ public class DivisionCommand {
             return "You are not part of a " + div.getGovernment().getType().getLocale("division") + ".";
         }
 
-        if (player.getPosition().isAtLeast(Position.WORKER)) {
+        if (!player.getPosition().isAtLeast(Position.WORKER)) {
             return "Your position in your " + div.getGovernment().getType().getLocale("division") + " is not high enough to use HQ teleport.";
         }
 
@@ -361,7 +361,7 @@ public class DivisionCommand {
             return "You are not part of a government.";
         }
 
-        if (player.getPosition().isAtLeast(Position.MANAGER)) {
+        if (!player.getPosition().isAtLeast(Position.MANAGER)) {
             return "You aren't allowed to set the HQ of your " + div.getGovernment().getType().getLocale("division") + ".";
         }
 

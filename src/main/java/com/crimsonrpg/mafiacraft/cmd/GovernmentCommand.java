@@ -64,6 +64,8 @@ public class GovernmentCommand {
                 result = doLeave(player, type);
             } else if (function.equalsIgnoreCase("player")) {
                 result = doPlayer(player);
+            } else if (function.equalsIgnoreCase("accept")) {
+                result = doAccept(player, type);
             } else {
                 result = doHelp(player);
             }
@@ -113,6 +115,24 @@ public class GovernmentCommand {
 
         player.sendMessage("TODO: help");
         //TODO: help
+        return null;
+    }
+
+    public static String doAccept(MPlayer player, GovType type) {
+        Integer inv = player.getSessionStore().getInt("gov-inv", -1);
+        if (inv < 0) {
+            return "You have not been invited to a " + type.getName() + ".";
+        }
+
+        Government gov = Mafiacraft.getGovernmentManager().getGovernment(inv);
+        if (gov == null) {
+            return "The " + type.getName() + " you were invited to no longer exists.";
+        }
+
+        gov.addAffiliate(player);
+
+        player.sendMessage(MsgColor.SUCCESS + "You have joined the " + type.getName() + " " + gov.getName() + ".");
+        gov.broadcastMessage(player.getName() + " has joined the " + gov.getType().getName() + ".");
         return null;
     }
 
@@ -275,7 +295,7 @@ public class GovernmentCommand {
             return "You are not part of a government.";
         }
 
-        if (player.getPosition().compareTo(Position.WORKER) < 0) {
+        if (!player.getPosition().isAtLeast(Position.WORKER)) {
             return "Your position in your " + gov.getType().getName() + " is not high enough to kick people from your government.";
         }
 
@@ -425,7 +445,7 @@ public class GovernmentCommand {
                     + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
         }
 
-        if (player.getPosition().isAtLeast(Position.VICE_LEADER)) {
+        if (!player.getPosition().isAtLeast(Position.VICE_LEADER)) {
             return "You aren't allowed to set the HQ of your government.";
         }
 
