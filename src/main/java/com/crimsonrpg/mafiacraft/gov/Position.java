@@ -76,7 +76,7 @@ public enum Position {
      * @return
      */
     public boolean isAtLeast(Position other) {
-        return compareTo(other) >= 0;
+        return compareTo(other) <= 0;
     }
 
     /**

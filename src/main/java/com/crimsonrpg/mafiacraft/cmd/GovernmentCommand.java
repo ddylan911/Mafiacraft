@@ -62,6 +62,8 @@ public class GovernmentCommand {
                 result = doSetHq(player);
             } else if (function.equalsIgnoreCase("leave")) {
                 result = doLeave(player, type);
+            } else if (function.equalsIgnoreCase("player")) {
+                result = doPlayer(player);
             } else {
                 result = doHelp(player);
             }
@@ -156,6 +158,10 @@ public class GovernmentCommand {
         return null;
     }
 
+    public static String doPlayer(MPlayer player) {
+        return doPlayer(player, player.getName());
+    }
+
     public static String doPlayer(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
@@ -167,7 +173,8 @@ public class GovernmentCommand {
             return "The player you specified is either not online or does not exist.";
         }
 
-        player.sendMessage(MsgColor.INFO + "TODO: info for " + tgt.getDisplayName());
+        player.sendMessage(MsgColor.INFO + "TODO: finish info for " + tgt.getDisplayName());
+        player.sendMessage(MsgColor.INFO + "Position: " + tgt.getPosition());
         //TODO: add stats
         return null;
     }
@@ -235,6 +242,7 @@ public class GovernmentCommand {
         }
 
         if (!player.getPosition().isAtLeast(Position.WORKER)) {
+            System.out.println(player.getPosition());
             return "Your position in your " + gov.getType().getName() + " is not high enough to invite people to your government.";
         }
 
