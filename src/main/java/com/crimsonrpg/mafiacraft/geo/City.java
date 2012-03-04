@@ -80,6 +80,7 @@ public class City extends Transactable implements LandOwner {
     public Government establishPolice(MPlayer chief, MPlayer assistant) {
         Government police = Mafiacraft.getGovernmentManager().createGovernment(getName(), GovType.POLICE);
         setPolice(police);
+        police.setLeader(chief).setViceLeader(assistant);
         return police;
     }
 
@@ -391,8 +392,8 @@ public class City extends Transactable implements LandOwner {
 
     /**
      * Sets the city world.
-     * 
-     * @param cityWorld 
+     *
+     * @param cityWorld
      */
     public void setCityWorld(CityWorld cityWorld) {
         this.cityWorld = cityWorld;
