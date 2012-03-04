@@ -202,7 +202,7 @@ public class District implements LandOwner {
         if (!contains(chunk)) {
             throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
         }
-        return getOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
+        return getOwner(getDistrictOrigin(chunk.getX()), getDistrictOrigin(chunk.getZ()));
     }
 
     /**
@@ -465,6 +465,16 @@ public class District implements LandOwner {
             descAppend = " - " + desc;
         }
         return MsgColor.INFO + getOwnerName() + descAppend;
+    }
+
+    /**
+     * Gets the origin
+     *
+     * @param coord The coordinate to get the origin of.
+     * @return
+     */
+    private static int getDistrictOrigin(int coord) {
+        return (coord >= 0) ? (coord & ~0xf) : -((Math.abs(coord + 1) & ~0xf) + 16);
     }
 
 }

@@ -181,9 +181,7 @@ public class MListener implements Listener {
         LandOwner lastOwner = Mafiacraft.getOwner(last);
         LandOwner currentOwner = Mafiacraft.getOwner(current);
 
-        if (!lastOwner.equals(currentOwner)) {
-            player.sendMessage(currentOwner.getEntryMessage());
-        }
+        player.sendMessage(currentOwner.getEntryMessage());
 
         //Check for reserved district
         District dest = mc.getCityManager().getDistrict(current);

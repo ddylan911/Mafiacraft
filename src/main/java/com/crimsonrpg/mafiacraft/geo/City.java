@@ -412,10 +412,6 @@ public class City extends Transactable implements LandOwner {
             return false;
         }
 
-        if (!district.getType().isGovernment()) {
-            return false;
-        }
-
         claimGrid(district);
         return true;
     }
