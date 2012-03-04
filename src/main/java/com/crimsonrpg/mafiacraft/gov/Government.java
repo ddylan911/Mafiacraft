@@ -42,11 +42,6 @@ public class Government extends Transactable implements LandPurchaser {
      */
     private int land;
 
-    /**
-     * Holds the money of the government.
-     */
-    private double money;
-
     public Government(int id) {
         this.id = id;
     }
@@ -226,42 +221,38 @@ public class Government extends Transactable implements LandPurchaser {
      */
     public List<String> getMembers(Position position) {
         List<String> members = new ArrayList<String>();
-        if (position.isDivision()) {
-            switch (position) {
-                case WORKER:
-                    for (Division division : getDivisions()) {
-                        members.addAll(division.getWorkers());
-                    }
-                    break;
+        switch (position) {
+            case WORKER:
+                for (Division division : getDivisions()) {
+                    members.addAll(division.getWorkers());
+                }
+                break;
 
-                case MANAGER:
-                    for (Division division : getDivisions()) {
-                        members.add(division.getManager());
-                    }
-                    break;
-            }
-        } else {
-            switch (position) {
-                case LEADER:
-                    if (leader != null) {
-                        members.add(leader);
-                    }
-                    break;
+            case MANAGER:
+                for (Division division : getDivisions()) {
+                    members.add(division.getManager());
+                }
+                break;
 
-                case VICE_LEADER:
-                    if (viceLeader != null) {
-                        members.add(viceLeader);
-                    }
-                    break;
+            case LEADER:
+                if (leader != null) {
+                    members.add(leader);
+                }
+                break;
 
-                case OFFICER:
-                    members.addAll(officers);
-                    break;
+            case VICE_LEADER:
+                if (viceLeader != null) {
+                    members.add(viceLeader);
+                }
+                break;
 
-                case AFFILIATE:
-                    members.addAll(affiliates);
-                    break;
-            }
+            case OFFICER:
+                members.addAll(officers);
+                break;
+
+            case AFFILIATE:
+                members.addAll(affiliates);
+                break;
         }
         return members;
     }

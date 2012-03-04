@@ -108,6 +108,10 @@ public class MListener implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         EntityDamageEvent cause = event.getEntity().getLastDamageCause();
 
+        if (cause == null) {
+            return;
+        }
+
         if (!cause.getCause().equals(DamageCause.ENTITY_ATTACK)) {
             return;
         }

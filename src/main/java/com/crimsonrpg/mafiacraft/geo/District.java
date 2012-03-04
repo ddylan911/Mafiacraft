@@ -340,7 +340,8 @@ public class District implements LandOwner {
             return true;
         }
 
-        if (getCity().isMember(player)) {
+        City c = getCity();
+        if (c != null && c.isMember(player)) {
             return true;
         }
 

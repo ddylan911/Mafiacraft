@@ -53,6 +53,18 @@ public class CityWorld implements ConfigSerializable {
      */
     public CityWorld setCapital(City capital) {
         this.capital = capital;
+        capital.setCityWorld(this);
+        return this;
+    }
+
+    /**
+     * Removes the capital.
+     *
+     * @return
+     */
+    public CityWorld removeCapital() {
+        capital.setCityWorld(null);
+        capital = null;
         return this;
     }
 

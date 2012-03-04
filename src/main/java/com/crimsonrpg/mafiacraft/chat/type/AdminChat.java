@@ -16,13 +16,12 @@ import org.bukkit.entity.Player;
  * @author Dylan
  */
 public class AdminChat extends ChatType {
-
     @Override
     public void chat(MPlayer player, String message) {
-		String msg = MsgColor.CHAT_ADMIN + "[A] " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
-		
+        String msg = MsgColor.CHAT_ADMIN + "[A] " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+
         for (Player players : Bukkit.getOnlinePlayers()) {
-            if (!players.hasPermission("mc.admin.chat")) {
+            if (!players.hasPermission("mafiacraft.admin")) {
                 continue;
             }
             players.sendMessage(msg);
@@ -31,7 +30,7 @@ public class AdminChat extends ChatType {
 
     @Override
     public boolean canJoin(MPlayer player) {
-        return player.getBukkitEntity().hasPermission("mc.admin.chat");
+        return player.getBukkitEntity().hasPermission("mafiacraft.admin");
     }
 
     @Override
@@ -43,4 +42,5 @@ public class AdminChat extends ChatType {
     public String getName() {
         return "admin";
     }
+
 }

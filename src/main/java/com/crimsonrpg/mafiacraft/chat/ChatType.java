@@ -22,39 +22,48 @@ import java.util.Map;
  * @author simplyianm
  */
 public abstract class ChatType {
-
     public static final ChatType ADMIN = new AdminChat();
+
     public static final ChatType GOVERNMENT = new GovernmentChat();
+
     public static final ChatType DIVISION = new DivisionChat();
+
     public static final ChatType OFFICER = new OfficerChat();
+
     public static final ChatType LOCAL = new LocalChat();
+
     public static final ChatType CITY = new CityChat();
+
     public static final ChatType DISTRICT = new DistrictChat();
+
     public static final ChatType GLOBAL = new GlobalChat();
+
     public static final ChatType DEFAULT = GLOBAL;
+
     /**
      * Map of lowercase chat types to their corresponding ChatType objects.
      */
     private static Map<String, ChatType> chatTypes = new HashMap<String, ChatType>();
 
     /**
-     * Sends a message with the {@link MPlayer} player and the {@link String} message.
-     * 
+     * Sends a message with the {@link MPlayer} player and the {@link String}
+     * message.
+     *
      * @param player
-     * @param message 
+     * @param message
      */
     public abstract void chat(MPlayer player, String message);
 
     /**
      * Checks if the given {@link MPlayer} player can join the chat type.
-     * 
+     *
      * @param player
-     * @return 
+     * @return
      */
     /**
      * Returns the name of the current chat type.
-     * 
-     * @return 
+     *
+     * @return
      */
     public abstract String getName();
 
@@ -62,18 +71,18 @@ public abstract class ChatType {
 
     /**
      * Gets the name of this Chat type.
-     * 
-     * @param player The player that is seeing 
-     *		what this chat is called for them. Relativism ftw.
-     * @return 
+     *
+     * @param player The player that is seeing what this chat is called for
+     * them. Relativism ftw.
+     * @return
      */
     public abstract String getName(MPlayer player);
 
     /**
      * Gets a chat type from a string.
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
     public static ChatType valueOf(String name) {
         ChatType type = chatTypes.get(name);
@@ -88,7 +97,7 @@ public abstract class ChatType {
         chatTypes.put("", DEFAULT);
         chatTypes.put("default", DEFAULT);
         chatTypes.put("def", DEFAULT);
-        
+
         //City
         chatTypes.put("city", CITY);
         chatTypes.put("c", CITY);
@@ -101,7 +110,6 @@ public abstract class ChatType {
         //Global
         chatTypes.put("global", GLOBAL);
         chatTypes.put("gb", GLOBAL);
-        chatTypes.put("g", GLOBAL);
 
         //Local
         chatTypes.put("local", LOCAL);
@@ -122,6 +130,11 @@ public abstract class ChatType {
         chatTypes.put("off", OFFICER);
         chatTypes.put("o", OFFICER);
 
+        //Admin
+        chatTypes.put("admin", ADMIN);
+        chatTypes.put("adm", ADMIN);
+        chatTypes.put("a", ADMIN);
+
         //GovType stuff
         for (GovType type : GovType.getGovTypes()) {
             chatTypes.put(type.getName(), GOVERNMENT);
@@ -137,4 +150,5 @@ public abstract class ChatType {
             chatTypes.put(type.getLocale("off.chatalias"), OFFICER);
         }
     }
+
 }

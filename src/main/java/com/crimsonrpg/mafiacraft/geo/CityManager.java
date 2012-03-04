@@ -54,15 +54,15 @@ public class CityManager {
         }
         return cworld;
     }
-    
+
     /////////////////
     // CITY
     /////////////////
     /**
      * Gets a city from its integer id.
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public City getCity(int id) {
         return cities.get(id);
@@ -70,9 +70,9 @@ public class CityManager {
 
     /**
      * Gets a city from its name.
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
     public City getCity(String name) {
         for (City city : getCityList()) {
@@ -85,8 +85,8 @@ public class CityManager {
 
     /**
      * Gets a list of all cities on the server.
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<City> getCityList() {
         return new ArrayList<City>(cities.valueCollection());
@@ -94,9 +94,9 @@ public class CityManager {
 
     /**
      * Returns true if a city already exists with the given name.
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
     public boolean cityExists(String name) {
         return getCity(name) != null;
@@ -104,11 +104,11 @@ public class CityManager {
 
     /**
      * Founds a city.
-     * 
+     *
      * @param player
      * @param name
      * @param center
-     * @return 
+     * @return
      */
     public City foundCity(MPlayer player, String name, District center) {
         //Make city
@@ -124,8 +124,8 @@ public class CityManager {
 
     /**
      * Gets the next available city ID.
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getNextCityId() {
         int id = 0;
@@ -259,6 +259,12 @@ public class CityManager {
     public CityManager disbandCity(City city) {
         for (District district : city.getDistricts()) {
             district.detachFromCity();
+        }
+
+        CityWorld cw = city.getCityWorld();
+        City capital = cw.getCapital();
+        if (capital.equals(city)) {
+            cw.removeCapital();
         }
         return this;
     }

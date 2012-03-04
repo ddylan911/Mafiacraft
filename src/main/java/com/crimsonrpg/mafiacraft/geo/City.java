@@ -31,6 +31,8 @@ public class City extends Transactable implements LandOwner {
 
     private Location spawn;
 
+    private CityWorld cityWorld;
+
     public City(int id) {
         this.id = id;
     }
@@ -376,6 +378,24 @@ public class City extends Transactable implements LandOwner {
      */
     public String getSectionName(Chunk chunk) {
         return getDistrict(chunk).getSectionName(chunk);
+    }
+
+    /**
+     * Gets the city world of the world.
+     *
+     * @return
+     */
+    public CityWorld getCityWorld() {
+        return cityWorld;
+    }
+
+    /**
+     * Sets the city world.
+     * 
+     * @param cityWorld 
+     */
+    public void setCityWorld(CityWorld cityWorld) {
+        this.cityWorld = cityWorld;
     }
 
 }
