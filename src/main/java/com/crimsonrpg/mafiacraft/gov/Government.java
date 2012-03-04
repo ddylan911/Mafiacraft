@@ -851,4 +851,8 @@ public class Government extends Transactable implements LandPurchaser {
         }
     }
 
+    public String getEntryMessage() {
+        return getName();
+    }
+
 }

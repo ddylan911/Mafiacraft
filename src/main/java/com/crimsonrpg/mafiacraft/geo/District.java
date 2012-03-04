@@ -8,6 +8,7 @@ import com.crimsonrpg.mafiacraft.MLogger;
 import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.gov.Division;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
@@ -349,7 +350,11 @@ public class District implements LandOwner {
     }
 
     public String getOwnerName() {
-        return "District " + name;
+        String n = getName();
+        if (n == null) {
+            n = "??";
+        }
+        return ("District " + n).trim();
     }
 
     public String getOwnerId() {
@@ -451,6 +456,15 @@ public class District implements LandOwner {
      */
     public CityWorld getCityWorld() {
         return Mafiacraft.getCityManager().getCityWorld(world);
+    }
+
+    public String getEntryMessage() {
+        String desc = getDescription();
+        String descAppend = "";
+        if (desc != null) {
+            descAppend = " - " + desc;
+        }
+        return MsgColor.INFO + getOwnerName() + descAppend;
     }
 
 }

@@ -107,6 +107,16 @@ public class Mafiacraft {
     }
 
     /**
+     * Gets the owner of the given chunk.
+     *
+     * @param last
+     * @return
+     */
+    public static LandOwner getOwner(Chunk chunk) {
+        return getCityManager().getSectionOwner(chunk);
+    }
+
+    /**
      * Gets the owner of the given section of land.
      *
      * @param section

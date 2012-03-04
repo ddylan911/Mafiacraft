@@ -8,6 +8,7 @@ import com.crimsonrpg.mafiacraft.Mafiacraft;
 import com.crimsonrpg.mafiacraft.gov.GovType;
 import com.crimsonrpg.mafiacraft.gov.Government;
 import com.crimsonrpg.mafiacraft.player.MPlayer;
+import com.crimsonrpg.mafiacraft.player.MsgColor;
 import com.crimsonrpg.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
@@ -434,6 +435,10 @@ public class City extends Transactable implements LandOwner {
             }
         }
         return this;
+    }
+
+    public String getEntryMessage() {
+        return MsgColor.INFO + "The City of " + getName();
     }
 
 }

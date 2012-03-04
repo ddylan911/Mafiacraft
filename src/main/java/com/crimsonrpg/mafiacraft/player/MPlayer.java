@@ -498,12 +498,16 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
 
     /**
      * Checks if the MPlayer has permission to do the given thing.
-     * 
+     *
      * @param permission
-     * @return 
+     * @return
      */
     public boolean hasPermission(String permission) {
         return getBukkitEntity().hasPermission(permission);
+    }
+
+    public String getEntryMessage() {
+        return getName();
     }
 
 }

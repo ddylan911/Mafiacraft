@@ -18,9 +18,26 @@ public interface LandOwner {
      */
     public OwnerType getOwnerType();
 
+    /**
+     * Gets the owner name.
+     *
+     * @return
+     */
     public String getOwnerName();
 
+    /**
+     * Gets the string id of the owner of the chunk.
+     *
+     * @return
+     */
     public String getOwnerId();
+
+    /**
+     * Gets the message that displays when you enter the person's land.
+     *
+     * @return
+     */
+    public String getEntryMessage();
 
     /**
      * Returns true if the given player can build in this chunk.

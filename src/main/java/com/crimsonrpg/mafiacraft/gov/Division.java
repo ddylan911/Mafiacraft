@@ -104,6 +104,9 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
     }
 
     public String getDescription() {
+        if (description == null) {
+            description = "A division of " + getGovernment().getName();
+        }
         return description;
     }
 
@@ -407,6 +410,10 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
         district.removeOwner(chunk);
         decLand();
         return this;
+    }
+
+    public String getEntryMessage() {
+        return getOwnerName() + " - " + getDescription();
     }
 
 }
