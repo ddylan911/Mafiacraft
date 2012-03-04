@@ -154,7 +154,7 @@ public class District implements LandOwner {
      */
     public DistrictType getType() {
         if (type == null) {
-            return (getCityWorld().isFreeRoam()) ? DistrictType.ANARCHIC : DistrictType.RESERVED;
+            return getCityWorld().getDefaultDistrictType();
         }
         return type;
     }

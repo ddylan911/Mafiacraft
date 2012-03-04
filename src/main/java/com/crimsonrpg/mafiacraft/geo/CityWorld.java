@@ -105,13 +105,9 @@ public class CityWorld implements ConfigSerializable {
         return value;
     }
 
-    /**
-     * Returns true if this world allows free roaming of the world.
-     *
-     * @return
-     */
-    public boolean isFreeRoam() {
-        return isToggled(WorldToggle.FREE_ROAM);
+    public DistrictType getDefaultDistrictType() {
+        boolean freeRoam = isToggled(WorldToggle.FREE_ROAM);
+        return freeRoam ? DistrictType.ANARCHIC : DistrictType.RESERVED;
     }
 
     public ConfigSerializable load(ConfigurationSection source) {
