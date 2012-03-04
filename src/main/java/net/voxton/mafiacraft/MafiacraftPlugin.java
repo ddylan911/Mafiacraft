@@ -19,8 +19,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Mafiacraft main class
  */
 public class MafiacraftPlugin extends JavaPlugin {
-    private static MafiacraftPlugin instance;
-
     private ChatHandler chatHandler;
 
     private CityManager cityManager;
@@ -33,7 +31,7 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        instance = null;
+        //Unload the Mafiacraft singleton from the API class.
         Mafiacraft.unloadMafiacraft();
 
         MLogger.log("Mafiacraft disabled.");
@@ -41,9 +39,6 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        //Setup the singleton
-        instance = this;
-
         //Setup the helper static class
         Mafiacraft.setPlugin(this);
 
@@ -86,10 +81,6 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     public VaultHelper getVaultHelper() {
         return vaultHelper;
-    }
-
-    public static MafiacraftPlugin getInstance() {
-        return instance;
     }
 
 }

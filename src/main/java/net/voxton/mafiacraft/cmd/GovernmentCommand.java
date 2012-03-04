@@ -176,7 +176,7 @@ public class GovernmentCommand {
         }
 
         //Found the government
-        Government founded = MafiacraftPlugin.getInstance().getGovernmentManager().createGovernment(name, type);
+        Government founded = Mafiacraft.getGovernmentManager().createGovernment(name, type);
         if (!founded.addAffiliate(player)) {
             return "Error adding. We can't do math.";
         }

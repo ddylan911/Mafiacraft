@@ -127,7 +127,7 @@ public class CityCommand {
             return "That city name is invalid; city names must be less than 25 characters in length and alphanumeric.";
         }
 
-        if (MafiacraftPlugin.getInstance().getCityManager().cityExists(name)) {
+        if (Mafiacraft.getCityManager().cityExists(name)) {
             return "A city with that name already exists; please try another name.";
         }
 
@@ -185,7 +185,7 @@ public class CityCommand {
         }
 
         int citySpawnTime = MConfig.getInt("warmup.cityspawn");
-        TPCD.makeCountdown(MafiacraftPlugin.getInstance(), citySpawnTime, TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), citySpawnTime, TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
         return null;
     }
 
@@ -338,7 +338,7 @@ public class CityCommand {
             return "That district does not have a bus stop.";
         }
 
-        TPCD.makeCountdown(MafiacraftPlugin.getInstance(), 10, TPCD.Type.DBUS, player.getBukkitEntity(), bus);
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.DBUS, player.getBukkitEntity(), bus);
         return null;
     }
 
