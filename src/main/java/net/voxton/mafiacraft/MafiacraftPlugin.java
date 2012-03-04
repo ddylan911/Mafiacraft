@@ -31,15 +31,19 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     private VaultHelper vaultHelper;
 
-    public MafiacraftPlugin() {
-        instance = this;
-    }
-
+    @Override
     public void onDisable() {
+        instance = null;
+        Mafiacraft.unloadMafiacraft();
+
         MLogger.log("Mafiacraft disabled.");
     }
 
+    @Override
     public void onEnable() {
+        //Setup the singleton
+        instance = this;
+
         //Setup the helper static class
         Mafiacraft.setPlugin(this);
 

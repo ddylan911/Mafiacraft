@@ -28,8 +28,20 @@ public class Mafiacraft {
         }
     }
 
+    /**
+     * Gets the singleton instance of the Mafiacraft plugin.
+     *
+     * @return
+     */
     public static MafiacraftPlugin getPlugin() {
         return plugin;
+    }
+
+    /**
+     * Unloads Mafiacraft. Used for handling reloads.
+     */
+    static void unloadMafiacraft() {
+        plugin = null;
     }
 
     /**
