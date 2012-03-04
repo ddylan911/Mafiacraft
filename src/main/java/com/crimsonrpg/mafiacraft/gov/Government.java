@@ -589,6 +589,30 @@ public class Government extends Transactable implements LandPurchaser {
     }
 
     /**
+     * Preferred way of removing members.
+     *
+     * @param player
+     * @return
+     */
+    public Government removeMemberAndSucceed(MPlayer player) {
+        switch (player.getPosition()) {
+            case LEADER:
+                if (viceLeader != null) {
+                    unseatLeader();
+                }
+                break;
+
+            case VICE_LEADER:
+                unseatViceLeader();
+                break;
+
+            default:
+                break;
+        }
+        return this;
+    }
+
+    /**
      * Returns true if the player is a member of this government.
      *
      * @param player
@@ -808,6 +832,17 @@ public class Government extends Transactable implements LandPurchaser {
      */
     public String getChatPrefix() {
         return getType().getColor() + "[" + getName() + "]";
+    }
+
+    /**
+     * Broadcasts a message to the government.
+     *
+     * @param message
+     */
+    public void broadcastMessage(String message) {
+        for (MPlayer player : getOnlineMembers()) {
+            player.sendMessage(message);
+        }
     }
 
 }

@@ -60,6 +60,8 @@ public class GovernmentCommand {
                 result = doHq(player);
             } else if (function.equalsIgnoreCase("sethq")) {
                 result = doSetHq(player);
+            } else if (function.equalsIgnoreCase("leave")) {
+                result = doLeave(player, type);
             } else {
                 result = doHelp(player);
             }
@@ -436,6 +438,19 @@ public class GovernmentCommand {
 
         gov.setHq(player.getBukkitEntity().getLocation()).subtractMoney(needed);
         player.sendMessage(MsgColor.SUCCESS + "Your " + gov.getType().getName() + " HQ has been set to your current location.");
+        return null;
+    }
+
+    public static String doLeave(MPlayer player, GovType type) {
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return "You aren't in a " + type.getName();
+        }
+
+        gov.removeMemberAndSucceed(player);
+
+        player.sendMessage(MsgColor.SUCCESS + "You have left " + gov.getName() + ".");
+        gov.broadcastMessage(MsgColor.INFO + player.getName() + " has left the " + gov.getType().getName() + ".");
         return null;
     }
 
