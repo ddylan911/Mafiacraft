@@ -1,10 +1,9 @@
 name: Mafiacraft
 description: A mafia server plugin.
 author: AlbireoX
-authors: [Camaroow]
 version: 0.1
 
-main: com.crimsonrpg.mafiacraft.MafiacraftPlugin
+main: net.voxton.mafiacraft.MafiacraftPlugin
 
 commands:
   mafia:
