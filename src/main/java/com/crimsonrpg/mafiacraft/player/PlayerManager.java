@@ -99,6 +99,9 @@ public class PlayerManager {
      * @return
      */
     public MPlayer getPlayer(Player player) {
+        if (player == null) {
+            return null;
+        }
         return getPlayer(player.getName());
     }
 
