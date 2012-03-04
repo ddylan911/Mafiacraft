@@ -28,6 +28,12 @@ commands:
   cworld:
     description: CWorld command
     usage: /cworld <tool>
+  regime:
+    description: Regime command
+    usage: /regime <tool>
+  squad:
+    description: Squad command
+    usage: /squad <tool>
     
 permissions:
   mafiacraft.admin:

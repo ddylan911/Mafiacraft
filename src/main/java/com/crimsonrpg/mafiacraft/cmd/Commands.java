@@ -64,6 +64,20 @@ public class Commands {
             }
 
         });
+        plugin.getCommand("regime").setExecutor(new CommandExecutor() {
+            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+                DivisionCommand.parseCmd(cs, cmnd, string, strings);
+                return true;
+            }
+
+        });
+        plugin.getCommand("squad").setExecutor(new CommandExecutor() {
+            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+                DivisionCommand.parseCmd(cs, cmnd, string, strings);
+                return true;
+            }
+
+        });
     }
 
 }
