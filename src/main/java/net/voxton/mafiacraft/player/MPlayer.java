@@ -16,6 +16,7 @@ import java.util.Map;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -26,7 +27,7 @@ import org.bukkit.entity.Player;
 /**
  * Represents a player.
  */
-public class MPlayer extends Transactable implements LandPurchaser, ConfigurationSerializable {
+public class MPlayer extends Transactable implements LandPurchaser {
     private final OfflinePlayer offlinePlayer;
 
     private Player onlinePlayer = null;
@@ -467,6 +468,12 @@ public class MPlayer extends Transactable implements LandPurchaser, Configuratio
         return getOwnedCities().size() > 0;
     }
 
+    /**
+     * Loads this MPlayer from the given ConfigurationSection.
+     *
+     * @param source The ConfigurationSection to load from.
+     * @return This MPlayer, loaded and READY TO RUMBBBLEEE
+     */
     public MPlayer load(ConfigurationSection source) {
         chatType = ChatType.valueOf(source.getString("chattype", ChatType.DEFAULT.getName()));
         land = source.getInt("land", 0);
@@ -477,6 +484,12 @@ public class MPlayer extends Transactable implements LandPurchaser, Configuratio
         return this;
     }
 
+    /**
+     * Saves the MPlayer to the given ConfigurationSection.
+     *
+     * @param dest The destination to save to.
+     * @return This MPlayer, persisted.
+     */
     public MPlayer save(ConfigurationSection dest) {
         dest.set("chattype", chatType.getName());
         dest.set("land", land);
@@ -508,14 +521,6 @@ public class MPlayer extends Transactable implements LandPurchaser, Configuratio
 
     public String getEntryMessage() {
         return getName();
-    }
-
-    ////////////
-    // SERIALIZATION
-    ////////////
-    @Override
-    public Map<String, Object> serialize() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
