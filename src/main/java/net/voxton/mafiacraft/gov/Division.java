@@ -4,27 +4,27 @@
  */
 package net.voxton.mafiacraft.gov;
 
-import net.voxton.mafiacraft.geo.LandOwner;
+import java.util.*;
+import java.util.logging.Level;
+import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.LandPurchaser;
 import net.voxton.mafiacraft.geo.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.util.ConfigSerializable;
 import net.voxton.mafiacraft.vault.Transactable;
-import java.util.ArrayList;
-import java.util.List;
+import net.voxton.mafiacraft.geo.LandOwner;
+import net.voxton.mafiacraft.util.LocationSerializer;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 /**
  * Represents a government division.
  */
-public class Division extends Transactable implements LandPurchaser, ConfigSerializable {
+public class Division extends Transactable implements LandPurchaser, ConfigurationSerializable {
     private int id;
-
-    private Government government;
 
     private String name;
 
@@ -32,15 +32,23 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
 
     private String manager;
 
-    private List<String> workers = new ArrayList<String>();
+    private Set<String> workers = new HashSet<String>();
 
     private int land;
 
     private Location hq;
 
-    public Division(int id, Government government) {
+    public Division(int id) {
         this.id = id;
-        this.government = government;
+    }
+
+    /**
+     * Gets the unique ID of this division.
+     *
+     * @return
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -57,8 +65,9 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
      *
      * @param hq
      */
-    public void setHq(Location hq) {
+    public Division setHq(Location hq) {
         this.hq = hq;
+        return this;
     }
 
     /**
@@ -92,15 +101,20 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
     }
 
     public String getOwnerName() {
-        return name + " of " + government.getName();
+        return name + " of " + getGovernment().getName();
     }
 
     public String getOwnerId() {
-        return "D-" + government.getId() + "-" + id;
+        return "D" + id;
     }
 
+    /**
+     * Gets the government corresponding with this division.
+     *
+     * @return The government this division is part of.
+     */
     public Government getGovernment() {
-        return government;
+        return Mafiacraft.getGovernmentManager().getGovernmentOf(this);
     }
 
     public String getDescription() {
@@ -179,8 +193,22 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
         return true;
     }
 
+    /**
+     * Gets a list of all workers within the division.
+     *
+     * @return A list of all division workers.
+     */
     public List<String> getWorkers() {
         return new ArrayList<String>(workers);
+    }
+
+    /**
+     * Sets the workers of the division.
+     *
+     * @param workers The workers of the division.
+     */
+    private void setWorkers(Set<String> workers) {
+        this.workers = workers;
     }
 
     public boolean isWorker(String player) {
@@ -201,34 +229,6 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
 
     public boolean isMember(String player) {
         return isWorker(player) || isManager(player);
-    }
-
-    /**
-     * Loads the division from a ConfigurationSection.
-     *
-     * @param source
-     * @return
-     */
-    public Division load(ConfigurationSection source) {
-        name = source.getString("name", "null");
-        description = source.getString("desc", "Default division description...");
-        manager = source.getString("members.manager");
-        workers = source.getStringList("members.workers");
-        return this;
-    }
-
-    /**
-     * Saves the division to a ConfigurationSection.
-     *
-     * @param dest
-     * @return
-     */
-    public Division save(ConfigurationSection dest) {
-        dest.set("name", name);
-        dest.set("desc", description);
-        dest.set("members.manager", manager);
-        dest.set("members.workers", workers);
-        return this;
     }
 
     /**
@@ -414,6 +414,71 @@ public class Division extends Transactable implements LandPurchaser, ConfigSeria
 
     public String getEntryMessage() {
         return getOwnerName() + " - " + getDescription();
+    }
+
+    ////////////
+    // SERIALIZATION
+    ////////////
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        data.put("id", getId());
+        data.put("name", getName());
+        data.put("desc", getDescription());
+        data.put("land", getLand());
+
+        data.put("manager", getManager());
+        data.put("workers", getWorkers());
+        data.put("hq", LocationSerializer.serializeFull(getHq()));
+
+        return data;
+    }
+
+    /**
+     * Deserializes a Division.
+     *
+     * @param data The data in Map form.
+     * @return The deserialized Division.
+     */
+    public static Division deserialize(Map<String, Object> data) {
+        int id = 0;
+        String strId = data.get("id").toString();
+        try {
+            id = Integer.parseInt(strId);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid number encountered when deserializing a government!", ex);
+        }
+
+        Division div = new Division(id);
+
+        String name = data.get("name").toString();
+        String desc = data.get("desc").toString();
+
+        Map<String, Object> hqM = (Map<String, Object>) data.get("hq");
+        Location hq = LocationSerializer.deserializeFull(hqM);
+
+        String landS = data.get("land").toString();
+        int land = 0;
+        try {
+            land = Integer.parseInt(landS);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid land amount encountered when loading a district: '" + landS + "'!");
+        }
+
+        String manager = data.get("manager").toString();
+
+        List<String> workerList = (List<String>) data.get("workers");
+        Set<String> workers = new HashSet<String>(workerList);
+
+        //Insert info
+        div.setName(name).setDescription(desc);
+        div.setHq(hq).setLand(land);
+
+        //Insert members
+        div.setManager(manager).setWorkers(workers);
+
+        return div;
     }
 
 }

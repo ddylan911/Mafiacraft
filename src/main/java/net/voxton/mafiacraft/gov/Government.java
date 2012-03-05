@@ -14,13 +14,19 @@ import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.vault.Transactable;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.util.LocationSerializer;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 
 /**
  * Represents a Government, a mafia or a police.
  */
-public class Government extends Transactable implements LandPurchaser {
+@SerializableAs("gov")
+public class Government extends Transactable implements LandPurchaser, ConfigurationSerializable {
     private final int id;
 
     private String name;
@@ -288,7 +294,7 @@ public class Government extends Transactable implements LandPurchaser {
      * @return
      */
     public List<Division> getDivisions() {
-        return Mafiacraft.getGovernmentManager().getGovDivisions(this);
+        return Mafiacraft.getGovernmentManager().getDivisions(this);
     }
 
     /**
@@ -656,12 +662,43 @@ public class Government extends Transactable implements LandPurchaser {
     }
 
     /**
+     * Gets a list of all affiliates within the Government.
+     *
+     * @return The affiliates associated with this government.
+     */
+    public List<String> getAffiliates() {
+        return new ArrayList<String>(affiliates);
+    }
+
+    /**
+     * Sets the affiliates of the Government.
+     *
+     * @param affiliates The affiliates to set
+     * @return The Government
+     */
+    private Government setAffiliates(Set<String> affiliates) {
+        this.affiliates = affiliates;
+        return this;
+    }
+
+    /**
      * Gets a list of all officers.
      *
      * @return
      */
     public List<String> getOfficers() {
         return new ArrayList<String>(officers);
+    }
+
+    /**
+     * Sets the officers of the Government.
+     *
+     * @param officers The officers to set
+     * @return The Government
+     */
+    private Government setOfficers(Set<String> officers) {
+        this.officers = officers;
+        return this;
     }
 
     /**
@@ -681,7 +718,7 @@ public class Government extends Transactable implements LandPurchaser {
     }
 
     public String getOwnerId() {
-        return "G-" + id;
+        return "G" + id;
     }
 
     /**
@@ -853,6 +890,83 @@ public class Government extends Transactable implements LandPurchaser {
 
     public String getEntryMessage() {
         return getName();
+    }
+
+    ////////////
+    // SERIALIZATION
+    ////////////
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        data.put("id", getId());
+        data.put("name", getName());
+        data.put("type", getType().getName());
+        data.put("land", getLand());
+        data.put("hq", LocationSerializer.serializeFull(getHq()));
+
+        data.put("leader", getLeader());
+        data.put("vleader", getViceLeader());
+        data.put("officers", getOfficers());
+        data.put("affiliates", getAffiliates());
+
+        return data;
+    }
+
+    /**
+     * Deserializes a Government object.
+     *
+     * @param data The data in Map form.
+     * @return The deserialized Government.
+     */
+    public static Government deserialize(Map<String, Object> data) {
+        int id = 0;
+        String strId = data.get("id").toString();
+        try {
+            id = Integer.parseInt(strId);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid number encountered when deserializing a government!", ex);
+        }
+
+        Government gov = new Government(id);
+
+        String name = data.get("name").toString();
+
+        String typeStr = data.get("type").toString();
+        GovType type = GovType.fromString(typeStr);
+        if (type == null) {
+            MLogger.log(Level.SEVERE, "Invalid GovType encountered when loading a government: '" + typeStr + "'!");
+        }
+
+        Map<String, Object> hqM = (Map<String, Object>) data.get("hq");
+        Location hq = LocationSerializer.deserializeFull(hqM);
+
+        String landS = data.get("land").toString();
+        int land = 0;
+        try {
+            land = Integer.parseInt(landS);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid land amount encountered when loading a government: '" + landS + "'!");
+        }
+
+        String leader = data.get("leader").toString();
+        String viceLeader = data.get("vleader").toString();
+
+        List<String> officerList = (List<String>) data.get("officers");
+        Set<String> officers = new HashSet<String>(officerList);
+
+        List<String> affiliateList = (List<String>) data.get("affiliates");
+        Set<String> affiliates = new HashSet<String>(affiliateList);
+
+        //Set info
+        gov.setName(name).setType(type);
+        gov.setHq(hq).setLand(land);
+
+        //Set members
+        gov.setLeader(leader).setViceLeader(viceLeader);
+        gov.setOfficers(officers).setAffiliates(affiliates);
+
+        return gov;
     }
 
 }

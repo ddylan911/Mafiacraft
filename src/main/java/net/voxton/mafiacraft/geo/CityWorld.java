@@ -4,16 +4,17 @@
  */
 package net.voxton.mafiacraft.geo;
 
-import net.voxton.mafiacraft.util.ConfigSerializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 
 /**
  * Represents a world that contains cities.
  */
-public class CityWorld implements ConfigSerializable {
+@SerializableAs("cw")
+public class CityWorld implements ConfigurationSerializable {
     private final World world;
 
     private City capital;
@@ -110,12 +111,39 @@ public class CityWorld implements ConfigSerializable {
         return freeRoam ? DistrictType.ANARCHIC : DistrictType.RESERVED;
     }
 
-    public ConfigSerializable load(ConfigurationSection source) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    ////////////
+    // SERIALIZATION
+    ////////////
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("toggles", new ArrayList<String>(toggles));
+        data.put("world", world.getName());
+        return data;
     }
 
-    public ConfigSerializable save(ConfigurationSection dest) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * Deserializes a serialized CityWorld.
+     *
+     * @param data The data in Map form.
+     * @return The deserialized CityWorld object.
+     */
+    public static CityWorld deserialize(Map<String, Object> data) {
+        String worldName = data.get("world").toString();
+        World world = Bukkit.getWorld(worldName);
+        CityWorld cw = new CityWorld(world);
+
+        List<String> toggles = (List<String>) data.get("toggles");
+        for (String toggle : toggles) {
+            WorldToggle tog = null;
+            try {
+                tog = WorldToggle.valueOf(toggle);
+                cw.setToggled(tog, true);
+            } catch (IllegalArgumentException ex) {
+            }
+        }
+
+        return cw;
     }
 
 }

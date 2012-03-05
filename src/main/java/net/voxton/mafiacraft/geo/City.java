@@ -4,24 +4,29 @@
  */
 package net.voxton.mafiacraft.geo;
 
+import java.util.*;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.vault.Transactable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.logging.Level;
+import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.util.LocationSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
 
 /**
  * Represents a... CITY!
  */
-public class City extends Transactable implements LandOwner {
+@SerializableAs("city")
+public class City extends Transactable implements LandOwner, ConfigurationSerializable {
     private final int id;
 
     private String name;
@@ -176,9 +181,11 @@ public class City extends Transactable implements LandOwner {
      * Sets the mayor of the city. Case sensitive!
      *
      * @param mayor
+     * @return This city
      */
-    public void setMayor(String mayor) {
+    public City setMayor(String mayor) {
         this.mayor = mayor;
+        return this;
     }
 
     /**
@@ -198,6 +205,17 @@ public class City extends Transactable implements LandOwner {
      */
     public List<String> getAdvisors() {
         return new ArrayList<String>(advisors);
+    }
+
+    /**
+     * Sets the advisors of the city.
+     *
+     * @param advisors The advisors to set
+     * @return This city.
+     */
+    private City setAdvisors(Set<String> advisors) {
+        this.advisors = advisors;
+        return this;
     }
 
     /**
@@ -435,6 +453,68 @@ public class City extends Transactable implements LandOwner {
 
     public String getEntryMessage() {
         return MsgColor.INFO + "The City of " + getName();
+    }
+
+    /////////////
+    // SERIALIZATION
+    /////////////
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        data.put("id", getId());
+        data.put("name", getName());
+        data.put("spawn", LocationSerializer.serializeFull(getSpawnLocation()));
+        data.put("world", getCityWorld().getWorld().getName());
+
+        data.put("mayor", getMayor());
+        data.put("advisors", getAdvisors());
+
+        return data;
+    }
+
+    /**
+     * Deserializes a City.
+     *
+     * @param data The data in Map form.
+     * @return The deserialized City.
+     */
+    public static City deserialize(Map<String, Object> data) {
+        int id = 0;
+        String strId = data.get("id").toString();
+        try {
+            id = Integer.parseInt(strId);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid number encountered when deserializing a city!", ex);
+        }
+
+        City city = new City(id);
+
+        String name = data.get("name").toString();
+
+        Map<String, Object> spawnS = (Map<String, Object>) data.get("spawn");
+        Location spawn = LocationSerializer.deserializeFull(spawnS);
+
+        String worldS = data.get("world").toString();
+        World world = Bukkit.getWorld(worldS);
+        if (world == null) {
+            MLogger.log(Level.SEVERE, "The world '" + worldS + "' does not exist for " + name + "!");
+        }
+        CityWorld cworld = Mafiacraft.getCityManager().getCityWorld(world);
+
+        String mayor = data.get("mayor").toString();
+
+        List<String> advisorsS = (List<String>) data.get("advisors");
+        Set<String> advisors = new HashSet<String>(advisorsS);
+
+        //Set info
+        city.setName(name).setSpawnLocation(spawn);
+        city.setCityWorld(cworld);
+
+        //Set members
+        city.setMayor(mayor).setAdvisors(advisors);
+
+        return city;
     }
 
 }

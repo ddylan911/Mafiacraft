@@ -19,7 +19,7 @@ public abstract class GovType {
 
     public static GovType POLICE;
 
-    private static List<GovType> types = new ArrayList<GovType>();
+    private static Map<String, GovType> types = new HashMap<String, GovType>();
 
     private Map<String, String> locale = new HashMap<String, String>();
 
@@ -33,8 +33,24 @@ public abstract class GovType {
         this.color = color;
     }
 
+    /**
+     * Gets a List of all GovTypes.
+     *
+     * @return A list of all GovTypes.
+     */
     public static List<GovType> getGovTypes() {
-        return new ArrayList<GovType>(types);
+        return new ArrayList<GovType>(types.values());
+    }
+
+    /**
+     * Gets a GovType from a String.
+     *
+     * @param typeStr The GovType string.
+     * @return The GovType corresponding with the String, or null if it doesn't
+     * exist.
+     */
+    public static GovType fromString(String typeStr) {
+        return types.get(typeStr);
     }
 
     public abstract String getName();
@@ -133,8 +149,8 @@ public abstract class GovType {
 
         };
 
-        types.add(MAFIA);
-        types.add(POLICE);
+        types.put(MAFIA.getName(), MAFIA);
+        types.put(POLICE.getName(), POLICE);
     }
 
 }

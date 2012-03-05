@@ -181,13 +181,14 @@ public class MListener implements Listener {
         LandOwner lastOwner = Mafiacraft.getOwner(last);
         LandOwner currentOwner = Mafiacraft.getOwner(current);
 
-        player.sendMessage(currentOwner.getEntryMessage());
+        if (!lastOwner.equals(currentOwner)) {
+            player.sendMessage(currentOwner.getEntryMessage());
+        }
 
         //Check for reserved district
         District dest = mc.getCityManager().getDistrict(current);
         District prev = mc.getCityManager().getDistrict(last);
 
-        CityWorld world = player.getCityWorld();
         if (!dest.getType().canEnter(player)) {
             player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.getNameInChat() + ".");
 

@@ -13,16 +13,23 @@ import net.voxton.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 
 /**
  * Represents a 16x16 section area.
  */
-public class District implements LandOwner {
-    private final int id;
+@SerializableAs("district")
+public class District implements LandOwner, ConfigurationSerializable {
+    private transient final int id;
 
     private String name;
 
@@ -475,6 +482,48 @@ public class District implements LandOwner {
      */
     private static int getDistrictOrigin(int coord) {
         return (coord >= 0) ? (coord & ~0xf) : -((Math.abs(coord + 1) & ~0xf) + 16);
+    }
+
+    ////////////
+    // SERIALIZATION
+    ////////////
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        data.put("world", getWorld().getName());
+        data.put("x", getX());
+        data.put("z", getZ());
+
+        return data;
+    }
+
+    public static District deserialize(Map<String, Object> data) {
+        String worldS = data.get("world").toString();
+        World world = Bukkit.getWorld(worldS);
+        if (world == null) {
+            MLogger.log(Level.SEVERE, "Invalid world named '" + worldS + "' encountered when deserializing a district!");
+        }
+
+        int x = 0;
+        String xS = data.get("x").toString();
+        try {
+            x = Integer.parseInt(xS);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid x value '" + xS + "' encountered when deserializing a district!", ex);
+        }
+
+        int z = 0;
+        String zS = data.get("z").toString();
+        try {
+            z = Integer.parseInt(zS);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid z value '" + zS + "' encountered when deserializing a district!", ex);
+        }
+
+        District district = new District(world, x, z);
+
+        return district;
     }
 
 }

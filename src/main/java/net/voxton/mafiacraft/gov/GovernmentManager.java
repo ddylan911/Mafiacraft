@@ -12,7 +12,10 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 /**
  *
@@ -25,10 +28,17 @@ public class GovernmentManager {
 
     private TIntIntMap cities = new TIntIntHashMap();
 
+    private Map<Government, List<Division>> govDivMap = new HashMap<Government, List<Division>>();
+
+    private Map<Division, Government> divGovMap = new HashMap<Division, Government>();
+
     private MafiacraftPlugin mc;
 
     public GovernmentManager(MafiacraftPlugin mc) {
         this.mc = mc;
+
+        ConfigurationSerialization.registerClass(Government.class);
+        ConfigurationSerialization.registerClass(Division.class);
     }
 
     public List<Government> getGovernments() {
@@ -110,12 +120,43 @@ public class GovernmentManager {
         cities.put(city.getId(), government.getId());
     }
 
+    /**
+     * Gets a list of divisions of a certain government.
+     *
+     * @param gov The government.
+     * @return A list of divisions.
+     */
+    public List<Division> getDivisions(Government gov) {
+        return new ArrayList<Division>(getActualDivisionList(gov));
+    }
+
+    /**
+     * Gets the next available and unused government id.
+     *
+     * @return The government id.
+     */
     private int getNextGovernmentId() {
         int id = 0;
         for (int i = 1; getGovernment(i) != null; ++i) {
             id = i;
         }
         return id;
+    }
+
+    /**
+     * Gets THE list of divisions pertaining to the given government. INTERNAL
+     * USE ONLY!!
+     *
+     * @param gov The government.
+     * @return The list of divisions.
+     */
+    private List<Division> getActualDivisionList(Government gov) {
+        List<Division> divs = govDivMap.get(gov);
+        if (divs == null) {
+            divs = new ArrayList<Division>();
+            govDivMap.put(gov, divs);
+        }
+        return divs;
     }
 
     ///////////
@@ -141,22 +182,6 @@ public class GovernmentManager {
     }
 
     /**
-     * Gets a list of all divisions in a government.
-     *
-     * @param gov
-     * @return
-     */
-    public List<Division> getGovDivisions(Government gov) {
-        List<Division> divisions = new ArrayList<Division>();
-        for (Division division : getDivisions()) {
-            if (division.getGovernment().equals(gov)) {
-                divisions.add(division);
-            }
-        }
-        return divisions;
-    }
-
-    /**
      * Creates a division. (No validation)
      *
      * @param gov
@@ -164,15 +189,59 @@ public class GovernmentManager {
      */
     public Division createDivision(Government gov) {
         int id = getNextDivisionId();
-        Division div = new Division(id, gov);
+        Division div = new Division(id);
         divisions.put(id, div);
+        divGovMap.put(div, gov);
         return div;
+    }
+
+    /**
+     * Inserts a division into the mappings.
+     *
+     * @param div The division to insert.
+     * @param gov The government to insert.
+     * @return This manager.
+     */
+    public GovernmentManager insertDivision(Division div, Government gov) {
+        divisions.put(div.getId(), div);
+        getActualDivisionList(gov).add(div);
+        divGovMap.put(div, gov);
+        return this;
+    }
+
+    /**
+     * Removes all references to the given division from the Government manager.
+     *
+     * @param div
+     * @return
+     */
+    public boolean removeDivision(Division div) {
+        Government gov = div.getGovernment();
+        if (gov == null) {
+            return false;
+        }
+
+        divisions.remove(div.getId());
+        getActualDivisionList(gov).remove(div);
+        divGovMap.remove(div);
+
+        return true;
+    }
+
+    /**
+     * Gets the government of the specified division.
+     *
+     * @param div The government of the division.
+     * @return The division.
+     */
+    public Government getGovernmentOf(Division div) {
+        return divGovMap.get(div);
     }
 
     /**
      * Gets the next available ID for a division.
      *
-     * @return
+     * @return The next available District id.
      */
     private int getNextDivisionId() {
         int id = 0;

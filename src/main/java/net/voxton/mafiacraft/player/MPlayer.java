@@ -4,29 +4,29 @@
  */
 package net.voxton.mafiacraft.player;
 
-import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.classes.UtilityClass;
 import net.voxton.mafiacraft.gov.Division;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.gov.Position;
-import net.voxton.mafiacraft.util.ConfigSerializable;
 import net.voxton.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import net.milkbowl.vault.economy.EconomyResponse;
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.*;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author simplyianm
+ * Represents a player.
  */
-public class MPlayer extends Transactable implements LandPurchaser, ConfigSerializable {
+public class MPlayer extends Transactable implements LandPurchaser, ConfigurationSerializable {
     private final OfflinePlayer offlinePlayer;
 
     private Player onlinePlayer = null;
@@ -508,6 +508,14 @@ public class MPlayer extends Transactable implements LandPurchaser, ConfigSerial
 
     public String getEntryMessage() {
         return getName();
+    }
+
+    ////////////
+    // SERIALIZATION
+    ////////////
+    @Override
+    public Map<String, Object> serialize() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

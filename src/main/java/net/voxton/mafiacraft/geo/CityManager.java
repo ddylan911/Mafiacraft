@@ -11,6 +11,7 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 /**
  * Manager for handling district objects.
@@ -35,6 +37,9 @@ public class CityManager {
 
     public CityManager(MafiacraftPlugin mc) {
         this.mc = mc;
+        ConfigurationSerialization.registerClass(City.class);
+        ConfigurationSerialization.registerClass(District.class);
+        ConfigurationSerialization.registerClass(CityWorld.class);
     }
 
     /////////////////
@@ -175,8 +180,8 @@ public class CityManager {
         District d = getDistrictMap(world).get(id);
         if (d == null) {
             d = (getDistrictList(world).size() <= 0)
-                    ? createDistrict(world, x, z).setType(DistrictType.ANARCHIC)
-                    : createDistrict(world, x, z).setType(DistrictType.UNEXPLORED);
+                    ? createDistrict(world, x, z)
+                    : createDistrict(world, x, z);
         }
         return d;
     }
@@ -320,6 +325,21 @@ public class CityManager {
     public CityManager registerLandOwner(LandOwner owner) {
         landOwners.put(owner.getOwnerId(), owner);
         return this;
+    }
+
+    ///////////
+    // SAVING
+    ///////////
+    public void save() {
+    }
+
+    private void saveCities() {
+    }
+
+    private File getCityFolder() {
+        File folder = new File(mc.getDataFolder().getPath() + File.separator + "city" + File.separator);
+        folder.mkdirs();
+        return folder;
     }
 
 }
