@@ -48,7 +48,7 @@ public class PlayerManager {
         builder.removalListener(new RemovalListener<String, MPlayer>() {
             @Override
             public void onRemoval(RemovalNotification<String, MPlayer> rn) {
-                //TODO: save
+                savePlayer(rn.getValue());
             }
 
         });
@@ -193,6 +193,19 @@ public class PlayerManager {
     }
 
     /**
+     * Saves the given MPlayer to its appropriate file.
+     *
+     * @param player The player to save.
+     * @return True if the saving was successful, false otherwise.
+     */
+    private boolean savePlayer(MPlayer player) {
+        YamlConfiguration yml = getPlayerYml(player.getBukkitEntity());
+        player.save(yml);
+        boolean result = savePlayerYml(player.getBukkitEntity(), yml);
+        return result;
+    }
+
+    /**
      * Saves a player's YAML file.
      *
      * @param player
@@ -204,7 +217,7 @@ public class PlayerManager {
             yml.save(getPlayerFile(player));
             return true;
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The file for the player " + player + " could not be saved!");
+            MLogger.log(Level.SEVERE, "The file for the player " + player + " could not be saved!", ex);
         }
         return false;
     }
