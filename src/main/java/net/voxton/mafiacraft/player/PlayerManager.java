@@ -4,13 +4,9 @@
  */
 package net.voxton.mafiacraft.player;
 
+import com.google.common.cache.*;
 import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.MafiacraftPlugin;
-import net.voxton.mafiacraft.chat.ChatType;
-import net.voxton.mafiacraft.classes.UtilityClass;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +41,19 @@ public class PlayerManager {
      * Creates the player cache.
      */
     private void buildCache() {
-        players = CacheBuilder.newBuilder().maximumSize(10000).expireAfterWrite(10, TimeUnit.MINUTES).build(
+        CacheBuilder builder = CacheBuilder.newBuilder();
+
+        builder.maximumSize(10000).expireAfterWrite(10, TimeUnit.MINUTES);
+
+        builder.removalListener(new RemovalListener<String, MPlayer>() {
+            @Override
+            public void onRemoval(RemovalNotification<String, MPlayer> rn) {
+                //TODO: save
+            }
+
+        });
+
+        players = builder.build(
                 new CacheLoader<String, MPlayer>() {
                     @Override
                     public MPlayer load(String key) throws Exception {
