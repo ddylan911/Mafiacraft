@@ -33,6 +33,8 @@ public class CityManager {
 
     private Map<String, LandOwner> landOwners = new HashMap<String, LandOwner>();
 
+    private Map<District, City> districtCityMap = new HashMap<District, City>();
+
     private final MafiacraftPlugin mc;
 
     public CityManager(MafiacraftPlugin mc) {
@@ -184,6 +186,39 @@ public class CityManager {
                     : createDistrict(world, x, z);
         }
         return d;
+    }
+
+    /**
+     * Gets the city that corresponds with the given district.
+     *
+     * @param district The district
+     * @return The city of the district.
+     */
+    public City getCityOf(District district) {
+        return districtCityMap.get(district);
+    }
+
+    /**
+     * Attaches the district to a city.
+     *
+     * @param district
+     * @param city
+     * @return
+     */
+    public CityManager attachDistrict(District district, City city) {
+        districtCityMap.put(district, city);
+        return this;
+    }
+
+    /**
+     * Detaches the district from its city.
+     *
+     * @param district
+     * @return
+     */
+    public CityManager detachDistrict(District district) {
+        districtCityMap.remove(district);
+        return this;
     }
 
     /**

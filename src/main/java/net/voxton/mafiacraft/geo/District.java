@@ -12,11 +12,15 @@ import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TByteObjectMap;
 import gnu.trove.map.hash.TByteObjectHashMap;
+import java.io.IOException;
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import net.voxton.mafiacraft.util.LocationSerializer;
+import net.voxton.mafiacraft.util.StringSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -41,13 +45,11 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     private Location busStop;
 
-    private City city;
-
     private DistrictType type;
 
     private String description;
 
-    private TByteObjectMap<String> owners = new TByteObjectHashMap<String>();
+    private TByteObjectHashMap<String> owners = new TByteObjectHashMap<String>();
 
     private double landCost;
 
@@ -141,7 +143,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     public City getCity() {
-        return city;
+        return Mafiacraft.getCityManager().getCityOf(this);
     }
 
     /**
@@ -151,7 +153,11 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     public District setCity(City city) {
-        this.city = city;
+        if (city != null) {
+            Mafiacraft.getCityManager().attachDistrict(this, city);
+        } else {
+            Mafiacraft.getCityManager().detachDistrict(this);
+        }
         return this;
     }
 
@@ -254,6 +260,26 @@ public class District implements LandOwner, ConfigurationSerializable {
     public District setOwner(int x, int z, LandOwner owner) {
         byte id = GeoUtils.coordsToSectionId(x, z);
         owners.put(id, owner.getOwnerId());
+        return this;
+    }
+
+    /**
+     * Gets the map of the owners of the district.
+     *
+     * @return The owners map.
+     */
+    private TByteObjectHashMap<String> getOwners() {
+        return owners;
+    }
+
+    /**
+     * Sets the owners of this district.
+     *
+     * @param owners The owners to set.
+     * @return This District.
+     */
+    private District setOwners(TByteObjectHashMap<String> owners) {
+        this.owners = owners;
         return this;
     }
 
@@ -381,9 +407,11 @@ public class District implements LandOwner, ConfigurationSerializable {
      * Sets the bus stop of the district.
      *
      * @param busStop
+     * @return This district
      */
-    public void setBusStop(Location busStop) {
+    public District setBusStop(Location busStop) {
         this.busStop = busStop;
+        return this;
     }
 
     /**
@@ -409,10 +437,10 @@ public class District implements LandOwner, ConfigurationSerializable {
      * Detaches the district from whatever city it was part of. It completely
      * resets the district, too.
      *
-     * @return
+     * @return This district
      */
     public District detachFromCity() {
-        if (city == null) {
+        if (getCity() == null) {
             return this;
         }
 
@@ -495,6 +523,22 @@ public class District implements LandOwner, ConfigurationSerializable {
         data.put("x", getX());
         data.put("z", getZ());
 
+        data.put("name", getName());
+        data.put("desc", getDescription());
+
+        data.put("bus", LocationSerializer.serializeFull(getBusStop()));
+        data.put("type", getType().name());
+        data.put("landcost", getLandCost());
+
+        String ownersStr = null;
+        try {
+            ownersStr = StringSerializer.toString(getOwners());
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "Owners could not be serialized!", ex);
+        }
+
+        data.put("owners", ownersStr);
+
         return data;
     }
 
@@ -522,6 +566,45 @@ public class District implements LandOwner, ConfigurationSerializable {
         }
 
         District district = new District(world, x, z);
+
+        String name = data.get("name").toString();
+        String desc = data.get("desc").toString();
+
+        String ownerStr = data.get("owners").toString();
+
+        TByteObjectHashMap<String> owners = null;
+        try {
+            owners = StringSerializer.fromString(ownerStr, TByteObjectHashMap.class);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "IO Exception encountered when deserializing the owner string: '" + ownerStr + "'!", ex);
+        } catch (ClassNotFoundException ex) {
+            MLogger.log(Level.SEVERE, "Class not found for the given serialized string: '" + ownerStr + "'!", ex);
+        }
+
+        String typeStr = data.get("type").toString();
+        DistrictType type = null;
+        try {
+            type = DistrictType.valueOf(typeStr);
+        } catch (IllegalArgumentException ex) {
+            MLogger.log(Level.SEVERE, "Illegal district type encountered in deserialization: '" + typeStr + "'!", ex);
+        }
+
+        Map<String, Object> busS = (Map<String, Object>) data.get("bus");
+        Location bus = LocationSerializer.deserializeFull(busS);
+
+        String landCostS = data.get("landcost").toString();
+        double landCost = 0.0d;
+
+        try {
+            landCost = Double.parseDouble(landCostS);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid land cost '" + landCostS + "' encountered when deserializing a District!", ex);
+        }
+
+        //Info
+        district.setName(name).setDescription(desc);
+        district.setType(type).setOwners(owners);
+        district.setBusStop(bus).setLandCost(landCost);
 
         return district;
     }
