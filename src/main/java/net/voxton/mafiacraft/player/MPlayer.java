@@ -495,7 +495,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
         dest.set("land", land);
         dest.set("power", power);
         dest.set("title", (title == null) ? "" : title);
-        dest.set("clazz.utility", (utilityClass == null) ? "" : utilityClass.toString());
+        dest.set("clazz.utility", (utilityClass == null) ? "" : utilityClass.name());
 
         return this;
     }
