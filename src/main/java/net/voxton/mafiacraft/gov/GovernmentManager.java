@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 /**
@@ -251,4 +252,22 @@ public class GovernmentManager {
         return id;
     }
 
+	/**
+	 * Loads the div/gov map from the gov/div map.
+	 * 
+	 * @return This GovernmentManager.
+	 */
+	private GovernmentManager loadDivGovMap() {
+		divGovMap = new HashMap<Division, Government>();
+		
+		for (Entry<Government, List<Division>> mapping : govDivMap.entrySet()) {
+			Government gov = mapping.getKey();
+			List<Division> divs = mapping.getValue();
+			
+			for (Division div : divs) {
+				divGovMap.put(div, gov);
+			}
+		}
+		return this;
+	}
 }

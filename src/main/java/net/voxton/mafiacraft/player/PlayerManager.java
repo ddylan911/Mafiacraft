@@ -71,6 +71,18 @@ public class PlayerManager {
     public KillTracker getKillTracker() {
         return killTracker;
     }
+	
+	/**
+	 * Saves all cached players to their appropriate files.
+	 * 
+	 * @return This player manager.
+	 */
+	public PlayerManager saveAll() {
+		for (MPlayer player : players.asMap().values()) {
+			savePlayer(player);
+		}
+		return this;
+	}
 
     /**
      * Gets a list of all players.
@@ -198,7 +210,7 @@ public class PlayerManager {
      * @param player The player to save.
      * @return True if the saving was successful, false otherwise.
      */
-    private boolean savePlayer(MPlayer player) {
+    public boolean savePlayer(MPlayer player) {
         YamlConfiguration yml = getPlayerYml(player.getBukkitEntity());
         player.save(yml);
         boolean result = savePlayerYml(player.getBukkitEntity(), yml);
