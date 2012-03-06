@@ -345,6 +345,42 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadDivGovMappings() {
+        File mappingFile = Mafiacraft.getSubFile("gov", "division_government_mappings.yml");
+        YamlConfiguration conf = new YamlConfiguration();
+
+        for (String key : conf.getKeys(false)) {
+            int gid = 0;
+            try {
+                gid = Integer.parseInt(key);
+            } catch (NumberFormatException ex) {
+                MLogger.log(Level.SEVERE, "Unexpected non-number found when parsing div/gov mappings! String: '" + key + "'", ex);
+            }
+            Government gov = getGovernment(gid);
+            if (gov == null) {
+                MLogger.log(Level.WARNING, "Government with id '" + gid + "' does not exist; skipping...");
+                continue;
+            }
+
+            List<String> val = conf.getStringList(key);
+
+            for (String divId : val) {
+                int did = 0;
+                try {
+                    did = Integer.parseInt(divId);
+                } catch (NumberFormatException ex) {
+                    MLogger.log(Level.SEVERE, "Unexpected string literal as opposed to a number found when parsing div/gov mappings! String is '" + divId + "'!", ex);
+                }
+
+                Division div = getDivision(did);
+                if (div == null) {
+                    MLogger.log(Level.WARNING, "Division with id '" + did + "' does not exist; skipping...");
+                    continue;
+                }
+
+                bindDivision(div, gov);
+            }
+        }
+
         return this;
     }
     //////////////
@@ -432,7 +468,16 @@ public class GovernmentManager {
     }
 
     /**
-     * Saves all mappings between divisions and governments.
+     * Saves all mappings between divisions and governments. 
+     * Mappings are saved in this format:
+     * 
+     * <pre>
+     * government:
+     *  -div
+     *  -div2
+     * </pre>
+     * 
+     * and so on.
      * 
      * @return This GovernmentManager.
      */

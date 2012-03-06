@@ -563,8 +563,8 @@ public class CityManager {
             City city = getCity(key);
 
             List<String> dists = conf.getStringList(key);
-            for (String distName : dists) {
-                District dist = getDistrictFromUid(distName);
+            for (String distUid : dists) {
+                District dist = getDistrictFromUid(distUid);
                 attachDistrict(dist, city);
             }
         }
