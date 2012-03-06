@@ -142,7 +142,7 @@ public class CityManager {
         city.setMayor(player.getName());
         city.attachNewDistrict(center);
         center.setType(DistrictType.GOVERNMENT);
-        cities.put(city.getId(), city);
+        insertCity(city);
         Mafiacraft.getCityManager().getCityWorld(center.getWorld()).setCapital(city);
         return city;
     }
@@ -258,6 +258,31 @@ public class CityManager {
     }
 
     /**
+     * Inserts a city.
+     * 
+     * @param city The city to insert.
+     * @return This CityManager.
+     */
+    public CityManager insertCity(City city) {
+        cities.put(city.getId(), city);
+        registerLandOwner(city);
+        return this;
+    }
+
+    /**
+     * Inserts the given district.
+     * 
+     * @param district The district to insert.
+     * @return This CityManager.
+     */
+    public CityManager insertDistrict(District district) {
+        World world = district.getWorld();
+        getDistrictMap(world).put(district.getId(), district);
+        registerLandOwner(district);
+        return this;
+    }
+
+    /**
      * Attaches the district to a city.
      *
      * @param district
@@ -266,17 +291,22 @@ public class CityManager {
      */
     public CityManager attachDistrict(District district, City city) {
         districtCityMap.put(district, city);
+        getActualCityDistricts(city).add(district);
         return this;
     }
 
     /**
      * Detaches the district from its city.
      *
-     * @param district
-     * @return
+     * @param district The district to detach from
+     * @return This CityManager.
      */
     public CityManager detachDistrict(District district) {
+        City city = district.getCity();
         districtCityMap.remove(district);
+        if (city != null) {
+            getActualCityDistricts(city).remove(district);
+        }
         return this;
     }
 
@@ -301,7 +331,7 @@ public class CityManager {
      */
     private District createDistrict(World world, int x, int z) {
         District d = new District(world, x, z);
-        getDistrictMap(world).put(d.getId(), d);
+        insertDistrict(d);
         MLogger.logVerbose("A district was created in the world '" + world.
                 getName() + "' at (" + x + ", " + z + ").");
         return d;
@@ -460,6 +490,8 @@ public class CityManager {
         File cityFile = Mafiacraft.getSubFile("geo", "cityworlds.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
 
+        cityWorldMap = new HashMap<World, CityWorld>();
+
         for (String key : conf.getKeys(false)) {
             Map<String, Object> data = (Map<String, Object>) conf.get(key);
             CityWorld cityWorld = (CityWorld) ConfigurationSerialization.
@@ -480,11 +512,13 @@ public class CityManager {
         File cityFile = Mafiacraft.getSubFile("geo", "cities.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
 
+        cities = new TIntObjectHashMap<City>();
+
         for (String key : conf.getKeys(false)) {
             Map<String, Object> data = (Map<String, Object>) conf.get(key);
             City city = (City) ConfigurationSerialization.deserializeObject(data, City.class);
 
-            cities.put(city.getId(), city);
+            insertCity(city);
         }
 
         return this;
@@ -499,23 +533,39 @@ public class CityManager {
         File districtFile = Mafiacraft.getSubFile("geo", "districts.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(districtFile);
 
+        districts = new HashMap<String, District>();
+
         for (String key : conf.getKeys(false)) {
             Map<String, Object> data = (Map<String, Object>) conf.get(key);
             District district = (District) ConfigurationSerialization.
-                    deserializeObject(data, City.class);
+                    deserializeObject(data, District.class);
 
-            getDistrictMap(district.getWorld()).put(district.getId(), district);
+            insertDistrict(district);
         }
 
         return this;
     }
 
+    /**
+     * Loads all city district mappings into memory.
+     * 
+     * @return The city/district mappings.
+     */
     public CityManager loadCityDistrictMappings() {
         File mappingFile = Mafiacraft.getSubFile("geo", "city_district_mappings.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(mappingFile);
 
+        cityDistrictMap = new HashMap<City, List<District>>();
+        districtCityMap = new HashMap<District, City>();
+
         for (String key : conf.getKeys(false)) {
-//            List<String> getDistrictMap(district.getWorld()).put(district.getId(), district);
+            City city = getCity(key);
+
+            List<String> dists = conf.getStringList(key);
+            for (String distName : dists) {
+                District dist = getDistrictFromUid(distName);
+                attachDistrict(dist, city);
+            }
         }
 
         return this;
@@ -530,7 +580,8 @@ public class CityManager {
      * @return This CityManager.
      */
     public CityManager save() {
-        return saveCityWorlds().saveCities().saveDistricts();
+        return saveCityWorlds().saveCities().saveDistricts().
+                saveCityDistrictMappings();
     }
 
     /**
@@ -613,7 +664,7 @@ public class CityManager {
             List<District> dists = mapping.getValue();
             List<String> distStrs = new ArrayList<String>();
             for (District district : dists) {
-                distStrs.add(district.getWorld() + "," + district.getId());
+                distStrs.add(district.getUid());
             }
             conf.set(city.getName(), dists);
         }
