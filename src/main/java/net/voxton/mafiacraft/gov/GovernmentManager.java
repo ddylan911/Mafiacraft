@@ -4,6 +4,7 @@
  */
 package net.voxton.mafiacraft.gov;
 
+import gnu.trove.iterator.TIntIntIterator;
 import net.voxton.mafiacraft.MafiacraftPlugin;
 import net.voxton.mafiacraft.geo.City;
 import net.voxton.mafiacraft.player.MPlayer;
@@ -11,11 +12,17 @@ import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.Mafiacraft;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 /**
@@ -35,6 +42,9 @@ public class GovernmentManager {
 
     /**
      * Holds all police mappings to their respective cities.
+     * 
+     * The key is the id of the police.
+     * The value is the id of the city.
      */
     private TIntIntMap policeMap = new TIntIntHashMap();
 
@@ -70,7 +80,7 @@ public class GovernmentManager {
      * 
      * @return A list of all governments.
      */
-    public List<Government> getGovernments() {
+    public List<Government> getGovernmentList() {
         return new ArrayList<Government>(governments.valueCollection());
     }
 
@@ -91,7 +101,7 @@ public class GovernmentManager {
      * @return
      */
     public Government getGovernment(String name) {
-        for (Government government : getGovernments()) {
+        for (Government government : getGovernmentList()) {
             if (government.getName().equalsIgnoreCase(name)) {
                 return government;
             }
@@ -130,7 +140,7 @@ public class GovernmentManager {
      * @return
      */
     public Government getGovernment(MPlayer player) {
-        for (Government gov : getGovernments()) {
+        for (Government gov : getGovernmentList()) {
             if (gov.isMember(player)) {
                 return gov;
             }
@@ -206,7 +216,7 @@ public class GovernmentManager {
      *
      * @return
      */
-    public List<Division> getDivisions() {
+    public List<Division> getDivisionList() {
         return new ArrayList<Division>(divisions.valueCollection());
     }
 
@@ -332,18 +342,68 @@ public class GovernmentManager {
     }
 
     public GovernmentManager saveGovernments() {
+        File cityFile = Mafiacraft.getSubFile("gov", "governments.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+
+        for (Government gov : getGovernmentList()) {
+            conf.set(Integer.toString(gov.getId()), gov);
+        }
+
         return this;
     }
 
     public GovernmentManager saveDivisions() {
+        File cityFile = Mafiacraft.getSubFile("gov", "divisions.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+
+        for (Division div : getDivisionList()) {
+            conf.set(Integer.toString(div.getId()), div);
+        }
+
         return this;
     }
 
     public GovernmentManager savePoliceMappings() {
+        File policeFile = Mafiacraft.getSubFile("gov", "police.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(policeFile);
+
+        TIntIntIterator policeIterator = policeMap.iterator();
+
+        while (policeIterator.hasNext()) {
+            policeIterator.advance();
+            conf.set(Integer.toString(policeIterator.key()), Integer.toString(policeIterator.
+                    value()));
+        }
+
+        try {
+            conf.save(policeFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The police mapping file could not be written for some odd reason!", ex);
+        }
+
         return this;
     }
 
     public GovernmentManager saveDivGovMappings() {
+        File mappingFile = Mafiacraft.getSubFile("gov", "division_government_mappings.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(mappingFile);
+
+        for (Entry<Government, List<Division>> mapping : govDivMap.entrySet()) {
+            Government gov = mapping.getKey();
+            List<Division> divs = mapping.getValue();
+            List<String> divStrs = new ArrayList<String>();
+            for (Division div : divs) {
+                divStrs.add(Integer.toString(div.getId()));
+            }
+            conf.set(Integer.toString(gov.getId()), divStrs);
+        }
+
+        try {
+            conf.save(mappingFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The gov/div mapping file could not be written for some odd reason!", ex);
+        }
+
         return this;
     }
 

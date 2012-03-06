@@ -22,12 +22,24 @@ public class DataWorker {
     }
 
     /**
+     * Loads everything that should not be lazy-loaded onto the server.
+     * 
+     * @return This DataWorker.
+     */
+    public DataWorker loadAll() {
+        mc.getCityManager().load();
+        mc.getGovernmentManager().load();
+        return this;
+    }
+
+    /**
      * Saves everything possible to save on the server.
      *
      * @return This DataWorker.
      */
     public DataWorker saveAll() {
         mc.getCityManager().save();
+        mc.getGovernmentManager().save();
         mc.getPlayerManager().saveAll();
         return this;
     }

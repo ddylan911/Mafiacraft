@@ -478,7 +478,8 @@ public class CityManager {
      * @return This newly loaded CityManager.
      */
     public CityManager load() {
-        return loadCityWorlds().loadCities().loadDistricts();
+        return loadCityWorlds().loadCities().loadDistricts().
+                loadCityDistrictMappings();
     }
 
     /**
@@ -666,7 +667,7 @@ public class CityManager {
             for (District district : dists) {
                 distStrs.add(district.getUid());
             }
-            conf.set(city.getName(), dists);
+            conf.set(Integer.toString(city.getId()), dists);
         }
 
         try {
