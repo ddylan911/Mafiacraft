@@ -19,9 +19,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-
 import static org.powermock.api.mockito.PowerMockito.*;
 import static org.junit.Assert.*;
 
@@ -36,22 +33,22 @@ public class LocationSerializerTest {
 
     @Before
     public void setUp() {
-        world = PowerMockito.mock(World.class);
-        Mockito.when(world.getName()).thenReturn("world");
+        world = mock(World.class);
+        when(world.getName()).thenReturn("world");
 
         Logger testLogger = Logger.getLogger("Test");
 
-        Server mockServer = Mockito.mock(Server.class);
+        Server mockServer = mock(Server.class);
         when(mockServer.getWorld("world")).thenReturn(world);
         when(mockServer.getLogger()).thenReturn(testLogger);
-        
+
         mockStatic(Bukkit.class);
         when(Bukkit.getServer()).thenReturn(mockServer);
         when(Bukkit.getWorld("world")).thenReturn(world);
-        
+
         MafiacraftPlugin mockPlugin = mock(MafiacraftPlugin.class);
         when(mockPlugin.getLogger()).thenReturn(testLogger);
-        
+
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getPlugin()).thenReturn(mockPlugin);
     }
