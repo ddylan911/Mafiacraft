@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
  * Division related commands.
  */
 public class DivisionCommand {
+
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "You can not use this command through console.");
@@ -117,7 +118,8 @@ public class DivisionCommand {
         if (remove == false) {
             return "You can not kick this player out!";
         }
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully kicked out " + tgt.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully kicked out " + tgt.
+                getName() + ".");
         return null;
     }
 
@@ -154,18 +156,21 @@ public class DivisionCommand {
         }
         String divName = null;
         for (Division div : gov.getDivisions()) {
-            if (player.getSessionStore().getObject(player.getName() + ".inv." + div.getName()) != null) {
+            if (player.getSessionStore().getObject(player.getName() + ".inv." + div.
+                    getName()) != null) {
                 divName = div.getName();
                 continue;
             }
         }
         Division div = gov.getDivisionByName(divName);
-        if (!(player.getSessionStore().getBoolean(player.getName() + ".inv." + div.getName(), false) == true)) {
+        if (!(player.getSessionStore().getBoolean(player.getName() + ".inv." + div.
+                getName(), false) == true)) {
             return "No one has invited you.";
         }
         player.getSessionStore().resetData(player.getName() + ".inv." + divName);
         div.addWorker(player);
-        player.sendMessage(MsgColor.SUCCESS + "You have succesfully joined " + div.getName());
+        player.sendMessage(MsgColor.SUCCESS + "You have succesfully joined " + div.
+                getName());
         return null;
     }
 
@@ -193,14 +198,16 @@ public class DivisionCommand {
 
         Position pos = player.getPosition();
         if (!pos.isAtLeast(Position.MANAGER)) {
-            return "You are not the " + gov.getType().getLocale("manager") + " of this " + gov.getType().getName() + ".";
+            return "You are not the " + gov.getType().getLocale("manager") + " of this " + gov.
+                    getType().getName() + ".";
         }
 
         District dis = player.getDistrict();
         double price = dis.getLandCost();
         if (!div.hasEnough(price)) {
             return "Your " + gov.getType().getLocale("division") + " does not have enough money to buy a plot in this district. "
-                    + "(Costs $" + NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(price) + ")";
+                    + "(Costs $" + NumberFormat.getCurrencyInstance(Locale.ENGLISH).
+                    format(price) + ")";
         }
 
         Chunk chunk = player.getChunk();
@@ -236,7 +243,8 @@ public class DivisionCommand {
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank.";
         }
-        player.getSessionStore().setData(tgt.getName() + ".inv." + player.getDivision().getName(), true);
+        player.getSessionStore().setData(tgt.getName() + ".inv." + player.
+                getDivision().getName(), true);
         player.sendMessage(MsgColor.SUCCESS + "You invited " + tgt.getName() + ".");
         return null;
     }
@@ -320,7 +328,8 @@ public class DivisionCommand {
             return "You do not have the proper rank to do this.";
         }
         div.setDescription(desc);
-        player.sendMessage(MsgColor.SUCCESS + "You have changed your " + gov.getType().getLocale("division") + "'s description.");
+        player.sendMessage(MsgColor.SUCCESS + "You have changed your " + gov.
+                getType().getLocale("division") + "'s description.");
         return null;
     }
 
@@ -333,11 +342,13 @@ public class DivisionCommand {
         Division div = player.getDivision();
 
         if (div == null) {
-            return "You are not part of a " + div.getGovernment().getType().getLocale("division") + ".";
+            return "You are not part of a " + div.getGovernment().getType().
+                    getLocale("division") + ".";
         }
 
         if (!player.getPosition().isAtLeast(Position.WORKER)) {
-            return "Your position in your " + div.getGovernment().getType().getLocale("division") + " is not high enough to use HQ teleport.";
+            return "Your position in your " + div.getGovernment().getType().
+                    getLocale("division") + " is not high enough to use HQ teleport.";
         }
 
         Location hq = div.getHq();
@@ -346,7 +357,8 @@ public class DivisionCommand {
         }
 
         //Teleport.
-        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.GOVHQ, player.getBukkitEntity(), hq);
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.GOVHQ, player.
+                getBukkitEntity(), hq);
         return null;
     }
 
@@ -362,7 +374,8 @@ public class DivisionCommand {
         }
 
         if (!player.getPosition().isAtLeast(Position.MANAGER)) {
-            return "You aren't allowed to set the HQ of your " + div.getGovernment().getType().getLocale("division") + ".";
+            return "You aren't allowed to set the HQ of your " + div.
+                    getGovernment().getType().getLocale("division") + ".";
         }
 
         Chunk section = player.getChunk();
@@ -373,7 +386,8 @@ public class DivisionCommand {
         //TODO: take money from the mafia, idk how much
 
         div.setHq(player.getBukkitEntity().getLocation());
-        player.sendMessage(MsgColor.SUCCESS + "Your " + div.getGovernment().getType().getLocale("division") + " HQ has been set.");
+        player.sendMessage(MsgColor.SUCCESS + "Your " + div.getGovernment().
+                getType().getLocale("division") + " HQ has been set.");
         return null;
     }
 

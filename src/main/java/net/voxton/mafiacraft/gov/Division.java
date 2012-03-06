@@ -24,6 +24,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
  * Represents a government division.
  */
 public class Division extends Transactable implements LandPurchaser, ConfigurationSerializable {
+
     private int id;
 
     private String name;

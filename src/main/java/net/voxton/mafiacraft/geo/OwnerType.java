@@ -9,6 +9,7 @@ package net.voxton.mafiacraft.geo;
  * @author simplyianm
  */
 public enum OwnerType {
+
     DISTRICT,
     DIVISION,
     GOVERNMENT,

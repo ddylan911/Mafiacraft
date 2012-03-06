@@ -12,6 +12,7 @@ import java.util.Map;
  * @author simplyianm
  */
 public class SessionStore {
+
     private Map<String, Object> data = new HashMap<String, Object>();
 
     public boolean getBoolean(String key) {

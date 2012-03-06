@@ -15,6 +15,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  * Tracks kills
  */
 public class KillTracker {
+
     private YamlConfiguration killFile;
 
     private File killFilePath;

@@ -16,6 +16,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
  * @author simplyianm
  */
 public class VaultHelper {
+
     private final MafiacraftPlugin mc;
 
     private Permission permission = null;
@@ -30,7 +31,8 @@ public class VaultHelper {
     }
 
     private Boolean setupPermissions() {
-        RegisteredServiceProvider<Permission> permissionProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        RegisteredServiceProvider<Permission> permissionProvider = Bukkit.
+                getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
         if (permissionProvider != null) {
             permission = permissionProvider.getProvider();
         }
@@ -38,7 +40,8 @@ public class VaultHelper {
     }
 
     private Boolean setupChat() {
-        RegisteredServiceProvider<Chat> chatProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
+        RegisteredServiceProvider<Chat> chatProvider = Bukkit.getServer().
+                getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
         if (chatProvider != null) {
             chat = chatProvider.getProvider();
         }
@@ -47,7 +50,8 @@ public class VaultHelper {
     }
 
     private Boolean setupEconomy() {
-        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().
+                getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {
             economy = economyProvider.getProvider();
         }

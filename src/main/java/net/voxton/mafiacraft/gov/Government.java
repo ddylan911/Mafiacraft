@@ -27,6 +27,7 @@ import org.bukkit.configuration.serialization.SerializableAs;
  */
 @SerializableAs("gov")
 public class Government extends Transactable implements LandPurchaser, ConfigurationSerializable {
+
     private final int id;
 
     private String name;
@@ -737,7 +738,8 @@ public class Government extends Transactable implements LandPurchaser, Configura
         invited.getSessionStore().setData("gov-inv", getId());
 
         invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name + " has invited you to join their ranks.");
-        invited.sendMessage(MsgColor.INFO + "Type " + MsgColor.INFO_HILIGHT + "/" + type.getLocale("command") + " accept" + MsgColor.INFO + " to join.");
+        invited.sendMessage(MsgColor.INFO + "Type " + MsgColor.INFO_HILIGHT + "/" + type.
+                getLocale("command") + " accept" + MsgColor.INFO + " to join.");
 
         return true;
     }

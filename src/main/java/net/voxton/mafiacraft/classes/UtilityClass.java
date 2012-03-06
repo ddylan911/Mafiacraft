@@ -9,5 +9,7 @@ package net.voxton.mafiacraft.classes;
  * @author Dylan
  */
 public enum UtilityClass {
+
     THIEF, NONE;
+
 }

@@ -27,6 +27,7 @@ import org.bukkit.entity.Player;
  */
 @SerializableAs("city")
 public class City extends Transactable implements LandOwner, ConfigurationSerializable {
+
     private final int id;
 
     private String name;
@@ -131,7 +132,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
         for (char c : chars.toCharArray()) {
             for (char d : chars.toCharArray()) {
                 for (char e : chars.toCharArray()) {
-                    dname = new StringBuilder(e).append(d).append(c).toString().trim();
+                    dname = new StringBuilder(e).append(d).append(c).toString().
+                            trim();
                     if (!(dname.isEmpty() || hasDistrict(dname))) {
                         return dname;
                     }

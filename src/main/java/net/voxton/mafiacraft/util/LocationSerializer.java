@@ -16,6 +16,7 @@ import org.bukkit.World;
  * Serializes Locations into a Configuration-friendly form.
  */
 public class LocationSerializer {
+
     /**
      * Serializes the integer Block aspects of a Location.
      *

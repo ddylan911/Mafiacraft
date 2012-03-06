@@ -10,6 +10,7 @@ import net.voxton.mafiacraft.MConfig;
  * Contains various methods for validating strings for use within the plugin.
  */
 public class ValidationUtils {
+
     /**
      * Validates a name to be easy to type in chat.
      *

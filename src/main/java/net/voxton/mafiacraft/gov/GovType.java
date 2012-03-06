@@ -15,6 +15,7 @@ import org.bukkit.ChatColor;
  * @author simplyianm
  */
 public abstract class GovType {
+
     public static GovType MAFIA;
 
     public static GovType POLICE;
@@ -79,6 +80,7 @@ public abstract class GovType {
 
     static {
         MAFIA = new GovType(true, ChatColor.DARK_RED) {
+
             @Override
             public String getName() {
                 return "mafia";
@@ -114,6 +116,7 @@ public abstract class GovType {
 
         };
         POLICE = new GovType(false, ChatColor.BLUE) {
+
             @Override
             public String getName() {
                 return "police";

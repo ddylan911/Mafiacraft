@@ -11,6 +11,7 @@ import net.voxton.mafiacraft.help.menu.CityMenu;
  * @author simplyianm
  */
 public class MenuType {
+
     public static final HelpMenu CITY = new CityMenu();
 
 }

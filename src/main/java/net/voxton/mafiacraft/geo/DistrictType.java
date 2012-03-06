@@ -12,6 +12,7 @@ import java.util.Map;
  * Represents a type of district.
  */
 public enum DistrictType {
+
     /**
      * PvP enabled shared zone. Do whatever the crap you want.
      */

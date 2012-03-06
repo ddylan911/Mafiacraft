@@ -8,6 +8,7 @@ package net.voxton.mafiacraft.gov;
  * Represents a position within the government.
  */
 public enum Position {
+
     LEADER(1, false, 1, 15),
     VICE_LEADER(1, false, 1, 12),
     OFFICER(10, false, 0, 10),

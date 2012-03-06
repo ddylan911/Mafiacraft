@@ -25,6 +25,7 @@ import org.bukkit.entity.Player;
  * @author simplyianm
  */
 public class DistrictCommand {
+
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
@@ -121,7 +122,8 @@ public class DistrictCommand {
         }
 
         //TODO add real info
-        player.sendMessage("You are in the district " + player.getDistrict().getNameInChat());
+        player.sendMessage("You are in the district " + player.getDistrict().
+                getNameInChat());
         return null;
     }
 
@@ -143,7 +145,8 @@ public class DistrictCommand {
         Location bus = player.getLocation();
         district.setBusStop(bus);
 
-        player.sendMessage(MsgColor.SUCCESS + "The bus stop of " + district.getNameInChat() + " has been set to your location.");
+        player.sendMessage(MsgColor.SUCCESS + "The bus stop of " + district.
+                getNameInChat() + " has been set to your location.");
         return null;
     }
 
@@ -173,7 +176,8 @@ public class DistrictCommand {
         }
 
         district.resetOwnerships().setType(type);
-        player.sendMessage(MsgColor.SUCCESS + "The district has been zoned to a " + type.niceName() + " district successfully.");
+        player.sendMessage(MsgColor.SUCCESS + "The district has been zoned to a " + type.
+                niceName() + " district successfully.");
         return null;
     }
 

@@ -11,6 +11,7 @@ import org.bukkit.Chunk;
  * Represents an entity that can own parcels of land. (chunks)
  */
 public interface LandOwner {
+
     /**
      * Gets the type of owner this LandOwner is.
      *

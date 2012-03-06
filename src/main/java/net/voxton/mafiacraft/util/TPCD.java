@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author simplyianm
  */
 public class TPCD implements Runnable {
+
     private static TObjectIntMap<Player> teleporting = new TObjectIntHashMap<Player>();
 
     private int iterations;
@@ -66,6 +67,7 @@ public class TPCD implements Runnable {
     }
 
     public enum Type {
+
         FHOME("your faction home"),
         CSPAWN("the city spawn"),
         SPAWN("spawn"),

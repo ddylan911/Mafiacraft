@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
  * @author simplyianm
  */
 public class CWorldCommand {
+
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
@@ -65,18 +66,20 @@ public class CWorldCommand {
         if (!player.hasPermission("mafiacraft.admin")) {
             return "You aren't allowed to use this command.";
         }
-        
+
         CityWorld world = player.getCityWorld();
-        
+
         WorldToggle tog = null;
         try {
             tog = WorldToggle.valueOf(toggle.toUpperCase());
         } catch (IllegalArgumentException ex) {
-            return "Invalid toggle name. Available toggles are: " + Arrays.asList(WorldToggle.values());
+            return "Invalid toggle name. Available toggles are: " + Arrays.
+                    asList(WorldToggle.values());
         }
-        
+
         boolean val = world.toggle(tog);
-        player.sendMessage(MsgColor.SUCCESS + "The toggle named '" + tog.toString() + "' has been set to " + val + ".");
+        player.sendMessage(MsgColor.SUCCESS + "The toggle named '" + tog.
+                toString() + "' has been set to " + val + ".");
         return null;
     }
 

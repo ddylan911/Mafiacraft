@@ -11,6 +11,7 @@ import java.util.logging.Logger;
  * A class to log.
  */
 public class MLogger {
+
     private static final Logger LOGGER = Mafiacraft.getPlugin().getLogger();
 
     private static final int VERBOSITY = 5;

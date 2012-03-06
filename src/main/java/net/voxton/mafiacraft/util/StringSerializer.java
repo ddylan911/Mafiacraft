@@ -14,6 +14,7 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
  * http://stackoverflow.com/questions/134492/how-to-serialize-an-object-into-a-string
  */
 public class StringSerializer {
+
     /**
      * Read the object from Base64 string.
      *

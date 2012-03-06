@@ -22,6 +22,7 @@ import java.util.Map;
  * @author simplyianm
  */
 public abstract class ChatType {
+
     public static final ChatType ADMIN = new AdminChat();
 
     public static final ChatType GOVERNMENT = new GovernmentChat();

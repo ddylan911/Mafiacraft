@@ -31,6 +31,7 @@ import org.bukkit.entity.Player;
  * Contains all city-related commands.
  */
 public class CityCommand {
+
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
@@ -185,7 +186,8 @@ public class CityCommand {
         }
 
         int citySpawnTime = MConfig.getInt("warmup.cityspawn");
-        TPCD.makeCountdown(Mafiacraft.getPlugin(), citySpawnTime, TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), citySpawnTime, TPCD.Type.CSPAWN, player.
+                getBukkitEntity(), spawn);
         return null;
     }
 
@@ -290,7 +292,8 @@ public class CityCommand {
         }
 
         double funds = city.getMoney();
-        String fundsStr = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(funds);
+        String fundsStr = NumberFormat.getCurrencyInstance(Locale.ENGLISH).
+                format(funds);
         player.sendMessage(MsgColor.INFO + city.getOwnerName() + " has " + fundsStr + " in funds.");
         return null;
     }
@@ -338,7 +341,8 @@ public class CityCommand {
             return "That district does not have a bus stop.";
         }
 
-        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.DBUS, player.getBukkitEntity(), bus);
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.DBUS, player.
+                getBukkitEntity(), bus);
         return null;
     }
 
@@ -366,7 +370,8 @@ public class CityCommand {
 
         player.transferMoney(city, amt);
         String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
-        player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt + " into " + city.getOwnerName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt + " into " + city.
+                getOwnerName() + ".");
         return null;
     }
 
@@ -398,7 +403,8 @@ public class CityCommand {
 
         city.transferMoney(player, amt);
         String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
-        player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt + " into " + city.getOwnerName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt + " into " + city.
+                getOwnerName() + ".");
         return null;
     }
 
@@ -529,7 +535,8 @@ public class CityCommand {
         }
 
         police.setLeader(c);
-        player.sendMessage(MsgColor.SUCCESS + "The chief of police of the city has successfully been changed to " + c.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "The chief of police of the city has successfully been changed to " + c.
+                getName() + ".");
         return null;
     }
 
@@ -559,7 +566,8 @@ public class CityCommand {
         }
 
         police.setViceLeader(a);
-        player.sendMessage(MsgColor.SUCCESS + "The assistant chief of the city has successfully been changed to " + a.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "The assistant chief of the city has successfully been changed to " + a.
+                getName() + ".");
         return null;
     }
 

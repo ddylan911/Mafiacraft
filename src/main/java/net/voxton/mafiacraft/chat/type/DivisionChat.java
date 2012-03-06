@@ -19,8 +19,8 @@ public class DivisionChat extends ChatType {
     @Override
     public void chat(MPlayer player, String message) {
         String pref = player.getGovernment().getType().getLocale("div.chatp");
-		String msg = pref + " " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
-		
+        String msg = pref + " " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+
         for (MPlayer p : player.getDivision().getOnlineMembers()) {
             p.sendMessage(msg);
         }
@@ -45,4 +45,5 @@ public class DivisionChat extends ChatType {
     public String getName() {
         return "division";
     }
+
 }

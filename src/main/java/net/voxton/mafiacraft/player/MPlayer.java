@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
  * Represents a player.
  */
 public class MPlayer extends Transactable implements LandPurchaser {
+
     private final OfflinePlayer offlinePlayer;
 
     private Player onlinePlayer = null;
@@ -202,29 +203,34 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     @Override
     public double getMoney() {
-        return Mafiacraft.getVaultHelper().getEconomy().getBalance(offlinePlayer.getName());
+        return Mafiacraft.getVaultHelper().getEconomy().getBalance(offlinePlayer.
+                getName());
     }
 
     @Override
     public double setMoney(double amt) {
         double deposit = amt - getMoney();
         if (deposit > 0) {
-            return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.getName(), deposit).balance;
+            return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.
+                    getName(), deposit).balance;
         } else if (deposit < 0) {
-            return Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(offlinePlayer.getName(), -deposit).balance;
+            return Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(offlinePlayer.
+                    getName(), -deposit).balance;
         }
         return 0;
     }
 
     @Override
     public double addMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.getName(), amount);
+        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().
+                depositPlayer(offlinePlayer.getName(), amount);
         return response.balance;
     }
 
     @Override
     public double subtractMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(offlinePlayer.getName(), amount);
+        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().
+                withdrawPlayer(offlinePlayer.getName(), amount);
         return response.balance;
     }
 
@@ -475,11 +481,13 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * @return This MPlayer, loaded and READY TO RUMBBBLEEE
      */
     public MPlayer load(ConfigurationSection source) {
-        chatType = ChatType.valueOf(source.getString("chattype", ChatType.DEFAULT.getName()));
+        chatType = ChatType.valueOf(source.getString("chattype", ChatType.DEFAULT.
+                getName()));
         land = source.getInt("land", 0);
         power = source.getInt("power", 0);
         title = source.getString("title", "");
-        utilityClass = UtilityClass.valueOf(source.getString("clazz.utility", UtilityClass.NONE.toString()));
+        utilityClass = UtilityClass.valueOf(source.getString("clazz.utility", UtilityClass.NONE.
+                toString()));
 
         return this;
     }
@@ -495,7 +503,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
         dest.set("land", land);
         dest.set("power", power);
         dest.set("title", (title == null) ? "" : title);
-        dest.set("clazz.utility", (utilityClass == null) ? "" : utilityClass.name());
+        dest.set("clazz.utility", (utilityClass == null) ? "" : utilityClass.
+                name());
 
         return this;
     }

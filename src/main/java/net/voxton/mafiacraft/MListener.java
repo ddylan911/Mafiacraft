@@ -34,6 +34,7 @@ import org.bukkit.util.Vector;
  * @author simplyianm
  */
 public class MListener implements Listener {
+
     private final MafiacraftPlugin mc;
 
     public MListener(MafiacraftPlugin mc) {
@@ -54,7 +55,8 @@ public class MListener implements Listener {
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.getOwnerName() + ".");
+            player.sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.
+                    getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -74,7 +76,8 @@ public class MListener implements Listener {
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.getOwnerName() + ".");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.
+                    getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -94,7 +97,8 @@ public class MListener implements Listener {
         MPlayer player = Mafiacraft.getPlayer((Player) e.getEntity());
         MPlayer damager = Mafiacraft.getPlayer((Player) e.getDamager());
 
-        District d = mc.getCityManager().getDistrict(player.getBukkitEntity().getLocation().getChunk());
+        District d = mc.getCityManager().getDistrict(player.getBukkitEntity().
+                getLocation().getChunk());
 
         //Check for PvP
         if (!d.getType().isPvp()) {
@@ -158,7 +162,8 @@ public class MListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        mc.getChatHandler().updateDisplayName(Mafiacraft.getPlayer(event.getPlayer()));
+        mc.getChatHandler().updateDisplayName(Mafiacraft.getPlayer(event.
+                getPlayer()));
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -170,7 +175,8 @@ public class MListener implements Listener {
         Chunk current = player.getBukkitEntity().getLocation().getChunk();
 
         if (last == null) {
-            store.setData("lastchunk", player.getBukkitEntity().getLocation().getChunk());
+            store.setData("lastchunk", player.getBukkitEntity().getLocation().
+                    getChunk());
             return;
         }
 
@@ -190,10 +196,12 @@ public class MListener implements Listener {
         District prev = mc.getCityManager().getDistrict(last);
 
         if (!dest.getType().canEnter(player)) {
-            player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.getNameInChat() + ".");
+            player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.
+                    getNameInChat() + ".");
 
             //Move back
-            Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.getZ() - last.getZ());
+            Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.
+                    getZ() - last.getZ());
 
             event.setTo(event.getFrom().subtract(vec.normalize()));
             event.setCancelled(true);
@@ -201,7 +209,8 @@ public class MListener implements Listener {
         }
 
         if (prev != dest) {
-            player.sendMessage(ChatColor.GRAY + "You are now entering " + dest.getNameInChat() + ".");
+            player.sendMessage(ChatColor.GRAY + "You are now entering " + dest.
+                    getNameInChat() + ".");
         }
 
         //We've switched chunks!

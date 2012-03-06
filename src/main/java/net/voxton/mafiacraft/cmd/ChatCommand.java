@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
  * /chat command.
  */
 public class ChatCommand {
+
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
@@ -58,7 +59,8 @@ public class ChatCommand {
         }
 
         player.setChatType(chatType);
-        player.sendMessage(MsgColor.SUCCESS + "You have changed to " + chatType.getName(player) + " chat.");
+        player.sendMessage(MsgColor.SUCCESS + "You have changed to " + chatType.
+                getName(player) + " chat.");
         return null;
     }
 

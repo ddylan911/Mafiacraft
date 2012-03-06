@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
  * @author simplyianm
  */
 public class MsgColor {
+
     public static final String ERROR = ChatColor.RED.toString();
 
     public static final String INFO = ChatColor.YELLOW.toString();

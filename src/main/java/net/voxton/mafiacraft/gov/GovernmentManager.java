@@ -23,6 +23,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
  * @author simplyianm
  */
 public class GovernmentManager {
+
     private TIntObjectMap<Government> governments = new TIntObjectHashMap<Government>();
 
     private TIntObjectMap<Division> divisions = new TIntObjectHashMap<Division>();
@@ -252,22 +253,23 @@ public class GovernmentManager {
         return id;
     }
 
-	/**
-	 * Loads the div/gov map from the gov/div map.
-	 * 
-	 * @return This GovernmentManager.
-	 */
-	private GovernmentManager loadDivGovMap() {
-		divGovMap = new HashMap<Division, Government>();
-		
-		for (Entry<Government, List<Division>> mapping : govDivMap.entrySet()) {
-			Government gov = mapping.getKey();
-			List<Division> divs = mapping.getValue();
-			
-			for (Division div : divs) {
-				divGovMap.put(div, gov);
-			}
-		}
-		return this;
-	}
+    /**
+     * Loads the div/gov map from the gov/div map.
+     *
+     * @return This GovernmentManager.
+     */
+    private GovernmentManager loadDivGovMap() {
+        divGovMap = new HashMap<Division, Government>();
+
+        for (Entry<Government, List<Division>> mapping : govDivMap.entrySet()) {
+            Government gov = mapping.getKey();
+            List<Division> divs = mapping.getValue();
+
+            for (Division div : divs) {
+                divGovMap.put(div, gov);
+            }
+        }
+        return this;
+    }
+
 }

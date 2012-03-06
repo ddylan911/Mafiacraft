@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
  * @author Dylan
  */
 public class LocalChat extends ChatType {
+
     @Override
     public void chat(MPlayer player, String message) {
         String govPref = "";
@@ -25,7 +26,8 @@ public class LocalChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_LOCAL + "[L] " + govPref + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+        String msg = MsgColor.CHAT_LOCAL + "[L] " + govPref + ChatColor.WHITE + player.
+                getDisplayName() + ": " + message;
 
         for (Player bPlayer : Bukkit.getOnlinePlayers()) {
             if (bPlayer.getLocation().distanceSquared(bPlayer.getLocation()) <= 2500) {

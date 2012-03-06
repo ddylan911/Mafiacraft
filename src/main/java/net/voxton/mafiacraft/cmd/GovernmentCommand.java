@@ -31,6 +31,7 @@ import org.bukkit.entity.Player;
  * Holds government-related commands.
  */
 public class GovernmentCommand {
+
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args, GovType type) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
@@ -135,8 +136,10 @@ public class GovernmentCommand {
 
         gov.addAffiliate(player);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have joined the " + type.getName() + " " + gov.getName() + ".");
-        gov.broadcastMessage(player.getName() + " has joined the " + gov.getType().getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have joined the " + type.
+                getName() + " " + gov.getName() + ".");
+        gov.broadcastMessage(player.getName() + " has joined the " + gov.getType().
+                getName() + ".");
         return null;
     }
 
@@ -182,7 +185,8 @@ public class GovernmentCommand {
         }
 
         founded.setLeader(player);
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully founded a new " + type.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully founded a new " + type.
+                getName() + ".");
         return null;
     }
 
@@ -201,7 +205,8 @@ public class GovernmentCommand {
             return "The player you specified is either not online or does not exist.";
         }
 
-        player.sendMessage(MsgColor.INFO + "TODO: finish info for " + tgt.getDisplayName());
+        player.sendMessage(MsgColor.INFO + "TODO: finish info for " + tgt.
+                getDisplayName());
         player.sendMessage(MsgColor.INFO + "Position: " + tgt.getPosition());
         //TODO: add stats
         return null;
@@ -249,7 +254,8 @@ public class GovernmentCommand {
         }
 
         //Teleport.
-        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.GOVHQ, player.getBukkitEntity(), hq);
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.GOVHQ, player.
+                getBukkitEntity(), hq);
         return null;
     }
 
@@ -277,13 +283,15 @@ public class GovernmentCommand {
         Government other = tgt.getGovernment();
         if (other != null) {
             if (other.equals(gov)) {
-                return "The other player you specified is already in your " + gov.getType().getName() + ".";
+                return "The other player you specified is already in your " + gov.
+                        getType().getName() + ".";
             }
             return "The player you specified is already affiliated with a government.";
         }
 
         gov.dispatchInvite(player, tgt);
-        player.sendMessage(MsgColor.INFO + "An invite to the mafia has been dispatched to " + tgt.getName() + ".");
+        player.sendMessage(MsgColor.INFO + "An invite to the mafia has been dispatched to " + tgt.
+                getName() + ".");
         return null;
     }
 
@@ -317,12 +325,14 @@ public class GovernmentCommand {
         }
 
         if (!tgt.getPosition().equals(Position.AFFILIATE)) {
-            return "Only " + gov.getType().getLocale("affiliates") + " may be kicked from a " + gov.getType().getName() + ".";
+            return "Only " + gov.getType().getLocale("affiliates") + " may be kicked from a " + gov.
+                    getType().getName() + ".";
         }
 
         gov.removeMember(tgt);
         tgt.resetPower();
-        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been kicked out of the " + gov.getType().getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been kicked out of the " + gov.
+                getType().getName() + ".");
         return null;
     }
 
@@ -345,7 +355,8 @@ public class GovernmentCommand {
 
         Division div = gov.getDivisionByName(division);
         if (div == null) {
-            return "That division does not exist within your " + gov.getType().getName() + ".";
+            return "That division does not exist within your " + gov.getType().
+                    getName() + ".";
         }
 
         if (!gov.transferWithCheck(div, amount)) {
@@ -353,7 +364,8 @@ public class GovernmentCommand {
         }
 
         player.sendMessage(MsgColor.SUCCESS + amount + " " + MConfig.getString("currency.namepl")
-                + " have been granted to the " + gov.getType().getLocale("division") + " " + div.getName() + ".");
+                + " have been granted to the " + gov.getType().getLocale("division") + " " + div.
+                getName() + ".");
         return null;
     }
 
@@ -379,11 +391,14 @@ public class GovernmentCommand {
         }
 
         if (!gov.canHaveMoreDivisions()) {
-            return "The " + gov.getType().getName() + " has too many " + gov.getType().getLocale("divisions") + ". Make sure all of your " + gov.getType().getLocale("divisions") + " have greater than 5 players each.";
+            return "The " + gov.getType().getName() + " has too many " + gov.
+                    getType().getLocale("divisions") + ". Make sure all of your " + gov.
+                    getType().getLocale("divisions") + " have greater than 5 players each.";
         }
 
         Division div = gov.createDivision().setManager(player.getName()).setName(name);
-        player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.getType().getLocale("division") + " successfully.");
+        player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.
+                getType().getLocale("division") + " successfully.");
         return null;
     }
 
@@ -405,7 +420,8 @@ public class GovernmentCommand {
 
         Division div = gov.getDivisionByName(division);
         if (div == null) {
-            return "A " + gov.getType().getLocale("division") + " with the name '" + division + "' does not exist in your " + gov.getType().getName() + ".";
+            return "A " + gov.getType().getLocale("division") + " with the name '" + division + "' does not exist in your " + gov.
+                    getType().getName() + ".";
         }
 
         div.setManager(manager);
@@ -443,7 +459,8 @@ public class GovernmentCommand {
         gov.claim(section);
         gov.subtractMoney(price);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.getSectionName(section) + " for your " + gov.getType().getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.
+                getSectionName(section) + " for your " + gov.getType().getName() + ".");
         return null;
     }
 
@@ -486,7 +503,8 @@ public class GovernmentCommand {
         gov.removeMemberAndSucceed(player);
 
         player.sendMessage(MsgColor.SUCCESS + "You have left " + gov.getName() + ".");
-        gov.broadcastMessage(MsgColor.INFO + player.getName() + " has left the " + gov.getType().getName() + ".");
+        gov.broadcastMessage(MsgColor.INFO + player.getName() + " has left the " + gov.
+                getType().getName() + ".");
         return null;
     }
 
@@ -515,7 +533,8 @@ public class GovernmentCommand {
         }
 
         if (!gov.isMember(tgt)) {
-            return "You cannot promote a member that is not part of the " + gov.getType().getName() + ".";
+            return "You cannot promote a member that is not part of the " + gov.
+                    getType().getName() + ".";
         }
 
         if (tgt.getPosition().isAtLeast(Position.OFFICER)) {
@@ -549,7 +568,8 @@ public class GovernmentCommand {
         }
 
         if (!gov.isMember(tgt)) {
-            return "You cannot demote a member that is not part of the " + gov.getType().getName() + ".";
+            return "You cannot demote a member that is not part of the " + gov.
+                    getType().getName() + ".";
         }
 
         if (tgt.getPosition().isAtLeast(Position.VICE_LEADER)) {

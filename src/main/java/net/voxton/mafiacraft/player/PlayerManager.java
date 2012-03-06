@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
  * @author simplyianm
  */
 public class PlayerManager {
+
     private Cache<String, MPlayer> players;
 
     private final MafiacraftPlugin mc;
@@ -46,6 +47,7 @@ public class PlayerManager {
         builder.maximumSize(10000).expireAfterWrite(10, TimeUnit.MINUTES);
 
         builder.removalListener(new RemovalListener<String, MPlayer>() {
+
             @Override
             public void onRemoval(RemovalNotification<String, MPlayer> rn) {
                 savePlayer(rn.getValue());
@@ -55,6 +57,7 @@ public class PlayerManager {
 
         players = builder.build(
                 new CacheLoader<String, MPlayer>() {
+
                     @Override
                     public MPlayer load(String key) throws Exception {
                         return loadPlayer(key);
@@ -71,18 +74,18 @@ public class PlayerManager {
     public KillTracker getKillTracker() {
         return killTracker;
     }
-	
-	/**
-	 * Saves all cached players to their appropriate files.
-	 * 
-	 * @return This player manager.
-	 */
-	public PlayerManager saveAll() {
-		for (MPlayer player : players.asMap().values()) {
-			savePlayer(player);
-		}
-		return this;
-	}
+
+    /**
+     * Saves all cached players to their appropriate files.
+     *
+     * @return This player manager.
+     */
+    public PlayerManager saveAll() {
+        for (MPlayer player : players.asMap().values()) {
+            savePlayer(player);
+        }
+        return this;
+    }
 
     /**
      * Gets a list of all players.

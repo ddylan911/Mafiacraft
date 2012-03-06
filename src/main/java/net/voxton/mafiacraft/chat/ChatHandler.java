@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
  * Handles chat.
  */
 public class ChatHandler {
+
     private MafiacraftPlugin mc;
 
     public ChatHandler(MafiacraftPlugin mc) {

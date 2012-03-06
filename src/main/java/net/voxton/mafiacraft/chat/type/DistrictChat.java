@@ -15,6 +15,7 @@ import org.bukkit.ChatColor;
  * @author Dylan
  */
 public class DistrictChat extends ChatType {
+
     @Override
     public void chat(MPlayer player, String message) {
         if (player.getDistrict() == null) {
@@ -28,7 +29,8 @@ public class DistrictChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_DISTRICT + "[D] " + govPref + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+        String msg = MsgColor.CHAT_DISTRICT + "[D] " + govPref + ChatColor.WHITE + player.
+                getDisplayName() + ": " + message;
 
         for (MPlayer players : player.getDistrict().getPlayers()) {
             players.sendMessage(msg);

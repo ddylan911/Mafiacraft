@@ -15,6 +15,7 @@ import org.bukkit.configuration.Configuration;
  * @author ianschool
  */
 public class MConfig {
+
     private static final Map<String, Object> defaults = new HashMap<String, Object>();
 
     private static MafiacraftPlugin plugin = null;
@@ -122,7 +123,7 @@ public class MConfig {
         addDefault("prices.city.annex", 10000.0);
         addDefault("prices.city.claim", 100.0);
         addDefault("prices.city.found", 1000000.0);
-        
+
         //Government
         addDefault("prices.gov.sethq", 100.0);
 
@@ -131,7 +132,7 @@ public class MConfig {
 
         //District
         addDefault("district.maxdesclength", 45);
-        
+
         //Spawn times
         addDefault("warmup.cityspawn", 10);
     }

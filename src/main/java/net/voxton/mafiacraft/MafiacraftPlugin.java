@@ -20,10 +20,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MafiacraftPlugin extends JavaPlugin {
 
     private ChatHandler chatHandler;
+
     private CityManager cityManager;
+
     private DataWorker dataWorker;
+
     private GovernmentManager governmentManager;
+
     private PlayerManager playerManager;
+
     private VaultHelper vaultHelper;
 
     @Override
@@ -84,4 +89,5 @@ public class MafiacraftPlugin extends JavaPlugin {
     public VaultHelper getVaultHelper() {
         return vaultHelper;
     }
+
 }

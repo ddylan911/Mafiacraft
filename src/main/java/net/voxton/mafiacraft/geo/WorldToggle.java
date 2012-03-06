@@ -9,5 +9,7 @@ package net.voxton.mafiacraft.geo;
  * @author simplyianm
  */
 public enum WorldToggle {
+
     FREE_ROAM;
+
 }

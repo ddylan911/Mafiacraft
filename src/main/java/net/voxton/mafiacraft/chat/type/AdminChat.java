@@ -16,9 +16,11 @@ import org.bukkit.entity.Player;
  * @author Dylan
  */
 public class AdminChat extends ChatType {
+
     @Override
     public void chat(MPlayer player, String message) {
-        String msg = MsgColor.CHAT_ADMIN + "[A] " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+        String msg = MsgColor.CHAT_ADMIN + "[A] " + ChatColor.WHITE + player.
+                getDisplayName() + ": " + message;
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             if (!players.hasPermission("mafiacraft.admin")) {

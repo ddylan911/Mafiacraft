@@ -8,12 +8,13 @@ package net.voxton.mafiacraft.vault;
  * Represents an object that can be transacted with.
  */
 public abstract class Transactable {
+
     private double money;
 
     /**
      * Gets the money of this Transactable.
-     * 
-     * @return 
+     *
+     * @return
      */
     public double getMoney() {
         return money;
@@ -33,12 +34,12 @@ public abstract class Transactable {
     }
 
     /**
-     * Transfers money to another Transactable.
-     * This does not check for negative money.
-     * 
+     * Transfers money to another Transactable. This does not check for negative
+     * money.
+     *
      * @param other
      * @param amt
-     * @return 
+     * @return
      */
     public Transactable transferMoney(Transactable other, double amt) {
         subtractMoney(amt);

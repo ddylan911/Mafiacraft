@@ -21,5 +21,5 @@ public class CityMenu extends HelpMenu {
         addEntry("bus <district>", "Teleports you to the given bus stop.");
         addEntry("spawn", "Teleports you to the city's spawn location.");
     }
-    
+
 }

@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
  * @author simplyianm
  */
 public class SectionCommand {
+
     public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
