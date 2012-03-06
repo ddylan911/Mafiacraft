@@ -34,13 +34,15 @@ public class CityManager {
 
     private TIntObjectMap<City> cities = new TIntObjectHashMap<City>();
 
-    private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
+    private Map<String, TIntObjectMap<District>> worlds =
+            new HashMap<String, TIntObjectMap<District>>();
 
     private Map<String, LandOwner> landOwners = new HashMap<String, LandOwner>();
 
     private Map<String, District> districts = new HashMap<String, District>();
 
-    private Map<City, List<District>> cityDistrictMap = new HashMap<City, List<District>>();
+    private Map<City, List<District>> cityDistrictMap =
+            new HashMap<City, List<District>>();
 
     private Map<District, City> districtCityMap = new HashMap<District, City>();
 
@@ -143,7 +145,8 @@ public class CityManager {
         city.attachNewDistrict(center);
         center.setType(DistrictType.GOVERNMENT);
         insertCity(city);
-        Mafiacraft.getCityManager().getCityWorld(center.getWorld()).setCapital(city);
+        Mafiacraft.getCityManager().getCityWorld(center.getWorld()).setCapital(
+                city);
         return city;
     }
 
@@ -239,19 +242,22 @@ public class CityManager {
     public District getDistrictFromUid(String uid) {
         String[] split = uid.split(";");
         if (split.length < 2) {
-            MLogger.log(Level.SEVERE, "Invalid District UID encountered: not enough semicolon delimited parts! UID in question: '" + uid + "'.");
+            MLogger.log(Level.SEVERE, "Invalid District UID encountered: not enough semicolon delimited parts! UID in question: '"
+                    + uid + "'.");
         }
 
         World world = Bukkit.getWorld(split[0]);
         if (world == null) {
-            MLogger.log(Level.SEVERE, "Invalid District UID encountered for world: '" + uid + "'!");
+            MLogger.log(Level.SEVERE, "Invalid District UID encountered for world: '"
+                    + uid + "'!");
         }
 
         int id = 0;
         try {
             id = Integer.parseInt(split[1]);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid District UID encoutered for world: '" + uid + "'!");
+            MLogger.log(Level.SEVERE, "Invalid District UID encoutered for world: '"
+                    + uid + "'!");
         }
 
         return getDistrictMap(world).get(id);
@@ -317,8 +323,8 @@ public class CityManager {
      * @return
      */
     private District createDistrict(Chunk sample) {
-        return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.
-                getZ() >> 4)));
+        return createDistrict(sample.getWorld(), ((sample.getX()) >> 4),
+                ((sample.getZ() >> 4)));
     }
 
     /**
@@ -517,7 +523,8 @@ public class CityManager {
 
         for (String key : conf.getKeys(false)) {
             Map<String, Object> data = (Map<String, Object>) conf.get(key);
-            City city = (City) ConfigurationSerialization.deserializeObject(data, City.class);
+            City city = (City) ConfigurationSerialization.deserializeObject(data,
+                    City.class);
 
             insertCity(city);
         }
@@ -532,7 +539,8 @@ public class CityManager {
      */
     public CityManager loadDistricts() {
         File districtFile = Mafiacraft.getSubFile("geo", "districts.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(districtFile);
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(
+                districtFile);
 
         districts = new HashMap<String, District>();
 
@@ -553,8 +561,10 @@ public class CityManager {
      * @return The city/district mappings.
      */
     public CityManager loadCityDistrictMappings() {
-        File mappingFile = Mafiacraft.getSubFile("geo", "city_district_mappings.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(mappingFile);
+        File mappingFile = Mafiacraft.getSubFile("geo",
+                "city_district_mappings.yml");
+        YamlConfiguration conf =
+                YamlConfiguration.loadConfiguration(mappingFile);
 
         cityDistrictMap = new HashMap<City, List<District>>();
         districtCityMap = new HashMap<District, City>();
@@ -601,7 +611,9 @@ public class CityManager {
         try {
             conf.save(cityFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The city world file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The city world file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;
@@ -623,7 +635,9 @@ public class CityManager {
         try {
             conf.save(cityFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The city file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The city file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;
@@ -645,7 +659,9 @@ public class CityManager {
         try {
             conf.save(districtFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The district file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The district file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;
@@ -657,7 +673,8 @@ public class CityManager {
      * @return This CityManager.
      */
     public CityManager saveCityDistrictMappings() {
-        File mappingFile = Mafiacraft.getSubFile("geo", "city_district_mappings.yml");
+        File mappingFile = Mafiacraft.getSubFile("geo",
+                "city_district_mappings.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
         for (Entry<City, List<District>> mapping : cityDistrictMap.entrySet()) {
@@ -673,7 +690,9 @@ public class CityManager {
         try {
             conf.save(mappingFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The city/district mapping file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The city/district mapping file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;

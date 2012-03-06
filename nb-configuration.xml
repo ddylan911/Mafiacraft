@@ -30,5 +30,11 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.blankLinesBeforeFields>1</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.blankLinesBeforeFields>
         <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapChainedMethodCalls>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapChainedMethodCalls>
         <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.blankLinesAfterMethods>1</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.blankLinesAfterMethods>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapTernaryOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapTernaryOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodParams>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodParams>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapBinaryOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapBinaryOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotationArgs>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotationArgs>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAssignOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAssignOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodCallArgs>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodCallArgs>
     </properties>
 </project-shared-configuration>

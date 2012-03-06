@@ -52,7 +52,8 @@ public class DataWorker {
      * @return The subfolder.
      */
     public File getSubFolder(String name) {
-        File folder = new File(mc.getDataFolder().getPath() + File.separator + name + File.separator);
+        File folder = new File(mc.getDataFolder().getPath() + File.separator
+                + name + File.separator);
         folder.mkdirs();
         return folder;
     }
@@ -64,7 +65,8 @@ public class DataWorker {
      * @return The created file.
      */
     public File getTopFile(String name) {
-        return getFileAndCreate(mc.getDataFolder().getPath() + File.separator + name);
+        return getFileAndCreate(mc.getDataFolder().getPath() + File.separator
+                + name);
     }
 
     /**
@@ -92,7 +94,8 @@ public class DataWorker {
             try {
                 file.createNewFile();
             } catch (IOException ex) {
-                MLogger.log(Level.SEVERE, "Error creating the file: '" + file + "'!", ex);
+                MLogger.log(Level.SEVERE, "Error creating the file: '" + file
+                        + "'!", ex);
             }
         }
 

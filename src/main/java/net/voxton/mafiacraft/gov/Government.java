@@ -215,7 +215,8 @@ public class Government extends Transactable implements LandPurchaser, Configura
      * @return
      */
     public Map<Position, List<String>> getPositions() {
-        Map<Position, List<String>> positions = new EnumMap<Position, List<String>>(Position.class);
+        Map<Position, List<String>> positions =
+                new EnumMap<Position, List<String>>(Position.class);
         for (Position position : Position.values()) {
             positions.put(position, getMembers(position));
         }
@@ -739,9 +740,11 @@ public class Government extends Transactable implements LandPurchaser, Configura
 
         invited.getSessionStore().setData("gov-inv", getId());
 
-        invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name + " has invited you to join their ranks.");
-        invited.sendMessage(MsgColor.INFO + "Type " + MsgColor.INFO_HILIGHT + "/" + type.
-                getLocale("command") + " accept" + MsgColor.INFO + " to join.");
+        invited.sendMessage(MsgColor.INFO + "The " + type.getName() + " " + name
+                + " has invited you to join their ranks.");
+        invited.sendMessage(MsgColor.INFO + "Type " + MsgColor.INFO_HILIGHT
+                + "/" + type.getLocale("command") + " accept" + MsgColor.INFO
+                + " to join.");
 
         return true;
     }
@@ -929,7 +932,9 @@ public class Government extends Transactable implements LandPurchaser, Configura
         try {
             id = Integer.parseInt(strId);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid number encountered when deserializing a government!", ex);
+            MLogger.log(Level.SEVERE,
+                    "Invalid number encountered when deserializing a government!",
+                    ex);
         }
 
         Government gov = new Government(id);
@@ -939,7 +944,8 @@ public class Government extends Transactable implements LandPurchaser, Configura
         String typeStr = data.get("type").toString();
         GovType type = GovType.fromString(typeStr);
         if (type == null) {
-            MLogger.log(Level.SEVERE, "Invalid GovType encountered when loading a government: '" + typeStr + "'!");
+            MLogger.log(Level.SEVERE, "Invalid GovType encountered when loading a government: '"
+                    + typeStr + "'!");
         }
 
         Map<String, Object> hqM = (Map<String, Object>) data.get("hq");
@@ -950,7 +956,8 @@ public class Government extends Transactable implements LandPurchaser, Configura
         try {
             land = Integer.parseInt(landS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid land amount encountered when loading a government: '" + landS + "'!");
+            MLogger.log(Level.SEVERE, "Invalid land amount encountered when loading a government: '"
+                    + landS + "'!");
         }
 
         String leader = data.get("leader").toString();

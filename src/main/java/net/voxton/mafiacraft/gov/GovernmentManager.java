@@ -33,12 +33,14 @@ public class GovernmentManager {
     /**
      * Holds all governments mapped to their ids.
      */
-    private TIntObjectMap<Government> governments = new TIntObjectHashMap<Government>();
+    private TIntObjectMap<Government> governments =
+            new TIntObjectHashMap<Government>();
 
     /**
      * Holds all divisions mapped to their ids.
      */
-    private TIntObjectMap<Division> divisions = new TIntObjectHashMap<Division>();
+    private TIntObjectMap<Division> divisions =
+            new TIntObjectHashMap<Division>();
 
     /**
      * Holds all police mappings to their respective cities.
@@ -51,12 +53,14 @@ public class GovernmentManager {
     /**
      * Maps governments to divisions. One to many.
      */
-    private Map<Government, List<Division>> govDivMap = new HashMap<Government, List<Division>>();
+    private Map<Government, List<Division>> govDivMap =
+            new HashMap<Government, List<Division>>();
 
     /**
      * Maps divisions to governments. Many to one.
      */
-    private Map<Division, Government> divGovMap = new HashMap<Division, Government>();
+    private Map<Division, Government> divGovMap =
+            new HashMap<Division, Government>();
 
     /**
      * Hook to the main plugin.
@@ -345,7 +349,8 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadDivGovMappings() {
-        File mappingFile = Mafiacraft.getSubFile("gov", "division_government_mappings.yml");
+        File mappingFile = Mafiacraft.getSubFile("gov",
+                "division_government_mappings.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
         for (String key : conf.getKeys(false)) {
@@ -353,11 +358,13 @@ public class GovernmentManager {
             try {
                 gid = Integer.parseInt(key);
             } catch (NumberFormatException ex) {
-                MLogger.log(Level.SEVERE, "Unexpected non-number found when parsing div/gov mappings! String: '" + key + "'", ex);
+                MLogger.log(Level.SEVERE, "Unexpected non-number found when "
+                        + "parsing div/gov mappings! String: '" + key + "'", ex);
             }
             Government gov = getGovernment(gid);
             if (gov == null) {
-                MLogger.log(Level.WARNING, "Government with id '" + gid + "' does not exist; skipping...");
+                MLogger.log(Level.WARNING, "Government with id '" + gid
+                        + "' does not exist; skipping...");
                 continue;
             }
 
@@ -368,12 +375,14 @@ public class GovernmentManager {
                 try {
                     did = Integer.parseInt(divId);
                 } catch (NumberFormatException ex) {
-                    MLogger.log(Level.SEVERE, "Unexpected string literal as opposed to a number found when parsing div/gov mappings! String is '" + divId + "'!", ex);
+                    MLogger.log(Level.SEVERE, "Unexpected string literal as opposed to a number found when parsing div/gov mappings! String is '"
+                            + divId + "'!", ex);
                 }
 
                 Division div = getDivision(did);
                 if (div == null) {
-                    MLogger.log(Level.WARNING, "Division with id '" + did + "' does not exist; skipping...");
+                    MLogger.log(Level.WARNING, "Division with id '" + did
+                            + "' does not exist; skipping...");
                     continue;
                 }
 
@@ -413,7 +422,9 @@ public class GovernmentManager {
         try {
             conf.save(govFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The government file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The government file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;
@@ -435,7 +446,9 @@ public class GovernmentManager {
         try {
             conf.save(divFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The division file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The division file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;
@@ -454,14 +467,16 @@ public class GovernmentManager {
 
         while (policeIterator.hasNext()) {
             policeIterator.advance();
-            conf.set(Integer.toString(policeIterator.key()), Integer.toString(policeIterator.
-                    value()));
+            conf.set(Integer.toString(policeIterator.key()),
+                    Integer.toString(policeIterator.value()));
         }
 
         try {
             conf.save(policeFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The police mapping file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The police mapping file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;
@@ -482,7 +497,8 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager saveDivGovMappings() {
-        File mappingFile = Mafiacraft.getSubFile("gov", "division_government_mappings.yml");
+        File mappingFile = Mafiacraft.getSubFile("gov",
+                "division_government_mappings.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
         for (Entry<Government, List<Division>> mapping : govDivMap.entrySet()) {
@@ -498,7 +514,9 @@ public class GovernmentManager {
         try {
             conf.save(mappingFile);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The gov/div mapping file could not be written for some odd reason!", ex);
+            MLogger.log(Level.SEVERE,
+                    "The gov/div mapping file could not be written for some odd reason!",
+                    ex);
         }
 
         return this;
