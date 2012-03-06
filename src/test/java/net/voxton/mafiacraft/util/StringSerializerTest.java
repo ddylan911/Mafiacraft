@@ -4,33 +4,31 @@
  */
 package net.voxton.mafiacraft.util;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author simplyianm
  */
-public class StringSerializerTest extends TestCase {
+public class StringSerializerTest {
 
-    public StringSerializerTest(String testName) {
-        super(testName);
+    @Before
+    public void setUp() throws Exception {
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown() throws Exception {
     }
 
     /**
      * Test of fromString method, of class StringSerializer.
      */
+    @Test
     public void testFromString() throws Exception {
         System.out.println("fromString");
         String string = "rO0ABXNyACFnbnUudHJvdmUubWFwLmhhc2guVEludEludEhhc2hNYXAAAAAAAAAAAQwAAHhyAB9n"
@@ -51,6 +49,7 @@ public class StringSerializerTest extends TestCase {
         assertEquals(expResult, result);
     }
 
+    @Test
     public void testSerializationIntegrity_TIntIntHashMap() throws Exception {
         System.out.println("Serialization Integrity of TIntIntHashMap");
         TIntIntHashMap object = new TIntIntHashMap();
@@ -66,6 +65,7 @@ public class StringSerializerTest extends TestCase {
         assertEquals(object, back);
     }
 
+    @Test
     public void testSerializationIntegrity_TIntObjectHashMap() throws Exception {
         System.out.println("Serialization Integrity of TIntObjectHashMap");
         TIntObjectHashMap<String> object = new TIntObjectHashMap<String>();

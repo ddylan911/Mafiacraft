@@ -4,31 +4,28 @@
  */
 package net.voxton.mafiacraft.util;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.After;
+import org.junit.Before;
+import static org.junit.Assert.*;
 
 /**
- *
- * @author simplyianm
+ * Testing geo utils.
  */
-public class GeoUtilsTest extends TestCase {
+public class GeoUtilsTest {
 
-    public GeoUtilsTest(String testName) {
-        super(testName);
+    @Before
+    public void setUp() throws Exception {
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown() throws Exception {
     }
 
     /**
      * Test of coordsToDistrictId method, of class GeoUtils.
      */
+    @Test
     public void testCoordsToDistrictId() {
         System.out.println("coordsToDistrictId");
         int x = 9887;
@@ -38,6 +35,7 @@ public class GeoUtilsTest extends TestCase {
         assertEquals(expResult, result);
     }
 
+    @Test
     public void testCoordsToDistrictId_negative() {
         System.out.println("coordsToDistrictId_negative");
         int x = -9887;
@@ -50,6 +48,7 @@ public class GeoUtilsTest extends TestCase {
     /**
      * Test of xFromDistrictId method, of class GeoUtils.
      */
+    @Test
     public void testXFromDistrictId() {
         System.out.println("xFromDistrictId");
         int id = 0xa69f9e5d;
@@ -61,6 +60,7 @@ public class GeoUtilsTest extends TestCase {
     /**
      * Test of xFromDistrictId method, of class GeoUtils.
      */
+    @Test
     public void testXFromDistrictId_negative() {
         System.out.println("xFromDistrictId_negative");
         int id = 0x596161a3;
@@ -72,6 +72,7 @@ public class GeoUtilsTest extends TestCase {
     /**
      * Test of zFromDistrictId method, of class GeoUtils.
      */
+    @Test
     public void testZFromDistrictId() {
         System.out.println("zFromDistrictId");
         int id = 0xa69f9e5d;
@@ -80,6 +81,7 @@ public class GeoUtilsTest extends TestCase {
         assertEquals(expResult, result);
     }
 
+    @Test
     public void testZFromDistrictId_negative() {
         System.out.println("zFromDistrictId_negative");
         int id = 0x596161a3;
@@ -91,6 +93,7 @@ public class GeoUtilsTest extends TestCase {
     /**
      * Test of coordsToSectionId method, of class GeoUtils.
      */
+    @Test
     public void testCoordsToSectionId() {
         System.out.println("coordsToSectionId");
         int x = 1;
