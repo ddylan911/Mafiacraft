@@ -15,6 +15,7 @@ import org.bukkit.configuration.serialization.SerializableAs;
  */
 @SerializableAs("cw")
 public class CityWorld implements ConfigurationSerializable {
+
     private final World world;
 
     private City capital;
@@ -106,9 +107,23 @@ public class CityWorld implements ConfigurationSerializable {
         return value;
     }
 
+    /**
+     * Gets the default district type of this CityWorld.
+     *
+     * @return The default district type.
+     */
     public DistrictType getDefaultDistrictType() {
         boolean freeRoam = isToggled(WorldToggle.FREE_ROAM);
         return freeRoam ? DistrictType.ANARCHIC : DistrictType.RESERVED;
+    }
+
+    /**
+     * Gets the name of this CityWorld.
+     *
+     * @return The name of the CityWorld.
+     */
+    public String getName() {
+        return getWorld().getName();
     }
 
     ////////////
@@ -118,7 +133,7 @@ public class CityWorld implements ConfigurationSerializable {
     public Map<String, Object> serialize() {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("toggles", new ArrayList<String>(toggles));
-        data.put("world", world.getName());
+        data.put("world", getName());
         return data;
     }
 

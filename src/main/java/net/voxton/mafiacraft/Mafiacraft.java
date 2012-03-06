@@ -4,6 +4,7 @@
  */
 package net.voxton.mafiacraft;
 
+import java.io.File;
 import net.voxton.mafiacraft.chat.ChatHandler;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.geo.District;
@@ -13,6 +14,7 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
 import java.util.List;
+import net.voxton.mafiacraft.data.DataWorker;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
@@ -20,6 +22,7 @@ import org.bukkit.entity.Player;
  * Mafiacraft API accessor static class.
  */
 public class Mafiacraft {
+
     private static MafiacraftPlugin plugin;
 
     public static void setPlugin(MafiacraftPlugin mcp) {
@@ -64,6 +67,37 @@ public class Mafiacraft {
     }
 
     /**
+     * Gets the specified subfolder of the plugin.
+     *
+     * @param name The name of the folder.
+     * @return The subfolder specified.
+     */
+    public static File getSubFolder(String name) {
+        return getDataWorker().getSubFolder(name);
+    }
+
+    /**
+     * Gets a top-level file with the given name.
+     *
+     * @param name The name of the file.
+     * @return The created file.
+     */
+    public static File getTopFile(String name) {
+        return getDataWorker().getTopFile(name);
+    }
+
+    /**
+     * Gets a second-level file with the given name and directory.
+     *
+     * @param dir The directory containing the file.
+     * @param name The name of the file.
+     * @return The file retrieved.
+     */
+    public static File getSubFile(String dir, String name) {
+        return getDataWorker().getSubFile(dir, name);
+    }
+
+    /**
      * Gets the chat handler.
      *
      * @return
@@ -79,6 +113,15 @@ public class Mafiacraft {
      */
     public static CityManager getCityManager() {
         return getPlugin().getCityManager();
+    }
+
+    /**
+     * Gets the data worker.
+     *
+     * @return The data worker.
+     */
+    public static DataWorker getDataWorker() {
+        return getPlugin().getDataWorker();
     }
 
     /**

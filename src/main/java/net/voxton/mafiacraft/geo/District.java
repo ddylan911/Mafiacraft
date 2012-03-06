@@ -33,6 +33,7 @@ import org.bukkit.configuration.serialization.SerializableAs;
  */
 @SerializableAs("district")
 public class District implements LandOwner, ConfigurationSerializable {
+
     private transient final int id;
 
     private String name;
@@ -67,6 +68,15 @@ public class District implements LandOwner, ConfigurationSerializable {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Gets this district's unique id.
+     *
+     * @return The unique id of the district.
+     */
+    public String getUid() {
+        return getWorld().getName() + ";" + getId();
     }
 
     /**
@@ -215,7 +225,8 @@ public class District implements LandOwner, ConfigurationSerializable {
         if (!contains(chunk)) {
             throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
         }
-        return getOwner(getDistrictOrigin(chunk.getX()), getDistrictOrigin(chunk.getZ()));
+        return getOwner(getDistrictOrigin(chunk.getX()), getDistrictOrigin(chunk.
+                getZ()));
     }
 
     /**
@@ -471,7 +482,8 @@ public class District implements LandOwner, ConfigurationSerializable {
     public String getNameInChat() {
         if (name != null) {
             City c = getCity();
-            return "district " + name + ((c == null) ? "" : " of " + c.getOwnerName());
+            return "district " + name + ((c == null) ? "" : " of " + c.
+                    getOwnerName());
         }
         return "an unexplored district";
     }

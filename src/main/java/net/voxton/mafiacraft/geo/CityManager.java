@@ -12,19 +12,24 @@ import net.voxton.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 /**
  * Manager for handling district objects.
  */
 public class CityManager {
+
     private Map<World, CityWorld> cityWorldMap = new HashMap<World, CityWorld>();
 
     private TIntObjectMap<City> cities = new TIntObjectHashMap<City>();
@@ -32,6 +37,10 @@ public class CityManager {
     private Map<String, TIntObjectMap<District>> worlds = new HashMap<String, TIntObjectMap<District>>();
 
     private Map<String, LandOwner> landOwners = new HashMap<String, LandOwner>();
+
+    private Map<String, District> districts = new HashMap<String, District>();
+
+    private Map<City, List<District>> cityDistrictMap = new HashMap<City, List<District>>();
 
     private Map<District, City> districtCityMap = new HashMap<District, City>();
 
@@ -60,6 +69,15 @@ public class CityManager {
             cityWorldMap.put(world, cworld);
         }
         return cworld;
+    }
+
+    /**
+     * Gets a list of city worlds currently loaded.
+     *
+     * @return The city world list.
+     */
+    public List<CityWorld> getCityWorldList() {
+        return new ArrayList<CityWorld>(cityWorldMap.values());
     }
 
     /////////////////
@@ -188,6 +206,20 @@ public class CityManager {
         return d;
     }
 
+    public District getDistrict(World world, int id) {
+        District d = getDistrictMap(world).get(id);
+
+        int x = GeoUtils.xFromDistrictId(id);
+        int z = GeoUtils.zFromDistrictId(id);
+
+        if (d == null) {
+            d = (getDistrictList(world).size() <= 0)
+                    ? createDistrict(world, x, z)
+                    : createDistrict(world, x, z);
+        }
+        return d;
+    }
+
     /**
      * Gets the city that corresponds with the given district.
      *
@@ -196,6 +228,33 @@ public class CityManager {
      */
     public City getCityOf(District district) {
         return districtCityMap.get(district);
+    }
+
+    /**
+     * Gets a district from their uid.
+     *
+     * @param uid The uid of the district as defined in District.getUid().
+     * @return The District corresponding with the UID.
+     */
+    public District getDistrictFromUid(String uid) {
+        String[] split = uid.split(";");
+        if (split.length < 2) {
+            MLogger.log(Level.SEVERE, "Invalid District UID encountered: not enough semicolon delimited parts! UID in question: '" + uid + "'.");
+        }
+
+        World world = Bukkit.getWorld(split[0]);
+        if (world == null) {
+            MLogger.log(Level.SEVERE, "Invalid District UID encountered for world: '" + uid + "'!");
+        }
+
+        int id = 0;
+        try {
+            id = Integer.parseInt(split[1]);
+        } catch (NumberFormatException ex) {
+            MLogger.log(Level.SEVERE, "Invalid District UID encoutered for world: '" + uid + "'!");
+        }
+
+        return getDistrictMap(world).get(id);
     }
 
     /**
@@ -228,7 +287,8 @@ public class CityManager {
      * @return
      */
     private District createDistrict(Chunk sample) {
-        return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.getZ() >> 4)));
+        return createDistrict(sample.getWorld(), ((sample.getX()) >> 4), ((sample.
+                getZ() >> 4)));
     }
 
     /**
@@ -242,7 +302,8 @@ public class CityManager {
     private District createDistrict(World world, int x, int z) {
         District d = new District(world, x, z);
         getDistrictMap(world).put(d.getId(), d);
-        MLogger.logVerbose("A district was created in the world '" + world.getName() + "' at (" + x + ", " + z + ").");
+        MLogger.logVerbose("A district was created in the world '" + world.
+                getName() + "' at (" + x + ", " + z + ").");
         return d;
     }
 
@@ -272,22 +333,38 @@ public class CityManager {
     }
 
     /**
+     * Gets a list of all Districts loaded.
+     *
+     * @return The list of districts.
+     */
+    public List<District> getDistrictList() {
+        return new ArrayList<District>(districtCityMap.keySet());
+    }
+
+    /**
+     * Gets the actual city district mapping for the given city. INTERNAL USE
+     * ONLY!
+     *
+     * @param city
+     * @return
+     */
+    private List<District> getActualCityDistricts(City city) {
+        List<District> districts = cityDistrictMap.get(city);
+        if (districts == null) {
+            districts = new ArrayList<District>();
+            cityDistrictMap.put(city, districts);
+        }
+        return districts;
+    }
+
+    /**
      * Gets a list of all districts in a city.
      *
      * @param city
      * @return
      */
     public List<District> getCityDistricts(City city) {
-        List<District> districts = new ArrayList<District>();
-        for (World world : Bukkit.getWorlds()) {
-            for (District district : getDistrictList(world)) {
-                City dc = district.getCity();
-                if (dc != null && dc.equals(city)) {
-                    districts.add(district);
-                }
-            }
-        }
-        return districts;
+        return new ArrayList(getActualCityDistricts(city));
     }
 
     /**
@@ -363,18 +440,191 @@ public class CityManager {
     }
 
     ///////////
+    // LOADING
+    ///////////
+    /**
+     * Loads this CityManager from memory.
+     *
+     * @return This newly loaded CityManager.
+     */
+    public CityManager load() {
+        return loadCityWorlds().loadCities().loadDistricts();
+    }
+
+    /**
+     * Loads all CityWorlds from files into memory.
+     *
+     * @return This newly loaded CityManager.
+     */
+    public CityManager loadCityWorlds() {
+        File cityFile = Mafiacraft.getSubFile("geo", "cityworlds.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+
+        for (String key : conf.getKeys(false)) {
+            Map<String, Object> data = (Map<String, Object>) conf.get(key);
+            CityWorld cityWorld = (CityWorld) ConfigurationSerialization.
+                    deserializeObject(data, CityWorld.class);
+
+            cityWorldMap.put(cityWorld.getWorld(), cityWorld);
+        }
+
+        return this;
+    }
+
+    /**
+     * Loads all cities from files into memory.
+     *
+     * @return This newly loaded CityManager.
+     */
+    public CityManager loadCities() {
+        File cityFile = Mafiacraft.getSubFile("geo", "cities.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+
+        for (String key : conf.getKeys(false)) {
+            Map<String, Object> data = (Map<String, Object>) conf.get(key);
+            City city = (City) ConfigurationSerialization.deserializeObject(data, City.class);
+
+            cities.put(city.getId(), city);
+        }
+
+        return this;
+    }
+
+    /**
+     * Loads all districts from files into memory.
+     *
+     * @return This newly loaded CityManager.
+     */
+    public CityManager loadDistricts() {
+        File districtFile = Mafiacraft.getSubFile("geo", "districts.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(districtFile);
+
+        for (String key : conf.getKeys(false)) {
+            Map<String, Object> data = (Map<String, Object>) conf.get(key);
+            District district = (District) ConfigurationSerialization.
+                    deserializeObject(data, City.class);
+
+            getDistrictMap(district.getWorld()).put(district.getId(), district);
+        }
+
+        return this;
+    }
+
+    public CityManager loadCityDistrictMappings() {
+        File mappingFile = Mafiacraft.getSubFile("geo", "city_district_mappings.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(mappingFile);
+
+        for (String key : conf.getKeys(false)) {
+//            List<String> getDistrictMap(district.getWorld()).put(district.getId(), district);
+        }
+
+        return this;
+    }
+
+    ///////////
     // SAVING
     ///////////
-    public void save() {
+    /**
+     * Saves everything in this CityManager.
+     *
+     * @return This CityManager.
+     */
+    public CityManager save() {
+        return saveCityWorlds().saveCities().saveDistricts();
     }
 
-    private void saveCities() {
+    /**
+     * Saves all CityWorlds to the config.
+     *
+     * @return This City Manager.
+     */
+    public CityManager saveCityWorlds() {
+        File cityFile = Mafiacraft.getSubFile("geo", "cityworlds.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+
+        for (CityWorld cityWorld : getCityWorldList()) {
+            conf.set(cityWorld.getName(), cityWorld);
+        }
+
+        try {
+            conf.save(cityFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The city world file could not be written for some odd reason!", ex);
+        }
+
+        return this;
     }
 
-    private File getCityFolder() {
-        File folder = new File(mc.getDataFolder().getPath() + File.separator + "city" + File.separator);
-        folder.mkdirs();
-        return folder;
+    /**
+     * Saves all cities currently loaded to files.
+     *
+     * @return This CityManager.
+     */
+    public CityManager saveCities() {
+        File cityFile = Mafiacraft.getSubFile("geo", "cities.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+
+        for (City city : getCityList()) {
+            conf.set(Integer.toString(city.getId()), city);
+        }
+
+        try {
+            conf.save(cityFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The city file could not be written for some odd reason!", ex);
+        }
+
+        return this;
+    }
+
+    /**
+     * Saves all districts currently loaded to files.
+     *
+     * @return This CityManager.
+     */
+    public CityManager saveDistricts() {
+        File districtFile = Mafiacraft.getSubFile("geo", "districts.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(districtFile);
+
+        for (District district : getDistrictList()) {
+            conf.set(district.getUid(), district);
+        }
+
+        try {
+            conf.save(districtFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The district file could not be written for some odd reason!", ex);
+        }
+
+        return this;
+    }
+
+    /**
+     * Saves all city/district mappings.
+     *
+     * @return This CityManager.
+     */
+    public CityManager saveCityDistrictMappings() {
+        File mappingFile = Mafiacraft.getSubFile("geo", "city_district_mappings.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(mappingFile);
+
+        for (Entry<City, List<District>> mapping : cityDistrictMap.entrySet()) {
+            City city = mapping.getKey();
+            List<District> dists = mapping.getValue();
+            List<String> distStrs = new ArrayList<String>();
+            for (District district : dists) {
+                distStrs.add(district.getWorld() + "," + district.getId());
+            }
+            conf.set(city.getName(), dists);
+        }
+
+        try {
+            conf.save(mappingFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The city/district mapping file could not be written for some odd reason!", ex);
+        }
+
+        return this;
     }
 
 }

@@ -6,27 +6,24 @@ package net.voxton.mafiacraft;
 
 import net.voxton.mafiacraft.chat.ChatHandler;
 import net.voxton.mafiacraft.cmd.Commands;
+import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.gov.GovernmentManager;
 import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Mafiacraft main class
+ * Mafiacraft main plugin class.
  */
 public class MafiacraftPlugin extends JavaPlugin {
+
     private ChatHandler chatHandler;
-
     private CityManager cityManager;
-
+    private DataWorker dataWorker;
     private GovernmentManager governmentManager;
-
     private PlayerManager playerManager;
-
     private VaultHelper vaultHelper;
 
     @Override
@@ -56,6 +53,7 @@ public class MafiacraftPlugin extends JavaPlugin {
         //Initialize managers/handlers/helpers
         chatHandler = new ChatHandler(this);
         cityManager = new CityManager(this);
+        dataWorker = new DataWorker(this);
         governmentManager = new GovernmentManager(this);
         playerManager = new PlayerManager(this);
         vaultHelper = new VaultHelper(this);
@@ -71,6 +69,10 @@ public class MafiacraftPlugin extends JavaPlugin {
         return cityManager;
     }
 
+    public DataWorker getDataWorker() {
+        return dataWorker;
+    }
+
     public GovernmentManager getGovernmentManager() {
         return governmentManager;
     }
@@ -82,5 +84,4 @@ public class MafiacraftPlugin extends JavaPlugin {
     public VaultHelper getVaultHelper() {
         return vaultHelper;
     }
-
 }
