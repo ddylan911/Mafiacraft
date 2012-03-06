@@ -14,23 +14,37 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+import net.voxton.mafiacraft.Mafiacraft;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author simplyianm
+ * Manages MPlayer objects.
  */
 public class PlayerManager {
 
+    /**
+     * Cache which stores all players.
+     */
     private Cache<String, MPlayer> players;
 
+    /**
+     * Hook to the plugin.
+     */
     private final MafiacraftPlugin mc;
 
+    /**
+     * The Kill tracker.
+     */
     private KillTracker killTracker;
 
+    /**
+     * Constructor.
+     * 
+     * @param mc The MafiaCraft plugin.
+     */
     public PlayerManager(MafiacraftPlugin mc) {
         this.mc = mc;
         this.killTracker = new KillTracker(mc);
@@ -157,34 +171,13 @@ public class PlayerManager {
     }
 
     /**
-     * Gets the folder where player info is kept.
-     *
-     * @return The player info folder as a File.
-     */
-    private File getPlayerFolder() {
-        File folder = new File(mc.getDataFolder().getPath() + File.separator + "players" + File.separator);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-        return folder;
-    }
-
-    /**
      * Gets a player's file.
      *
      * @param player
      * @return
      */
     private File getPlayerFile(String player) {
-        File file = new File(getPlayerFolder().getPath() + File.separator + player + ".yml");
-
-        try {
-            file.createNewFile();
-        } catch (IOException ex) {
-            MLogger.log(player + "'s file could not be created!");
-        }
-
-        return file;
+       return Mafiacraft.getSubFile("player", player + ".ymlÏ");
     }
 
     /**

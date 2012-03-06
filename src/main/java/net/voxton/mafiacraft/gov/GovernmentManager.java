@@ -312,18 +312,38 @@ public class GovernmentManager {
                 loadDivGovMappings();
     }
 
+    /**
+     * Loads all governments into memory.
+     * 
+     * @return This GovernmentManager.
+     */
     public GovernmentManager loadGovernments() {
         return this;
     }
 
+    /**
+     * Loads all divisions into memory.
+     * 
+     * @return This GovernmentManager.
+     */
     public GovernmentManager loadDivisions() {
         return this;
     }
 
+    /**
+     * Loads all police/city mappings into memory.
+     * 
+     * @return This GovernmentManager.
+     */
     public GovernmentManager loadPoliceMappings() {
         return this;
     }
 
+    /**
+     * Loads all div/gov mappings into memory.
+     * 
+     * @return This GovernmentManager.
+     */
     public GovernmentManager loadDivGovMappings() {
         return this;
     }
@@ -341,31 +361,58 @@ public class GovernmentManager {
                 saveDivGovMappings();
     }
 
+    /**
+     * Saves all governments to files.
+     * 
+     * @return This GovernmentManager.
+     */
     public GovernmentManager saveGovernments() {
-        File cityFile = Mafiacraft.getSubFile("gov", "governments.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+        File govFile = Mafiacraft.getSubFile("gov", "governments.yml");
+        YamlConfiguration conf = new YamlConfiguration();
 
         for (Government gov : getGovernmentList()) {
             conf.set(Integer.toString(gov.getId()), gov);
         }
 
-        return this;
-    }
-
-    public GovernmentManager saveDivisions() {
-        File cityFile = Mafiacraft.getSubFile("gov", "divisions.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
-
-        for (Division div : getDivisionList()) {
-            conf.set(Integer.toString(div.getId()), div);
+        try {
+            conf.save(govFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The government file could not be written for some odd reason!", ex);
         }
 
         return this;
     }
 
+    /**
+     * Saves all divisions to files.
+     * 
+     * @return This GovernmentManager.
+     */
+    public GovernmentManager saveDivisions() {
+        File divFile = Mafiacraft.getSubFile("gov", "divisions.yml");
+        YamlConfiguration conf = new YamlConfiguration();
+
+        for (Division div : getDivisionList()) {
+            conf.set(Integer.toString(div.getId()), div);
+        }
+
+        try {
+            conf.save(divFile);
+        } catch (IOException ex) {
+            MLogger.log(Level.SEVERE, "The division file could not be written for some odd reason!", ex);
+        }
+
+        return this;
+    }
+
+    /**
+     * Saves all police mappings to cities.
+     * 
+     * @return This GovernmentManager.
+     */
     public GovernmentManager savePoliceMappings() {
         File policeFile = Mafiacraft.getSubFile("gov", "police.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(policeFile);
+        YamlConfiguration conf = new YamlConfiguration();
 
         TIntIntIterator policeIterator = policeMap.iterator();
 
@@ -384,9 +431,14 @@ public class GovernmentManager {
         return this;
     }
 
+    /**
+     * Saves all mappings between divisions and governments.
+     * 
+     * @return This GovernmentManager.
+     */
     public GovernmentManager saveDivGovMappings() {
         File mappingFile = Mafiacraft.getSubFile("gov", "division_government_mappings.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(mappingFile);
+        YamlConfiguration conf = new YamlConfiguration();
 
         for (Entry<Government, List<Division>> mapping : govDivMap.entrySet()) {
             Government gov = mapping.getKey();

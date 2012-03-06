@@ -592,7 +592,7 @@ public class CityManager {
      */
     public CityManager saveCityWorlds() {
         File cityFile = Mafiacraft.getSubFile("geo", "cityworlds.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+        YamlConfiguration conf = new YamlConfiguration();
 
         for (CityWorld cityWorld : getCityWorldList()) {
             conf.set(cityWorld.getName(), cityWorld);
@@ -614,7 +614,7 @@ public class CityManager {
      */
     public CityManager saveCities() {
         File cityFile = Mafiacraft.getSubFile("geo", "cities.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
+        YamlConfiguration conf = new YamlConfiguration();
 
         for (City city : getCityList()) {
             conf.set(Integer.toString(city.getId()), city);
@@ -636,7 +636,7 @@ public class CityManager {
      */
     public CityManager saveDistricts() {
         File districtFile = Mafiacraft.getSubFile("geo", "districts.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(districtFile);
+        YamlConfiguration conf = new YamlConfiguration();
 
         for (District district : getDistrictList()) {
             conf.set(district.getUid(), district);
@@ -658,7 +658,7 @@ public class CityManager {
      */
     public CityManager saveCityDistrictMappings() {
         File mappingFile = Mafiacraft.getSubFile("geo", "city_district_mappings.yml");
-        YamlConfiguration conf = YamlConfiguration.loadConfiguration(mappingFile);
+        YamlConfiguration conf = new YamlConfiguration();
 
         for (Entry<City, List<District>> mapping : cityDistrictMap.entrySet()) {
             City city = mapping.getKey();
