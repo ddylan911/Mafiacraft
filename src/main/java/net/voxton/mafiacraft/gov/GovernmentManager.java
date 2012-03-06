@@ -19,23 +19,45 @@ import java.util.Map.Entry;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 /**
- *
- * @author simplyianm
+ * Manages government-related activities.
  */
 public class GovernmentManager {
 
+    /**
+     * Holds all governments mapped to their ids.
+     */
     private TIntObjectMap<Government> governments = new TIntObjectHashMap<Government>();
 
+    /**
+     * Holds all divisions mapped to their ids.
+     */
     private TIntObjectMap<Division> divisions = new TIntObjectHashMap<Division>();
 
-    private TIntIntMap cities = new TIntIntHashMap();
+    /**
+     * Holds all police mappings to their respective cities.
+     */
+    private TIntIntMap policeMap = new TIntIntHashMap();
 
+    /**
+     * Maps governments to divisions. One to many.
+     */
     private Map<Government, List<Division>> govDivMap = new HashMap<Government, List<Division>>();
 
+    /**
+     * Maps divisions to governments. Many to one.
+     */
     private Map<Division, Government> divGovMap = new HashMap<Division, Government>();
 
+    /**
+     * Hook to the main plugin.
+     */
     private MafiacraftPlugin mc;
 
+    /**
+     * Constructor.
+     * 
+     * @param mc The MafiacraftPlugin object.
+     */
     public GovernmentManager(MafiacraftPlugin mc) {
         this.mc = mc;
 
@@ -43,6 +65,11 @@ public class GovernmentManager {
         ConfigurationSerialization.registerClass(Division.class);
     }
 
+    /**
+     * Gets a list of all governments.
+     * 
+     * @return A list of all governments.
+     */
     public List<Government> getGovernments() {
         return new ArrayList<Government>(governments.valueCollection());
     }
@@ -50,8 +77,8 @@ public class GovernmentManager {
     /**
      * Gets the government associated with the id.
      *
-     * @param id
-     * @return
+     * @param id The id of the government.
+     * @return The Government associated with the id.
      */
     public Government getGovernment(int id) {
         return governments.get(id);
@@ -79,7 +106,7 @@ public class GovernmentManager {
      * @return
      */
     public Government getPolice(City city) {
-        return getGovernment(cities.get(city.getId()));
+        return getGovernment(policeMap.get(city.getId()));
     }
 
     /**
@@ -119,7 +146,7 @@ public class GovernmentManager {
      */
     public void setPolice(City city, Government government) {
         government.setType(GovType.POLICE);
-        cities.put(city.getId(), government.getId());
+        policeMap.put(city.getId(), government.getId());
     }
 
     /**
@@ -192,20 +219,29 @@ public class GovernmentManager {
     public Division createDivision(Government gov) {
         int id = getNextDivisionId();
         Division div = new Division(id);
-        divisions.put(id, div);
-        divGovMap.put(div, gov);
+        insertDivision(div).bindDivision(div, gov);
         return div;
     }
 
     /**
-     * Inserts a division into the mappings.
+     * Inserts a division into the maps.
      *
      * @param div The division to insert.
-     * @param gov The government to insert.
      * @return This manager.
      */
-    public GovernmentManager insertDivision(Division div, Government gov) {
+    public GovernmentManager insertDivision(Division div) {
         divisions.put(div.getId(), div);
+        return this;
+    }
+
+    /**
+     * Binds a division to a government.
+     * 
+     * @param div The division to make a binding for.
+     * @param gov The government to bind with.
+     * @return This GovernmentManager.
+     */
+    public GovernmentManager bindDivision(Division div, Government gov) {
         getActualDivisionList(gov).add(div);
         divGovMap.put(div, gov);
         return this;
@@ -253,22 +289,61 @@ public class GovernmentManager {
         return id;
     }
 
+    //////////////
+    // LOADING
+    //////////////
     /**
-     * Loads the div/gov map from the gov/div map.
-     *
-     * @return This GovernmentManager.
+     * Loads everything in this government manager.
+     * 
+     * @return This government manager.
      */
-    private GovernmentManager loadDivGovMap() {
-        divGovMap = new HashMap<Division, Government>();
+    public GovernmentManager load() {
+        return loadGovernments().loadDivisions().loadPoliceMappings().
+                loadDivGovMappings();
+    }
 
-        for (Entry<Government, List<Division>> mapping : govDivMap.entrySet()) {
-            Government gov = mapping.getKey();
-            List<Division> divs = mapping.getValue();
+    public GovernmentManager loadGovernments() {
+        return this;
+    }
 
-            for (Division div : divs) {
-                divGovMap.put(div, gov);
-            }
-        }
+    public GovernmentManager loadDivisions() {
+        return this;
+    }
+
+    public GovernmentManager loadPoliceMappings() {
+        return this;
+    }
+
+    public GovernmentManager loadDivGovMappings() {
+        return this;
+    }
+    //////////////
+    // SAVING
+    //////////////
+
+    /**
+     * Saves everything in this government manager.
+     * 
+     * @return This government manager.
+     */
+    public GovernmentManager save() {
+        return saveGovernments().saveDivisions().savePoliceMappings().
+                saveDivGovMappings();
+    }
+
+    public GovernmentManager saveGovernments() {
+        return this;
+    }
+
+    public GovernmentManager saveDivisions() {
+        return this;
+    }
+
+    public GovernmentManager savePoliceMappings() {
+        return this;
+    }
+
+    public GovernmentManager saveDivGovMappings() {
         return this;
     }
 

@@ -1,9 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.voxton.mafiacraft.gov;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.District;
@@ -12,8 +14,8 @@ import net.voxton.mafiacraft.geo.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.vault.Transactable;
-import java.util.*;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.util.LocationSerializer;
