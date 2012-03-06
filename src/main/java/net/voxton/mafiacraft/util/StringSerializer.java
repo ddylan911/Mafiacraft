@@ -4,8 +4,13 @@
  */
 package net.voxton.mafiacraft.util;
 
+import com.google.common.base.Charsets;
 import java.io.*;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
+import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.voxton.mafiacraft.MLogger;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * Utilities for serializing from and to Strings.
@@ -24,7 +29,7 @@ public class StringSerializer {
      */
     public static <T extends Serializable> T fromString(String string, Class<T> type)
             throws IOException, ClassNotFoundException {
-        byte[] data = Base64Coder.decode(string);
+        byte[] data = Base64.decodeBase64(string);
         ByteArrayInputStream byteStream = new ByteArrayInputStream(data);
         ObjectInputStream objectStream = new ObjectInputStream(byteStream);
         Object o = objectStream.readObject();
@@ -43,7 +48,8 @@ public class StringSerializer {
         ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
         objectStream.writeObject(object);
         objectStream.close();
-        return Base64Coder.encode(byteStream.toByteArray()).toString();
+        byte[] data = byteStream.toByteArray();
+        return Base64.encodeBase64String(data);
     }
 
 }
