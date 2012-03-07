@@ -126,7 +126,7 @@
                 <version>1.3</version>
                 <configuration>
                     <outputPrefix>git-${project.name}-</outputPrefix>
-                    <outputPostfix>-${build.source}</outputPostfix>
+                    <outputPostfix></outputPostfix>
                 </configuration>
                 <executions>
                     <execution>
@@ -161,7 +161,7 @@
                     <archive>
                         <manifestEntries>
                             <Implementation-Title>${project.name}</Implementation-Title>
-                            <Implementation-Version>${version.number}-${describe}</Implementation-Version>
+                            <Implementation-Version>${describe}</Implementation-Version>
                             <Implementation-Vendor>Voxton</Implementation-Vendor>
                             
                             <Specification-Title>Mafiacraft</Specification-Title>
