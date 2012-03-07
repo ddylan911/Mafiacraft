@@ -211,4 +211,18 @@ public class Mafiacraft {
         return getPlayerManager().getOnlinePlayer(target);
     }
 
+    /**
+     * Loads everything into memory.
+     */
+    public static void loadAll() {
+        getDataWorker().loadAll();
+    }
+
+    /**
+     * Saves all things possible to save.
+     */
+    public static void saveAll() {
+        getDataWorker().saveAll();
+    }
+
 }
