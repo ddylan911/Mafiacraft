@@ -52,7 +52,7 @@ public class MafiacraftPlugin extends JavaPlugin {
         saveConfig();
 
         //Setup commands
-        Commands.registerAll(this);
+        Commands.registerAll();
 
         //Initialize the listener
         MListener l = new MListener(this);

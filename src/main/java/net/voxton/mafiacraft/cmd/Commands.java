@@ -4,6 +4,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftPlugin;
 import net.voxton.mafiacraft.gov.GovType;
 import org.bukkit.command.Command;
@@ -15,7 +16,12 @@ import org.bukkit.command.CommandSender;
  */
 public class Commands {
 
-    public static void registerAll(MafiacraftPlugin plugin) {
+    /**
+     * Registers all commands with the server.
+     */
+    public static void registerAll() {
+        MafiacraftPlugin plugin = Mafiacraft.getPlugin();
+
         plugin.getCommand("mafia").setExecutor(new CommandExecutor() {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
@@ -98,6 +104,15 @@ public class Commands {
                 return true;
             }
 
+        });
+        plugin.getCommand("mafiacraft").setExecutor(new CommandExecutor() {
+
+            @Override
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
+                MafiacraftCommand.parseCmd(cs, cmnd, string, strings);
+                return true;
+            }
         });
     }
 
