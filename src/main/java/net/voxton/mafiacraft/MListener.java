@@ -48,15 +48,17 @@ public class MListener implements Listener {
         District d = mc.getCityManager().getDistrict(c);
 
         if (!d.canBuild(player, c)) {
-            player.sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks here.");
+            player.sendMessage(MsgColor.ERROR
+                    + "You aren't allowed to break blocks here.");
             event.setCancelled(true);
             return;
         }
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.sendMessage(MsgColor.ERROR + "You aren't allowed to break blocks in here; this land is owned by " + owner.
-                    getOwnerName() + ".");
+            player.sendMessage(MsgColor.ERROR
+                    + "You aren't allowed to break blocks in here; this land is owned by "
+                    + owner.getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -69,15 +71,17 @@ public class MListener implements Listener {
         District d = mc.getCityManager().getDistrict(c);
 
         if (!d.canBuild(player, c)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks here.");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR
+                    + "You aren't allowed to place blocks here.");
             event.setCancelled(true);
             return;
         }
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to place blocks in here; this land is owned by " + owner.
-                    getOwnerName() + ".");
+            player.getBukkitEntity().sendMessage(MsgColor.ERROR
+                    + "You aren't allowed to place blocks in here; this land is owned by "
+                    + owner.getOwnerName() + ".");
             event.setCancelled(true);
             return;
         }
@@ -90,7 +94,8 @@ public class MListener implements Listener {
         }
 
         EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) event;
-        if (!(e.getEntity() instanceof Player && e.getDamager() instanceof Player)) {
+        if (!(e.getEntity() instanceof Player
+                && e.getDamager() instanceof Player)) {
             return;
         }
 
@@ -102,7 +107,8 @@ public class MListener implements Listener {
 
         //Check for PvP
         if (!d.getType().isPvp()) {
-            damager.getBukkitEntity().sendMessage(MsgColor.ERROR + "You aren't allowed to PvP in this district.");
+            damager.getBukkitEntity().sendMessage(MsgColor.ERROR
+                    + "You aren't allowed to PvP in this district.");
             event.setCancelled(true);
             return;
         }
@@ -132,13 +138,16 @@ public class MListener implements Listener {
         MPlayer attacked = Mafiacraft.getPlayer((Player) entity);
 
         //Check for thief
-        double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(UtilityClass.THIEF)) ? 0.5 : 0.1);
+        double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(
+                UtilityClass.THIEF)) ? 0.5 : 0.1);
 
         //Subtract money
         attacked.subtractMoney(money);
         attacker.addMoney(money);
-        attacker.sendMessage(ChatColor.GREEN + "You killed " + attacked.getName() + " and took " + money + " of their money.");
-        attacked.sendMessage(ChatColor.RED + "You died and lost " + money + " of your money.");
+        attacker.sendMessage(ChatColor.GREEN + "You killed "
+                + attacked.getName() + " and took " + money + " of their money.");
+        attacked.sendMessage(ChatColor.RED + "You died and lost " + money
+                + " of your money.");
 
         //Update power
         attacker.tryToAddPower(1);
@@ -196,8 +205,8 @@ public class MListener implements Listener {
         District prev = mc.getCityManager().getDistrict(last);
 
         if (!dest.getType().canEnter(player)) {
-            player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter " + dest.
-                    getNameInChat() + ".");
+            player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter "
+                    + dest.getNameInChat() + ".");
 
             //Move back
             Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.

@@ -24,7 +24,8 @@ public class KillTracker {
 
     public KillTracker(MafiacraftPlugin mc) {
         this.mc = mc;
-        this.killFilePath = new File(mc.getDataFolder().toString() + File.separator + "kills.yml");
+        this.killFilePath = new File(mc.getDataFolder().toString()
+                + File.separator + "kills.yml");
     }
 
     public int getKillScore(MPlayer player) {

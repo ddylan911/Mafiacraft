@@ -16,7 +16,8 @@ public class GovernmentChat extends ChatType {
     @Override
     public void chat(MPlayer player, String message) {
         String pref = player.getGovernment().getType().getLocale("gov.chatp");
-        String msg = pref + " " + ChatColor.WHITE + player.getDisplayName() + ": " + message;
+        String msg = pref + " " + ChatColor.WHITE + player.getDisplayName()
+                + ": " + message;
 
         for (MPlayer p : player.getGovernment().getOnlineMembers()) {
             p.sendMessage(msg);

@@ -223,10 +223,11 @@ public class District implements LandOwner, ConfigurationSerializable {
      */
     public LandOwner getOwner(Chunk chunk) {
         if (!contains(chunk)) {
-            throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
+            throw new IllegalArgumentException("Chunk out of bounds of district "
+                    + getName() + "!");
         }
-        return getOwner(getDistrictOrigin(chunk.getX()), getDistrictOrigin(chunk.
-                getZ()));
+        return getOwner(getDistrictOrigin(chunk.getX()),
+                getDistrictOrigin(chunk.getZ()));
     }
 
     /**
@@ -255,7 +256,8 @@ public class District implements LandOwner, ConfigurationSerializable {
      */
     public District setOwner(Chunk chunk, LandOwner owner) {
         if (!contains(chunk)) {
-            throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
+            throw new IllegalArgumentException("Chunk out of bounds of district "
+                    + getName() + "!");
         }
         return setOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10, owner);
     }
@@ -302,7 +304,8 @@ public class District implements LandOwner, ConfigurationSerializable {
      */
     public District removeOwner(Chunk chunk) {
         if (!contains(chunk)) {
-            throw new IllegalArgumentException("Chunk out of bounds of district " + getName() + "!");
+            throw new IllegalArgumentException("Chunk out of bounds of district "
+                    + getName() + "!");
         }
         return removeOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
     }
@@ -373,7 +376,8 @@ public class District implements LandOwner, ConfigurationSerializable {
     public boolean contains(Chunk c) {
         int sx = x << 4;
         int sz = z << 4;
-        MLogger.logVerbose("Checking if chunk " + c.getX() + ", " + c.getZ() + " is within the bounds of " + sx + ", " + sz + ".", 5);
+        MLogger.logVerbose("Checking if chunk " + c.getX() + ", " + c.getZ()
+                + " is within the bounds of " + sx + ", " + sz + ".", 5);
         return (c.getX() >= sx)
                 && (c.getX() < (sx + 0x10))
                 && (c.getZ() >= sz)
@@ -521,7 +525,8 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     private static int getDistrictOrigin(int coord) {
-        return (coord >= 0) ? (coord & ~0xf) : -((Math.abs(coord + 1) & ~0xf) + 16);
+        return (coord >= 0) ? (coord & ~0xf) : -((Math.abs(coord + 1) & ~0xf)
+                + 16);
     }
 
     ////////////
@@ -558,7 +563,8 @@ public class District implements LandOwner, ConfigurationSerializable {
         String worldS = data.get("world").toString();
         World world = Bukkit.getWorld(worldS);
         if (world == null) {
-            MLogger.log(Level.SEVERE, "Invalid world named '" + worldS + "' encountered when deserializing a district!");
+            MLogger.log(Level.SEVERE, "Invalid world named '" + worldS
+                    + "' encountered when deserializing a district!");
         }
 
         int x = 0;
@@ -566,7 +572,8 @@ public class District implements LandOwner, ConfigurationSerializable {
         try {
             x = Integer.parseInt(xS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid x value '" + xS + "' encountered when deserializing a district!", ex);
+            MLogger.log(Level.SEVERE, "Invalid x value '" + xS
+                    + "' encountered when deserializing a district!", ex);
         }
 
         int z = 0;
@@ -574,7 +581,8 @@ public class District implements LandOwner, ConfigurationSerializable {
         try {
             z = Integer.parseInt(zS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid z value '" + zS + "' encountered when deserializing a district!", ex);
+            MLogger.log(Level.SEVERE, "Invalid z value '" + zS
+                    + "' encountered when deserializing a district!", ex);
         }
 
         District district = new District(world, x, z);
@@ -586,11 +594,14 @@ public class District implements LandOwner, ConfigurationSerializable {
 
         TByteObjectHashMap<String> owners = null;
         try {
-            owners = StringSerializer.fromString(ownerStr, TByteObjectHashMap.class);
+            owners = StringSerializer.fromString(ownerStr,
+                    TByteObjectHashMap.class);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "IO Exception encountered when deserializing the owner string: '" + ownerStr + "'!", ex);
+            MLogger.log(Level.SEVERE, "IO Exception encountered when deserializing the owner string: '"
+                    + ownerStr + "'!", ex);
         } catch (ClassNotFoundException ex) {
-            MLogger.log(Level.SEVERE, "Class not found for the given serialized string: '" + ownerStr + "'!", ex);
+            MLogger.log(Level.SEVERE, "Class not found for the given serialized string: '"
+                    + ownerStr + "'!", ex);
         }
 
         String typeStr = data.get("type").toString();
@@ -598,7 +609,8 @@ public class District implements LandOwner, ConfigurationSerializable {
         try {
             type = DistrictType.valueOf(typeStr);
         } catch (IllegalArgumentException ex) {
-            MLogger.log(Level.SEVERE, "Illegal district type encountered in deserialization: '" + typeStr + "'!", ex);
+            MLogger.log(Level.SEVERE, "Illegal district type encountered in deserialization: '"
+                    + typeStr + "'!", ex);
         }
 
         Map<String, Object> busS = (Map<String, Object>) data.get("bus");
@@ -610,7 +622,8 @@ public class District implements LandOwner, ConfigurationSerializable {
         try {
             landCost = Double.parseDouble(landCostS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid land cost '" + landCostS + "' encountered when deserializing a District!", ex);
+            MLogger.log(Level.SEVERE, "Invalid land cost '" + landCostS
+                    + "' encountered when deserializing a District!", ex);
         }
 
         //Info

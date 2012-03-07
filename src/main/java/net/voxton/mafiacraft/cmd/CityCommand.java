@@ -32,9 +32,11 @@ import org.bukkit.entity.Player;
  */
 public class CityCommand {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
+    public static void parseCmd(CommandSender sender, Command cmd, String label,
+            String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR
+                    + "Sorry, this command is only usable in game.");
             return;
         }
 
@@ -108,7 +110,8 @@ public class CityCommand {
     public static String doFound(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         CityWorld cw = player.getCityWorld();
@@ -135,11 +138,13 @@ public class CityCommand {
         //Found a city
         Chunk sample = player.getBukkitEntity().getLocation().getChunk();
         District district = Mafiacraft.getDistrict(sample);
-        City city = Mafiacraft.getCityManager().foundCity(player, name, district);
+        City city =
+                Mafiacraft.getCityManager().foundCity(player, name, district);
         player.transferMoney(city, foundCost);
 
         //Notify
-        player.getBukkitEntity().sendMessage(MsgColor.SUCCESS + "Your city has been founded successfully.");
+        player.getBukkitEntity().sendMessage(MsgColor.SUCCESS
+                + "Your city has been founded successfully.");
         return null;
     }
 
@@ -152,7 +157,8 @@ public class CityCommand {
     public static String doSetSpawn(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -165,14 +171,16 @@ public class CityCommand {
         }
 
         city.setSpawnLocation(player.getLocation());
-        player.sendMessage(MsgColor.SUCCESS + "You have set your city's spawn location successfully.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have set your city's spawn location successfully.");
         return null;
     }
 
     public static String doSpawn(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -186,15 +194,16 @@ public class CityCommand {
         }
 
         int citySpawnTime = MConfig.getInt("warmup.cityspawn");
-        TPCD.makeCountdown(Mafiacraft.getPlugin(), citySpawnTime, TPCD.Type.CSPAWN, player.
-                getBukkitEntity(), spawn);
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), citySpawnTime,
+                TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
         return null;
     }
 
     public static String doAnnex(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCityWorld().getCapital();
@@ -218,14 +227,16 @@ public class CityCommand {
 
         city.subtractMoney(cost);
         city.attachNewDistrict(district);
-        player.sendMessage(MsgColor.SUCCESS + "You have successfuly claimed the district for your city.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have successfuly claimed the district for your city.");
         return null;
     }
 
     public static String doUnannex(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -247,14 +258,16 @@ public class CityCommand {
         }
 
         district.detachFromCity();
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully unclaimed the district from your city.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have successfully unclaimed the district from your city.");
         return null;
     }
 
     public static String doRename(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -271,7 +284,8 @@ public class CityCommand {
             return valid;
         }
 
-        player.sendMessage(MsgColor.SUCCESS + city.getName() + " has been renamed to " + name + ".");
+        player.sendMessage(MsgColor.SUCCESS + city.getName()
+                + " has been renamed to " + name + ".");
         city.setName(name);
         return null;
     }
@@ -279,7 +293,8 @@ public class CityCommand {
     public static String doFunds(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -294,14 +309,16 @@ public class CityCommand {
         double funds = city.getMoney();
         String fundsStr = NumberFormat.getCurrencyInstance(Locale.ENGLISH).
                 format(funds);
-        player.sendMessage(MsgColor.INFO + city.getOwnerName() + " has " + fundsStr + " in funds.");
+        player.sendMessage(MsgColor.INFO + city.getOwnerName() + " has "
+                + fundsStr + " in funds.");
         return null;
     }
 
     public static String doDisband(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -314,14 +331,16 @@ public class CityCommand {
         }
 
         city.disband(); //Holy crap!
-        player.sendMessage(MsgColor.SUCCESS + "The city has been disbanded. Anarchy will likely take place.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "The city has been disbanded. Anarchy will likely take place.");
         return null;
     }
 
     public static String doBus(MPlayer player, String districtName) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         //TODO: check permissions.
@@ -349,7 +368,8 @@ public class CityCommand {
     public static String doDeposit(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         double amt;
@@ -369,16 +389,18 @@ public class CityCommand {
         }
 
         player.transferMoney(city, amt);
-        String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
-        player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt + " into " + city.
-                getOwnerName() + ".");
+        String fmt =
+                NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+        player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt
+                + " into " + city.getOwnerName() + ".");
         return null;
     }
 
     public static String doWithdraw(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         double amt;
@@ -402,16 +424,18 @@ public class CityCommand {
         }
 
         city.transferMoney(player, amt);
-        String fmt = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
-        player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt + " into " + city.
-                getOwnerName() + ".");
+        String fmt =
+                NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+        player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt
+                + " into " + city.getOwnerName() + ".");
         return null;
     }
 
     public static String doClaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -431,7 +455,8 @@ public class CityCommand {
         double amt = MConfig.getDouble("prices.city.claim");
         String af = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
         if (!city.hasEnough(amt)) {
-            return "The city doesn't have enough money to claim land. (Costs " + af + ")";
+            return "The city doesn't have enough money to claim land. (Costs "
+                    + af + ")";
         }
 
         Chunk chunk = player.getChunk();
@@ -440,14 +465,16 @@ public class CityCommand {
         //Claim the section
         d.setOwner(chunk, city);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have claimed the section " + sn + " for your city.");
+        player.sendMessage(MsgColor.SUCCESS + "You have claimed the section "
+                + sn + " for your city.");
         return null;
     }
 
     public static String doUnclaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -470,14 +497,17 @@ public class CityCommand {
         //Unclaim the section
         d.removeOwner(chunk);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have unclaimed the section " + sn + " for your city.");
+        player.sendMessage(MsgColor.SUCCESS + "You have unclaimed the section "
+                + sn + " for your city.");
         return null;
     }
 
-    public static String doMakePolice(MPlayer player, String chief, String assistant) {
+    public static String doMakePolice(MPlayer player, String chief,
+            String assistant) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -501,18 +531,21 @@ public class CityCommand {
 
         double amt = MConfig.getDouble("prices.city.makepolice");
         if (!city.hasEnough(amt)) {
-            return "The city does not have enough money to establish police. (Costs " + amt + ")";
+            return "The city does not have enough money to establish police. (Costs "
+                    + amt + ")";
         }
 
         city.establishPolice(c, a);
-        player.sendMessage(MsgColor.SUCCESS + "A police force has been established in your city.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "A police force has been established in your city.");
         return null;
     }
 
     public static String doSetChief(MPlayer player, String chief) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -535,15 +568,17 @@ public class CityCommand {
         }
 
         police.setLeader(c);
-        player.sendMessage(MsgColor.SUCCESS + "The chief of police of the city has successfully been changed to " + c.
-                getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS
+                + "The chief of police of the city has successfully been changed to "
+                + c.getName() + ".");
         return null;
     }
 
     public static String doSetAssistant(MPlayer player, String assistant) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         City city = player.getCity();
@@ -566,8 +601,9 @@ public class CityCommand {
         }
 
         police.setViceLeader(a);
-        player.sendMessage(MsgColor.SUCCESS + "The assistant chief of the city has successfully been changed to " + a.
-                getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS
+                + "The assistant chief of the city has successfully been changed to "
+                + a.getName() + ".");
         return null;
     }
 

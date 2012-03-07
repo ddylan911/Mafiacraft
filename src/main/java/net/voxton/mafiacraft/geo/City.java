@@ -85,7 +85,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
      * @return The police force created
      */
     public Government establishPolice(MPlayer chief, MPlayer assistant) {
-        Government police = Mafiacraft.getGovernmentManager().createGovernment(getName(), GovType.POLICE);
+        Government police = Mafiacraft.getGovernmentManager().createGovernment(
+                getName(), GovType.POLICE);
         setPolice(police);
         police.setLeader(chief).setViceLeader(assistant);
         return police;
@@ -445,7 +446,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
     public City claimGrid(District district) {
         for (int x = 0; x < 15; x++) {
             for (int z = 0; z < 15; z++) {
-                if (x == 0 || z == 0 || x == 15 || z == 15 || (x + 1) % 5 == 0 || (z + 1) % 5 == 0) {
+                if (x == 0 || z == 0 || x == 15 || z == 15 || (x + 1) % 5 == 0
+                        || (z + 1) % 5 == 0) {
                     district.setOwner(x, z, this);
                 }
             }
@@ -487,7 +489,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
         try {
             id = Integer.parseInt(strId);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid number encountered when deserializing a city!", ex);
+            MLogger.log(Level.SEVERE,
+                    "Invalid number encountered when deserializing a city!", ex);
         }
 
         City city = new City(id);
@@ -500,7 +503,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
         String worldS = data.get("world").toString();
         World world = Bukkit.getWorld(worldS);
         if (world == null) {
-            MLogger.log(Level.SEVERE, "The world '" + worldS + "' does not exist for " + name + "!");
+            MLogger.log(Level.SEVERE, "The world '" + worldS
+                    + "' does not exist for " + name + "!");
         }
         CityWorld cworld = Mafiacraft.getCityManager().getCityWorld(world);
 

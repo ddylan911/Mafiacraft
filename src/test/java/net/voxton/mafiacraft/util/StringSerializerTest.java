@@ -61,7 +61,8 @@ public class StringSerializerTest {
 
         String result = StringSerializer.toString(object);
 
-        TIntIntHashMap back = StringSerializer.fromString(result, TIntIntHashMap.class);
+        TIntIntHashMap back = StringSerializer.fromString(result,
+                TIntIntHashMap.class);
         assertEquals(object, back);
     }
 
@@ -77,7 +78,8 @@ public class StringSerializerTest {
 
         String result = StringSerializer.toString(object);
 
-        TIntObjectHashMap<String> back = StringSerializer.fromString(result, TIntObjectHashMap.class);
+        TIntObjectHashMap<String> back = StringSerializer.fromString(result,
+                TIntObjectHashMap.class);
         assertEquals(object, back);
     }
 

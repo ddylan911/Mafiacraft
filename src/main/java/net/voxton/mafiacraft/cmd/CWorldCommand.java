@@ -22,9 +22,11 @@ import org.bukkit.entity.Player;
  */
 public class CWorldCommand {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
+    public static void parseCmd(CommandSender sender, Command cmd, String label,
+            String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR
+                    + "Sorry, this command is only usable in game.");
             return;
         }
 

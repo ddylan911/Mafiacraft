@@ -26,9 +26,11 @@ import org.bukkit.entity.Player;
  */
 public class DistrictCommand {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
+    public static void parseCmd(CommandSender sender, Command cmd, String label,
+            String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR
+                    + "Sorry, this command is only usable in game.");
             return;
         }
 
@@ -101,7 +103,9 @@ public class DistrictCommand {
         district.setDescription(description);
 
         //Success!
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully changed the description of the district to:");
+        player.sendMessage(
+                MsgColor.SUCCESS
+                + "You have successfully changed the description of the district to:");
         player.sendMessage(MsgColor.INFO + description);
         return null;
     }
@@ -153,7 +157,8 @@ public class DistrictCommand {
     public static String doZone(MPlayer player, String typeString) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         District district = player.getDistrict();
@@ -176,15 +181,17 @@ public class DistrictCommand {
         }
 
         district.resetOwnerships().setType(type);
-        player.sendMessage(MsgColor.SUCCESS + "The district has been zoned to a " + type.
-                niceName() + " district successfully.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "The district has been zoned to a " + type.niceName()
+                + " district successfully.");
         return null;
     }
 
     public static String doClaimGrid(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         District district = player.getDistrict();
@@ -202,7 +209,8 @@ public class DistrictCommand {
             return "You can't claim this.";
         }
 
-        player.sendMessage(MsgColor.SUCCESS + "The grid for the city has been claimed.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "The grid for the city has been claimed.");
         return null;
     }
 

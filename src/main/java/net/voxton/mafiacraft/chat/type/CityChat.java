@@ -20,7 +20,9 @@ public class CityChat extends ChatType {
     public void chat(MPlayer player, String message) {
         if (player.getCity() == null) {
             player.setChatType(ChatType.GLOBAL);
-            player.sendMessage(ChatColor.RED + "You are not in a city; you have been moved to global chat.");
+            player.sendMessage(
+                    ChatColor.RED
+                    + "You are not in a city; you have been moved to global chat.");
             return;
         }
 
@@ -30,8 +32,8 @@ public class CityChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_CITY + "[C] " + govPref + ChatColor.WHITE + player.
-                getDisplayName() + ": " + message;
+        String msg = MsgColor.CHAT_CITY + "[C] " + govPref + ChatColor.WHITE
+                + player.getDisplayName() + ": " + message;
 
         for (MPlayer players : player.getCity().getPlayers()) {
             players.sendMessage(msg);

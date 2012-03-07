@@ -55,21 +55,24 @@ public class LocationSerializer {
         try {
             x = Integer.parseInt(xS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid x value to deserialize: '" + xS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid x value to deserialize: '" + xS
+                    + "'!", ex);
         }
 
         int y = 0;
         try {
             y = Integer.parseInt(yS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid y value to deserialize: '" + yS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid y value to deserialize: '" + yS
+                    + "'!", ex);
         }
 
         int z = 0;
         try {
             z = Integer.parseInt(zS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid z value to deserialize: '" + zS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid z value to deserialize: '" + zS
+                    + "'!", ex);
         }
 
         Location loc = new Location(world, x, y, z);
@@ -118,35 +121,40 @@ public class LocationSerializer {
         try {
             x = Double.parseDouble(xS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid x value to deserialize: '" + xS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid x value to deserialize: '" + xS
+                    + "'!", ex);
         }
 
         double y = 0;
         try {
             y = Double.parseDouble(yS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid y value to deserialize: '" + yS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid y value to deserialize: '" + yS
+                    + "'!", ex);
         }
 
         double z = 0;
         try {
             z = Double.parseDouble(zS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid z value to deserialize: '" + zS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid z value to deserialize: '" + zS
+                    + "'!", ex);
         }
 
         float yaw = 0;
         try {
             yaw = Float.parseFloat(yawS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid yaw value to deserialize: '" + yawS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid yaw value to deserialize: '"
+                    + yawS + "'!", ex);
         }
 
         float pitch = 0;
         try {
             pitch = Float.parseFloat(pitchS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid pitch value to deserialize: '" + pitchS + "'!", ex);
+            MLogger.log(Level.SEVERE, "Invalid pitch value to deserialize: '"
+                    + pitchS + "'!", ex);
         }
 
         Location loc = new Location(world, x, y, z, yaw, pitch);

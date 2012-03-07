@@ -27,7 +27,8 @@ public class StringSerializer {
      * @param type The type of object to deserialize into.
      * @return The deserialized object.
      */
-    public static <T extends Serializable> T fromString(String string, Class<T> type)
+    public static <T extends Serializable> T fromString(String string,
+            Class<T> type)
             throws IOException, ClassNotFoundException {
         byte[] data = Base64.decodeBase64(string);
         ByteArrayInputStream byteStream = new ByteArrayInputStream(data);

@@ -18,12 +18,12 @@ public class GovernmentChat extends ChatType {
     public void chat(MPlayer player, String message) {
         for (MPlayer players : player.getGovernment().getOnlineMembers()) {
             if (player.getGovernment().getType().equals(GovType.MAFIA)) {
-                players.sendMessage(ChatColor.DARK_RED + "[M]" + ChatColor.WHITE + player.
-                        getDisplayName() + " " + message);
+                players.sendMessage(ChatColor.DARK_RED + "[M]" + ChatColor.WHITE
+                        + player.getDisplayName() + " " + message);
                 continue;
             }
-            players.sendMessage(ChatColor.DARK_BLUE + "[P]" + ChatColor.WHITE + player.
-                    getDisplayName() + " " + message);
+            players.sendMessage(ChatColor.DARK_BLUE + "[P]" + ChatColor.WHITE
+                    + player.getDisplayName() + " " + message);
         }
     }
 

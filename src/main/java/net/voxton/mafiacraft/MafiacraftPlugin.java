@@ -35,7 +35,7 @@ public class MafiacraftPlugin extends JavaPlugin {
     public void onDisable() {
         //Unload the Mafiacraft singleton from the API class.
         Mafiacraft.unloadMafiacraft();
-        
+
         //Cancel our tasks, i.e. our scheduler.
         Bukkit.getScheduler().cancelTasks(this);
 

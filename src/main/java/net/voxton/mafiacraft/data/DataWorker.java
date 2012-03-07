@@ -23,7 +23,7 @@ public class DataWorker {
 
     /**
      * Loads everything that should not be lazy-loaded onto the server.
-     * 
+     *
      * @return This DataWorker.
      */
     public DataWorker loadAll() {

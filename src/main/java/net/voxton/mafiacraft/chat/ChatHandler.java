@@ -43,7 +43,8 @@ public class ChatHandler {
     public void updateDisplayName(MPlayer player) {
         Player ent = player.getBukkitEntity();
         if (ent == null) {
-            throw new IllegalStateException("Player not online to update display name of!");
+            throw new IllegalStateException(
+                    "Player not online to update display name of!");
         }
 
         String display = player.getName();

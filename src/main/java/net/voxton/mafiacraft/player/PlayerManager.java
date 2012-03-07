@@ -42,7 +42,7 @@ public class PlayerManager {
 
     /**
      * Constructor.
-     * 
+     *
      * @param mc The MafiaCraft plugin.
      */
     public PlayerManager(MafiacraftPlugin mc) {
@@ -124,7 +124,8 @@ public class PlayerManager {
         try {
             return players.get(name);
         } catch (ExecutionException ex) {
-            MLogger.log(Level.SEVERE + "Execution exception for getting a player!");
+            MLogger.log(Level.SEVERE
+                    + "Execution exception for getting a player!");
         }
         return null;
     }
@@ -177,7 +178,7 @@ public class PlayerManager {
      * @return
      */
     private File getPlayerFile(String player) {
-       return Mafiacraft.getSubFile("player", player + ".ymlÏ");
+        return Mafiacraft.getSubFile("player", player + ".ymlÏ");
     }
 
     /**
@@ -225,7 +226,8 @@ public class PlayerManager {
             yml.save(getPlayerFile(player));
             return true;
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "The file for the player " + player + " could not be saved!", ex);
+            MLogger.log(Level.SEVERE, "The file for the player " + player
+                    + " could not be saved!", ex);
         }
         return false;
     }

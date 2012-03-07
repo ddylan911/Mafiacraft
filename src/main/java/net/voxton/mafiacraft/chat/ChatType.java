@@ -44,7 +44,8 @@ public abstract class ChatType {
     /**
      * Map of lowercase chat types to their corresponding ChatType objects.
      */
-    private static Map<String, ChatType> chatTypes = new HashMap<String, ChatType>();
+    private static Map<String, ChatType> chatTypes =
+            new HashMap<String, ChatType>();
 
     /**
      * Sends a message with the {@link MPlayer} player and the {@link String}

@@ -265,7 +265,7 @@ public class CityManager {
 
     /**
      * Inserts a city.
-     * 
+     *
      * @param city The city to insert.
      * @return This CityManager.
      */
@@ -277,7 +277,7 @@ public class CityManager {
 
     /**
      * Inserts the given district.
-     * 
+     *
      * @param district The district to insert.
      * @return This CityManager.
      */
@@ -557,7 +557,7 @@ public class CityManager {
 
     /**
      * Loads all city district mappings into memory.
-     * 
+     *
      * @return The city/district mappings.
      */
     public CityManager loadCityDistrictMappings() {

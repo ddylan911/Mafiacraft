@@ -18,23 +18,28 @@ public class Commands {
     public static void registerAll(MafiacraftPlugin plugin) {
         plugin.getCommand("mafia").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-                GovernmentCommand.parseCmd(cs, cmnd, string, strings, GovType.MAFIA);
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
+                GovernmentCommand.parseCmd(cs, cmnd, string, strings,
+                        GovType.MAFIA);
                 return true;
             }
 
         });
         plugin.getCommand("police").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-                GovernmentCommand.parseCmd(cs, cmnd, string, strings, GovType.POLICE);
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
+                GovernmentCommand.parseCmd(cs, cmnd, string, strings,
+                        GovType.POLICE);
                 return true;
             }
 
         });
         plugin.getCommand("city").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
                 CityCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
@@ -42,7 +47,8 @@ public class Commands {
         });
         plugin.getCommand("district").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
                 DistrictCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
@@ -50,7 +56,8 @@ public class Commands {
         });
         plugin.getCommand("section").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
                 SectionCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
@@ -58,7 +65,8 @@ public class Commands {
         });
         plugin.getCommand("chat").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
                 ChatCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
@@ -66,7 +74,8 @@ public class Commands {
         });
         plugin.getCommand("cworld").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
                 CWorldCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
@@ -74,7 +83,8 @@ public class Commands {
         });
         plugin.getCommand("regime").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
                 DivisionCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
@@ -82,7 +92,8 @@ public class Commands {
         });
         plugin.getCommand("squad").setExecutor(new CommandExecutor() {
 
-            public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+            public boolean onCommand(CommandSender cs, Command cmnd,
+                    String string, String[] strings) {
                 DivisionCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }

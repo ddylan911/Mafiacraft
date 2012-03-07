@@ -25,8 +25,8 @@ public class GlobalChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_GLOBAL + "[G] " + govPref + ChatColor.WHITE + player.
-                getDisplayName() + ": " + message;
+        String msg = MsgColor.CHAT_GLOBAL + "[G] " + govPref + ChatColor.WHITE
+                + player.getDisplayName() + ": " + message;
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             players.sendMessage(msg);

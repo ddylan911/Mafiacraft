@@ -41,8 +41,8 @@ public abstract class HelpMenu {
 
     public void initialize() {
         for (Entry<String, String> entry : help.entrySet()) {
-            realHelp.add(ChatColor.GREEN + entry.getKey() + ": " + ChatColor.YELLOW + entry.
-                    getValue());
+            realHelp.add(ChatColor.GREEN + entry.getKey() + ": "
+                    + ChatColor.YELLOW + entry.getValue());
         }
     }
 
@@ -76,7 +76,8 @@ public abstract class HelpMenu {
 
     public String getHeader(int page) {
         StringBuilder headerBuilder = new StringBuilder("[ ");
-        headerBuilder.append(name).append(" Help -- Page ").append(page).append(" of ").
+        headerBuilder.append(name).append(" Help -- Page ").append(page).append(
+                " of ").
                 append(getPages()).append(" ]");
         return headerBuilder.toString();
     }

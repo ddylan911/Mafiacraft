@@ -32,9 +32,11 @@ import org.bukkit.entity.Player;
  */
 public class GovernmentCommand {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args, GovType type) {
+    public static void parseCmd(CommandSender sender, Command cmd, String label,
+            String[] args, GovType type) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR
+                    + "Sorry, this command is only usable in game.");
             return;
         }
 
@@ -131,14 +133,16 @@ public class GovernmentCommand {
 
         Government gov = Mafiacraft.getGovernmentManager().getGovernment(inv);
         if (gov == null) {
-            return "The " + type.getName() + " you were invited to no longer exists.";
+            return "The " + type.getName()
+                    + " you were invited to no longer exists.";
         }
 
         gov.addAffiliate(player);
 
         player.sendMessage(MsgColor.SUCCESS + "You have joined the " + type.
                 getName() + " " + gov.getName() + ".");
-        gov.broadcastMessage(player.getName() + " has joined the " + gov.getType().
+        gov.broadcastMessage(player.getName() + " has joined the "
+                + gov.getType().
                 getName() + ".");
         return null;
     }
@@ -146,7 +150,8 @@ public class GovernmentCommand {
     public static String doFound(MPlayer player, String name, GovType type) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         if (type.equals(GovType.POLICE)) {
@@ -161,7 +166,8 @@ public class GovernmentCommand {
         double cost = MConfig.getDouble("prices.mafia.found");
 
         if (balance < cost) {
-            return "You don't have enough money to do this. (Costs $" + cost + ")";
+            return "You don't have enough money to do this. (Costs $" + cost
+                    + ")";
         }
 
         if (player.getGovernment() != null) {
@@ -179,14 +185,15 @@ public class GovernmentCommand {
         }
 
         //Found the government
-        Government founded = Mafiacraft.getGovernmentManager().createGovernment(name, type);
+        Government founded = Mafiacraft.getGovernmentManager().createGovernment(
+                name, type);
         if (!founded.addAffiliate(player)) {
             return "Error adding. We can't do math.";
         }
 
         founded.setLeader(player);
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully founded a new " + type.
-                getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have successfully founded a new " + type.getName() + ".");
         return null;
     }
 
@@ -197,7 +204,8 @@ public class GovernmentCommand {
     public static String doPlayer(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
@@ -219,15 +227,18 @@ public class GovernmentCommand {
     public static String doWho(MPlayer player, String govName) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
-        Government gov = Mafiacraft.getGovernmentManager().getGovernment(govName);
+        Government gov =
+                Mafiacraft.getGovernmentManager().getGovernment(govName);
         if (gov == null) {
             return "The government you specified does not exist.";
         }
 
-        player.sendMessage(MsgColor.INFO + "=== Info for " + gov.getName() + " ===");
+        player.sendMessage(MsgColor.INFO + "=== Info for " + gov.getName()
+                + " ===");
         //TODO: add stats
         return null;
     }
@@ -235,7 +246,8 @@ public class GovernmentCommand {
     public static String doHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -245,12 +257,14 @@ public class GovernmentCommand {
         }
 
         if (!player.getPosition().isAtLeast(Position.WORKER)) {
-            return "Your position in your " + gov.getType().getName() + " is not high enough to use HQ teleport.";
+            return "Your position in your " + gov.getType().getName()
+                    + " is not high enough to use HQ teleport.";
         }
 
         Location hq = gov.getHq();
         if (hq == null) {
-            return "Your " + gov.getType().getName() + " does not have a HQ set.";
+            return "Your " + gov.getType().getName()
+                    + " does not have a HQ set.";
         }
 
         //Teleport.
@@ -262,7 +276,8 @@ public class GovernmentCommand {
     public static String doInvite(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
@@ -277,28 +292,31 @@ public class GovernmentCommand {
 
         if (!player.getPosition().isAtLeast(Position.WORKER)) {
             System.out.println(player.getPosition());
-            return "Your position in your " + gov.getType().getName() + " is not high enough to invite people to your government.";
+            return "Your position in your " + gov.getType().getName()
+                    + " is not high enough to invite people to your government.";
         }
 
         Government other = tgt.getGovernment();
         if (other != null) {
             if (other.equals(gov)) {
-                return "The other player you specified is already in your " + gov.
-                        getType().getName() + ".";
+                return "The other player you specified is already in your "
+                        + gov.getType().getName() + ".";
             }
             return "The player you specified is already affiliated with a government.";
         }
 
         gov.dispatchInvite(player, tgt);
-        player.sendMessage(MsgColor.INFO + "An invite to the mafia has been dispatched to " + tgt.
-                getName() + ".");
+        player.sendMessage(MsgColor.INFO
+                + "An invite to the mafia has been dispatched to "
+                + tgt.getName() + ".");
         return null;
     }
 
     public static String doKick(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
@@ -312,7 +330,8 @@ public class GovernmentCommand {
         }
 
         if (!player.getPosition().isAtLeast(Position.WORKER)) {
-            return "Your position in your " + gov.getType().getName() + " is not high enough to kick people from your government.";
+            return "Your position in your " + gov.getType().getName()
+                    + " is not high enough to kick people from your government.";
         }
 
         Government other = tgt.getGovernment();
@@ -325,14 +344,14 @@ public class GovernmentCommand {
         }
 
         if (!tgt.getPosition().equals(Position.AFFILIATE)) {
-            return "Only " + gov.getType().getLocale("affiliates") + " may be kicked from a " + gov.
-                    getType().getName() + ".";
+            return "Only " + gov.getType().getLocale("affiliates")
+                    + " may be kicked from a " + gov.getType().getName() + ".";
         }
 
         gov.removeMember(tgt);
         tgt.resetPower();
-        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been kicked out of the " + gov.
-                getType().getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName()
+                + " has been kicked out of the " + gov.getType().getName() + ".");
         return null;
     }
 
@@ -360,19 +379,22 @@ public class GovernmentCommand {
         }
 
         if (!gov.transferWithCheck(div, amount)) {
-            return "Your " + gov.getType().getName() + " doesn't have enough money to perform this transaction.";
+            return "Your " + gov.getType().getName()
+                    + " doesn't have enough money to perform this transaction.";
         }
 
-        player.sendMessage(MsgColor.SUCCESS + amount + " " + MConfig.getString("currency.namepl")
-                + " have been granted to the " + gov.getType().getLocale("division") + " " + div.
-                getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + amount + " " + MConfig.getString(
+                "currency.namepl")
+                + " have been granted to the " + gov.getType().getLocale(
+                "division") + " " + div.getName() + ".");
         return null;
     }
 
     public static String doCreateDivision(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -392,20 +414,24 @@ public class GovernmentCommand {
 
         if (!gov.canHaveMoreDivisions()) {
             return "The " + gov.getType().getName() + " has too many " + gov.
-                    getType().getLocale("divisions") + ". Make sure all of your " + gov.
-                    getType().getLocale("divisions") + " have greater than 5 players each.";
+                    getType().getLocale("divisions")
+                    + ". Make sure all of your " + gov.getType().getLocale(
+                    "divisions") + " have greater than 5 players each.";
         }
 
-        Division div = gov.createDivision().setManager(player.getName()).setName(name);
+        Division div = gov.createDivision().setManager(player.getName()).setName(
+                name);
         player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.
                 getType().getLocale("division") + " successfully.");
         return null;
     }
 
-    public static String doSetManager(MPlayer player, String division, String target) {
+    public static String doSetManager(MPlayer player, String division,
+            String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -420,8 +446,10 @@ public class GovernmentCommand {
 
         Division div = gov.getDivisionByName(division);
         if (div == null) {
-            return "A " + gov.getType().getLocale("division") + " with the name '" + division + "' does not exist in your " + gov.
-                    getType().getName() + ".";
+            return "A " + gov.getType().getLocale("division")
+                    + " with the name '" + division
+                    + "' does not exist in your " + gov.getType().getName()
+                    + ".";
         }
 
         div.setManager(manager);
@@ -432,7 +460,8 @@ public class GovernmentCommand {
     public static String doClaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -459,15 +488,18 @@ public class GovernmentCommand {
         gov.claim(section);
         gov.subtractMoney(price);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully claimed the section " + district.
-                getSectionName(section) + " for your " + gov.getType().getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have successfully claimed the section " + district.
+                getSectionName(section) + " for your " + gov.getType().getName()
+                + ".");
         return null;
     }
 
     public static String doSetHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         if (!player.getPosition().isAtLeast(Position.VICE_LEADER)) {
@@ -486,11 +518,14 @@ public class GovernmentCommand {
 
         double needed = MConfig.getDouble("prices.gov.sethq");
         if (!gov.hasEnough(needed)) {
-            return "Your " + gov.getType().getName() + " does not have enough money to set its HQ. (Costs " + needed + ")";
+            return "Your " + gov.getType().getName()
+                    + " does not have enough money to set its HQ. (Costs "
+                    + needed + ")";
         }
 
         gov.setHq(player.getBukkitEntity().getLocation()).subtractMoney(needed);
-        player.sendMessage(MsgColor.SUCCESS + "Your " + gov.getType().getName() + " HQ has been set to your current location.");
+        player.sendMessage(MsgColor.SUCCESS + "Your " + gov.getType().getName()
+                + " HQ has been set to your current location.");
         return null;
     }
 
@@ -502,16 +537,18 @@ public class GovernmentCommand {
 
         gov.removeMemberAndSucceed(player);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have left " + gov.getName() + ".");
-        gov.broadcastMessage(MsgColor.INFO + player.getName() + " has left the " + gov.
-                getType().getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You have left " + gov.getName()
+                + ".");
+        gov.broadcastMessage(MsgColor.INFO + player.getName() + " has left the "
+                + gov.getType().getName() + ".");
         return null;
     }
 
     public static String doPromoteOfficer(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -543,14 +580,16 @@ public class GovernmentCommand {
 
         gov.removeMemberAndSucceed(tgt).addOfficer(tgt);
 
-        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been promoted to officer within your government.");
+        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName()
+                + " has been promoted to officer within your government.");
         return null;
     }
 
     public static String doDemoteOfficer(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -578,7 +617,8 @@ public class GovernmentCommand {
 
         gov.removeMemberAndSucceed(tgt).addAffiliate(tgt);
 
-        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName() + " has been demoted from officer within your government.");
+        player.sendMessage(MsgColor.SUCCESS + "The player " + tgt.getName()
+                + " has been demoted from officer within your government.");
         return null;
     }
 

@@ -16,7 +16,8 @@ import org.bukkit.configuration.Configuration;
  */
 public class MConfig {
 
-    private static final Map<String, Object> defaults = new HashMap<String, Object>();
+    private static final Map<String, Object> defaults =
+            new HashMap<String, Object>();
 
     private static MafiacraftPlugin plugin = null;
 

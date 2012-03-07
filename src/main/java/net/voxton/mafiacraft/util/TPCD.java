@@ -18,7 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class TPCD implements Runnable {
 
-    private static TObjectIntMap<Player> teleporting = new TObjectIntHashMap<Player>();
+    private static TObjectIntMap<Player> teleporting =
+            new TObjectIntHashMap<Player>();
 
     private int iterations;
 
@@ -37,17 +38,20 @@ public class TPCD implements Runnable {
 
     public void run() {
         if (iterations <= 0) {
-            player.sendMessage(ChatColor.YELLOW + "Returning to " + type.getName() + "...");
+            player.sendMessage(ChatColor.YELLOW + "Returning to "
+                    + type.getName() + "...");
             player.teleport(location);
             removeCountdown(player);
         } else {
-            player.sendMessage(ChatColor.YELLOW.toString() + "Teleporting in " + iterations + " seconds.");
+            player.sendMessage(ChatColor.YELLOW.toString() + "Teleporting in "
+                    + iterations + " seconds.");
         }
 
         --iterations;
     }
 
-    public static void makeCountdown(JavaPlugin cp, int iterations, Type type, Player player, Location location) {
+    public static void makeCountdown(JavaPlugin cp, int iterations, Type type,
+            Player player, Location location) {
         if (isSpawning(player)) {
             removeCountdown(player);
         }

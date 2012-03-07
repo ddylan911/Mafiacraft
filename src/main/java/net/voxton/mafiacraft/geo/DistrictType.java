@@ -67,7 +67,8 @@ public enum DistrictType {
 
     private boolean enter;
 
-    private DistrictType(boolean pvp, boolean build, boolean government, boolean claim, boolean enter) {
+    private DistrictType(boolean pvp, boolean build, boolean government,
+            boolean claim, boolean enter) {
         this.pvp = pvp;
         this.build = build;
         this.government = government;

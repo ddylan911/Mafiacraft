@@ -56,7 +56,8 @@ public class ValidationUtilsTest {
 
     @Test
     public void testValidateDescription_valid() {
-        System.out.println("Testing of description validation with a valid description.");
+        System.out.println(
+                "Testing of description validation with a valid description.");
         String description = "MY spacey descRIPti23123";
         String result = ValidationUtils.validateDescription(description);
 

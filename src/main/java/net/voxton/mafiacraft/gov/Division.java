@@ -448,7 +448,9 @@ public class Division extends Transactable implements LandPurchaser, Configurati
         try {
             id = Integer.parseInt(strId);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid number encountered when deserializing a government!", ex);
+            MLogger.log(Level.SEVERE,
+                    "Invalid number encountered when deserializing a government!",
+                    ex);
         }
 
         Division div = new Division(id);
@@ -464,7 +466,8 @@ public class Division extends Transactable implements LandPurchaser, Configurati
         try {
             land = Integer.parseInt(landS);
         } catch (NumberFormatException ex) {
-            MLogger.log(Level.SEVERE, "Invalid land amount encountered when loading a district: '" + landS + "'!");
+            MLogger.log(Level.SEVERE, "Invalid land amount encountered when loading a district: '"
+                    + landS + "'!");
         }
 
         String manager = data.get("manager").toString();

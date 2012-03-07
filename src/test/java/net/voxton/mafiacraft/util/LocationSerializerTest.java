@@ -59,7 +59,8 @@ public class LocationSerializerTest {
 
     @Test
     public void testSerializationIntegrity_block_normal() {
-        System.out.println("Testing the serialization integrity of a normal block location.");
+        System.out.println(
+                "Testing the serialization integrity of a normal block location.");
         Location loc = new Location(world, 5, 5, 10);
 
         Map<String, Object> serialized = LocationSerializer.serializeBlock(loc);
@@ -70,7 +71,8 @@ public class LocationSerializerTest {
 
     @Test
     public void testSerializationIntegrity_block_float() {
-        System.out.println("Testing the serialization integrity of a floating-point location saved as a block.");
+        System.out.println(
+                "Testing the serialization integrity of a floating-point location saved as a block.");
         Location loc = new Location(world, 5.3f, 5.988f, 10.0f);
 
         Map<String, Object> serialized = LocationSerializer.serializeBlock(loc);
@@ -85,7 +87,8 @@ public class LocationSerializerTest {
     public void testSerializationIntegrity_block_floatWithPitchAndYaw() {
         System.out.println("Testing the serialization integrity of a "
                 + "floating-point location with pitch and yaw saved as a block.");
-        Location loc = new Location(world, 5.3f, 5.988f, 10.0f, 0.12831f, 3.1414151518f);
+        Location loc = new Location(world, 5.3f, 5.988f, 10.0f, 0.12831f,
+                3.1414151518f);
 
         Map<String, Object> serialized = LocationSerializer.serializeBlock(loc);
         Location result = LocationSerializer.deserializeBlock(serialized);
@@ -97,7 +100,8 @@ public class LocationSerializerTest {
 
     @Test
     public void testSerializationIntegrity_full_block() {
-        System.out.println("Testing the serialization integrity of a block location saved with pitch/yaw etc.");
+        System.out.println(
+                "Testing the serialization integrity of a block location saved with pitch/yaw etc.");
         Location loc = new Location(world, 5, 5, 10);
 
         Map<String, Object> serialized = LocationSerializer.serializeFull(loc);
@@ -110,7 +114,8 @@ public class LocationSerializerTest {
 
     @Test
     public void testSerializationIntegrity_full_float() {
-        System.out.println("Testing the serialization integrity of a floating-point location saved as a block.");
+        System.out.println(
+                "Testing the serialization integrity of a floating-point location saved as a block.");
         Location loc = new Location(world, 5.3f, 5.988f, 10.0f);
 
         Map<String, Object> serialized = LocationSerializer.serializeFull(loc);
@@ -123,7 +128,8 @@ public class LocationSerializerTest {
     public void testSerializationIntegrity_full_floatWithPitchAndYaw() {
         System.out.println("Testing the serialization integrity of a "
                 + "floating-point location with pitch and yaw .");
-        Location loc = new Location(world, 5.3f, 5.988f, 10.0f, 0.12831f, 3.1414151518f);
+        Location loc = new Location(world, 5.3f, 5.988f, 10.0f, 0.12831f,
+                3.1414151518f);
 
         Map<String, Object> serialized = LocationSerializer.serializeFull(loc);
         Location result = LocationSerializer.deserializeFull(serialized);

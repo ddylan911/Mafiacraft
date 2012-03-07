@@ -29,9 +29,11 @@ import org.bukkit.entity.Player;
  */
 public class DivisionCommand {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label, String[] args) {
+    public static void parseCmd(CommandSender sender, Command cmd, String label,
+            String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + "You can not use this command through console.");
+            sender.sendMessage(MsgColor.ERROR
+                    + "You can not use this command through console.");
             return;
         }
 
@@ -96,7 +98,8 @@ public class DivisionCommand {
     public static String doKick(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         MPlayer tgt = Mafiacraft.getOnlinePlayer(target);
@@ -109,7 +112,8 @@ public class DivisionCommand {
             return "You are not in a government.";
         }
         if (player.getDivision() == null) {
-            return "You are not part of a " + gov.getType().getLocale("division") + ".";
+            return "You are not part of a "
+                    + gov.getType().getLocale("division") + ".";
         }
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank to do this.";
@@ -118,8 +122,8 @@ public class DivisionCommand {
         if (remove == false) {
             return "You can not kick this player out!";
         }
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully kicked out " + tgt.
-                getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have successfully kicked out " + tgt.getName() + ".");
         return null;
     }
 
@@ -143,7 +147,8 @@ public class DivisionCommand {
     public static String doAccept(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -156,21 +161,21 @@ public class DivisionCommand {
         }
         String divName = null;
         for (Division div : gov.getDivisions()) {
-            if (player.getSessionStore().getObject(player.getName() + ".inv." + div.
-                    getName()) != null) {
+            if (player.getSessionStore().getObject(player.getName() + ".inv."
+                    + div.getName()) != null) {
                 divName = div.getName();
                 continue;
             }
         }
         Division div = gov.getDivisionByName(divName);
-        if (!(player.getSessionStore().getBoolean(player.getName() + ".inv." + div.
-                getName(), false) == true)) {
+        if (!(player.getSessionStore().getBoolean(player.getName() + ".inv."
+                + div.getName(), false) == true)) {
             return "No one has invited you.";
         }
         player.getSessionStore().resetData(player.getName() + ".inv." + divName);
         div.addWorker(player);
-        player.sendMessage(MsgColor.SUCCESS + "You have succesfully joined " + div.
-                getName());
+        player.sendMessage(MsgColor.SUCCESS + "You have succesfully joined "
+                + div.getName());
         return null;
     }
 
@@ -183,7 +188,8 @@ public class DivisionCommand {
     public static String doClaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -193,20 +199,23 @@ public class DivisionCommand {
 
         Division div = player.getDivision();
         if (div == null) {
-            return "You are not part of a " + gov.getType().getLocale("division") + ".";
+            return "You are not part of a "
+                    + gov.getType().getLocale("division") + ".";
         }
 
         Position pos = player.getPosition();
         if (!pos.isAtLeast(Position.MANAGER)) {
-            return "You are not the " + gov.getType().getLocale("manager") + " of this " + gov.
-                    getType().getName() + ".";
+            return "You are not the " + gov.getType().getLocale("manager")
+                    + " of this " + gov.getType().getName() + ".";
         }
 
         District dis = player.getDistrict();
         double price = dis.getLandCost();
         if (!div.hasEnough(price)) {
-            return "Your " + gov.getType().getLocale("division") + " does not have enough money to buy a plot in this district. "
-                    + "(Costs $" + NumberFormat.getCurrencyInstance(Locale.ENGLISH).
+            return "Your " + gov.getType().getLocale("division")
+                    + " does not have enough money to buy a plot in this district. "
+                    + "(Costs $" + NumberFormat.getCurrencyInstance(
+                    Locale.ENGLISH).
                     format(price) + ")";
         }
 
@@ -218,7 +227,8 @@ public class DivisionCommand {
         div.claim(chunk);
         div.subtractMoney(price);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have claimed this chunk successfully.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have claimed this chunk successfully.");
         return null;
     }
 
@@ -232,7 +242,8 @@ public class DivisionCommand {
     public static String doInvite(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         MPlayer tgt = Mafiacraft.getOnlinePlayer(target);
@@ -245,7 +256,8 @@ public class DivisionCommand {
         }
         player.getSessionStore().setData(tgt.getName() + ".inv." + player.
                 getDivision().getName(), true);
-        player.sendMessage(MsgColor.SUCCESS + "You invited " + tgt.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + "You invited " + tgt.getName()
+                + ".");
         return null;
     }
 
@@ -259,7 +271,8 @@ public class DivisionCommand {
     public static String doName(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -268,20 +281,23 @@ public class DivisionCommand {
         }
         Division div = player.getDivision();
         if (div == null) {
-            return "You are not part of a " + gov.getType().getLocale("division") + ".";
+            return "You are not part of a "
+                    + gov.getType().getLocale("division") + ".";
         }
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank to do this.";
         }
         div.setName(name);
-        player.sendMessage(MsgColor.SUCCESS + "You have succesfully set the name.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have succesfully set the name.");
         return null;
     }
 
     public static String doUnclaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -291,7 +307,8 @@ public class DivisionCommand {
 
         Division div = player.getDivision();
         if (div == null) {
-            return "You are not part of a " + gov.getType().getLocale("division") + ".";
+            return "You are not part of a "
+                    + gov.getType().getLocale("division") + ".";
         }
 
         if (!player.getPosition().isAtLeast(Position.MANAGER)) {
@@ -299,7 +316,8 @@ public class DivisionCommand {
         }
 
         div.unclaim(player.getChunk());
-        player.sendMessage(MsgColor.SUCCESS + "You have successfully unclaimed this section.");
+        player.sendMessage(MsgColor.SUCCESS
+                + "You have successfully unclaimed this section.");
         return null;
     }
 
@@ -313,7 +331,8 @@ public class DivisionCommand {
     public static String doDesc(MPlayer player, String desc) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Government gov = player.getGovernment();
@@ -322,7 +341,8 @@ public class DivisionCommand {
         }
         Division div = player.getDivision();
         if (div == null) {
-            return "You are not in a " + gov.getType().getLocale("division") + ".";
+            return "You are not in a " + gov.getType().getLocale("division")
+                    + ".";
         }
         if (!player.getPosition().equals(Position.MANAGER)) {
             return "You do not have the proper rank to do this.";
@@ -336,7 +356,8 @@ public class DivisionCommand {
     public static String doHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Division div = player.getDivision();
@@ -348,12 +369,14 @@ public class DivisionCommand {
 
         if (!player.getPosition().isAtLeast(Position.WORKER)) {
             return "Your position in your " + div.getGovernment().getType().
-                    getLocale("division") + " is not high enough to use HQ teleport.";
+                    getLocale("division")
+                    + " is not high enough to use HQ teleport.";
         }
 
         Location hq = div.getHq();
         if (hq == null) {
-            return "Your " + div.getGovernment().getType().getLocale("division") + " does not have a HQ set.";
+            return "Your " + div.getGovernment().getType().getLocale("division")
+                    + " does not have a HQ set.";
         }
 
         //Teleport.
@@ -365,7 +388,8 @@ public class DivisionCommand {
     public static String doSetHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL + "http://voxton.net/" + ".";
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
         }
 
         Division div = player.getDivision();

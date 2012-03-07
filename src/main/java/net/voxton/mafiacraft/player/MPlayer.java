@@ -481,13 +481,13 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * @return This MPlayer, loaded and READY TO RUMBBBLEEE
      */
     public MPlayer load(ConfigurationSection source) {
-        chatType = ChatType.valueOf(source.getString("chattype", ChatType.DEFAULT.
-                getName()));
+        chatType = ChatType.valueOf(source.getString("chattype",
+                ChatType.DEFAULT.getName()));
         land = source.getInt("land", 0);
         power = source.getInt("power", 0);
         title = source.getString("title", "");
-        utilityClass = UtilityClass.valueOf(source.getString("clazz.utility", UtilityClass.NONE.
-                toString()));
+        utilityClass = UtilityClass.valueOf(source.getString("clazz.utility",
+                UtilityClass.NONE.toString()));
 
         return this;
     }
