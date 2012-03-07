@@ -24,10 +24,6 @@ public class MafiacraftCommand {
      */
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
-        if (!sender.hasPermission("mafiacraft.admin")) {
-            sender.sendMessage(MsgColor.ERROR
-                    + "You are not allowed to use this command.");
-        }
 
         if (args.length < 1) {
             doHelp(sender);
@@ -48,11 +44,16 @@ public class MafiacraftCommand {
 
     public static String doHelp(CommandSender sender) {
         sender.sendMessage(MsgColor.INFO
-                + "Help: /mafiacraft <reload|saveall>. Nuff said.");
+                + "Help: /mafiacraft <version|reload|saveall>. Nuff said.");
         return null;
     }
 
     public static String doReload(CommandSender sender) {
+        if (!sender.hasPermission("mafiacraft.admin")) {
+            sender.sendMessage(MsgColor.ERROR
+                    + "You are not allowed to use this command.");
+        }
+
         sender.sendMessage(MsgColor.INFO + "Mafiacraft reloading...");
         Mafiacraft.loadAll();
         sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft reload complete.");
@@ -60,6 +61,11 @@ public class MafiacraftCommand {
     }
 
     public static String doSaveAll(CommandSender sender) {
+        if (!sender.hasPermission("mafiacraft.admin")) {
+            sender.sendMessage(MsgColor.ERROR
+                    + "You are not allowed to use this command.");
+        }
+
         sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft saving all...");
         Mafiacraft.saveAll();
         sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft saveAll complete.");
