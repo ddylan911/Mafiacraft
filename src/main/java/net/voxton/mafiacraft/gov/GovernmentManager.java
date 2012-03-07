@@ -44,9 +44,8 @@ public class GovernmentManager {
 
     /**
      * Holds all police mappings to their respective cities.
-     * 
-     * The key is the id of the police.
-     * The value is the id of the city.
+     *
+     * The key is the id of the police. The value is the id of the city.
      */
     private TIntIntMap policeMap = new TIntIntHashMap();
 
@@ -69,7 +68,7 @@ public class GovernmentManager {
 
     /**
      * Constructor.
-     * 
+     *
      * @param mc The MafiacraftPlugin object.
      */
     public GovernmentManager(MafiacraftPlugin mc) {
@@ -81,7 +80,7 @@ public class GovernmentManager {
 
     /**
      * Gets a list of all governments.
-     * 
+     *
      * @return A list of all governments.
      */
     public List<Government> getGovernmentList() {
@@ -132,7 +131,7 @@ public class GovernmentManager {
     public Government createGovernment(String name, GovType type) {
         int id = getNextGovernmentId();
         Government government = new Government(id);
-        governments.put(id, government);
+        insertGovernment(government);
         government.setName(name).setType(type);
         return government;
     }
@@ -245,12 +244,25 @@ public class GovernmentManager {
      */
     public GovernmentManager insertDivision(Division div) {
         divisions.put(div.getId(), div);
+        mc.getCityManager().registerLandOwner(div);
+        return this;
+    }
+
+    /**
+     * Inserts a government into this GovernmentManager.
+     *
+     * @param gov The government to insert.
+     * @return This GovernmentManager.
+     */
+    public GovernmentManager insertGovernment(Government gov) {
+        governments.put(gov.getId(), gov);
+        mc.getCityManager().registerLandOwner(gov);
         return this;
     }
 
     /**
      * Binds a division to a government.
-     * 
+     *
      * @param div The division to make a binding for.
      * @param gov The government to bind with.
      * @return This GovernmentManager.
@@ -308,7 +320,7 @@ public class GovernmentManager {
     //////////////
     /**
      * Loads everything in this government manager.
-     * 
+     *
      * @return This government manager.
      */
     public GovernmentManager load() {
@@ -318,16 +330,28 @@ public class GovernmentManager {
 
     /**
      * Loads all governments into memory.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager loadGovernments() {
+        File govFile = Mafiacraft.getSubFile("gov", "governments.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(govFile);
+
+        for (String key : conf.getKeys(false)) {
+            Map<String, Object> der = (Map<String, Object>) conf.get(key);
+            Government gov = (Government) ConfigurationSerialization.
+                    deserializeObject(der,
+                    Government.class);
+
+            insertGovernment(gov);
+        }
+
         return this;
     }
 
     /**
      * Loads all divisions into memory.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager loadDivisions() {
@@ -336,7 +360,7 @@ public class GovernmentManager {
 
     /**
      * Loads all police/city mappings into memory.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager loadPoliceMappings() {
@@ -345,13 +369,14 @@ public class GovernmentManager {
 
     /**
      * Loads all div/gov mappings into memory.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager loadDivGovMappings() {
         File mappingFile = Mafiacraft.getSubFile("gov",
                 "division_government_mappings.yml");
-        YamlConfiguration conf = new YamlConfiguration();
+        YamlConfiguration conf =
+                YamlConfiguration.loadConfiguration(mappingFile);
 
         for (String key : conf.getKeys(false)) {
             int gid = 0;
@@ -398,7 +423,7 @@ public class GovernmentManager {
 
     /**
      * Saves everything in this government manager.
-     * 
+     *
      * @return This government manager.
      */
     public GovernmentManager save() {
@@ -408,7 +433,7 @@ public class GovernmentManager {
 
     /**
      * Saves all governments to files.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager saveGovernments() {
@@ -432,7 +457,7 @@ public class GovernmentManager {
 
     /**
      * Saves all divisions to files.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager saveDivisions() {
@@ -456,7 +481,7 @@ public class GovernmentManager {
 
     /**
      * Saves all police mappings to cities.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager savePoliceMappings() {
@@ -483,17 +508,17 @@ public class GovernmentManager {
     }
 
     /**
-     * Saves all mappings between divisions and governments. 
-     * Mappings are saved in this format:
-     * 
+     * Saves all mappings between divisions and governments. Mappings are saved
+     * in this format:
+     *
      * <pre>
      * government:
      *  -div
      *  -div2
      * </pre>
-     * 
+     *
      * and so on.
-     * 
+     *
      * @return This GovernmentManager.
      */
     public GovernmentManager saveDivGovMappings() {
