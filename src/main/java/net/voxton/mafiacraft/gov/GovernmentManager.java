@@ -355,6 +355,18 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadDivisions() {
+        File divFile = Mafiacraft.getSubFile("gov", "divisions.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(divFile);
+
+        for (String key : conf.getKeys(false)) {
+            Map<String, Object> ser = (Map<String, Object>) conf.get(key);
+            Division div = (Division) ConfigurationSerialization.
+                    deserializeObject(ser,
+                    Division.class);
+
+            insertDivision(div);
+        }
+
         return this;
     }
 
