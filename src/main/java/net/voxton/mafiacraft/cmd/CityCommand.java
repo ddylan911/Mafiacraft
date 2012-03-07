@@ -343,11 +343,19 @@ public final class CityCommand {
                     + "http://voxton.net/" + ".";
         }
 
-        //TODO: check permissions.
-
         City city = player.getCity();
         if (city == null) {
             return "You aren't in a city.";
+        }
+
+        District thisDist = player.getDistrict();
+        if (thisDist == null) {
+            return "District not found error.";
+        }
+
+        Location thisBus = thisDist.getBusStop();
+        if (player.getLocation().distanceSquared(thisBus) > 100) {
+            return "You must be within 10 blocks of a bus stop to ride the bus.";
         }
 
         District d = city.getDistrictByName(districtName);
