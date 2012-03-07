@@ -39,6 +39,8 @@ public class MafiacraftCommand {
             doReload(sender);
         } else if (function.equalsIgnoreCase("saveall")) {
             doSaveAll(sender);
+        } else if (function.equalsIgnoreCase("version")) {
+            doVersion(sender);
         } else {
             doHelp(sender);
         }
@@ -61,6 +63,13 @@ public class MafiacraftCommand {
         sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft saving all...");
         Mafiacraft.saveAll();
         sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft saveAll complete.");
+        return null;
+    }
+
+    public static String doVersion(CommandSender sender) {
+        sender.sendMessage(MsgColor.INFO
+                + "This server is running Mafiacraft version " + Mafiacraft.
+                getPlugin().getVersionDetailed() + ".");
         return null;
     }
 
