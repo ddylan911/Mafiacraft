@@ -337,6 +337,8 @@ public class GovernmentManager {
         File govFile = Mafiacraft.getSubFile("gov", "governments.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(govFile);
 
+        governments = new TIntObjectHashMap<Government>();
+
         for (String key : conf.getKeys(false)) {
             Map<String, Object> der = (Map<String, Object>) conf.get(key);
             Government gov = (Government) ConfigurationSerialization.
@@ -358,6 +360,8 @@ public class GovernmentManager {
         File divFile = Mafiacraft.getSubFile("gov", "divisions.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(divFile);
 
+        divisions = new TIntObjectHashMap<Division>();
+
         for (String key : conf.getKeys(false)) {
             Map<String, Object> ser = (Map<String, Object>) conf.get(key);
             Division div = (Division) ConfigurationSerialization.
@@ -376,6 +380,24 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadPoliceMappings() {
+        File policeFile = Mafiacraft.getSubFile("gov", "police.yml");
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(policeFile);
+
+        policeMap = new TIntIntHashMap();
+
+        for (String key : conf.getKeys(false)) {
+            int value = conf.getInt(key);
+
+            int policeId = 0;
+            try {
+                policeId = Integer.parseInt(key);
+            } catch (NumberFormatException ex) {
+                MLogger.log(Level.SEVERE, "Invalid police id '" + key + "'!", ex);
+            }
+
+            policeMap.put(policeId, value);
+        }
+
         return this;
     }
 
@@ -389,6 +411,9 @@ public class GovernmentManager {
                 "division_government_mappings.yml");
         YamlConfiguration conf =
                 YamlConfiguration.loadConfiguration(mappingFile);
+
+        divGovMap = new HashMap<Division, Government>();
+        govDivMap = new HashMap<Government, List<Division>>();
 
         for (String key : conf.getKeys(false)) {
             int gid = 0;
