@@ -30,7 +30,7 @@ import org.bukkit.entity.Player;
 /**
  * Contains all city-related commands.
  */
-public class CityCommand {
+public final class CityCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {

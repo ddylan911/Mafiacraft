@@ -15,10 +15,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author simplyianm
+ * Commands related to working with sections.
  */
-public class SectionCommand {
+public final class SectionCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {

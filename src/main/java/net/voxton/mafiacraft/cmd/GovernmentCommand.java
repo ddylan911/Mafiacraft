@@ -30,7 +30,7 @@ import org.bukkit.entity.Player;
 /**
  * Holds government-related commands.
  */
-public class GovernmentCommand {
+public final class GovernmentCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args, GovType type) {

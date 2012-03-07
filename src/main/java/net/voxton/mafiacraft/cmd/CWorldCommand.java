@@ -17,10 +17,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author simplyianm
+ * Manages the CityWorld.
  */
-public class CWorldCommand {
+public final class CWorldCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {

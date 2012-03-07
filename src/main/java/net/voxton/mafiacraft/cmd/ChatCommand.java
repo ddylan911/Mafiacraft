@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
 /**
  * /chat command.
  */
-public class ChatCommand {
+public final class ChatCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {

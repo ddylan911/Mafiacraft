@@ -21,10 +21,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
- * @author simplyianm
+ * Commands relating to districts.
  */
-public class DistrictCommand {
+public final class DistrictCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {

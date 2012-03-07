@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender;
 /**
  * Registers all commands with the server.
  */
-public class Commands {
+public final class Commands {
 
     /**
      * Registers all commands with the server.

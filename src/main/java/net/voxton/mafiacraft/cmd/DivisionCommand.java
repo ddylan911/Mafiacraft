@@ -27,7 +27,7 @@ import org.bukkit.entity.Player;
 /**
  * Division related commands.
  */
-public class DivisionCommand {
+public final class DivisionCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
