@@ -24,6 +24,10 @@ public class LocationSerializer {
      * @return The serialized Location in Map form.
      */
     public static Map<String, Object> serializeBlock(Location loc) {
+        if (loc == null) {
+            return null;
+        }
+
         Map<String, Object> data = new HashMap<String, Object>();
 
         data.put("world", loc.getWorld().getName());
@@ -86,6 +90,10 @@ public class LocationSerializer {
      * @return The serialized Location in Map form.
      */
     public static Map<String, Object> serializeFull(Location loc) {
+        if (loc == null) {
+            return null;
+        }
+
         Map<String, Object> data = new HashMap<String, Object>();
 
         data.put("world", loc.getWorld().getName());
