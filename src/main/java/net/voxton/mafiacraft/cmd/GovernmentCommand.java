@@ -402,7 +402,7 @@ public final class GovernmentCommand {
             return "You are not in a government!";
         }
 
-        if (!player.getPosition().equals(Position.VICE_LEADER)) {
+        if (!player.getPosition().isAtLeast(Position.VICE_LEADER)) {
             return "You do not have the proper rank to do this.";
         }
 
