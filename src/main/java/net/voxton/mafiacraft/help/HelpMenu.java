@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 
 /**
@@ -37,7 +38,7 @@ public abstract class HelpMenu {
      * Contains the usage.
      */
     private Map<String, String> usage = new HashMap<String, String>();
-    
+
     /**
      * The parsed and sorted help menu.
      */
@@ -175,4 +176,48 @@ public abstract class HelpMenu {
     public String getUsage(String command) {
         return usage.get(command.toLowerCase());
     }
+
+    /**
+     * Sends a page to the given player.
+     * 
+     * @param page The page to send.
+     * @param player The player to send to.
+     */
+    public void sendPage(int page, MPlayer player) {
+        for (String line : getPage(page)) {
+            player.sendMessage(line);
+        }
+    }
+
+    /**
+     * Sends a usage error to the given player.
+     * 
+     * @param command The command.
+     * @param player The player.
+     */
+    public void sendUsageError(String command, MPlayer player) {
+        String usg = getCompleteUsage(command);
+
+        if (usg == null) {
+            player.sendMessage(MsgColor.ERROR + "Strange argument \"" + command
+                    + "\" given.");
+            return;
+        }
+
+        player.sendMessage(MsgColor.ERROR + "Incorrect usage of the command. "
+                + "Usage: " + MsgColor.INFO_HILIGHT + getCompleteUsage(command)
+                + MsgColor.ERROR + ".");
+    }
+
+    /**
+     * Gets the complete formatted usage of the given command.
+     * 
+     * @param command The command to get the usage of.
+     * @return The command's usage.
+     */
+    public String getCompleteUsage(String command) {
+        String usg = getUsage(command);
+        return "/" + name.toLowerCase() + " " + usg;
+    }
+
 }

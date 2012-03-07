@@ -7,8 +7,7 @@ package net.voxton.mafiacraft.help.menu;
 import net.voxton.mafiacraft.help.HelpMenu;
 
 /**
- *
- * @author simplyianm
+ * The city help menu.
  */
 public class CityMenu extends HelpMenu {
 
@@ -18,6 +17,7 @@ public class CityMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
+        addEntry("annex", "Annexes the district you are standing in to the city.", "annex");
         addEntry("bus", "Teleports you to the given bus stop.", "bus <district>");
         addEntry("spawn", "Teleports you to the city's spawn location.", "spawn");
     }

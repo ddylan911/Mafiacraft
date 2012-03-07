@@ -12,6 +12,11 @@ import net.voxton.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.help.HelpMenu;
+import net.voxton.mafiacraft.help.MenuType;
+import net.voxton.mafiacraft.util.TPCD;
+import net.voxton.mafiacraft.util.TPCD.Type;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -44,12 +49,21 @@ public final class CWorldCommand {
         String result = null;
 
         if (largs.size() < 1) {
+            if (function.equalsIgnoreCase("spawn")) {
+                result = doSpawn(player);
+            } else {
+                result = doHelp(player, function);
+            }
         } else if (largs.size() < 2) {
             if (function.equalsIgnoreCase("toggle")) {
                 result = doToggle(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("help")) {
+                result = doHelp(player, largs.get(0));
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function);
             }
+        } else {
+            doHelp(player, function);
         }
 
         if (result != null) {
@@ -58,8 +72,25 @@ public final class CWorldCommand {
     }
 
     public static String doHelp(MPlayer player) {
-        //TODO: help
-        player.sendMessage(MsgColor.INFO + "Todo: help");
+        MenuType.CWORLD.sendPage(1, player);
+        return null;
+    }
+
+    public static String doHelp(MPlayer player, String arg) {
+        int page = -1;
+        try {
+            page = Integer.parseInt(arg);
+        } catch (NumberFormatException ex) {
+        }
+
+        HelpMenu menu = MenuType.CWORLD;
+
+        if (page > 0) {
+            menu.sendPage(page, player);
+            return null;
+        }
+
+        menu.sendUsageError(arg, player);
         return null;
     }
 
@@ -81,6 +112,20 @@ public final class CWorldCommand {
         boolean val = world.toggle(tog);
         player.sendMessage(MsgColor.SUCCESS + "The toggle named '" + tog.
                 toString() + "' has been set to " + val + ".");
+        return null;
+    }
+
+    public static String doSpawn(MPlayer player) {
+        CityWorld world = player.getCityWorld();
+        Location spawn = world.getSpawnLocation();
+
+        if (spawn == null) {
+            //No spawn for the city world, default to world spawn
+            spawn = world.getWorld().getSpawnLocation();
+        }
+
+        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, Type.CSPAWN, player.
+                getBukkitEntity(), spawn);
         return null;
     }
 
