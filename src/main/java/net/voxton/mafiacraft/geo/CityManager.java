@@ -486,8 +486,8 @@ public class CityManager {
     /**
      * Gets a LandOwner based on their id.
      *
-     * @param id
-     * @return
+     * @param id The id of the landowner
+     * @return The LandOwner corresponding with the id
      */
     public LandOwner getLandOwner(String id) {
         if (id == null) {

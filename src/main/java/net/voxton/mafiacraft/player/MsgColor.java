@@ -34,4 +34,8 @@ public class MsgColor {
 
     public static final String CHAT_LOCAL = ChatColor.LIGHT_PURPLE.toString();
 
+    public static final String HELP_ENTRY = ChatColor.GREEN.toString();
+
+    public static final String HELP_DEF = ChatColor.YELLOW.toString();
+
 }

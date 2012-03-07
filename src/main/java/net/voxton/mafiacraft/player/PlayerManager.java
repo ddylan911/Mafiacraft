@@ -165,6 +165,8 @@ public class PlayerManager {
         YamlConfiguration pf = getPlayerYml(player);
         mplayer.load(pf).save(pf);
 
+        //We will not register the alias in the LandOwner/id map. It will be loaded.
+        
         //Just in case defaults were created.
         savePlayerYml(player, pf);
 
