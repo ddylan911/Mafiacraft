@@ -353,7 +353,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
     }
 
     public String getOwnerId() {
-        return "P-" + getName();
+        return "P" + getName();
     }
 
     /**

@@ -314,7 +314,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
     }
 
     public String getOwnerId() {
-        return "C-" + id;
+        return "C" + id;
     }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {

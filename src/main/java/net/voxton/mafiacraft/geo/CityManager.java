@@ -490,7 +490,25 @@ public class CityManager {
      * @return
      */
     public LandOwner getLandOwner(String id) {
-        return landOwners.get(id);
+        if (id == null) {
+            return null;
+        }
+
+        if (id.length() < 1) {
+            return null;
+        }
+
+        LandOwner owner = landOwners.get(id);
+        if (owner == null) {
+            char type = id.charAt(0);
+
+            if (type == 'P') {
+                String playerName = id.substring(1);
+                return Mafiacraft.getPlayer(playerName);
+            }
+        }
+
+        return owner;
     }
 
     /**

@@ -406,7 +406,7 @@ public class District implements LandOwner, ConfigurationSerializable {
     }
 
     public String getOwnerId() {
-        return "R-" + id;
+        return "R" + id;
     }
 
     /**

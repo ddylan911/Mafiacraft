@@ -68,7 +68,7 @@ public class MafiacraftCommand {
 
         sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft saving all...");
         Mafiacraft.saveAll();
-        sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft saveAll complete.");
+        sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft save complete.");
         return null;
     }
 
