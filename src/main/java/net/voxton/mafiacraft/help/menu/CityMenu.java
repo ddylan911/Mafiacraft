@@ -18,8 +18,8 @@ public class CityMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
-        addEntry("bus <district>", "Teleports you to the given bus stop.");
-        addEntry("spawn", "Teleports you to the city's spawn location.");
+        addEntry("bus", "Teleports you to the given bus stop.", "bus <district>");
+        addEntry("spawn", "Teleports you to the city's spawn location.", "spawn");
     }
 
 }

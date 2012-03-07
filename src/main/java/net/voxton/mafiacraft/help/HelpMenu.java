@@ -1,6 +1,7 @@
 package net.voxton.mafiacraft.help;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +23,24 @@ public abstract class HelpMenu {
      */
     public static final int HEIGHT = 10;
 
+    /**
+     * The name of the help menu.
+     */
     private final String name;
 
+    /**
+     * Contains help.
+     */
     private Map<String, String> help = new LinkedHashMap<String, String>();
 
+    /**
+     * Contains the usage.
+     */
+    private Map<String, String> usage = new HashMap<String, String>();
+    
+    /**
+     * The parsed and sorted help menu.
+     */
     private List<String> realHelp = new ArrayList<String>();
 
     /**
@@ -49,9 +64,12 @@ public abstract class HelpMenu {
      * 
      * @param command The name of the command to add.
      * @param description The description of the command.
+     * @param usg The usage of the command.
      */
-    protected void addEntry(String command, String description) {
-        help.put(command.toLowerCase(), description);
+    protected void addEntry(String command, String description, String usg) {
+        command = command.toLowerCase();
+        help.put(command, description);
+        usage.put(command, usg);
     }
 
     /**
@@ -148,4 +166,13 @@ public abstract class HelpMenu {
         return help.get(command.toLowerCase());
     }
 
+    /**
+     * Gets the usage of a certain command.
+     * 
+     * @param command The command.
+     * @return The usage of the command.
+     */
+    public String getUsage(String command) {
+        return usage.get(command.toLowerCase());
+    }
 }
