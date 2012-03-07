@@ -4,6 +4,7 @@ author: AlbireoX
 version: ${version.number}
 
 main: net.voxton.mafiacraft.MafiacraftPlugin
+depend: [Vault]
 
 commands:
   mafia:

@@ -3,6 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Project data -->
     <groupId>net.voxton</groupId>
     <artifactId>mafiacraft</artifactId>
     <version>dev-SNAPSHOT</version>
@@ -13,14 +14,17 @@
     <url>http://voxton.net/</url>
     <description>MafiaCraft is a Bukkit plugin that brings city government to Minecraft.</description>
 
+    <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <powermock.version>1.4.10</powermock.version>
         <release.number>0.1</release.number>
         <build.number>Unknown</build.number>
+        <build.source>personal</build.source>
         <version.number>${release.number}.${build.number}</version.number>
     </properties>
 
+    <!-- Repositories -->
     <repositories>
         <repository>
             <id>bukkit</id>
@@ -40,6 +44,7 @@
         </pluginRepository>
     </pluginRepositories>
     
+    <!-- dependencies -->
     <dependencies>
         <!-- Compile dependencies -->
         <dependency>
@@ -95,6 +100,7 @@
         </dependency>
     </dependencies>
     
+    <!-- Build -->
     <build>
         <defaultGoal>clean package install</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
@@ -120,7 +126,7 @@
                 <version>1.3</version>
                 <configuration>
                     <outputPrefix>git-${project.name}-</outputPrefix>
-                    <outputPostfix></outputPostfix>
+                    <outputPostfix>-${build.source}</outputPostfix>
                 </configuration>
                 <executions>
                     <execution>
