@@ -178,7 +178,7 @@ public class PlayerManager {
      * @return
      */
     private File getPlayerFile(String player) {
-        return Mafiacraft.getSubFile("player", player + ".ymlÏ");
+        return Mafiacraft.getSubFile("player", player + ".yml");
     }
 
     /**
