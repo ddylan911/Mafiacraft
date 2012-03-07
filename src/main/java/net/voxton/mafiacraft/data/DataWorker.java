@@ -9,16 +9,40 @@ import java.io.IOException;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.MafiacraftPlugin;
+import org.bukkit.Bukkit;
 
 /**
- * Works the data.
+ * A little slave that will manage all data for us.
  */
 public class DataWorker {
 
+    /**
+     * Reference to the plugin instance.
+     */
     private final MafiacraftPlugin mc;
 
+    /**
+     * Constructor.
+     *
+     * @param plugin The plugin instance.
+     */
     public DataWorker(MafiacraftPlugin plugin) {
         mc = plugin;
+        setupSaveTask();
+    }
+
+    /**
+     * Sets up the task that will save everything every 5 minutes.
+     */
+    private void setupSaveTask() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(mc, new Runnable() {
+
+            @Override
+            public void run() {
+                saveAll();
+            }
+
+        }, 0L, 6000); // Approximately once every 5 minutes.
     }
 
     /**

@@ -39,6 +39,10 @@ public class MafiacraftPlugin extends JavaPlugin {
         //Cancel our tasks, i.e. our scheduler.
         Bukkit.getScheduler().cancelTasks(this);
 
+        //Save data
+        dataWorker.saveAll();
+
+        //Log
         MLogger.log("Mafiacraft disabled.");
     }
 
@@ -66,6 +70,10 @@ public class MafiacraftPlugin extends JavaPlugin {
         playerManager = new PlayerManager(this);
         vaultHelper = new VaultHelper(this);
 
+        //Load data
+        dataWorker.loadAll();
+
+        //Log
         MLogger.log("Mafiacraft enabled.");
     }
 
