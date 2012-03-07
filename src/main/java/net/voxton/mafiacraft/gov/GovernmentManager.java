@@ -74,6 +74,13 @@ public class GovernmentManager {
     public GovernmentManager(MafiacraftPlugin mc) {
         this.mc = mc;
 
+        registerSerializations();
+    }
+
+    /**
+     * Registers serializations.
+     */
+    private void registerSerializations() {
         ConfigurationSerialization.registerClass(Government.class);
         ConfigurationSerialization.registerClass(Division.class);
     }

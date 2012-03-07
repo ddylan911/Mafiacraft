@@ -30,26 +30,55 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
  */
 public class CityManager {
 
+    /**
+     * Contains worlds mapped to their respective cityworlds.
+     */
     private Map<World, CityWorld> cityWorldMap = new HashMap<World, CityWorld>();
 
+    /**
+     * Contains mappings of cities to their ids.
+     */
     private TIntObjectMap<City> cities = new TIntObjectHashMap<City>();
 
+    /**
+     * Maps districts to worlds.
+     */
     private Map<String, TIntObjectMap<District>> worlds =
             new HashMap<String, TIntObjectMap<District>>();
 
+    /**
+     * Holds all of the landowners.
+     */
     private Map<String, LandOwner> landOwners = new HashMap<String, LandOwner>();
 
-    private Map<String, District> districts = new HashMap<String, District>();
-
+    /**
+     * Contains mappings between cities and districts.
+     */
     private Map<City, List<District>> cityDistrictMap =
             new HashMap<City, List<District>>();
 
+    /**
+     * Contains mappings between districts and cities.
+     */
     private Map<District, City> districtCityMap = new HashMap<District, City>();
 
     private final MafiacraftPlugin mc;
 
+    /**
+     * Constructor.
+     *
+     * @param mc The MafiacraftPlugin plugin.
+     */
     public CityManager(MafiacraftPlugin mc) {
         this.mc = mc;
+
+        registerSerializations();
+    }
+
+    /**
+     * Registers all the serializable classes to serialize them.
+     */
+    private void registerSerializations() {
         ConfigurationSerialization.registerClass(City.class);
         ConfigurationSerialization.registerClass(District.class);
         ConfigurationSerialization.registerClass(CityWorld.class);
@@ -542,7 +571,7 @@ public class CityManager {
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(
                 districtFile);
 
-        districts = new HashMap<String, District>();
+        cityDistrictMap = new HashMap<City, List<District>>();
 
         for (String key : conf.getKeys(false)) {
             Map<String, Object> data = (Map<String, Object>) conf.get(key);
