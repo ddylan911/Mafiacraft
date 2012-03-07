@@ -14,6 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <powermock.version>1.4.10</powermock.version>
+        <release.number>0.1</release.number>
         <build.number>Unknown</build.number>
     </properties>
 

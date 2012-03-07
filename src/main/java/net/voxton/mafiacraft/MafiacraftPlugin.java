@@ -43,7 +43,7 @@ public class MafiacraftPlugin extends JavaPlugin {
         dataWorker.saveAll();
 
         //Log
-        MLogger.log("Mafiacraft disabled.");
+        MLogger.log("Mafiacraft disabled successfully.");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MafiacraftPlugin extends JavaPlugin {
         dataWorker.loadAll();
 
         //Log
-        MLogger.log("Mafiacraft enabled.");
+        MLogger.log("Mafiacraft enabled successfully.");
     }
 
     public ChatHandler getChatHandler() {

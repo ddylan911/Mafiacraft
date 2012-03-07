@@ -1,7 +1,7 @@
 name: Mafiacraft
 description: A mafia server plugin.
 author: AlbireoX
-version: ${build.number}
+version: ${release.number}.${build.number}
 
 main: net.voxton.mafiacraft.MafiacraftPlugin
 
