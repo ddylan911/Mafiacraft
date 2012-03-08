@@ -110,7 +110,7 @@ public abstract class HelpMenu {
      * @return The amount of help pages.
      */
     public int getPages() {
-        return realHelp.size() / HEIGHT;
+        return (int) Math.ceil(realHelp.size() / (HEIGHT - 1));
     }
 
     /**
