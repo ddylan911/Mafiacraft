@@ -34,7 +34,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
 
     private String mayor;
 
-    private Set<String> advisors;
+    private Set<String> advisors = new HashSet<String>();
 
     private Location spawn;
 
