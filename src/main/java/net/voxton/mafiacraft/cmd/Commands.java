@@ -132,6 +132,7 @@ public final class Commands {
                 MafiacraftCommand.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
+
         });
     }
 

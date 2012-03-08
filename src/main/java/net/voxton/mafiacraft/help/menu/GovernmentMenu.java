@@ -38,5 +38,5 @@ public abstract class GovernmentMenu extends HelpMenu {
     public void loadMenu() {
         getName(); //TODO this
     }
-    
+
 }

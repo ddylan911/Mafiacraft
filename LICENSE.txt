@@ -1,3 +1,12 @@
+For the less-avid readers:
+
+Q: What does this all mean?
+
+You can use this code. Do not remove any portion referring to Voxton,
+and if you do modify it, you must share your modified code with the world.
+
+====================================================================
+
 The license described in this file is called the Voxton License version 1.
 
 ====================================================================

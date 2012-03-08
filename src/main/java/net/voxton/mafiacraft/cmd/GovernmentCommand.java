@@ -143,10 +143,9 @@ public final class GovernmentCommand {
         //TODO: help
         return null;
     }
-    
+
     public static String doHelp(MPlayer player, String arg, GovType type) {
         if (type.equals(GovType.MAFIA)) {
-            
         }
         return null;
     }
@@ -218,10 +217,10 @@ public final class GovernmentCommand {
         }
 
         founded.setLeader(player);
-        
+
         double startupCapital = MConfig.getDouble("mafia.startupcapital");
         founded.addMoney(startupCapital);
-        
+
         player.sendMessage(MsgColor.SUCCESS
                 + "You have successfully founded a new " + type.getName() + ".");
         return null;

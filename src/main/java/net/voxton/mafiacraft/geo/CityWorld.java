@@ -183,7 +183,7 @@ public class CityWorld implements ConfigurationSerializable {
 
     /**
      * Gets the spawn location of the city world.
-     * 
+     *
      * @return The spawn location of the city world.
      */
     public Location getSpawnLocation() {
@@ -191,7 +191,7 @@ public class CityWorld implements ConfigurationSerializable {
         if (capital == null) {
             return null;
         }
-        
+
         return capital.getSpawnLocation();
     }
 

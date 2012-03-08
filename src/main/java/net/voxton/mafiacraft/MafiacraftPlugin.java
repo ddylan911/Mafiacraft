@@ -152,7 +152,7 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     /**
      * Gets the version of the plugin.
-     * 
+     *
      * @return The version of the plugin.
      */
     public String getVersion() {
@@ -161,7 +161,7 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     /**
      * Gets the implementation version of the plugin.
-     * 
+     *
      * @return The implementation version of the plugin.
      */
     public String getImplementationVersion() {
@@ -170,7 +170,7 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     /**
      * Gets the detailed version of the plugin.
-     * 
+     *
      * @return The detailed version.
      */
     public String getVersionDetailed() {

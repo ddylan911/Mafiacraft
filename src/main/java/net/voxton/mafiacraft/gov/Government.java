@@ -889,7 +889,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
 
     /**
      * Returns true if the government can have more divisions.
-     * 
+     *
      * @return True if the government is allowed to have more divisions.
      */
     public boolean canHaveMoreDivisions() {

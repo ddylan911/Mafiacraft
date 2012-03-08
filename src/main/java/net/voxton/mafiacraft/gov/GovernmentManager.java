@@ -366,10 +366,7 @@ public class GovernmentManager {
         governments = new TIntObjectHashMap<Government>();
 
         for (String key : conf.getKeys(false)) {
-            Map<String, Object> der = (Map<String, Object>) conf.get(key);
-            Government gov = (Government) ConfigurationSerialization.
-                    deserializeObject(der,
-                    Government.class);
+            Government gov = (Government) conf.get(key);
 
             insertGovernment(gov);
         }
@@ -389,10 +386,7 @@ public class GovernmentManager {
         divisions = new TIntObjectHashMap<Division>();
 
         for (String key : conf.getKeys(false)) {
-            Map<String, Object> ser = (Map<String, Object>) conf.get(key);
-            Division div = (Division) ConfigurationSerialization.
-                    deserializeObject(ser,
-                    Division.class);
+            Division div = (Division) conf.get(key);
 
             insertDivision(div);
         }

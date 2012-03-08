@@ -566,10 +566,7 @@ public class CityManager {
         cityWorldMap = new HashMap<World, CityWorld>();
 
         for (String key : conf.getKeys(false)) {
-            Map<String, Object> data = (Map<String, Object>) conf.get(key);
-            CityWorld cityWorld = (CityWorld) ConfigurationSerialization.
-                    deserializeObject(data, CityWorld.class);
-
+            CityWorld cityWorld = (CityWorld) conf.get(key);
             cityWorldMap.put(cityWorld.getWorld(), cityWorld);
         }
 
@@ -588,9 +585,7 @@ public class CityManager {
         cities = new TIntObjectHashMap<City>();
 
         for (String key : conf.getKeys(false)) {
-            Map<String, Object> data = (Map<String, Object>) conf.get(key);
-            City city = (City) ConfigurationSerialization.deserializeObject(data,
-                    City.class);
+            City city = (City) conf.get(key);
 
             insertCity(city);
         }
@@ -611,9 +606,7 @@ public class CityManager {
         cityDistrictMap = new HashMap<City, List<District>>();
 
         for (String key : conf.getKeys(false)) {
-            Map<String, Object> data = (Map<String, Object>) conf.get(key);
-            District district = (District) ConfigurationSerialization.
-                    deserializeObject(data, District.class);
+            District district = (District) conf.get(key);
 
             insertDistrict(district);
         }
