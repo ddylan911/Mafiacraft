@@ -24,7 +24,6 @@
 package net.voxton.mafiacraft;
 
 import net.voxton.mafiacraft.classes.UtilityClass;
-import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.player.KillTracker;
@@ -43,9 +42,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.util.Vector;
 
 /**
@@ -224,8 +221,17 @@ public class MListener implements Listener {
         District prev = mc.getCityManager().getDistrict(last);
 
         if (!dest.getType().canEnter(player)) {
-            player.sendMessage(MsgColor.ERROR + "You aren't allowed to enter "
-                    + dest.getNameInChat() + ".");
+            long now = System.currentTimeMillis();
+
+            long lastMoveNag = player.getSessionStore().getLong("lastmovenag",
+                    now);
+
+            if (lastMoveNag + 1000L < now) {
+                player.sendMessage(MsgColor.ERROR
+                        + "You aren't allowed to enter "
+                        + dest.getNameInChat() + ".");
+                player.getSessionStore().setData("lastmovenag", now);
+            }
 
             //Move back
             Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.
@@ -243,6 +249,16 @@ public class MListener implements Listener {
 
         //We've switched chunks!
         store.setData("lastchunk", current);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Mafiacraft.getPlayer(event.getPlayer()).clearSessionStore();
+    }
+
+    @EventHandler
+    public void onPlayerKick(PlayerKickEvent event) {
+        Mafiacraft.getPlayer(event.getPlayer()).clearSessionStore();
     }
 
 }

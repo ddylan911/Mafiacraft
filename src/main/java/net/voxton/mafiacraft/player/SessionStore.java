@@ -27,8 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author simplyianm
+ * Holds session data about the player. Gets erased on player logout.
  */
 public class SessionStore {
 
@@ -77,6 +76,23 @@ public class SessionStore {
         }
         try {
             def = Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            return def;
+        }
+        return def;
+    }
+
+    public long getLong(String key) {
+        return getLong(key, 0);
+    }
+
+    public long getLong(String key, long def) {
+        String s = getString(key);
+        if (s == null) {
+            return def;
+        }
+        try {
+            def = Long.parseLong(s);
         } catch (NumberFormatException e) {
             return def;
         }

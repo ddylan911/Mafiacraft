@@ -349,6 +349,16 @@ public class MPlayer extends Transactable implements LandPurchaser {
         }
         return store;
     }
+    
+    /**
+     * Clears the player's session store.
+     * 
+     * @return This MPlayer.
+     */
+    public MPlayer clearSessionStore() {
+        store = null;
+        return this;
+    }
 
     public boolean canBuild(MPlayer player, Chunk chunk) {
         //TODO: check if the player lets the person build in that chunk?
