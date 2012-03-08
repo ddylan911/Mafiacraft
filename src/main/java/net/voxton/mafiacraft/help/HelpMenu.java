@@ -38,7 +38,7 @@ public abstract class HelpMenu {
     /**
      * The parsed and sorted help menu.
      */
-    private List<String> realHelp = new ArrayList<String>();
+    private List<String> realHelp = new LinkedList<String>();
 
     /**
      * Constructor.
