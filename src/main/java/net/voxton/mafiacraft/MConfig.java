@@ -32,10 +32,7 @@ public class MConfig {
         if (MConfig.plugin == null || MConfig.config == null) {
             Configuration conf = mc.getConfig();
             for (Entry<String, Object> def : defaults.entrySet()) {
-                String key = def.getKey();
-                if (!conf.isSet(key)) {
-                    conf.set(key, def.getValue());
-                }
+                conf.addDefault(def.getKey(), def.getValue());
             }
             MConfig.plugin = mc;
             MConfig.config = conf;
@@ -119,6 +116,7 @@ public class MConfig {
 
         //Mafia prices
         addDefault("prices.mafia.found", 150000.0);
+        addDefault("prices.mafia.regimefound", 5000.0);
 
         //City prices
         addDefault("prices.city.annex", 10000.0);
@@ -127,6 +125,9 @@ public class MConfig {
 
         //Government
         addDefault("prices.gov.sethq", 100.0);
+
+        //Mafia other
+        addDefault("mafia.regimestartup", 5000.0);
 
         //Division
         addDefault("division.maxnamelength", 15);

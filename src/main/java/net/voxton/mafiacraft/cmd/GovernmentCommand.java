@@ -421,6 +421,10 @@ public final class GovernmentCommand {
 
         Division div = gov.createDivision().setManager(player.getName()).setName(
                 name);
+
+        gov.subtractMoney(MConfig.getDouble("prices.mafia.regimefound"));
+        div.addMoney(MConfig.getDouble("mafia.regimestartup"));
+
         player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.
                 getType().getLocale("division") + " successfully.");
         return null;

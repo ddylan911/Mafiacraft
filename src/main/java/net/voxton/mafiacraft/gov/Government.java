@@ -864,6 +864,11 @@ public class Government extends Transactable implements LandPurchaser, Configura
         return members;
     }
 
+    /**
+     * Returns true if the government can have more divisions.
+     * 
+     * @return True if the government is allowed to have more divisions.
+     */
     public boolean canHaveMoreDivisions() {
         for (Division division : getDivisions()) {
             if (division.getMemberCount() < 5) {
