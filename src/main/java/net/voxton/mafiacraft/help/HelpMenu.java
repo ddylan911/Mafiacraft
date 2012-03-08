@@ -1,10 +1,6 @@
 package net.voxton.mafiacraft.help;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
@@ -104,7 +100,8 @@ public abstract class HelpMenu {
         String border = borderBuilder.toString();
 
         pg.add(border + ' ' + header + ' ' + border);
-        return getPageContent(page);
+        pg.addAll(getPageContent(page));
+        return pg;
     }
 
     /**
@@ -137,7 +134,7 @@ public abstract class HelpMenu {
      * @return The content of the page in a List.
      */
     public List<String> getPageContent(int page) {
-        List<String> content = new ArrayList<String>();
+        List<String> content = new LinkedList<String>();
         int entries = realHelp.size();
 
         int lines = HEIGHT - 1;
