@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import net.voxton.mafiacraft.help.MenuType;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -72,7 +73,7 @@ public final class CityCommand {
             } else if (function.equalsIgnoreCase("unclaim")) {
                 result = doUnclaim(player);
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function);
             }
         } else if (largs.size() < 2) {
             if (function.equalsIgnoreCase("bus")) {
@@ -90,21 +91,31 @@ public final class CityCommand {
             } else if (function.equalsIgnoreCase("setassistant")) {
                 result = doSetAssistant(player, largs.get(0));
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function);
             }
         } else if (largs.size() < 3) {
             if (function.equalsIgnoreCase("makepolice")) {
                 result = doMakePolice(player, largs.get(0), largs.get(1));
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function);
             }
         } else {
-            result = doHelp(player);
+            result = doHelp(player, function);
         }
 
         if (result != null) {
             player.sendMessage(MsgColor.ERROR + result);
         }
+    }
+
+    public static String doHelp(MPlayer player) {
+        MenuType.CITY.getPage(1);
+        return null;
+    }
+
+    public static String doHelp(MPlayer player, String arg) {
+        MenuType.CITY.doHelp(player, arg);
+        return null;
     }
 
     public static String doFound(MPlayer player, String name) {
@@ -145,12 +156,6 @@ public final class CityCommand {
         //Notify
         player.getBukkitEntity().sendMessage(MsgColor.SUCCESS
                 + "Your city has been founded successfully.");
-        return null;
-    }
-
-    public static String doHelp(MPlayer player) {
-        player.sendMessage("TODO:help");
-        //TODO: help
         return null;
     }
 

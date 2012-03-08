@@ -77,20 +77,7 @@ public final class CWorldCommand {
     }
 
     public static String doHelp(MPlayer player, String arg) {
-        int page = -1;
-        try {
-            page = Integer.parseInt(arg);
-        } catch (NumberFormatException ex) {
-        }
-
-        HelpMenu menu = MenuType.CWORLD;
-
-        if (page > 0) {
-            menu.sendPage(page, player);
-            return null;
-        }
-
-        menu.sendUsageError(arg, player);
+        MenuType.CWORLD.doHelp(player, arg);
         return null;
     }
 

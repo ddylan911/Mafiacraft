@@ -46,7 +46,7 @@ public abstract class HelpMenu {
 
     /**
      * Constructor.
-     * 
+     *
      * @param name The name of the help menu.
      */
     public HelpMenu(String name) {
@@ -62,7 +62,7 @@ public abstract class HelpMenu {
 
     /**
      * Adds an entry to the help menu.
-     * 
+     *
      * @param command The name of the command to add.
      * @param description The description of the command.
      * @param usg The usage of the command.
@@ -109,7 +109,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets the amount of help pages to display.
-     * 
+     *
      * @return The amount of help pages.
      */
     public int getPages() {
@@ -118,7 +118,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets the header of the help menu.
-     * 
+     *
      * @param page The page number.
      * @return The header as a string.
      */
@@ -132,7 +132,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets the content of a page.
-     * 
+     *
      * @param page The page number
      * @return The content of the page in a List.
      */
@@ -159,7 +159,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets a command entry.
-     * 
+     *
      * @param command The command.
      * @return The description of the command.
      */
@@ -169,7 +169,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets the usage of a certain command.
-     * 
+     *
      * @param command The command.
      * @return The usage of the command.
      */
@@ -179,7 +179,7 @@ public abstract class HelpMenu {
 
     /**
      * Sends a page to the given player.
-     * 
+     *
      * @param page The page to send.
      * @param player The player to send to.
      */
@@ -191,7 +191,7 @@ public abstract class HelpMenu {
 
     /**
      * Sends a usage error to the given player.
-     * 
+     *
      * @param command The command.
      * @param player The player.
      */
@@ -211,13 +211,36 @@ public abstract class HelpMenu {
 
     /**
      * Gets the complete formatted usage of the given command.
-     * 
+     *
      * @param command The command to get the usage of.
      * @return The command's usage.
      */
     public String getCompleteUsage(String command) {
         String usg = getUsage(command);
         return "/" + name.toLowerCase() + " " + usg;
+    }
+
+    /**
+     * Does help for the given player.
+     *
+     * @param player The player.
+     * @param arg The argument that is being parsed.
+     */
+    public void doHelp(MPlayer player, String arg) {
+        int page = -1;
+        try {
+            page = Integer.parseInt(arg);
+        } catch (NumberFormatException ex) {
+        }
+
+        HelpMenu menu = MenuType.CWORLD;
+
+        if (page > 0) {
+            menu.sendPage(page, player);
+            return;
+        }
+
+        menu.sendUsageError(arg, player);
     }
 
 }
