@@ -62,6 +62,8 @@ public final class DistrictCommand {
         } else if (largs.size() < 2) {
             if (function.equalsIgnoreCase("zone")) {
                 result = doZone(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("setcost")) {
+                result = doSetCost(player, largs.get(0));
             } else {
                 result = doHelp(player);
             }
