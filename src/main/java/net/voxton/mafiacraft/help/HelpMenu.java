@@ -243,4 +243,13 @@ public abstract class HelpMenu {
         menu.sendUsageError(arg, player);
     }
 
+    /**
+     * Gets the name of the help menu.
+     *
+     * @return The help menu name.
+     */
+    protected String getName() {
+        return name;
+    }
+
 }

@@ -43,7 +43,7 @@ public final class GovernmentCommand {
         MPlayer player = Mafiacraft.getPlayer((Player) sender);
 
         if (args.length < 1) {
-            doHelp(player);
+            doHelp(player, type);
             return;
         }
 
@@ -70,7 +70,7 @@ public final class GovernmentCommand {
             } else if (function.equalsIgnoreCase("accept")) {
                 result = doAccept(player, type);
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function, type);
             }
         } else if (largs.size() < 2) {
             if (function.equalsIgnoreCase("who")) {
@@ -90,7 +90,7 @@ public final class GovernmentCommand {
             } else if (function.equalsIgnoreCase("demoteofficer")) {
                 result = doDemoteOfficer(player, largs.get(0));
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function, type);
             }
         } else if (largs.size() < 3) {
             if (function.equalsIgnoreCase("grant")) {
@@ -100,13 +100,13 @@ public final class GovernmentCommand {
                     || function.equalsIgnoreCase("setsergeant")) {
                 result = doSetManager(player, largs.get(0), largs.get(1));
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function, type);
             }
         } else {
             if (function.equalsIgnoreCase("found")) {
                 result = doFound(player, Joiner.on(' ').join(largs), type);
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function, type);
             }
         }
 
@@ -115,13 +115,20 @@ public final class GovernmentCommand {
         }
     }
 
-    public static String doHelp(MPlayer player) {
+    public static String doHelp(MPlayer player, GovType type) {
         if (!player.hasPermission("mafiacraft.visitor")) {
             return "You aren't allowed to use this command.";
         }
 
         player.sendMessage("TODO: help");
         //TODO: help
+        return null;
+    }
+    
+    public static String doHelp(MPlayer player, String arg, GovType type) {
+        if (type.equals(GovType.MAFIA)) {
+            
+        }
         return null;
     }
 
