@@ -126,7 +126,7 @@
                 <version>1.3</version>
                 <configuration>
                     <outputPrefix>git-${project.name}-</outputPrefix>
-                    <outputPostfix></outputPostfix>
+                    <outputPostfix>-${build.source}</outputPostfix>
                 </configuration>
                 <executions>
                     <execution>
