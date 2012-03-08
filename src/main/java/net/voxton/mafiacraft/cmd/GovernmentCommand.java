@@ -163,7 +163,7 @@ public final class GovernmentCommand {
         }
 
         double balance = player.getMoney();
-        double cost = MConfig.getDouble("prices.mafia.found");
+        double cost = MConfig.getDouble("mafia.found");
 
         if (balance < cost) {
             return "You don't have enough money to do this. (Costs $" + cost
@@ -192,6 +192,10 @@ public final class GovernmentCommand {
         }
 
         founded.setLeader(player);
+        
+        double startupCapital = MConfig.getDouble("mafia.startupcapital");
+        founded.addMoney(startupCapital);
+        
         player.sendMessage(MsgColor.SUCCESS
                 + "You have successfully founded a new " + type.getName() + ".");
         return null;
