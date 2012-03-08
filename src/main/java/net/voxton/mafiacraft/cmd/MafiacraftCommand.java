@@ -27,6 +27,7 @@ public class MafiacraftCommand {
 
         if (args.length < 1) {
             doHelp(sender);
+            return;
         }
 
         String function = args[0];

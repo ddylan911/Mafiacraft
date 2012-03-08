@@ -193,9 +193,7 @@ public abstract class HelpMenu {
      * @param player The player.
      */
     public void sendUsageError(String command, MPlayer player) {
-        String usg = getCompleteUsage(command);
-
-        if (usg == null) {
+        if (!hasCommand(command)) {
             player.sendMessage(MsgColor.ERROR + "Strange argument \"" + command
                     + "\" given.");
             return;
@@ -204,6 +202,16 @@ public abstract class HelpMenu {
         player.sendMessage(MsgColor.ERROR + "Incorrect usage of the command. "
                 + "Usage: " + MsgColor.INFO_HILIGHT + getCompleteUsage(command)
                 + MsgColor.ERROR + ".");
+    }
+
+    /**
+     * Returns true if the given command is registered.
+     *
+     * @param command The command to check.
+     * @return The command.
+     */
+    public boolean hasCommand(String command) {
+        return usage.containsKey(command);
     }
 
     /**
@@ -230,14 +238,12 @@ public abstract class HelpMenu {
         } catch (NumberFormatException ex) {
         }
 
-        HelpMenu menu = MenuType.CWORLD;
-
         if (page > 0) {
-            menu.sendPage(page, player);
+            sendPage(page, player);
             return;
         }
 
-        menu.sendUsageError(arg, player);
+        sendUsageError(arg, player);
     }
 
     /**
