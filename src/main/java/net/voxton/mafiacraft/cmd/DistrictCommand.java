@@ -12,9 +12,11 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -210,6 +212,39 @@ public final class DistrictCommand {
 
         player.sendMessage(MsgColor.SUCCESS
                 + "The grid for the city has been claimed.");
+        return null;
+    }
+
+    public static String doSetCost(MPlayer player, String amount) {
+        if (!player.hasPermission("mafiacraft.citizen")) {
+            return "You must be a citizen to use this command. "
+                    + "Apply for citizen on the website at " + MsgColor.URL
+                    + "http://voxton.net/" + ".";
+        }
+
+        District district = player.getDistrict();
+        City city = district.getCity();
+        if (city == null) {
+            return "You aren't in a district that is part of a city.";
+        }
+
+        if (!city.isMayor(player)) {
+            return "You aren't the mayor of this city.";
+        }
+
+        double cost = 0;
+        try {
+            cost = Double.parseDouble(amount);
+        } catch (NumberFormatException ex) {
+            return "Invalid number '" + amount + "'.";
+        }
+
+        district.setLandCost(cost);
+
+        player.sendMessage(MsgColor.SUCCESS
+                + "The land cost of the district has been set to $"
+                + NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(cost)
+                + ".");
         return null;
     }
 
