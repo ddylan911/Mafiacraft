@@ -45,7 +45,7 @@ import static org.powermock.api.mockito.PowerMockito.*;
  * Testing of locale.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Mafiacraft.class, Bukkit.class})
+@PrepareForTest(Mafiacraft.class)
 public class LocaleTest {
 
     public LocaleTest() {

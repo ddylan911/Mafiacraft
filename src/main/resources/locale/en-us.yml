@@ -20,3 +20,4 @@ command:
     
   cworld:
     toggle-set: The toggle %s has been set to %s.
+    toggle-invalid: Invalid toggle name. Available toggle values are %s.

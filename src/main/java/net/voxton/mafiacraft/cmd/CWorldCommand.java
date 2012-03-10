@@ -31,8 +31,8 @@ import net.voxton.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import net.voxton.mafiacraft.help.HelpMenu;
 import net.voxton.mafiacraft.help.MenuType;
+import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.util.TPCD;
 import net.voxton.mafiacraft.util.TPCD.Type;
 import org.bukkit.Location;
@@ -102,7 +102,7 @@ public final class CWorldCommand {
 
     public static String doToggle(MPlayer player, String toggle) {
         if (!player.hasPermission("mafiacraft.admin")) {
-            return "You aren't allowed to use this command.";
+            return player.getLocale().localize("command.general.not-allowed");
         }
 
         CityWorld world = player.getCityWorld();
@@ -111,8 +111,8 @@ public final class CWorldCommand {
         try {
             tog = WorldToggle.valueOf(toggle.toUpperCase());
         } catch (IllegalArgumentException ex) {
-            return "Invalid toggle name. Available toggles are: " + Arrays.
-                    asList(WorldToggle.values());
+            return player.getLocale().localize("command.cworld.toggle-invalid",
+                    Arrays.asList(WorldToggle.values()));
         }
 
         boolean val = world.toggle(tog);

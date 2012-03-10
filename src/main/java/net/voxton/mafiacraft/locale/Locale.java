@@ -86,7 +86,7 @@ public class Locale {
      * @param vars The variable to localize with.
      * @return The localized string.
      */
-    public String localizeF(String string, Object... vars) {
+    public String localize(String string, Object... vars) {
         return String.format(localize(string), vars);
     }
 
