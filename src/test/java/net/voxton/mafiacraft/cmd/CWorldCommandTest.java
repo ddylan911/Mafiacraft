@@ -21,32 +21,11 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.task;
+package net.voxton.mafiacraft.cmd;
 
 /**
- * Checks if tasks are due.
+ * CWorld command.
  */
-public class TaskChecker implements Runnable {
-
-    /**
-     * Reference to the task manager.
-     */
-    private final TaskManager tm;
-
-    /**
-     * The constructor.
-     * 
-     * @param tm The task manager.
-     */
-    public TaskChecker(TaskManager tm) {
-        this.tm = tm;
-    }
-
-    @Override
-    public void run() {
-        for (RegisteredTask task : tm.getDueTasks()) {
-            task.getTask().run();
-        }
-    }
-
+public class CWorldCommandTest {
+    
 }

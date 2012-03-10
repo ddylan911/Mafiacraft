@@ -23,13 +23,90 @@
  */
 package net.voxton.mafiacraft.task;
 
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 /**
- * The task schedule.
+ * The task schedule. Let's hope it doesn't use up much ram.
  */
 public class TaskSchedule {
-    private Pattern generalPattern = Pattern.compile("");
+
+    private static final Pattern generalPattern = Pattern.compile("");
+
+    /**
+     * Regex pattern that fits minutes.
+     */
+    private final Pattern minutes;
+
+    /**
+     * Regex pattern that fits hours.
+     */
+    private final Pattern hours;
+
+    /**
+     * Regex pattern that fits days.
+     */
+    private final Pattern days;
+
+    /**
+     * Constructor that uses regex strings.
+     * 
+     * @param minutes The minute pattern.
+     * @param hours The hour pattern.
+     * @param days The day pattern.
+     */
+    public TaskSchedule(String minutes, String hours, String days) {
+        this(Pattern.compile(minutes), Pattern.compile(hours), Pattern.compile(
+                days));
+    }
+
+    /**
+     * Constructor that uses patterns.
+     * 
+     * @param minutes The minute pattern.
+     * @param hours The hour pattern.
+     * @param days The day pattern.
+     */
+    public TaskSchedule(Pattern minutes, Pattern hours, Pattern days) {
+        this.minutes = minutes;
+        this.hours = hours;
+        this.days = days;
+    }
+
+    /**
+     * Returns true if the value fits the minute.
+     * 
+     * @param minute The minute to check.
+     * @return True if the value fits the minute.
+     */
+    public boolean fitsMinute(int minute) {
+        return minutes.matcher(Integer.toString(minute)).matches();
+    }
+
+    /**
+     * Returns true if the value fits the hour.
+     * 
+     * @param minute The hour to check.
+     * @return True if the value fits the hour.
+     */
+    public boolean fitsHours(int hour) {
+        return hours.matcher(Integer.toString(hour)).matches();
+    }
+
+    /**
+     * Returns true if the value fits the day.
+     * 
+     * @param minute The day to check.
+     * @return True if the value fits the day.
+     */
+    public boolean fitsDays(int day) {
+        return days.matcher(Integer.toString(day)).matches();
+    }
+    
+    public boolean fitsTime() {
+        //TODO get JODA time!
+        return false;
+    }
     
     /**
      * Gets a schedule from its cron string.
@@ -62,4 +139,5 @@ public class TaskSchedule {
         //TODO: do this awesome thing!
         return null;
     }
+
 }

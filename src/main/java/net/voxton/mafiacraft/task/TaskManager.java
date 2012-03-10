@@ -23,10 +23,12 @@
  */
 package net.voxton.mafiacraft.task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import net.voxton.mafiacraft.MafiacraftPlugin;
+import org.bukkit.Bukkit;
 
 /**
  * Manages tasks in a manner consistent with server reloads.
@@ -45,7 +47,8 @@ public class TaskManager {
     /**
      * The tasks.
      */
-    private Map<String, RegisteredTask> tasks = new HashMap<String, RegisteredTask>();
+    private Map<String, RegisteredTask> tasks =
+            new HashMap<String, RegisteredTask>();
 
     /**
      * An unnecessary but line-number increasing reference to the task checker.
@@ -59,6 +62,8 @@ public class TaskManager {
      */
     public TaskManager(MafiacraftPlugin plugin) {
         mc = plugin;
+        
+        setupTaskChecker();
     }
 
     /**
@@ -66,7 +71,8 @@ public class TaskManager {
      */
     private void setupTaskChecker() {
         taskChecker = new TaskChecker(this);
-        //TODO register task
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(mc, taskChecker, 0L, 20L
+                * 60L); //Every minute
     }
 
     /**
@@ -98,8 +104,19 @@ public class TaskManager {
         return this;
     }
 
+    /**
+     * Gets a list of all tasks that are due.
+     * 
+     * @return The list of due tasks.
+     */
     public List<RegisteredTask> getDueTasks() {
-        return null;
+        List<RegisteredTask> taskList = new ArrayList<RegisteredTask>();
+        for (RegisteredTask rt : tasks.values()) {
+            if (rt.shouldRun(null)) {
+                taskList.add(rt);
+            }
+        }
+        return taskList;
     }
 
 }
