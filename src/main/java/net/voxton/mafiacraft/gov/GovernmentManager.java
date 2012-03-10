@@ -360,7 +360,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadGovernments() {
-        File govFile = Mafiacraft.getSubFile("gov", "governments.yml");
+        File govFile = Mafiacraft.getOrCreateSubFile("gov", "governments.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(govFile);
 
         governments = new TIntObjectHashMap<Government>();
@@ -380,7 +380,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadDivisions() {
-        File divFile = Mafiacraft.getSubFile("gov", "divisions.yml");
+        File divFile = Mafiacraft.getOrCreateSubFile("gov", "divisions.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(divFile);
 
         divisions = new TIntObjectHashMap<Division>();
@@ -400,7 +400,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadPoliceMappings() {
-        File policeFile = Mafiacraft.getSubFile("gov", "police.yml");
+        File policeFile = Mafiacraft.getOrCreateSubFile("gov", "police.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(policeFile);
 
         policeMap = new TIntIntHashMap();
@@ -427,7 +427,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager loadDivGovMappings() {
-        File mappingFile = Mafiacraft.getSubFile("gov",
+        File mappingFile = Mafiacraft.getOrCreateSubFile("gov",
                 "division_government_mappings.yml");
         YamlConfiguration conf =
                 YamlConfiguration.loadConfiguration(mappingFile);
@@ -494,7 +494,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager saveGovernments() {
-        File govFile = Mafiacraft.getSubFile("gov", "governments.yml");
+        File govFile = Mafiacraft.getOrCreateSubFile("gov", "governments.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
         for (Government gov : getGovernmentList()) {
@@ -518,7 +518,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager saveDivisions() {
-        File divFile = Mafiacraft.getSubFile("gov", "divisions.yml");
+        File divFile = Mafiacraft.getOrCreateSubFile("gov", "divisions.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
         for (Division div : getDivisionList()) {
@@ -542,7 +542,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager savePoliceMappings() {
-        File policeFile = Mafiacraft.getSubFile("gov", "police.yml");
+        File policeFile = Mafiacraft.getOrCreateSubFile("gov", "police.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
         TIntIntIterator policeIterator = policeMap.iterator();
@@ -579,7 +579,7 @@ public class GovernmentManager {
      * @return This GovernmentManager.
      */
     public GovernmentManager saveDivGovMappings() {
-        File mappingFile = Mafiacraft.getSubFile("gov",
+        File mappingFile = Mafiacraft.getOrCreateSubFile("gov",
                 "division_government_mappings.yml");
         YamlConfiguration conf = new YamlConfiguration();
 

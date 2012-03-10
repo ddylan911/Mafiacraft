@@ -113,15 +113,29 @@ public class DataWorker {
     }
 
     /**
-     * Gets a second-level file with the given name and directory.
+     * Gets a second-level file with the given name and directory and creates it if not found.
      *
+     * @param dir The directory containing the file.
+     * @param name The name of the file.
+     * @return The file retrieved.
+     */
+    public File getOrCreateSubFile(String dir, String name) {
+        File folder = getSubFolder(dir);
+        return getFileAndCreate(folder.getPath() + File.separator + name);
+    }
+    
+    /**
+     * Gets a sub file.
+     * 
      * @param dir The directory containing the file.
      * @param name The name of the file.
      * @return The file retrieved.
      */
     public File getSubFile(String dir, String name) {
         File folder = getSubFolder(dir);
-        return getFileAndCreate(folder.getPath() + File.separator + name);
+        File f =  getFile(folder.getPath() + File.separator + name);
+        System.out.println(f);
+        return f;
     }
 
     /**
@@ -131,8 +145,28 @@ public class DataWorker {
      * @return The created File.
      */
     private File getFileAndCreate(String path) {
-        File file = new File(path);
+        File file = getFile(path);
+        createFileIfNotExisting(file);
+        return file;
+    }
 
+    /**
+     * Gets a file.
+     * 
+     * @param path The path to the file.
+     * @return The file.
+     */
+    private File getFile(String path) {
+        return new File(path);
+    }
+    
+    /**
+     * Creates a file if it doesn't exist.
+     * 
+     * @param file The file to create.
+     * @return The created file.
+     */
+    private File createFileIfNotExisting(File file) {
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -141,8 +175,6 @@ public class DataWorker {
                         + "'!", ex);
             }
         }
-
         return file;
     }
-
 }

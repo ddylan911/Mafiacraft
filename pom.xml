@@ -149,6 +149,11 @@ Mafiacraft Build file (c) 2012 Voxton.net
                     <include>plugin.yml</include>
                 </includes>
             </resource>
+            <resource>
+                <targetPath>./locale</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/resources/locale</directory>
+            </resource>
         </resources>
         
         <!-- Plugins -->

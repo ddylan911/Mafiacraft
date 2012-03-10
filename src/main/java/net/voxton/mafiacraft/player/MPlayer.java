@@ -31,16 +31,14 @@ import net.voxton.mafiacraft.gov.Position;
 import net.voxton.mafiacraft.vault.Transactable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.*;
-import org.bukkit.Bukkit;
+import net.voxton.mafiacraft.locale.Locale;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
 /**
@@ -349,7 +347,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
         }
         return store;
     }
-    
+
     /**
      * Clears the player's session store.
      * 
@@ -557,8 +555,20 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return getBukkitEntity().hasPermission(permission);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getEntryMessage() {
         return getName();
+    }
+
+    /**
+     * Gets the locale of the player. At the moment this is only English US.
+     * 
+     * @return The locale of the player.
+     */
+    public Locale getLocale() {
+        return Locale.getLocale("en-us");
     }
 
 }

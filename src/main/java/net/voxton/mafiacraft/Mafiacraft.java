@@ -106,6 +106,18 @@ public class Mafiacraft {
     }
 
     /**
+     * Gets a second-level file with the given name and directory and creates it 
+     * if it doesn't exist.
+     *
+     * @param dir The directory containing the file.
+     * @param name The name of the file.
+     * @return The file retrieved.
+     */
+    public static File getOrCreateSubFile(String dir, String name) {
+        return getDataWorker().getOrCreateSubFile(dir, name);
+    }
+
+    /**
      * Gets a second-level file with the given name and directory.
      *
      * @param dir The directory containing the file.
