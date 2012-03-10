@@ -256,4 +256,13 @@ public class Mafiacraft {
         getDataWorker().saveAll();
     }
 
+    /**
+     * Gets a list of all districts.
+     * 
+     * @return A list of all districts.
+     */
+    public static List<District> getDistrictList() {
+        return getCityManager().getDistrictList();
+    }
+
 }
