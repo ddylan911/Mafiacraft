@@ -1,0 +1,2 @@
+== Mafiacraft ==
+Todo: this readme.
