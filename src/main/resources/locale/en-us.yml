@@ -94,3 +94,6 @@ help:
   no-0th-page: There is no 0th page, you crazy person.
   not-found: 404 help page not found. Make sure you are typing in a valid page number from 1 to %s.
   strange-argument: Strange argument %s given.
+  
+help-menu:
+  

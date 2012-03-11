@@ -21,30 +21,22 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.help;
+package net.voxton.mafiacraft.help.menu;
 
-import net.voxton.mafiacraft.help.menu.CWorldMenu;
-import net.voxton.mafiacraft.help.menu.CityMenu;
-import net.voxton.mafiacraft.help.menu.DistrictMenu;
+import net.voxton.mafiacraft.help.HelpMenu;
 
 /**
- * The type of menu.
+ * District command help menu.
  */
-public class MenuType {
+public class DistrictMenu extends HelpMenu {
 
-    /**
-     * City help menu.
-     */
-    public static final HelpMenu CITY = new CityMenu();
+    public DistrictMenu() {
+        super("District");
+    }
 
-    /**
-     * CWorld help menu.
-     */
-    public static final HelpMenu CWORLD = new CWorldMenu();
-
-    /**
-     * District help menu.
-     */
-    public static final HelpMenu DISTRICT = new DistrictMenu();
-
+    @Override
+    public void loadMenu() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 }
