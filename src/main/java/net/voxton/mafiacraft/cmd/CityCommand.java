@@ -25,7 +25,6 @@ package net.voxton.mafiacraft.cmd;
 
 import net.voxton.mafiacraft.MConfig;
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.MafiacraftPlugin;
 import net.voxton.mafiacraft.geo.City;
 import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.geo.District;
@@ -40,6 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import net.voxton.mafiacraft.help.MenuType;
+import net.voxton.mafiacraft.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -55,8 +55,8 @@ public final class CityCommand {
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR
-                    + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR + Language.getDefault().localize(
+                    "command.general.ingame-only"));
             return;
         }
 

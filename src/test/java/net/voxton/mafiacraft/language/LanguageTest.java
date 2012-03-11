@@ -21,8 +21,9 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.locale;
+package net.voxton.mafiacraft.language;
 
+import net.voxton.mafiacraft.language.Language;
 import java.io.File;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
@@ -32,6 +33,7 @@ import net.voxton.mafiacraft.data.DataWorker;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.language.Language;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,9 +48,9 @@ import static org.powermock.api.mockito.PowerMockito.*;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Mafiacraft.class)
-public class LocaleTest {
+public class LanguageTest {
 
-    public LocaleTest() {
+    public LanguageTest() {
     }
 
     @BeforeClass
@@ -77,7 +79,7 @@ public class LocaleTest {
     public void testGetLocale() {
         System.out.println("getLocale");
 
-        Locale locale = Locale.getLocale("en-us");
+        Language locale = Language.getLocale("en-us");
         String expected = "en-us";
         String result = locale.getName();
         
@@ -88,7 +90,7 @@ public class LocaleTest {
     public void testTopLevelLocalization() {
         System.out.println("Testing a top-level localization.");
 
-        Locale locale = Locale.getLocale("en-us");
+        Language locale = Language.getLocale("en-us");
         String expected = "en-us";
         String result = locale.localize("name");
 
@@ -99,7 +101,7 @@ public class LocaleTest {
     public void testSecondLevelLocalization() {
         System.out.println("Testing a second-level localization.");
 
-        Locale locale = Locale.getLocale("en-us");
+        Language locale = Language.getLocale("en-us");
         String expected = "a citizen";
         String result = locale.localize("terms.a-citizen");
 
@@ -110,7 +112,7 @@ public class LocaleTest {
     public void testThirdLevelLocalization() {
         System.out.println("Testing a third-level localization.");
 
-        Locale locale = Locale.getLocale("en-us");
+        Language locale = Language.getLocale("en-us");
         String expected = "You are not allowed to use this command.";
         String result = locale.localize("command.general.not-allowed");
 

@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import net.voxton.mafiacraft.help.MenuType;
-import net.voxton.mafiacraft.locale.Locale;
+import net.voxton.mafiacraft.language.Language;
 import net.voxton.mafiacraft.util.TPCD;
 import net.voxton.mafiacraft.util.TPCD.Type;
 import org.bukkit.Location;
@@ -48,7 +48,7 @@ public final class CWorldCommand {
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + Locale.getDefault().localize(
+            sender.sendMessage(MsgColor.ERROR + Language.getDefault().localize(
                     "command.general.ingame-only"));
             return;
         }

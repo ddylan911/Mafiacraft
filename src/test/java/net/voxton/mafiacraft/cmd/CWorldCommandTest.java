@@ -29,7 +29,7 @@ import java.util.Arrays;
 import static org.mockito.Matchers.*;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.WorldToggle;
-import net.voxton.mafiacraft.locale.Locale;
+import net.voxton.mafiacraft.language.Language;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import org.junit.After;
@@ -61,7 +61,7 @@ public class CWorldCommandTest {
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
-        Locale enUs = Locale.getLocale("en-us");
+        Language enUs = Language.getLocale("en-us");
 
         //Mock the cityworld
         world = mock(CityWorld.class);
@@ -87,7 +87,7 @@ public class CWorldCommandTest {
     public void testToggle_notAllowed() {
         System.out.println("Testing of a toggle that should not be allowed.");
 
-        String expected = Locale.getLocale("en-us").localize(
+        String expected = Language.getLocale("en-us").localize(
                 "command.general.not-allowed");
         String result = CWorldCommand.doToggle(aubhaze, WorldToggle.FREE_ROAM.
                 name());
@@ -101,7 +101,7 @@ public class CWorldCommandTest {
 
         String toggleList = Arrays.asList(WorldToggle.values()).toString();
 
-        String expected = Locale.getLocale("en-us").localize(
+        String expected = Language.getLocale("en-us").localize(
                 "command.cworld.toggle-invalid", toggleList);
         String result = CWorldCommand.doToggle(albireox, "free_rome"); //Intentional derp
 
@@ -118,7 +118,7 @@ public class CWorldCommandTest {
         String result = CWorldCommand.doToggle(albireox, toggle);
         assertNull(result);
 
-        String message = Locale.getLocale("en-us").localize(
+        String message = Language.getLocale("en-us").localize(
                 "command.cworld.toggle-set", toggle, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
@@ -134,7 +134,7 @@ public class CWorldCommandTest {
         String result = CWorldCommand.doToggle(albireox, toggle);
         assertNull(result);
 
-        String message = Locale.getLocale("en-us").localize(
+        String message = Language.getLocale("en-us").localize(
                 "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
@@ -151,7 +151,7 @@ public class CWorldCommandTest {
         String result = CWorldCommand.doToggle(albireox, toggle);
         assertNull(result);
 
-        String message = Locale.getLocale("en-us").localize(
+        String message = Language.getLocale("en-us").localize(
                 "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);

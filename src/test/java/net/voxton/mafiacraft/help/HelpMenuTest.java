@@ -34,7 +34,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.player.MsgColor;
 import java.util.LinkedList;
 import java.util.List;
-import net.voxton.mafiacraft.locale.Locale;
+import net.voxton.mafiacraft.language.Language;
 import org.bukkit.ChatColor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -77,7 +77,7 @@ public class HelpMenuTest {
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
-        Locale enUs = Locale.getLocale("en-us");
+        Language enUs = Language.getLocale("en-us");
         
         mockStatic(MConfig.class);
         when(MConfig.getString("locale.default")).thenReturn("en-us");
@@ -180,7 +180,7 @@ public class HelpMenuTest {
 
         expected.add(MsgColor.INFO
                 + "============= [ Test Help -- Page -1 of 2 ] =============");
-        expected.add(MsgColor.SUCCESS + Locale.getDefault().localize("help.imaginary-page"));
+        expected.add(MsgColor.SUCCESS + Language.getDefault().localize("help.imaginary-page"));
     }
     
     @Test

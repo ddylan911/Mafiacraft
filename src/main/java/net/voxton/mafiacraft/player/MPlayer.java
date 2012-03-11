@@ -34,7 +34,7 @@ import java.util.List;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.*;
-import net.voxton.mafiacraft.locale.Locale;
+import net.voxton.mafiacraft.language.Language;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -567,8 +567,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * 
      * @return The locale of the player.
      */
-    public Locale getLocale() {
-        return Locale.getDefault();
+    public Language getLocale() {
+        return Language.getDefault();
     }
 
 }

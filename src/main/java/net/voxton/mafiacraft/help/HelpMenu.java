@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.MLogger;
-import net.voxton.mafiacraft.locale.Locale;
+import net.voxton.mafiacraft.language.Language;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import org.bukkit.ChatColor;
@@ -118,7 +118,7 @@ public abstract class HelpMenu {
      * @return The page as a List<String>.
      */
     public List<String> getPage(int page) {
-        return getPage(page, Locale.getDefault());
+        return getPage(page, Language.getDefault());
     }
 
     /**
@@ -129,7 +129,7 @@ public abstract class HelpMenu {
      * @param locale The locale of the page.
      * @return An ordered list of the page and what appears on it.
      */
-    public List<String> getPage(int page, Locale locale) {
+    public List<String> getPage(int page, Language locale) {
         List<String> pg = new ArrayList<String>();
         pg.add(MsgColor.INFO + buildBorderedHeader(page, locale));
         pg.addAll(getPageContent(page, locale));
@@ -152,7 +152,7 @@ public abstract class HelpMenu {
      * @param locale The locale of the page.
      * @return The bordered header.
      */
-    public String buildBorderedHeader(int page, Locale locale) {
+    public String buildBorderedHeader(int page, Language locale) {
         String header = getHeader(page);
 
         int lines = (WIDTH - (header.length()) - 1) / 2;
@@ -187,7 +187,7 @@ public abstract class HelpMenu {
      * @param locale The locale of the page.
      * @return The content of the page in a List.
      */
-    public List<String> getPageContent(int page, Locale locale) {
+    public List<String> getPageContent(int page, Language locale) {
         List<String> content = new LinkedList<String>();
         int entries = realHelp.size();
 
