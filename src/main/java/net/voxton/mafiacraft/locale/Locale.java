@@ -33,6 +33,7 @@ import java.util.logging.Level;
 import net.voxton.mafiacraft.MConfig;
 import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.player.MsgColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -100,7 +101,7 @@ public class Locale {
      * @param localized The localized string.
      */
     private void addLocalization(String string, String localized) {
-        localizedStrings.put(string.toLowerCase(), localized);
+        localizedStrings.put(string.toLowerCase(), MsgColor.parseColors(localized));
     }
 
     /**
