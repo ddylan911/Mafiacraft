@@ -23,51 +23,90 @@
  */
 package net.voxton.mafiacraft.help;
 
+import net.voxton.mafiacraft.geo.CityWorld;
+import net.voxton.mafiacraft.player.MPlayer;
+import java.io.File;
+import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.MConfig;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.junit.runner.RunWith;
+import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.player.MsgColor;
 import java.util.LinkedList;
 import java.util.List;
+import net.voxton.mafiacraft.locale.Locale;
+import org.bukkit.ChatColor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.powermock.api.mockito.PowerMockito.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
 
 /**
  * Help menu test.
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({MConfig.class, Mafiacraft.class})
 public class HelpMenuTest {
-    
+
+    private CityWorld world;
+
+    private MPlayer aubhaze;
+
+    private MPlayer albireox;
+
     private HelpMenu testMenu;
-    
+
     public HelpMenuTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
-    
+
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
+        //Mock Mafiacraft for Locale support.
+        mockStatic(Mafiacraft.class);
+        when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
+                "./plugins/Mafiacraft/locale/en-us.yml"));
+        Locale enUs = Locale.getLocale("en-us");
+        
+        mockStatic(MConfig.class);
+        when(MConfig.getString("locale.default")).thenReturn("en-us");
+        
         testMenu = new HelpMenuImpl();
+
+        //Aubhaze has no permissions.
+        aubhaze = mock(MPlayer.class);
+        when(aubhaze.hasPermission(anyString())).thenReturn(false);
+        when(aubhaze.getLocale()).thenReturn(enUs);
+
+        //AlbireoX has all permissions.
+        albireox = mock(MPlayer.class);
+        when(albireox.hasPermission(anyString())).thenReturn(true);
+        when(albireox.getLocale()).thenReturn(enUs);
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void testAddEntry() {
         System.out.println("Testing adding an entry to the menu.");
-        
+
         String command = "mycommand";
         String desc = "A command.";
         String usage = "[opt]";
-        
+
         testMenu.addEntry(command, desc, usage);
 
         //Make sure it went in!
@@ -81,17 +120,17 @@ public class HelpMenuTest {
         String usageResult = testMenu.getUsage(command);
         assertEquals(usage, usageResult);
     }
-    
+
     @Test
     public void testGetPage() {
         System.out.println("Testing getting a page of the help menu.");
-        
+
         int page = 1;
-        
+
         List<String> expected = new LinkedList<String>();
-        
+
         expected.add(MsgColor.INFO
-                + "============= [ Test Help -- Page 1 of 1 ] =============");
+                + "============= [ Test Help -- Page 1 of 2 ] =============");
         expected.add(MsgColor.HELP_ENTRY + "test: " + MsgColor.HELP_DEF
                 + "A test method.");
         expected.add(MsgColor.HELP_ENTRY + "test2: " + MsgColor.HELP_DEF
@@ -110,17 +149,51 @@ public class HelpMenuTest {
                 + "A test8 method.");
         expected.add(MsgColor.HELP_ENTRY + "test9: " + MsgColor.HELP_DEF
                 + "A test9 method.");
-        
+
         List<String> result = testMenu.getPage(page);
         assertEquals(expected, result);
     }
+
+    @Test
+    public void testGetPage_2() {
+        System.out.println(
+                "Testing getting of a second page that is shorter than maximum.");
+
+        int page = 2;
+
+        List<String> expected = new LinkedList<String>();
+
+        expected.add(MsgColor.INFO
+                + "============= [ Test Help -- Page 2 of 2 ] =============");
+        expected.add(MsgColor.HELP_ENTRY + "test1: " + MsgColor.HELP_DEF
+                + "A test1 method.");
+    }
+
+    @Test
+    public void testGetPage_imaginary() {
+        System.out.println(
+                "Testing getting of an imaginary page. (One less than 0.)");
+
+        int page = -1;
+
+        List<String> expected = new LinkedList<String>();
+
+        expected.add(MsgColor.INFO
+                + "============= [ Test Help -- Page -1 of 2 ] =============");
+        expected.add(MsgColor.SUCCESS + Locale.getDefault().localize("help.imaginary-page"));
+    }
     
+    @Test
+    public void testDoHelp_incorrectUsage() {
+        fail();
+    }
+
     private class HelpMenuImpl extends HelpMenu {
-        
+
         public HelpMenuImpl() {
             super("Test");
         }
-        
+
         @Override
         public void loadMenu() {
             addEntry("test", "A test method.", "<args>");
@@ -136,7 +209,7 @@ public class HelpMenuTest {
             //Purposely out of order.
             addEntry("test1", "A test1 method.", "<args1>");
         }
-        
+
     }
 
 }

@@ -23,10 +23,15 @@
  */
 package net.voxton.mafiacraft.help;
 
-import java.util.*;
-import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import org.bukkit.ChatColor;
@@ -107,16 +112,27 @@ public abstract class HelpMenu {
     }
 
     /**
+     * Gets a page out of the help menu.
+     * 
+     * @param page The page to get.
+     * @return The page as a List<String>.
+     */
+    public List<String> getPage(int page) {
+        return getPage(page, Locale.getDefault());
+    }
+
+    /**
      * Gets a page out of the help menu. May be a little expensive. In the
      * future it may be cached.
      *
      * @param page The number of the page.
+     * @param locale The locale of the page.
      * @return An ordered list of the page and what appears on it.
      */
-    public List<String> getPage(int page) {
+    public List<String> getPage(int page, Locale locale) {
         List<String> pg = new ArrayList<String>();
-        pg.add(MsgColor.INFO + buildBorderedHeader(page));
-        pg.addAll(getPageContent(page));
+        pg.add(MsgColor.INFO + buildBorderedHeader(page, locale));
+        pg.addAll(getPageContent(page, locale));
         return pg;
     }
 
@@ -126,16 +142,17 @@ public abstract class HelpMenu {
      * @return The amount of help pages.
      */
     public int getPages() {
-        return (int) Math.ceil(realHelp.size() / (HEIGHT - 1));
+        return (int) Math.ceil((double) realHelp.size() / (HEIGHT - 1));
     }
 
     /**
      * Builds a bordered header for the specified page.
      * 
      * @param page The page to get the header of.
+     * @param locale The locale of the page.
      * @return The bordered header.
      */
-    public String buildBorderedHeader(int page) {
+    public String buildBorderedHeader(int page, Locale locale) {
         String header = getHeader(page);
 
         int lines = (WIDTH - (header.length()) - 1) / 2;
@@ -167,20 +184,35 @@ public abstract class HelpMenu {
      * Gets the content of a page.
      *
      * @param page The page number
+     * @param locale The locale of the page.
      * @return The content of the page in a List.
      */
-    public List<String> getPageContent(int page) {
+    public List<String> getPageContent(int page, Locale locale) {
         List<String> content = new LinkedList<String>();
         int entries = realHelp.size();
 
         int lines = HEIGHT - 1;
 
         int start = ((page - 1) * lines);
-        int finish = start + lines;
 
         if (start > entries - 1) {
+            content.add(MsgColor.ERROR + locale.localize("help.not-found",
+                    getPages()));
             return content;
         }
+
+        if (page == 0) {
+            content.add(MsgColor.ERROR + locale.localize("help.no-0th-page"));
+            return content;
+        }
+
+        if (page < 0) {
+            content.add(MsgColor.SUCCESS
+                    + locale.localize("help.imaginary-page"));
+            return content;
+        }
+
+        int finish = start + lines;
 
         for (int i = start; (i <= finish) && (i < (entries - 1)); i++) {
             String entry = realHelp.get(i);
@@ -218,27 +250,9 @@ public abstract class HelpMenu {
      * @param player The player to send to.
      */
     public void sendPage(int page, MPlayer player) {
-        for (String line : getPage(page)) {
+        for (String line : getPage(page, player.getLocale())) {
             player.sendMessage(line);
         }
-    }
-
-    /**
-     * Sends a usage error to the given player.
-     *
-     * @param command The command.
-     * @param player The player.
-     */
-    public void sendUsageError(String command, MPlayer player) {
-        if (!hasCommand(command)) {
-            player.sendMessage(MsgColor.ERROR + "Strange argument \"" + command
-                    + "\" given.");
-            return;
-        }
-
-        player.sendMessage(MsgColor.ERROR + "Incorrect usage of the command. "
-                + "Usage: " + MsgColor.INFO_HILIGHT + getCompleteUsage(command)
-                + MsgColor.ERROR + ".");
     }
 
     /**
@@ -269,18 +283,22 @@ public abstract class HelpMenu {
      * @param arg The argument that is being parsed.
      */
     public void doHelp(MPlayer player, String arg) {
-        int page = -1;
+        int page = 1;
         try {
             page = Integer.parseInt(arg);
+            sendPage(page, player);
+            return;
         } catch (NumberFormatException ex) {
         }
 
-        if (page > 0) {
-            sendPage(page, player);
+        if (!hasCommand(arg)) {
+            player.sendMessage(MsgColor.ERROR + player.getLocale().localize(
+                    "help.strange-argument"));
             return;
         }
 
-        sendUsageError(arg, player);
+        player.sendMessage(MsgColor.ERROR + player.getLocale().localize("help.incorrect-usage",
+                getCompleteUsage(arg)));
     }
 
     /**

@@ -21,3 +21,11 @@ command:
   cworld:
     toggle-set: The toggle %s has been set to %s.
     toggle-invalid: Invalid toggle name. Available toggle values are %s.
+    
+
+help:
+  no-0th-page: There is no 0th page, you crazy person.
+  imaginary-page: You have found an imaginary page. The square root of -1. The rationalization of pi. The answer to life, the universe, and everything. Good job.
+  not-found: 404 help page not found. Make sure you are typing in a valid page number from 1 to %s.
+  strange-argument: Strange argument %s given.
+  incorrect-usage: Incorrect usage of the command %s. Usage is %s.

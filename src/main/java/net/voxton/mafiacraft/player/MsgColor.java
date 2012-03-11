@@ -23,6 +23,9 @@
  */
 package net.voxton.mafiacraft.player;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.bukkit.ChatColor;
 
 /**
@@ -55,5 +58,37 @@ public class MsgColor {
     public static final String HELP_ENTRY = ChatColor.GREEN.toString();
 
     public static final String HELP_DEF = ChatColor.YELLOW.toString();
+    
+    public static final String NORMAL = ChatColor.WHITE.toString();
 
+    private static final Map<String, String> colors = new HashMap<String, String>();
+    
+    /**
+     * Parses colors.
+     * 
+     * @param uncolored The uncolored string full of color variables.
+     * @return The string, brand new and colored.
+     */
+    public static String parseColors(String uncolored) {
+        for (Entry<String, String> colorEntry : colors.entrySet()) {
+            uncolored = uncolored.replace("`{" + colorEntry.getKey() + "}", colorEntry.getValue());
+        }
+        return uncolored;
+    }
+    
+    /**
+     * Gets a color from its name.
+     * 
+     * @param colorName The name of the color.
+     * @return The color in string form.
+     */
+    public static String getColor(String colorName) {
+        return colors.get(colorName.toUpperCase());
+    }
+    
+    static {
+        colors.put("ERROR", ERROR);
+        colors.put("INFO", INFO);
+        colors.put("NORMAL", NORMAL);
+    }
 }
