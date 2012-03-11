@@ -374,7 +374,8 @@ public final class CityCommand {
         districtName = districtName.toUpperCase().trim();
         District d = city.getDistrictByName(districtName);
         if (d == null) {
-            return player.getLocale().localize("command.district.not-exist", districtName);
+            return player.getLocale().localize("command.district.not-exist",
+                    districtName);
         }
 
         Location bus = d.getBusStop();
@@ -389,95 +390,94 @@ public final class CityCommand {
 
     public static String doDeposit(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         double amt;
         try {
             amt = Double.parseDouble(amount);
         } catch (NumberFormatException ex) {
-            return "The amount you specified is an invalid number.";
+            return player.getLocale().localize("command.general.invalid-number",
+                    amount);
         }
 
+        String amtFmt = StringUtils.formatCurrency(amt);
         if (!player.hasEnough(amt)) {
-            return "You don't have that much money to burn.";
+            return player.getLocale().localize(
+                    "command.general.no-money.deposit", amtFmt, StringUtils.
+                    formatCurrency(player.getMoney()));
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You aren't in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         player.transferMoney(city, amt);
-        String fmt =
-                StringUtils.formatCurrency(amt);
-        player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt
-                + " into " + city.getOwnerName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.deposited", amtFmt, city.getOwnerName()));
         return null;
     }
 
     public static String doWithdraw(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.citizen");
         }
 
         double amt;
         try {
             amt = Double.parseDouble(amount);
         } catch (NumberFormatException ex) {
-            return "The amount you specified is an invalid number.";
+            return player.getLocale().localize("command.general.invalid-number");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You aren't in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMayor(player)) {
-            return "You must be mayor or above to perform this action.";
+            return player.getLocale().localize(
+                    "command.city.must-be-mayor.withdraw");
         }
 
+        String amtFmt = StringUtils.formatCurrency(amt);
         if (!city.hasEnough(amt)) {
-            return "The city doesn't have that much money.";
+            return player.getLocale().localize("command.city.no-money.withdraw",
+                    StringUtils.formatCurrency(city.getMoney()), amtFmt);
         }
 
         city.transferMoney(player, amt);
-        String fmt = StringUtils.formatCurrency(amt);
-        player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt
-                + " into " + city.getOwnerName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "comand.city.withdraw", amtFmt, city.getOwnerName()));
         return null;
     }
 
     public static String doClaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You are not in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMember(player)) {
-            return "You must be a member of the city to perform this action.";
+            return player.getLocale().localize(
+                    "command.city.must-be-member.claim");
         }
 
         District d = player.getDistrict();
         if (d.getType().isGovernment()) {
-            return "This district is already a government district.";
+            return player.getLocale().localize("command.city.already-owned");
         }
 
         double amt = MConfig.getDouble("prices.city.claim");
-        String af = StringUtils.formatCurrency(amt);
+        String amtFmt = StringUtils.formatCurrency(amt);
         if (!city.hasEnough(amt)) {
-            return "The city doesn't have enough money to claim land. (Costs "
-                    + af + ")";
+            return player.getLocale().localize("command.city.no-money.claim",
+                    amtFmt);
         }
 
         Chunk chunk = player.getChunk();
@@ -486,8 +486,8 @@ public final class CityCommand {
         //Claim the section
         d.setOwner(chunk, city);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have claimed the section "
-                + sn + " for your city.");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.claimed", sn));
         return null;
     }
 
