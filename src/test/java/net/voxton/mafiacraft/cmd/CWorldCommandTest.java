@@ -23,15 +23,15 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import net.voxton.mafiacraft.geo.CityWorld;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import static org.mockito.Matchers.*;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.WorldToggle;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;
+import net.voxton.mafiacraft.player.MsgColor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +40,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import static org.powermock.api.mockito.PowerMockito.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 
 /**
  * CWorld command.
@@ -47,6 +48,8 @@ import static org.junit.Assert.*;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Mafiacraft.class})
 public class CWorldCommandTest {
+
+    private CityWorld world;
 
     private MPlayer aubhaze;
 
@@ -60,15 +63,20 @@ public class CWorldCommandTest {
                 "./plugins/Mafiacraft/locale/en-us.yml"));
         Locale enUs = Locale.getLocale("en-us");
 
+        //Mock the cityworld
+        world = mock(CityWorld.class);
+
         //Aubhaze has no permissions.
         aubhaze = mock(MPlayer.class);
         when(aubhaze.hasPermission(anyString())).thenReturn(false);
         when(aubhaze.getLocale()).thenReturn(enUs);
+        when(aubhaze.getCityWorld()).thenReturn(world);
 
         //AlbireoX has all permissions.
         albireox = mock(MPlayer.class);
         when(albireox.hasPermission(anyString())).thenReturn(true);
         when(albireox.getLocale()).thenReturn(enUs);
+        when(albireox.getCityWorld()).thenReturn(world);
     }
 
     @After
@@ -95,9 +103,42 @@ public class CWorldCommandTest {
 
         String expected = Locale.getLocale("en-us").localize(
                 "command.cworld.toggle-invalid", toggleList);
-        String result = CWorldCommand.doToggle(albireox, "fure_roma");
+        String result = CWorldCommand.doToggle(albireox, "free_rome"); //Intentional derp
 
         assertEquals(expected, result);
     }
 
+    @Test
+    public void testToggle_success() {
+        System.out.println("Testing of a successful toggle.");
+
+        String toggle = WorldToggle.FREE_ROAM.name();
+        boolean value = false;
+
+        String result = CWorldCommand.doToggle(albireox, toggle);
+        assertNull(result);
+
+        String message = Locale.getLocale("en-us").localize(
+                "command.cworld.toggle-set", toggle, value);
+        verify(albireox).sendMessage(MsgColor.SUCCESS + message);
+        verify(world).toggle(WorldToggle.FREE_ROAM);
+    }
+
+    @Test
+    public void testToggle_caseInsensitive() {
+        System.out.println("Testing of a successful toggle.");
+
+        String toggle = "free_RoaM";
+        boolean value = false;
+
+        String result = CWorldCommand.doToggle(albireox, toggle);
+        assertNull(result);
+
+        String message = Locale.getLocale("en-us").localize(
+                "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
+        verify(albireox).sendMessage(MsgColor.SUCCESS + message);
+        verify(world).toggle(WorldToggle.FREE_ROAM);
+    }
+    
+    
 }

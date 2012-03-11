@@ -32,8 +32,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- *
- * @author simplyianm
+ * Crappy teleportation system. Please replace me with some sort of factory thing!
+ * 
+ * TODO: FIXME!!!! HIGH PRIORITY!
  */
 public class TPCD implements Runnable {
 
