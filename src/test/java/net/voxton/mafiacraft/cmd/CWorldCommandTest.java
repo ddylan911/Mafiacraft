@@ -139,6 +139,5 @@ public class CWorldCommandTest {
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
     }
-    
-    
+
 }

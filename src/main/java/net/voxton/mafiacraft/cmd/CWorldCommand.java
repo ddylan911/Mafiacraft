@@ -122,14 +122,7 @@ public final class CWorldCommand {
     }
 
     public static String doSpawn(MPlayer player) {
-        CityWorld world = player.getCityWorld();
-        Location spawn = world.getSpawnLocation();
-
-        if (spawn == null) {
-            //No spawn for the city world, default to world spawn
-            spawn = world.getWorld().getSpawnLocation();
-        }
-
+        Location spawn = player.getCityWorld().getSpawnLocation();
         TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, Type.CSPAWN, player.
                 getBukkitEntity(), spawn);
         return null;
