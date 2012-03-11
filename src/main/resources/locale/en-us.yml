@@ -45,6 +45,8 @@ command:
       withdraw: You must be mayor of the city to withdraw from it.
     must-be-member:
       claim: You must be a member of the city to claim land as it.
+      district:
+        desc: You must be a member of the city to change a district description.
       funds: You must be part of the city government to view the funds of the city.
       unclaim: You must be a member of the city to unclaim land as it.
     name-taken: A city with that name already exists; please try another name.
@@ -74,6 +76,7 @@ command:
   district:
     bus-far: You must be within %s blocks of a bus stop to ride the bus.
     claimed: You have successfuly claimed the district for your city.
+    desc: You have changed the description of the district to `{SUCCESS_HILIGHT}%s`{SUCCESS}.
     must-be-mayor:
       annex: You must be the mayor of the city to annex this district.
       unannex: You must be the mayor of the city to unannex this district.
@@ -81,6 +84,7 @@ command:
     not-associated: This district is not associated with a city.
     not-exist: District %s does not exist.
     not-owned: This district is not part of your city.
+    this-not-associated: You are not in a city-owned district.
     unclaimed: You have successfully unclaimed the district from your city.
     unavailable: This district is already associated with the city.
 

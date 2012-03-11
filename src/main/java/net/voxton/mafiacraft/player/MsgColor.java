@@ -44,6 +44,8 @@ public class MsgColor {
     public static final String INFO_GOV = ChatColor.GREEN.toString();
 
     public static final String SUCCESS = ChatColor.GREEN.toString();
+    
+    public static final String SUCCESS_HILIGHT = ChatColor.YELLOW.toString();
 
     public static final String URL = ChatColor.AQUA.toString();
 
@@ -94,5 +96,7 @@ public class MsgColor {
         colors.put("INFO", INFO);
         colors.put("NORMAL", NORMAL);
         colors.put("URL", URL);
+        colors.put("SUCCESS", SUCCESS);
+        colors.put("SUCCESS_HILIGHT", SUCCESS_HILIGHT);
     }
 }

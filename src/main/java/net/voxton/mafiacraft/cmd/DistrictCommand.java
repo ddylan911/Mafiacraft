@@ -101,17 +101,17 @@ public final class DistrictCommand {
 
     public static String doDesc(MPlayer player, String description) {
         if (!player.hasPermission("mafiacraft.mod")) {
-            return "You aren't allowed to use this command.";
+            return player.getLocale().localize("command.general.not-allowed");
         }
 
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
-            return "You aren't in a district that is part of a city.";
+            return player.getLocale().localize("command.district.this-not-associated");
         }
 
         if (city.isMember(player)) {
-            return "You must be a member of this city.";
+            return player.getLocale().localize("command.city.must-be-member.district.desc");
         }
 
         description = description.trim();
@@ -124,28 +124,17 @@ public final class DistrictCommand {
         district.setDescription(description);
 
         //Success!
-        player.sendMessage(
-                MsgColor.SUCCESS
-                + "You have successfully changed the description of the district to:");
-        player.sendMessage(MsgColor.INFO + description);
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize("command.district.desc", description));
         return null;
     }
 
     public static String doHelp(MPlayer player) {
-        if (!player.hasPermission("mafiacraft.visitor")) {
-            return "You aren't allowed to use this command.";
-        }
-
         //TODO: be helpful
         player.sendMessage(MsgColor.ERROR + "TODO: help");
         return null;
     }
 
     public static String doInfo(MPlayer player) {
-        if (!player.hasPermission("mafiacraft.visitor")) {
-            return "You aren't allowed to use this command.";
-        }
-
         //TODO add real info
         player.sendMessage("You are in the district " + player.getDistrict().
                 getNameInChat());
