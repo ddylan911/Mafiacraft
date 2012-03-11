@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  */
 public class TaskSchedule {
 
-    private static final Pattern generalPattern = Pattern.compile("");
+    private static final Pattern generalPattern = Pattern.compile("() () ()"); //TODO: look up this regex.
 
     /**
      * Regex pattern that fits minutes.
@@ -102,12 +102,12 @@ public class TaskSchedule {
     public boolean fitsDays(int day) {
         return days.matcher(Integer.toString(day)).matches();
     }
-    
+
     public boolean fitsTime() {
         //TODO get JODA time!
         return false;
     }
-    
+
     /**
      * Gets a schedule from its cron string.
      * 
