@@ -126,9 +126,26 @@ public class CWorldCommandTest {
 
     @Test
     public void testToggle_caseInsensitive() {
-        System.out.println("Testing of a successful toggle.");
+        System.out.println("Testing of a successful toggle, case insensitive.");
 
         String toggle = "free_RoaM";
+        boolean value = false;
+
+        String result = CWorldCommand.doToggle(albireox, toggle);
+        assertNull(result);
+
+        String message = Locale.getLocale("en-us").localize(
+                "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
+        verify(albireox).sendMessage(MsgColor.SUCCESS + message);
+        verify(world).toggle(WorldToggle.FREE_ROAM);
+    }
+
+    @Test
+    public void testToggle_dashes() {
+        System.out.println("Testing of a successful toggle "
+                + "with dashes instead of underscores.");
+
+        String toggle = "free-RoaM";
         boolean value = false;
 
         String result = CWorldCommand.doToggle(albireox, toggle);

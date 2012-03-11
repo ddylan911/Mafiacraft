@@ -109,7 +109,7 @@ public final class CWorldCommand {
 
         WorldToggle tog = null;
         try {
-            tog = WorldToggle.valueOf(toggle.toUpperCase());
+            tog = WorldToggle.valueOf(toggle.toUpperCase().replace('-', '_'));
         } catch (IllegalArgumentException ex) {
             return player.getLocale().localize("command.cworld.toggle-invalid",
                     Arrays.asList(WorldToggle.values()));
