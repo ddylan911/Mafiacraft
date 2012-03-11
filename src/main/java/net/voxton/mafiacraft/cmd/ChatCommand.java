@@ -25,9 +25,11 @@ package net.voxton.mafiacraft.cmd;
 
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.chat.ChatType;
-import net.voxton.mafiacraft.language.Language;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -40,8 +42,8 @@ public final class ChatCommand {
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + Language.getDefault().localize(
-                    "command.general.ingame-only"));
+            sender.sendMessage(MsgColor.ERROR
+                    + "Sorry, this command is only usable in game.");
             return;
         }
 

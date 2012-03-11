@@ -21,7 +21,7 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.language;
+package net.voxton.mafiacraft.locale;
 
 import java.io.File;
 import java.net.URL;
@@ -40,7 +40,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 /**
  * Represents a locale.
  */
-public class Language {
+public class Locale {
 
     /**
      * Contains variables which are denoted as $(var) in the locale files.
@@ -50,7 +50,7 @@ public class Language {
     /**
      * Map which contains all locales mapped to their names in lowercase form.
      */
-    private static Map<String, Language> locales = new HashMap<String, Language>();
+    private static Map<String, Locale> locales = new HashMap<String, Locale>();
 
     /**
      * Map which containes all localized strings of the locale.
@@ -65,7 +65,7 @@ public class Language {
     /**
      * Private constructor
      */
-    private Language(String name) {
+    private Locale(String name) {
         this.name = name;
     }
 
@@ -138,12 +138,12 @@ public class Language {
      * @param name The name of the locale.
      * @return The Locale object.
      */
-    public static Language getLocale(String name) {
+    public static Locale getLocale(String name) {
         name = name.toLowerCase();
-        Language locale = locales.get(name);
+        Locale locale = locales.get(name);
         if (locale == null) {
             //Load locale
-            locale = new Language(name);
+            locale = new Locale(name);
 
             File localeFile = Mafiacraft.getSubFile("locale", name);
 
@@ -203,7 +203,7 @@ public class Language {
      * 
      * @return The default locale.
      */
-    public static Language getDefault() {
+    public static Locale getDefault() {
         return getLocale(MConfig.getString("locale.default"));
     }
 
