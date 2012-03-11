@@ -18,12 +18,13 @@ command:
       deposit: You aren't able to deposit that much money. (You are trying to deposit %s when you only have %s)
     not-allowed: You are not allowed to use this command.
     not-citizen: You must be a citizen to use this command. To apply for citizenship, please visit `{URL}$(server-url)`{NORMAL}.
+    player-not-found: The player "%s" is either offlne or does not exist.
     
   chat:
     not-in-city-move: You have been moved to global chat due to you not being in a @(terms.city).
     
   city:
-    already-owned: This district is already a city district.
+    already-owned: This district is already a city-owned district.
     capital-established: The world you are in already has a capital established.
     claimed: You have claimed the section %s for the city.
     deposited: You have deposited %s into %s.
@@ -34,23 +35,28 @@ command:
     must-be-mayor:
       annex-district:  You must be the mayor of the city to annex this district.
       disband: Only the mayor can disband the city. This is very dangerous.
+      make-police: You must be the mayor of the city to establish the city police.
       rename: You must be the mayor of the city to rename it.
       withdraw: You must be mayor of the city to withdraw from it.
     must-be-member:
       claim: You must be a member of the city to claim land as it.
       funds: You must be part of the city government to view the funds of the city.
+      unclaim: You must be a member of the city to unclaim land as it.
     name-taken: A city with that name already exists; please try another name.
     no-money:
       annex: The city does not have enough money to annex a new district. (Costs %s)
       claim: The city doesn't have enough money to claim land. (Costs %s)
       found: You don't have enough money to found a city. (Costs %s)
+      make-police: The city does not have enough money to establish police. (Costs %s)
       withdraw: The city does not have that much money to withdraw. (The city only has %s but you are trying to withdraw %s.)
     no-spawn: The city does not have a spawn location set.
     not-allowed: You aren't allowed to do this in this city.
     not-in: You are not in a city.
     none-in-world: There is no city established in this world.
+    police-made: A police force has been established in your city.
     renamed: The city %s has been renamed to %s.
     set-spawn: You have set the city's spawn location successfully.
+    unclaimed: You have unclaimed the section %s for the city.
     withdraw: You have withdrawn %s from %s.
     
   cworld:

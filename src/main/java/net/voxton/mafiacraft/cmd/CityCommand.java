@@ -493,23 +493,22 @@ public final class CityCommand {
 
     public static String doUnclaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You are not in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMember(player)) {
-            return "You must be a member of the city to perform this action.";
+            return player.getLocale().localize(
+                    "command.city.must-be-member.unclaim");
         }
 
         District d = player.getDistrict();
         if (d.getType().isGovernment()) {
-            return "This district is already a government district.";
+            return player.getLocale().localize("command.city.already-owned");
         }
 
         Chunk chunk = player.getChunk();
@@ -518,47 +517,49 @@ public final class CityCommand {
         //Unclaim the section
         d.removeOwner(chunk);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have unclaimed the section "
-                + sn + " for your city.");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.unclaimed", sn));
         return null;
     }
 
     public static String doMakePolice(MPlayer player, String chief,
             String assistant) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You are not in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMayor(player)) {
-            return "You must be a member of the city to perform this action.";
+            return player.getLocale().localize(
+                    "command.city.must-be-mayor.make-police");
         }
 
-        MPlayer c = Mafiacraft.getPlayer(Bukkit.getPlayer(chief));
+        MPlayer c = Mafiacraft.getPlayer(chief);
         if (c == null) {
-            return "That player is either offline or does not exist.";
+            return player.getLocale().localize(
+                    "command.general.player-not-found", chief);
         }
 
         MPlayer a = Mafiacraft.getPlayer(Bukkit.getPlayer(assistant));
         if (a == null) {
-            return "That player is either offline or does not exist.";
+            return player.getLocale().localize(
+                    "command.general.player-not-found", assistant);
         }
 
         double amt = MConfig.getDouble("prices.city.makepolice");
         if (!city.hasEnough(amt)) {
-            return "The city does not have enough money to establish police. (Costs "
-                    + amt + ")";
+            return player.getLocale().localize(
+                    "command.city.no-money.make-police", StringUtils.
+                    formatCurrency(amt));
         }
 
         city.establishPolice(c, a);
-        player.sendMessage(MsgColor.SUCCESS
-                + "A police force has been established in your city.");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.police-made"));
         return null;
     }
 
