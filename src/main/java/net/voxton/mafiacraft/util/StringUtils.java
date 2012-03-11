@@ -34,8 +34,8 @@ public class StringUtils {
     /**
      * Formats a number to the currency used on the server.
      * 
-     * @param num
-     * @return 
+     * @param num The number to format.
+     * @return The formatted number.
      */
     public static String formatCurrency(double num) {
         return NumberFormat.getCurrencyInstance(Locale.US).format(num);
