@@ -597,34 +597,33 @@ public final class CityCommand {
 
     public static String doSetAssistant(MPlayer player, String assistant) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You are not in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMayor(player)) {
-            return "You must be a member of the city to perform this action.";
+            return player.getLocale().localize(
+                    "command.city.must-be-mayor.set-assistant");
         }
 
-        MPlayer a = Mafiacraft.getPlayer(Bukkit.getPlayer(assistant));
+        MPlayer a = Mafiacraft.getPlayer(assistant);
         if (a == null) {
-            return "That player is either offline or does not exist.";
+            return player.getLocale().localize(
+                    "command.general.player-not-found");
         }
 
         Government police = city.getPolice();
         if (police == null) {
-            return "The city does not have a police force established.";
+            return player.getLocale().localize("command.city.no-police");
         }
 
         police.setViceLeader(a);
-        player.sendMessage(MsgColor.SUCCESS
-                + "The assistant chief of the city has successfully been changed to "
-                + a.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.set-assistant", city.getOwnerName(), assistant));
         return null;
     }
 

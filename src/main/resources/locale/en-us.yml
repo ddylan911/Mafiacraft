@@ -37,6 +37,7 @@ command:
       disband: Only the mayor can disband the city. This is very dangerous.
       make-police: You must be the mayor of the city to establish the city police.
       rename: You must be the mayor of the city to rename it.
+      set-assistant: You must be the mayor of the city to set its assistant.
       set-chief: You must be the mayor of the city to set its chief.
       withdraw: You must be mayor of the city to withdraw from it.
     must-be-member:
@@ -57,6 +58,7 @@ command:
     none-in-world: There is no city established in this world.
     police-made: A police force has been established in your city.
     renamed: The city %s has been renamed to %s.
+    set-assistant: The assistant chief of police of %s has successfully been changed to %s.
     set-chief: The chief of police of %s has successfully been changed to %s.
     set-spawn: You have set the city's spawn location successfully.
     unclaimed: You have unclaimed the section %s for the city.
