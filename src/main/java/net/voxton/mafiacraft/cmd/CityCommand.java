@@ -153,16 +153,16 @@ public final class CityCommand {
         double foundCost = MConfig.getDouble("prices.city.found");
 
         if (balance < foundCost) {
-            return player.getLocale().localize("command.general.no-money",
-                    "found a city", StringUtils.formatCurrency(foundCost));
+            return player.getLocale().localize("command.city.no-money.found",
+                    StringUtils.formatCurrency(foundCost));
         }
 
         if (!name.matches("[\\w\\s]+") || name.length() > 25) {
-            return player.getLocale().localize("command.city.invalid-city-name");
+            return player.getLocale().localize("command.city.invalid-name");
         }
 
         if (Mafiacraft.getCityManager().cityExists(name)) {
-            return player.getLocale().localize("command.city.city-exists");
+            return player.getLocale().localize("command.city.name-taken");
         }
 
         //Found a city
@@ -174,7 +174,7 @@ public final class CityCommand {
 
         //Notify
         player.getBukkitEntity().sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.city.city-founded"));
+                + player.getLocale().localize("command.city.founded"));
         return null;
     }
 
@@ -185,7 +185,7 @@ public final class CityCommand {
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.general.not-in-city");
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMember(player)) {
@@ -205,7 +205,7 @@ public final class CityCommand {
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.general.not-in-city");
+            return player.getLocale().localize("command.city.not-in");
         }
 
         Location spawn = city.getSpawnLocation();
@@ -226,7 +226,7 @@ public final class CityCommand {
 
         City city = player.getCityWorld().getCapital();
         if (city == null) {
-            return player.getLocale().localize("command.city.no-city.in-world");
+            return player.getLocale().localize("command.city.none-in-world");
         }
 
         District district = player.getDistrict();
@@ -236,19 +236,20 @@ public final class CityCommand {
         }
 
         if (!city.isMayor(player)) {
-            return player.getLocale().localize("command.city.must-be-mayor", "anex new districts");
+            return player.getLocale().localize(
+                    "command.district.must-be-mayor.annex");
         }
 
         double cost = MConfig.getDouble("prices.city.annex");
         if (!city.hasEnough(cost)) {
-            return player.getLocale().localize("command.city.no-money",
-                    "annex this district", StringUtils.formatCurrency(cost));
+            return player.getLocale().localize("command.city.no-money.annex",
+                    StringUtils.formatCurrency(cost));
         }
 
         city.subtractMoney(cost);
         city.attachNewDistrict(district);
         player.sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.city.district-claimed"));
+                + player.getLocale().localize("command.district.claimed"));
         return null;
     }
 
@@ -264,20 +265,21 @@ public final class CityCommand {
 
         District district = player.getDistrict();
         if (district.getCity() == null) {
-            return player.getLocale().localize("command.city.district-not-associated");
+            return player.getLocale().localize("command.district.not-associated");
         }
 
         if (!district.getCity().equals(city)) {
-            return player.getLocale().localize("command.city.district-not-owned");
+            return player.getLocale().localize("command.district.not-owned");
         }
 
         if (!city.isMayor(player)) {
-            return player.getLocale().localize("command.city.must-be-mayor", "unannex this district");
+            return player.getLocale().localize(
+                    "command.district.must-be-mayor.unannex");
         }
 
         district.detachFromCity();
         player.sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.city.district-unclaimed"));
+                + player.getLocale().localize("command.district.unclaimed"));
         return null;
     }
 
@@ -288,11 +290,12 @@ public final class CityCommand {
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.general.not-in-city");
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMayor(player)) {
-            return player.getLocale().localize("command.city.must-be-mayor-to-rename");
+            return player.getLocale().localize(
+                    "command.city.must-be-mayor.rename");
         }
 
         String valid = ValidationUtils.validateName(name);
@@ -300,7 +303,8 @@ public final class CityCommand {
             return valid;
         }
 
-        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize("command.city.city-renamed", city.getName(), name));
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.renamed", city.getName(), name));
         city.setName(name);
         return null;
     }
@@ -312,17 +316,18 @@ public final class CityCommand {
 
         City city = player.getCity();
         if (city == null) {
-            return "You aren't in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMember(player)) {
-            return "You must be part of the city government to view the funds of the city.";
+            return player.getLocale().localize(
+                    "command.city.must-be.member.funds");
         }
 
         double funds = city.getMoney();
         String fundsStr = StringUtils.formatCurrency(funds);
-        player.sendMessage(MsgColor.INFO + city.getOwnerName() + " has "
-                + fundsStr + " in funds.");
+        player.sendMessage(MsgColor.INFO + player.getLocale().localize(
+                "command.city.funds", city.getOwnerName(), fundsStr));
         return null;
     }
 

@@ -16,34 +16,44 @@ command:
     not-citizen: You must be a citizen to use this command. To apply for citizenship, please visit `{URL}$(server-url)`{NORMAL}.
     ingame-only: Sorry, this command is only available ingame.
     no-money: You don't have enough money to %s. (Costs %s)
-    not-in-city: You aren't in a city.
     
   chat:
     not-in-city-move: You have been moved to global chat due to you not being in a @(terms.city).
     
   city:
+    not-in: You are not in a city.
     capital-established: The world you are in already has a capital established.
-    invalid-city-name: That city name is invalid; city names must be less than 25 characters in length and alphanumeric.
-    city-exists: A city with that name already exists; please try another name.
-    city-founded: Your city has been founded successfully.
+    invalid-name: That city name is invalid; city names must be less than 25 characters in length and alphanumeric.
+    name-taken: A city with that name already exists; please try another name.
+    founded: Your city has been founded successfully.
     not-allowed: You aren't allowed to do this in this city.
     set-spawn: You have set the city's spawn location successfully.
     no-spawn: The city does not have a spawn location set.
-    no-city-in-world: There is no city established in this world.
-    district-unavailable: This district is already associated with the city.
-    must-be-mayor: You must be the mayor of the city to %s.
-    must-be-mayor-to-rename: You must be the mayor of the city to rename it.
-    no-money: The city doesn't have enough money to %s. (Costs %s)
-    district-claimed: You have successfuly claimed the district for your city.
-    district-unclaimed: You have successfully unclaimed the district from your city.
-    district-not-associated: This district is not associated with a city.
-    district-not-owned: This district is not part of your city.
-    city-renamed: The city %s has been renamed to %s.
+    funds: %s has %s in funds.
+    must-be-mayor:
+      annex-district:  You must be the mayor of the city to annex this district.
+      rename: You must be the mayor of the city to rename it.
+    must-be-member:
+      funds: You must be part of the city government to view the funds of the city.
+    none-in-world: There is no city established in this world.
+    no-money:
+      found: You don't have enough money to found a city. (Costs %s)
+      annex: The city does not have enough money to annex a new district. (Costs %s)
+    renamed: The city %s has been renamed to %s.
     
   cworld:
     toggle-set: The toggle %s has been set to %s.
     toggle-invalid: Invalid toggle name. Available toggle values are %s.
     
+  district:
+    claimed: You have successfuly claimed the district for your city.
+    unclaimed: You have successfully unclaimed the district from your city.
+    not-associated: This district is not associated with a city.
+    not-owned: This district is not part of your city.
+    unavailable: This district is already associated with the city.
+    must-be-mayor:
+      annex: You must be the mayor of the city to annex this district.
+      unannex: You must be the mayor of the city to unannex this district.
 
 help:
   no-0th-page: There is no 0th page, you crazy person.
