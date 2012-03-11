@@ -310,4 +310,13 @@ public abstract class HelpMenu {
         return name;
     }
 
+    /**
+     * Default help command.
+     * 
+     * @param player The player to send the help menu to.
+     */
+    public void doHelp(MPlayer player) {
+        doHelp(player, "1");
+    }
+
 }

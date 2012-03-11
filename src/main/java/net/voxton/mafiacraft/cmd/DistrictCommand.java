@@ -34,6 +34,7 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.help.MenuType;
 import net.voxton.mafiacraft.util.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -75,22 +76,24 @@ public final class DistrictCommand {
             } else if (function.equalsIgnoreCase("claimgrid")) {
                 result = doClaimGrid(player);
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function);
             }
         } else if (largs.size() < 2) {
             if (function.equalsIgnoreCase("zone")) {
                 result = doZone(player, largs.get(0));
             } else if (function.equalsIgnoreCase("setcost")) {
                 result = doSetCost(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("help")) {
+                result = doHelp(player, largs.get(0));
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function);
             }
         } else {
             if (function.equalsIgnoreCase("desc")) {
                 String desc = Joiner.on(' ').join(largs);
                 result = doDesc(player, desc);
             } else {
-                result = doHelp(player);
+                result = doHelp(player, function);
             }
         }
 
@@ -107,11 +110,13 @@ public final class DistrictCommand {
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.district.this-not-associated");
+            return player.getLocale().localize(
+                    "command.district.this-not-associated");
         }
 
         if (city.isMember(player)) {
-            return player.getLocale().localize("command.city.must-be-member.district.desc");
+            return player.getLocale().localize(
+                    "command.city.must-be-member.district.desc");
         }
 
         description = description.trim();
@@ -124,13 +129,18 @@ public final class DistrictCommand {
         district.setDescription(description);
 
         //Success!
-        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize("command.district.desc", description));
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.district.desc", description));
         return null;
     }
 
     public static String doHelp(MPlayer player) {
-        //TODO: be helpful
-        player.sendMessage(MsgColor.ERROR + "TODO: help");
+        MenuType.DISTRICT.doHelp(player);
+        return null;
+    }
+
+    public static String doHelp(MPlayer player, String arg) {
+        MenuType.DISTRICT.doHelp(player, arg);
         return null;
     }
 

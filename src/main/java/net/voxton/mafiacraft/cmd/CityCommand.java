@@ -128,7 +128,7 @@ public final class CityCommand {
     }
 
     public static String doHelp(MPlayer player) {
-        MenuType.CITY.getPage(1);
+        MenuType.CITY.doHelp(player);
         return null;
     }
 
