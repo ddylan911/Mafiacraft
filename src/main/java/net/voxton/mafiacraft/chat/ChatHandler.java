@@ -57,7 +57,7 @@ public class ChatHandler {
     /**
      * Updates a player's display name.
      *
-     * @param player
+     * @param player The player to update.
      */
     public void updateDisplayName(MPlayer player) {
         Player ent = player.getBukkitEntity();
@@ -80,6 +80,8 @@ public class ChatHandler {
                 display = "Chief " + display;
             }
         }
+        
+        ent.setDisplayName(display);
     }
 
 }
