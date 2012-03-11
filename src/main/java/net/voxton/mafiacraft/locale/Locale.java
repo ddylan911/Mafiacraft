@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
+import net.voxton.mafiacraft.MConfig;
+import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -156,8 +159,10 @@ public class Locale {
 
                 //Check if there is a locale in the jar
                 if (localeJarFile == null || !localeJarFile.exists()) {
-                    //If not, we don't have a locale.
-                    return null;
+                    //If not, we don't have a locale. Get English!
+                    MLogger.log(Level.WARNING, "Unknown locale '" + name + "' "
+                            + "could not be loaded. Defaulting it to English.");
+                    return getLocale("en-us");
                 }
 
                 //If so, we do have a locale. Copy to the locale folder.
@@ -190,6 +195,15 @@ public class Locale {
             }
         }
         return locale;
+    }
+
+    /**
+     * Gets the default locale.
+     * 
+     * @return The default locale.
+     */
+    public static Locale getDefault() {
+        return getLocale(MConfig.getString("locale.default"));
     }
 
 }

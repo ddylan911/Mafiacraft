@@ -25,8 +25,11 @@ package net.voxton.mafiacraft.help;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
+import org.bukkit.ChatColor;
 
 /**
  * Represents a help menu.
@@ -71,7 +74,6 @@ public abstract class HelpMenu {
     public HelpMenu(String name) {
         this.name = name;
         loadMenu();
-        initialize();
     }
 
     /**
@@ -90,16 +92,18 @@ public abstract class HelpMenu {
         command = command.toLowerCase();
         help.put(command, description);
         usage.put(command, usg);
-    }
 
-    /**
-     * Initializes the help menu.
-     */
-    private void initialize() {
-        for (Entry<String, String> entry : help.entrySet()) {
-            realHelp.add(MsgColor.HELP_ENTRY + entry.getKey() + ": "
-                    + MsgColor.HELP_DEF + entry.getValue());
+        String entry = MsgColor.HELP_ENTRY + command + ": "
+                + MsgColor.HELP_DEF + description;
+
+        if (ChatColor.stripColor(entry).length() > WIDTH) {
+            MLogger.log(Level.WARNING, "The help entry for " + ChatColor.RED
+                    + "/" + getName() + " " + command + ChatColor.WHITE
+                    + " is over the limit of " + WIDTH
+                    + ". Unexpected formatting issues may occur!");
         }
+
+        realHelp.add(entry);
     }
 
     /**
@@ -111,18 +115,7 @@ public abstract class HelpMenu {
      */
     public List<String> getPage(int page) {
         List<String> pg = new ArrayList<String>();
-
-        String header = getHeader(page);
-
-        //Create border
-        int lines = (WIDTH - (header.length()) - 1) / 2;
-        StringBuilder borderBuilder = new StringBuilder();
-        for (int i = 1; i <= lines; i++) {
-            borderBuilder.append('=');
-        }
-        String border = borderBuilder.toString();
-
-        pg.add(border + ' ' + header + ' ' + border);
+        pg.add(MsgColor.INFO + buildBorderedHeader(page));
         pg.addAll(getPageContent(page));
         return pg;
     }
@@ -134,6 +127,26 @@ public abstract class HelpMenu {
      */
     public int getPages() {
         return (int) Math.ceil(realHelp.size() / (HEIGHT - 1));
+    }
+
+    /**
+     * Builds a bordered header for the specified page.
+     * 
+     * @param page The page to get the header of.
+     * @return The bordered header.
+     */
+    public String buildBorderedHeader(int page) {
+        String header = getHeader(page);
+
+        int lines = (WIDTH - (header.length()) - 1) / 2;
+        StringBuilder borderBuilder = new StringBuilder();
+        for (int i = 1; i <= lines; i++) {
+            borderBuilder.append('=');
+        }
+        String border = borderBuilder.toString();
+
+        return new StringBuilder(border).append(' ').append(header).append(' ').
+                append(border).toString();
     }
 
     /**
@@ -162,7 +175,7 @@ public abstract class HelpMenu {
 
         int lines = HEIGHT - 1;
 
-        int start = (page * lines) - 1;
+        int start = ((page - 1) * lines);
         int finish = start + lines;
 
         if (start > entries - 1) {
@@ -171,6 +184,7 @@ public abstract class HelpMenu {
 
         for (int i = start; (i <= finish) && (i < (entries - 1)); i++) {
             String entry = realHelp.get(i);
+            System.out.println(entry);
             content.add(entry);
         }
 
@@ -245,7 +259,7 @@ public abstract class HelpMenu {
      */
     public String getCompleteUsage(String command) {
         String usg = getUsage(command);
-        return "/" + name.toLowerCase() + " " + usg;
+        return "/" + name.toLowerCase() + " " + command + " " + usg;
     }
 
     /**

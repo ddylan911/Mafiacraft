@@ -568,7 +568,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * @return The locale of the player.
      */
     public Locale getLocale() {
-        return Locale.getLocale("en-us");
+        return Locale.getDefault();
     }
 
 }

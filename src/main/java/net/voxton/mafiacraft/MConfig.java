@@ -128,6 +128,9 @@ public class MConfig {
     }
 
     static {
+        //Locale
+        addDefault("locale.default", "en-us");
+        
         //Currency
         addDefault("currency.name", "dollar");
         addDefault("currency.namepl", "dollars");
