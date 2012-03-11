@@ -34,6 +34,8 @@ import org.bukkit.ChatColor;
 public class MsgColor {
 
     public static final String ERROR = ChatColor.RED.toString();
+    
+    public static final String ERROR_HILIGHT = ChatColor.YELLOW.toString();
 
     public static final String INFO = ChatColor.YELLOW.toString();
 
@@ -88,7 +90,9 @@ public class MsgColor {
     
     static {
         colors.put("ERROR", ERROR);
+        colors.put("ERROR_HILIGHT", ERROR_HILIGHT);
         colors.put("INFO", INFO);
         colors.put("NORMAL", NORMAL);
+        colors.put("URL", URL);
     }
 }

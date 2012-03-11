@@ -48,8 +48,8 @@ public final class CWorldCommand {
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR
-                    + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR + Locale.getDefault().localize(
+                    "command.general.ingame-only"));
             return;
         }
 
