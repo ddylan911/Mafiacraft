@@ -37,6 +37,7 @@ command:
       disband: Only the mayor can disband the city. This is very dangerous.
       make-police: You must be the mayor of the city to establish the city police.
       rename: You must be the mayor of the city to rename it.
+      set-chief: You must be the mayor of the city to set its chief.
       withdraw: You must be mayor of the city to withdraw from it.
     must-be-member:
       claim: You must be a member of the city to claim land as it.
@@ -49,12 +50,14 @@ command:
       found: You don't have enough money to found a city. (Costs %s)
       make-police: The city does not have enough money to establish police. (Costs %s)
       withdraw: The city does not have that much money to withdraw. (The city only has %s but you are trying to withdraw %s.)
+    no-police: The city does not have a police force established.
     no-spawn: The city does not have a spawn location set.
     not-allowed: You aren't allowed to do this in this city.
     not-in: You are not in a city.
     none-in-world: There is no city established in this world.
     police-made: A police force has been established in your city.
     renamed: The city %s has been renamed to %s.
+    set-chief: The chief of police of %s has successfully been changed to %s.
     set-spawn: You have set the city's spawn location successfully.
     unclaimed: You have unclaimed the section %s for the city.
     withdraw: You have withdrawn %s from %s.

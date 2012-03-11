@@ -565,34 +565,33 @@ public final class CityCommand {
 
     public static String doSetChief(MPlayer player, String chief) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You are not in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMayor(player)) {
-            return "You must be a member of the city to perform this action.";
+            return player.getLocale().localize(
+                    "command.city.must-be-mayor.set-chief");
         }
 
-        MPlayer c = Mafiacraft.getPlayer(Bukkit.getPlayer(chief));
+        MPlayer c = Mafiacraft.getPlayer(chief);
         if (c == null) {
-            return "That player is either offline or does not exist.";
+            return player.getLocale().localize(
+                    "command.general.player-not-found", chief);
         }
 
         Government police = city.getPolice();
         if (police == null) {
-            return "The city does not have a police force established.";
+            return player.getLocale().localize("command.city.no-police");
         }
 
         police.setLeader(c);
-        player.sendMessage(MsgColor.SUCCESS
-                + "The chief of police of the city has successfully been changed to "
-                + c.getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.set-chief", city.getOwnerName(), chief));
         return null;
     }
 
