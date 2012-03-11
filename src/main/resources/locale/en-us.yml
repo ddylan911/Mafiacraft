@@ -21,6 +21,9 @@ command:
     player-not-found: The player "%s" is either offlne or does not exist.
     
   chat:
+    changed: You have changed to %s chat.
+    invalid-chat-type: Invalid chat type given.
+    not-allowed: You are not allowed to be part of that chat.
     not-in-city-move: You have been moved to global chat due to you not being in a @(terms.city).
     
   city:

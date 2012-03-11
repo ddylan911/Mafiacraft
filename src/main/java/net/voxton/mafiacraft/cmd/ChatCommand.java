@@ -30,6 +30,7 @@ import net.voxton.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.locale.Locale;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -42,8 +43,8 @@ public final class ChatCommand {
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR
-                    + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR + Locale.getDefault().localize(
+                    "command.general.ingame-only"));
             return;
         }
 
@@ -66,22 +67,18 @@ public final class ChatCommand {
     }
 
     public static String doChat(MPlayer player, String type) {
-        if (!player.hasPermission("mafiacraft.visitor")) {
-            return "You aren't allowed to use this command.";
-        }
-
         ChatType chatType = ChatType.valueOf(type);
         if (chatType == null) {
-            return "Invalid chat type given.";
+            return player.getLocale().localize("command.chat.invalid-chat-type");
         }
 
         if (!chatType.canJoin(player)) {
-            return "You are not allowed to be part of that chat.";
+            return player.getLocale().localize("command.chat.not-allowed");
         }
 
         player.setChatType(chatType);
-        player.sendMessage(MsgColor.SUCCESS + "You have changed to " + chatType.
-                getName(player) + " chat.");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.chat.changed", chatType.getName()));
         return null;
     }
 
