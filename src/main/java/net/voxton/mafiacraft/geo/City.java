@@ -399,8 +399,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
     /**
      * Gets a district of this city by name.
      *
-     * @param districtName
-     * @return
+     * @param districtName The district name.
+     * @return The district if it exists.
      */
     public District getDistrictByName(String districtName) {
         for (District district : getDistricts()) {

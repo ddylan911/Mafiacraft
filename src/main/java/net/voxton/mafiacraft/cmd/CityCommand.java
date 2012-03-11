@@ -333,56 +333,53 @@ public final class CityCommand {
 
     public static String doDisband(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("commmand.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You aren't in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
 
         if (!city.isMayor(player)) {
-            return "Only the mayor can disband the city. This is very dangerous.";
+            return player.getLocale().localize(
+                    "command.city.must-be-mayor.disband");
         }
 
         city.disband(); //Holy crap!
         player.sendMessage(MsgColor.SUCCESS
-                + "The city has been disbanded. Anarchy will likely take place.");
+                + player.getLocale().localize("command.city.disbanded"));
         return null;
     }
 
     public static String doBus(MPlayer player, String districtName) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return "You aren't in a city.";
+            return player.getLocale().localize("command.city.not-in");
         }
+
+        int busDist = MConfig.getInt("district.bus-max-distance");
 
         District thisDist = player.getDistrict();
-        if (thisDist == null) {
-            return "District not found error.";
-        }
-
         Location thisBus = thisDist.getBusStop();
-        if (player.getLocation().distanceSquared(thisBus) > 100) {
-            return "You must be within 10 blocks of a bus stop to ride the bus.";
+        if (player.getLocation().distanceSquared(thisBus) > busDist * busDist) {
+            return player.getLocale().localize(
+                    "command.district.bus-max-distance", busDist);
         }
 
+        districtName = districtName.toUpperCase().trim();
         District d = city.getDistrictByName(districtName);
         if (d == null) {
-            return "That district does not exist.";
+            return player.getLocale().localize("command.district.not-exist", districtName);
         }
 
         Location bus = d.getBusStop();
         if (bus == null) {
-            return "That district does not have a bus stop.";
+            return player.getLocale().localize("command.district.no-bus");
         }
 
         TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.DBUS, player.

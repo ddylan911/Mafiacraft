@@ -152,6 +152,7 @@ public class MConfig {
         addDefault("division.maxnamelength", 15);
 
         //District
+        addDefault("district.bus-max-distance", 10);
         addDefault("district.maxdesclength", 45);
 
         //Spawn times
