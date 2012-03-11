@@ -25,7 +25,6 @@ package net.voxton.mafiacraft.cmd;
 
 import net.voxton.mafiacraft.MConfig;
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.MafiacraftPlugin;
 import net.voxton.mafiacraft.geo.City;
 import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.geo.District;
@@ -34,12 +33,11 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.TPCD;
 import net.voxton.mafiacraft.util.ValidationUtils;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import net.voxton.mafiacraft.help.MenuType;
+import net.voxton.mafiacraft.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -331,8 +329,7 @@ public final class CityCommand {
         }
 
         double funds = city.getMoney();
-        String fundsStr = NumberFormat.getCurrencyInstance(Locale.ENGLISH).
-                format(funds);
+        String fundsStr = StringUtils.formatCurrency(funds);
         player.sendMessage(MsgColor.INFO + city.getOwnerName() + " has "
                 + fundsStr + " in funds.");
         return null;
@@ -422,7 +419,7 @@ public final class CityCommand {
 
         player.transferMoney(city, amt);
         String fmt =
-                NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+                StringUtils.formatCurrency(amt);
         player.sendMessage(MsgColor.SUCCESS + "You have deposited " + fmt
                 + " into " + city.getOwnerName() + ".");
         return null;
@@ -457,7 +454,7 @@ public final class CityCommand {
 
         city.transferMoney(player, amt);
         String fmt =
-                NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+                StringUtils.formatCurrency(amt);
         player.sendMessage(MsgColor.SUCCESS + "You have deposited $" + fmt
                 + " into " + city.getOwnerName() + ".");
         return null;
@@ -485,7 +482,7 @@ public final class CityCommand {
         }
 
         double amt = MConfig.getDouble("prices.city.claim");
-        String af = NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(amt);
+        String af = StringUtils.formatCurrency(amt);
         if (!city.hasEnough(amt)) {
             return "The city doesn't have enough money to claim land. (Costs "
                     + af + ")";

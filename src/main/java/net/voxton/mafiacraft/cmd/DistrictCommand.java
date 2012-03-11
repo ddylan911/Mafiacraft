@@ -31,11 +31,10 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
+import net.voxton.mafiacraft.util.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -264,7 +263,7 @@ public final class DistrictCommand {
 
         player.sendMessage(MsgColor.SUCCESS
                 + "The land cost of the district has been set to $"
-                + NumberFormat.getCurrencyInstance(Locale.ENGLISH).format(cost)
+                + StringUtils.formatCurrency(cost)
                 + ".");
         return null;
     }
