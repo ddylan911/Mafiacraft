@@ -15,9 +15,30 @@ command:
     not-allowed: You are not allowed to use this command.
     not-citizen: You must be a citizen to use this command. To apply for citizenship, please visit `{URL}$(server-url)`{NORMAL}.
     ingame-only: Sorry, this command is only available ingame.
+    no-money: You don't have enough money to %s. (Costs %s)
+    not-in-city: You aren't in a city.
     
   chat:
     not-in-city-move: You have been moved to global chat due to you not being in a @(terms.city).
+    
+  city:
+    capital-established: The world you are in already has a capital established.
+    invalid-city-name: That city name is invalid; city names must be less than 25 characters in length and alphanumeric.
+    city-exists: A city with that name already exists; please try another name.
+    city-founded: Your city has been founded successfully.
+    not-allowed: You aren't allowed to do this in this city.
+    set-spawn: You have set the city's spawn location successfully.
+    no-spawn: The city does not have a spawn location set.
+    no-city-in-world: There is no city established in this world.
+    district-unavailable: This district is already associated with the city.
+    must-be-mayor: You must be the mayor of the city to %s.
+    must-be-mayor-to-rename: You must be the mayor of the city to rename it.
+    no-money: The city doesn't have enough money to %s. (Costs %s)
+    district-claimed: You have successfuly claimed the district for your city.
+    district-unclaimed: You have successfully unclaimed the district from your city.
+    district-not-associated: This district is not associated with a city.
+    district-not-owned: This district is not part of your city.
+    city-renamed: The city %s has been renamed to %s.
     
   cworld:
     toggle-set: The toggle %s has been set to %s.
