@@ -329,7 +329,7 @@ public final class CityCommand {
 
     public static String doDisband(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("commmand.general.not-citizen");
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         City city = player.getCity();
@@ -417,7 +417,7 @@ public final class CityCommand {
 
     public static String doWithdraw(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.citizen");
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         double amt;
