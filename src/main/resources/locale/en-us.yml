@@ -77,18 +77,22 @@ command:
   district:
     bus-far: You must be within %s blocks of a bus stop to ride the bus.
     bus-set: The bus stop of %s has been successfully set to your location.
+    cannot-unexplore: You cannot unexplore a district.
     claimed: You have successfuly claimed the district for your city.
     desc: You have changed the description of the district to `{SUCCESS_HILIGHT}%s`{SUCCESS}.
     must-be-mayor:
       annex: You must be the mayor of the city to annex this district.
       unannex: You must be the mayor of the city to unannex this district.
+      zone: You must be the mayor of the city to zone this district.
     no-bus: That district does not have a bus stop.
+    no-such-type: There is no such district type with the name "%s".
     not-associated: This district is not associated with a city.
     not-exist: District %s does not exist.
     not-owned: This district is not part of your city.
     this-not-associated: You are not in a city-owned district.
     unclaimed: You have successfully unclaimed the district from your city.
     unavailable: This district is already associated with the city.
+    zoned: The district has been zoned to a %s district.
 
 help:
   imaginary-page: You have found an imaginary page. The square root of -1. The rationalization of pi. The answer to life, the universe, and everything.

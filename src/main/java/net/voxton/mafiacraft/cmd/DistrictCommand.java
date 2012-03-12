@@ -178,34 +178,31 @@ public final class DistrictCommand {
 
     public static String doZone(MPlayer player, String typeString) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-allowed");
         }
 
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
-            return "You aren't in a district that is part of a city.";
+            return player.getLocale().localize("command.district.this-not-associated");
         }
 
         if (!city.isMayor(player)) {
-            return "You aren't the mayor of this city.";
+            return player.getLocale().localize("command.district.must-be-mayor.zone");
         }
 
         DistrictType type = DistrictType.fromString(typeString);
         if (type == null) {
-            return "There is no district type with the name specified.";
+            return player.getLocale().localize("command.district.no-such-type", typeString);
         }
 
         if (type.equals(DistrictType.UNEXPLORED)) {
-            return "You are not allowed to unexplore districts. That would not make much sense, would it?";
+            return player.getLocale().localize("command.district.cannot-unexplore");
         }
 
         district.resetOwnerships().setType(type);
-        player.sendMessage(MsgColor.SUCCESS
-                + "The district has been zoned to a " + type.niceName()
-                + " district successfully.");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.district.zoned", type.niceName()));
         return null;
     }
 
