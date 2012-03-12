@@ -25,11 +25,12 @@ package net.voxton.mafiacraft.util;
 
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
+import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.impl.bukkit.BukkitImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Crappy teleportation system. Please replace me with some sort of factory thing!
@@ -75,8 +76,8 @@ public class TPCD implements Runnable {
         if (isSpawning(player)) {
             removeCountdown(player);
         }
-        teleporting.put(player,
-                Bukkit.getScheduler().scheduleSyncRepeatingTask(cp,
+        teleporting.put(player, //TODO: THis is a hack!!!OJ!OROQ
+                Bukkit.getScheduler().scheduleSyncRepeatingTask((BukkitImpl) Mafiacraft.getImpl(),
                 new TPCD(iterations, type, player, location),
                 0L, 20L));
     }
