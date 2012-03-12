@@ -77,11 +77,14 @@ command:
   district:
     bus-far: You must be within %s blocks of a bus stop to ride the bus.
     bus-set: The bus stop of %s has been successfully set to your location.
+    cannot-claim-grid: You cannot claim the city grid.
     cannot-unexplore: You cannot unexplore a district.
     claimed: You have successfuly claimed the district for your city.
+    claimed-grid: The grid for this district has been claimed.
     desc: You have changed the description of the district to `{SUCCESS_HILIGHT}%s`{SUCCESS}.
     must-be-mayor:
       annex: You must be the mayor of the city to annex this district.
+      claim-grid: You must be the mayor of the city to claim the grid of this district.
       unannex: You must be the mayor of the city to unannex this district.
       zone: You must be the mayor of the city to zone this district.
     no-bus: That district does not have a bus stop.

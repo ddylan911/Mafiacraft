@@ -178,26 +178,30 @@ public final class DistrictCommand {
 
     public static String doZone(MPlayer player, String typeString) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-allowed");
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.district.this-not-associated");
+            return player.getLocale().localize(
+                    "command.district.this-not-associated");
         }
 
         if (!city.isMayor(player)) {
-            return player.getLocale().localize("command.district.must-be-mayor.zone");
+            return player.getLocale().localize(
+                    "command.district.must-be-mayor.zone");
         }
 
         DistrictType type = DistrictType.fromString(typeString);
         if (type == null) {
-            return player.getLocale().localize("command.district.no-such-type", typeString);
+            return player.getLocale().localize("command.district.no-such-type",
+                    typeString);
         }
 
         if (type.equals(DistrictType.UNEXPLORED)) {
-            return player.getLocale().localize("command.district.cannot-unexplore");
+            return player.getLocale().localize(
+                    "command.district.cannot-unexplore");
         }
 
         district.resetOwnerships().setType(type);
@@ -208,28 +212,29 @@ public final class DistrictCommand {
 
     public static String doClaimGrid(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
-            return "You aren't in a district that is part of a city.";
+            return player.getLocale().localize(
+                    "command.district.this-not-associated");
         }
 
         if (!city.isMayor(player)) {
-            return "You aren't the mayor of this city.";
+            return player.getLocale().localize(
+                    "command.district.must-be-mayor.claim-grid");
         }
 
         boolean check = city.claimGridAndCheck(district);
         if (!check) {
-            return "You can't claim this.";
+            return player.getLocale().localize(
+                    "command.district.cannot-claim-grid");
         }
 
-        player.sendMessage(MsgColor.SUCCESS
-                + "The grid for the city has been claimed.");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.district.claimed-grid"));
         return null;
     }
 
