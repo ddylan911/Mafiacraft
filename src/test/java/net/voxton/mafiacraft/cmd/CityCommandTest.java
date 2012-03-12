@@ -241,7 +241,7 @@ public class CityCommandTest {
         
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = CityCommand.doSetSpawn(aubhaze);
+        String result = CityCommand.doSpawn(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -269,11 +269,41 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoUnannex_notInCity() {
+        System.out.println(
+                "Testing unannex subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doUnannex(aubhaze);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoRename_notCitizen() {
         System.out.println("Testing rename subcommand of a player not citizen.");
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
+        String result = CityCommand.doRename(aubhaze, "test");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoRename_notInCity() {
+        System.out.println(
+                "Testing rename subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
         String result = CityCommand.doRename(aubhaze, "test");
 
         assertEquals(expected, result);
@@ -291,11 +321,41 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoFunds_notInCity() {
+        System.out.println(
+                "Testing funds subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doFunds(aubhaze);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoDisband_notCitizen() {
         System.out.println("Testing disband subcommand of a player not citizen.");
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
+        String result = CityCommand.doDisband(aubhaze);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoDisband_notInCity() {
+        System.out.println(
+                "Testing disband subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
         String result = CityCommand.doDisband(aubhaze);
 
         assertEquals(expected, result);
@@ -313,12 +373,42 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoBus_notInCity() {
+        System.out.println(
+                "Testing bus subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doBus(aubhaze, "asdf");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoDeposit_notCitizen() {
         System.out.println("Testing deposit subcommand of a player not citizen.");
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
         String result = CityCommand.doDeposit(aubhaze, "test");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoDeposit_notInCity() {
+        System.out.println(
+                "Testing deposit subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doDeposit(aubhaze, "asdf");
 
         assertEquals(expected, result);
     }
@@ -336,6 +426,21 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoWithdraw_notInCity() {
+        System.out.println(
+                "Testing withdraw subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doWithdraw(aubhaze, "asdf");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoClaim_notCitizen() {
         System.out.println("Testing claim subcommand of a player not citizen.");
 
@@ -347,11 +452,41 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoClaim_notInCity() {
+        System.out.println(
+                "Testing claim subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doClaim(aubhaze);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoUnclaim_notCitizen() {
         System.out.println("Testing unclaim subcommand of a player not citizen.");
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
+        String result = CityCommand.doUnclaim(aubhaze);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoUnclaim_notInCity() {
+        System.out.println(
+                "Testing unclaim subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
         String result = CityCommand.doUnclaim(aubhaze);
 
         assertEquals(expected, result);
@@ -370,6 +505,21 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoMakePolice_notInCity() {
+        System.out.println(
+                "Testing make police subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doMakePolice(aubhaze, "bob", "marley");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoSetChief_notCitizen() {
         System.out.println(
                 "Testing set chief subcommand of a player not citizen.");
@@ -382,6 +532,21 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoSetChief_notInCity() {
+        System.out.println(
+                "Testing set chief subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doSetChief(aubhaze, "person");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoSetAssistant_notCitizen() {
         System.out.println(
                 "Testing set assistant subcommand of a player not citizen.");
@@ -389,6 +554,21 @@ public class CityCommandTest {
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
         String result = CityCommand.doSetAssistant(aubhaze, "asdf");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoSetAssistant_notInCity() {
+        System.out.println(
+                "Testing set assistant subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doSetAssistant(aubhaze, "Asdf");
 
         assertEquals(expected, result);
     }

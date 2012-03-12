@@ -256,7 +256,7 @@ public final class CityCommand {
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.general.not-in-city");
+            return player.getLocale().localize("command.city.not-in");
         }
 
         District district = player.getDistrict();
