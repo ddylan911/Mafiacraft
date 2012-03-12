@@ -59,6 +59,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         mc.onEnable();
     }
 
+    @Override
     public void setupCommands() {
 
         getCommand("mafia").setExecutor(new CommandExecutor() {

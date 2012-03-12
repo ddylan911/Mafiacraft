@@ -24,7 +24,7 @@
 package net.voxton.mafiacraft;
 
 import net.voxton.mafiacraft.chat.ChatHandler;
-import net.voxton.mafiacraft.data.DataWorker;
+import net.voxton.mafiacraft.impl.bukkit.BukkitDataWorker;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.gov.GovernmentManager;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
@@ -44,7 +44,7 @@ public class MafiacraftCore {
 
     private CityManager cityManager;
 
-    private DataWorker dataWorker;
+    private BukkitDataWorker dataWorker;
 
     private GovernmentManager governmentManager;
 
@@ -117,7 +117,7 @@ public class MafiacraftCore {
         cityManager = new CityManager(this);
 
         MLogger.log("Initializing data...");
-        dataWorker = new DataWorker(this);
+        dataWorker = new BukkitDataWorker(this);
 
         MLogger.log("Initializing governments...");
         governmentManager = new GovernmentManager(this);
@@ -147,7 +147,7 @@ public class MafiacraftCore {
         return cityManager;
     }
 
-    public DataWorker getDataWorker() {
+    public BukkitDataWorker getDataWorker() {
         return dataWorker;
     }
 

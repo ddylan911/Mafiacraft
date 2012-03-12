@@ -33,7 +33,7 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
 import java.util.List;
-import net.voxton.mafiacraft.data.DataWorker;
+import net.voxton.mafiacraft.impl.bukkit.BukkitDataWorker;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.locale.LocaleManager;
 import org.bukkit.Chunk;
@@ -153,7 +153,7 @@ public class Mafiacraft {
      *
      * @return The data worker.
      */
-    public static DataWorker getDataWorker() {
+    public static BukkitDataWorker getDataWorker() {
         return getCore().getDataWorker();
     }
 
