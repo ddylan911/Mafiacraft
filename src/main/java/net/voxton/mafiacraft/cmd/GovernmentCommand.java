@@ -39,6 +39,7 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.help.MenuType;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -135,17 +136,19 @@ public final class GovernmentCommand {
     }
 
     public static String doHelp(MPlayer player, GovType type) {
-        if (!player.hasPermission("mafiacraft.visitor")) {
-            return "You aren't allowed to use this command.";
+        if (type.equals(GovType.MAFIA)) {
+            MenuType.MAFIA.doHelp(player);
+        } else if (type.equals(GovType.POLICE)) {
+            MenuType.POLICE.doHelp(player);
         }
-
-        player.sendMessage("TODO: help");
-        //TODO: help
         return null;
     }
 
     public static String doHelp(MPlayer player, String arg, GovType type) {
         if (type.equals(GovType.MAFIA)) {
+            MenuType.MAFIA.doHelp(player, arg);
+        } else if (type.equals(GovType.POLICE)) {
+            MenuType.POLICE.doHelp(player, arg);
         }
         return null;
     }
