@@ -240,34 +240,33 @@ public final class DistrictCommand {
 
     public static String doSetCost(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
-            return "You aren't in a district that is part of a city.";
+            return player.getLocale().localize(
+                    "command.district.this-not-associated");
         }
 
         if (!city.isMayor(player)) {
-            return "You aren't the mayor of this city.";
+            return player.getLocale().localize(
+                    "command.district.must-be-mayor.set-cost");
         }
 
         double cost = 0;
         try {
             cost = Double.parseDouble(amount);
         } catch (NumberFormatException ex) {
-            return "Invalid number '" + amount + "'.";
+            return player.getLocale().localize("command.general.invalid-number",
+                    amount);
         }
 
         district.setLandCost(cost);
 
-        player.sendMessage(MsgColor.SUCCESS
-                + "The land cost of the district has been set to $"
-                + StringUtils.formatCurrency(cost)
-                + ".");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.city.cost-set", StringUtils.formatCurrency(cost)));
         return null;
     }
 

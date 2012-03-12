@@ -30,6 +30,7 @@ command:
     already-owned: This district is already a city-owned district.
     capital-established: The world you are in already has a capital established.
     claimed: You have claimed the section %s for the city.
+    cost-set: The cost of this district has been set to %s.
     deposited: You have deposited %s into %s.
     disbanded: The city has been disbanded. Anarchy will now take place.
     founded: Your city has been founded successfully.
@@ -85,6 +86,7 @@ command:
     must-be-mayor:
       annex: You must be the mayor of the city to annex this district.
       claim-grid: You must be the mayor of the city to claim the grid of this district.
+      set-cost: You must be the mayor of the city to set the land cost of this district.
       unannex: You must be the mayor of the city to unannex this district.
       zone: You must be the mayor of the city to zone this district.
     no-bus: That district does not have a bus stop.
