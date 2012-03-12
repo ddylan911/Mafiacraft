@@ -139,7 +139,7 @@ public final class CityCommand {
 
     public static String doFound(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.citizen-only");
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         CityWorld cw = player.getCityWorld();
@@ -199,10 +199,6 @@ public final class CityCommand {
     }
 
     public static String doSpawn(MPlayer player) {
-        if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
-        }
-
         City city = player.getCity();
         if (city == null) {
             return player.getLocale().localize("command.city.not-in");
