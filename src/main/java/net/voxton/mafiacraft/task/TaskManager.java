@@ -28,22 +28,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import net.voxton.mafiacraft.MafiacraftCore;
-import org.bukkit.Bukkit;
 
 /**
- * Manages tasks in a manner consistent with server reloads.
- * 
- * <p>These do not manage time-sensitive tasks; rather, they manage tasks that
- * are done in intervals of a minute. Please do not rely on this system if you
- * need more than a minute of accuracy.</p>
+ *
+ * @author ianschool
  */
-public class TaskManager {
-
-    /**
-     * Hook to Mafiacraft.
-     */
-    private final MafiacraftCore mc;
-
+public abstract class TaskManager {
     /**
      * The tasks.
      */
@@ -53,31 +43,33 @@ public class TaskManager {
     /**
      * An unnecessary but line-number increasing reference to the task checker.
      */
-    private TaskChecker taskChecker;
+    protected TaskChecker taskChecker;
 
-    /**
-     * Constructor.
-     * 
-     * @param plugin The plugin. 
-     */
-    public TaskManager(MafiacraftCore plugin) {
-        mc = plugin;
-        
+    public TaskManager() {
         setupTaskChecker();
     }
+    
+    protected abstract void setupTaskChecker();
 
     /**
-     * Sets up the task checker.
+     * Gets a list of all tasks that are due.
+     *
+     * @return The list of due tasks.
      */
-    private void setupTaskChecker() {
-        taskChecker = new TaskChecker(this);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(mc, taskChecker, 0L, 20L
-                * 60L); //Every minute
+    public List<RegisteredTask> getDueTasks() {
+        List<RegisteredTask> taskList =
+                new ArrayList<RegisteredTask>();
+        for (RegisteredTask rt : tasks.values()) {
+            if (rt.shouldRun(null)) {
+                taskList.add(rt);
+            }
+        }
+        return taskList;
     }
 
     /**
      * Registers a task with the task manager.
-     * 
+     *
      * @param name The name of the task.
      * @param task The task.
      * @param schedule The schedule in which the task should be completed.
@@ -90,7 +82,7 @@ public class TaskManager {
 
     /**
      * Registers a task with the task manager.
-     * 
+     *
      * @param name The name of the task.
      * @param task The task.
      * @param schedule The schedule in which the task should be completed.
@@ -100,23 +92,7 @@ public class TaskManager {
             TaskSchedule schedule) {
         RegisteredTask rt = new RegisteredTask(name, task, schedule);
         tasks.put(rt.getName(), rt);
-
         return this;
-    }
-
-    /**
-     * Gets a list of all tasks that are due.
-     * 
-     * @return The list of due tasks.
-     */
-    public List<RegisteredTask> getDueTasks() {
-        List<RegisteredTask> taskList = new ArrayList<RegisteredTask>();
-        for (RegisteredTask rt : tasks.values()) {
-            if (rt.shouldRun(null)) {
-                taskList.add(rt);
-            }
-        }
-        return taskList;
     }
 
 }

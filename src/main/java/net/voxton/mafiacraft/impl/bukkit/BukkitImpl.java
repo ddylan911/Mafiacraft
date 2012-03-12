@@ -34,6 +34,7 @@ import net.voxton.mafiacraft.cmd.DivisionCommand;
 import net.voxton.mafiacraft.cmd.GovernmentCommand;
 import net.voxton.mafiacraft.cmd.MafiacraftCommand;
 import net.voxton.mafiacraft.cmd.SectionCommand;
+import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import org.bukkit.Bukkit;
@@ -46,8 +47,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Bukkit implementation of Mafiacraft.
  */
 public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
+
     private MafiacraftCore mc;
-    
+
+    private BukkitDataWorker dataWorker;
+
     @Override
     public void onDisable() {
         mc.onDisable();
@@ -56,6 +60,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     @Override
     public void onEnable() {
         mc = new MafiacraftCore(this);
+        dataWorker = new BukkitDataWorker(this);
         mc.onEnable();
     }
 
@@ -179,4 +184,10 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     public String getVersion() {
         return getDescription().getVersion();
     }
+
+    @Override
+    public DataWorker getDataWorker() {
+        return dataWorker;
+    }
+
 }

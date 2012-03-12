@@ -21,34 +21,41 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.task;
+package net.voxton.mafiacraft.impl.bukkit;
 
-import net.voxton.mafiacraft.impl.bukkit.BukkitTaskManager;
+import net.voxton.mafiacraft.impl.bukkit.BukkitImpl;
+import net.voxton.mafiacraft.task.TaskManager;
+import net.voxton.mafiacraft.task.TaskChecker;
+import org.bukkit.Bukkit;
 
 /**
- * Checks if tasks are due.
+ * Manages tasks in a manner consistent with server reloads.
+ * 
+ * <p>These do not manage time-sensitive tasks; rather, they manage tasks that
+ * are done in intervals of a minute. Please do not rely on this system if you
+ * need more than a minute of accuracy.</p>
  */
-public class TaskChecker implements Runnable {
+public class BukkitTaskManager extends TaskManager {
+
+    private final BukkitImpl impl;
 
     /**
-     * Reference to the task manager.
-     */
-    private final BukkitTaskManager tm;
-
-    /**
-     * The constructor.
+     * Constructor.
      * 
-     * @param tm The task manager.
+     * @param core The core. 
      */
-    public TaskChecker(BukkitTaskManager tm) {
-        this.tm = tm;
+    public BukkitTaskManager(BukkitImpl impl) {
+        this.impl = impl;
     }
 
+    /**
+     * Sets up the task checker.
+     */
     @Override
-    public void run() {
-        for (RegisteredTask task : tm.getDueTasks()) {
-            task.getTask().run();
-        }
+    protected void setupTaskChecker() {
+        taskChecker = new TaskChecker(this);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(impl, taskChecker, 0L, 20L
+                * 60L); //Every minute
     }
 
 }

@@ -210,7 +210,7 @@ public final class CityCommand {
         }
 
         int citySpawnTime = MConfig.getInt("warmup.cityspawn");
-        TPCD.makeCountdown(Mafiacraft.getCore(), citySpawnTime,
+        TPCD.makeCountdown(citySpawnTime,
                 TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
         return null;
     }
@@ -378,7 +378,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.district.no-bus");
         }
 
-        TPCD.makeCountdown(Mafiacraft.getCore(), 10, TPCD.Type.DBUS, player.
+        TPCD.makeCountdown(10, TPCD.Type.DBUS, player.
                 getBukkitEntity(), bus);
         return null;
     }

@@ -28,6 +28,7 @@ import net.voxton.mafiacraft.MafiacraftCore;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
+import net.voxton.mafiacraft.Mafiacraft;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
@@ -43,8 +44,7 @@ public class KillTracker {
 
     public KillTracker(MafiacraftCore mc) {
         this.mc = mc;
-        this.killFilePath = new File(mc.getDataFolder().toString()
-                + File.separator + "kills.yml");
+        this.killFilePath = Mafiacraft.getTopFile("kills");
     }
 
     public int getKillScore(MPlayer player) {

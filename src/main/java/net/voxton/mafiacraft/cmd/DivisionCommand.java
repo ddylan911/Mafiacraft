@@ -433,7 +433,7 @@ public final class DivisionCommand {
         }
 
         //Teleport.
-        TPCD.makeCountdown(Mafiacraft.getCore(), 10, TPCD.Type.GOVHQ, player.
+        TPCD.makeCountdown(10, TPCD.Type.GOVHQ, player.
                 getBukkitEntity(), hq);
         return null;
     }
