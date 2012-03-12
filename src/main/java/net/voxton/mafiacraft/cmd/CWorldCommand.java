@@ -123,7 +123,7 @@ public final class CWorldCommand {
 
     public static String doSpawn(MPlayer player) {
         Location spawn = player.getCityWorld().getSpawnLocation();
-        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, Type.CSPAWN, player.
+        TPCD.makeCountdown(10, Type.CSPAWN, player.
                 getBukkitEntity(), spawn);
         return null;
     }

@@ -24,7 +24,7 @@
 package net.voxton.mafiacraft.util;
 
 import net.voxton.mafiacraft.MLogger;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.Mafiacraft;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.junit.runner.RunWith;
@@ -65,11 +65,11 @@ public class LocationSerializerTest {
         when(Bukkit.getServer()).thenReturn(mockServer);
         when(Bukkit.getWorld("world")).thenReturn(world);
 
-        MafiacraftPlugin mockPlugin = mock(MafiacraftPlugin.class);
+        MafiacraftCore mockPlugin = mock(MafiacraftCore.class);
         when(mockPlugin.getLogger()).thenReturn(testLogger);
 
         mockStatic(Mafiacraft.class);
-        when(Mafiacraft.getPlugin()).thenReturn(mockPlugin);
+        when(Mafiacraft.getCore()).thenReturn(mockPlugin);
     }
 
     @After

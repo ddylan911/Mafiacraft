@@ -24,7 +24,7 @@
 package net.voxton.mafiacraft.gov;
 
 import gnu.trove.iterator.TIntIntIterator;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.geo.City;
 import net.voxton.mafiacraft.player.MPlayer;
 import gnu.trove.map.TIntIntMap;
@@ -83,14 +83,14 @@ public class GovernmentManager {
     /**
      * Hook to the main plugin.
      */
-    private MafiacraftPlugin mc;
+    private MafiacraftCore mc;
 
     /**
      * Constructor.
      *
      * @param mc The MafiacraftPlugin object.
      */
-    public GovernmentManager(MafiacraftPlugin mc) {
+    public GovernmentManager(MafiacraftCore mc) {
         this.mc = mc;
 
         registerSerializations();

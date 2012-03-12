@@ -27,7 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.MLogger;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import org.bukkit.Bukkit;
 
 /**
@@ -38,14 +38,14 @@ public class DataWorker {
     /**
      * Reference to the plugin instance.
      */
-    private final MafiacraftPlugin mc;
+    private final MafiacraftCore mc;
 
     /**
      * Constructor.
      *
      * @param plugin The plugin instance.
      */
-    public DataWorker(MafiacraftPlugin plugin) {
+    public DataWorker(MafiacraftCore plugin) {
         mc = plugin;
         setupSaveTask();
     }

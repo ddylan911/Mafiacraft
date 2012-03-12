@@ -34,7 +34,7 @@ public class MLogger {
     /**
      * The logger.
      */
-    private static final Logger LOGGER = Mafiacraft.getPlugin().getLogger();
+    private static final Logger LOGGER = Mafiacraft.getCore().getLogger();
 
     /**
      * The verbosity to use.

@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.vault;
 
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -36,7 +36,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
  */
 public class VaultHelper {
 
-    private final MafiacraftPlugin mc;
+    private final MafiacraftCore mc;
 
     private Permission permission = null;
 
@@ -44,7 +44,7 @@ public class VaultHelper {
 
     private Chat chat = null;
 
-    public VaultHelper(MafiacraftPlugin mc) {
+    public VaultHelper(MafiacraftCore mc) {
         this.mc = mc;
         setupEconomy();
     }

@@ -44,28 +44,28 @@ import org.bukkit.entity.Player;
  */
 public class Mafiacraft {
 
-    private static MafiacraftPlugin plugin;
+    private static MafiacraftCore core;
 
-    public static void setPlugin(MafiacraftPlugin mcp) {
-        if (Mafiacraft.plugin == null) {
-            Mafiacraft.plugin = mcp;
+    public static void setCore(MafiacraftCore mcp) {
+        if (Mafiacraft.core == null) {
+            Mafiacraft.core = mcp;
         }
     }
 
     /**
-     * Gets the singleton instance of the Mafiacraft plugin.
+     * Gets the singleton instance of the Mafiacraft core.
      *
      * @return
      */
-    public static MafiacraftPlugin getPlugin() {
-        return plugin;
+    public static MafiacraftCore getCore() {
+        return core;
     }
 
     /**
      * Unloads Mafiacraft. Used for handling reloads.
      */
     static void unloadMafiacraft() {
-        plugin = null;
+        core = null;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Mafiacraft {
      * @return
      */
     public static MPlayer getPlayer(Player player) {
-        return getPlugin().getPlayerManager().getPlayer(player);
+        return getCore().getPlayerManager().getPlayer(player);
     }
 
     /**
@@ -84,7 +84,7 @@ public class Mafiacraft {
      * @return
      */
     public static List<MPlayer> getOnlinePlayers() {
-        return getPlugin().getPlayerManager().getOnlinePlayers();
+        return getCore().getPlayerManager().getOnlinePlayers();
     }
 
     /**
@@ -136,7 +136,7 @@ public class Mafiacraft {
      * @return
      */
     public static ChatHandler getChatHandler() {
-        return getPlugin().getChatHandler();
+        return getCore().getChatHandler();
     }
 
     /**
@@ -145,7 +145,7 @@ public class Mafiacraft {
      * @return
      */
     public static CityManager getCityManager() {
-        return getPlugin().getCityManager();
+        return getCore().getCityManager();
     }
 
     /**
@@ -154,7 +154,7 @@ public class Mafiacraft {
      * @return The data worker.
      */
     public static DataWorker getDataWorker() {
-        return getPlugin().getDataWorker();
+        return getCore().getDataWorker();
     }
 
     /**
@@ -163,7 +163,7 @@ public class Mafiacraft {
      * @return The government manager.
      */
     public static GovernmentManager getGovernmentManager() {
-        return getPlugin().getGovernmentManager();
+        return getCore().getGovernmentManager();
     }
 
     /**
@@ -172,7 +172,7 @@ public class Mafiacraft {
      * @return The locale manager.
      */
     public static LocaleManager getLocaleManager() {
-        return getPlugin().getLocaleManager();
+        return getCore().getLocaleManager();
     }
     
     /**
@@ -181,7 +181,7 @@ public class Mafiacraft {
      * @return
      */
     public static PlayerManager getPlayerManager() {
-        return getPlugin().getPlayerManager();
+        return getCore().getPlayerManager();
     }
 
     /**
@@ -190,7 +190,7 @@ public class Mafiacraft {
      * @return
      */
     public static VaultHelper getVaultHelper() {
-        return getPlugin().getVaultHelper();
+        return getCore().getVaultHelper();
     }
 
     /**

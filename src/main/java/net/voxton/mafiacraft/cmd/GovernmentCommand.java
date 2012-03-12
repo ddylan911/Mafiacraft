@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.cmd;
 
 import net.voxton.mafiacraft.MConfig;
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.gov.Division;
 import net.voxton.mafiacraft.gov.GovType;
@@ -309,7 +309,7 @@ public final class GovernmentCommand {
         }
 
         //Teleport.
-        TPCD.makeCountdown(Mafiacraft.getPlugin(), 10, TPCD.Type.GOVHQ, player.
+        TPCD.makeCountdown(10, TPCD.Type.GOVHQ, player.
                 getBukkitEntity(), hq);
         return null;
     }

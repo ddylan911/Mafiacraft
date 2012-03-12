@@ -24,7 +24,7 @@
 package net.voxton.mafiacraft.player;
 
 import net.voxton.mafiacraft.MLogger;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -39,9 +39,9 @@ public class KillTracker {
 
     private File killFilePath;
 
-    private final MafiacraftPlugin mc;
+    private final MafiacraftCore mc;
 
-    public KillTracker(MafiacraftPlugin mc) {
+    public KillTracker(MafiacraftCore mc) {
         this.mc = mc;
         this.killFilePath = new File(mc.getDataFolder().toString()
                 + File.separator + "kills.yml");

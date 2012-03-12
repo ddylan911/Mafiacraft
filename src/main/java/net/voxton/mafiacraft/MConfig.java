@@ -38,7 +38,7 @@ public class MConfig {
     private static final Map<String, Object> defaults =
             new HashMap<String, Object>();
 
-    private static MafiacraftPlugin plugin = null;
+    private static MafiacraftCore plugin = null;
 
     private static Configuration config = null;
 
@@ -47,7 +47,7 @@ public class MConfig {
      *
      * @param config
      */
-    public static void bind(MafiacraftPlugin mc) {
+    public static void bind(MafiacraftCore mc) {
         if (MConfig.plugin == null || MConfig.config == null) {
             Configuration conf = mc.getConfig();
             for (Entry<String, Object> def : defaults.entrySet()) {

@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.player;
 
 import com.google.common.cache.*;
 import net.voxton.mafiacraft.MLogger;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class PlayerManager {
     /**
      * Hook to the plugin.
      */
-    private final MafiacraftPlugin mc;
+    private final MafiacraftCore mc;
 
     /**
      * The Kill tracker.
@@ -64,7 +64,7 @@ public class PlayerManager {
      *
      * @param mc The MafiaCraft plugin.
      */
-    public PlayerManager(MafiacraftPlugin mc) {
+    public PlayerManager(MafiacraftCore mc) {
         this.mc = mc;
         this.killTracker = new KillTracker(mc);
 

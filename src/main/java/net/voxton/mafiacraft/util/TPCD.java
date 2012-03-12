@@ -70,7 +70,7 @@ public class TPCD implements Runnable {
         --iterations;
     }
 
-    public static void makeCountdown(JavaPlugin cp, int iterations, Type type,
+    public static void makeCountdown(int iterations, Type type,
             Player player, Location location) {
         if (isSpawning(player)) {
             removeCountdown(player);

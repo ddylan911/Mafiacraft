@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.geo;
 
 import net.voxton.mafiacraft.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.util.GeoUtils;
 import gnu.trove.map.TIntObjectMap;
@@ -81,14 +81,14 @@ public class CityManager {
      */
     private Map<District, City> districtCityMap = new HashMap<District, City>();
 
-    private final MafiacraftPlugin mc;
+    private final MafiacraftCore mc;
 
     /**
      * Constructor.
      *
      * @param mc The MafiacraftPlugin plugin.
      */
-    public CityManager(MafiacraftPlugin mc) {
+    public CityManager(MafiacraftCore mc) {
         this.mc = mc;
 
         registerSerializations();

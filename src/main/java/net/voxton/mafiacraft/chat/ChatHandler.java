@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.chat;
 
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.gov.Position;
@@ -35,9 +35,9 @@ import org.bukkit.entity.Player;
  */
 public class ChatHandler {
 
-    private MafiacraftPlugin mc;
+    private MafiacraftCore mc;
 
-    public ChatHandler(MafiacraftPlugin mc) {
+    public ChatHandler(MafiacraftCore mc) {
         this.mc = mc;
     }
 

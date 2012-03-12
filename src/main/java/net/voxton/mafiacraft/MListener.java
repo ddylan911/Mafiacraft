@@ -51,9 +51,9 @@ import org.bukkit.util.Vector;
  */
 public class MListener implements Listener {
 
-    private final MafiacraftPlugin mc;
+    private final MafiacraftCore mc;
 
-    public MListener(MafiacraftPlugin mc) {
+    public MListener(MafiacraftCore mc) {
         this.mc = mc;
     }
 

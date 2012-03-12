@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.voxton.mafiacraft.MafiacraftPlugin;
+import net.voxton.mafiacraft.MafiacraftCore;
 import org.bukkit.Bukkit;
 
 /**
@@ -42,7 +42,7 @@ public class TaskManager {
     /**
      * Hook to Mafiacraft.
      */
-    private final MafiacraftPlugin mc;
+    private final MafiacraftCore mc;
 
     /**
      * The tasks.
@@ -60,7 +60,7 @@ public class TaskManager {
      * 
      * @param plugin The plugin. 
      */
-    public TaskManager(MafiacraftPlugin plugin) {
+    public TaskManager(MafiacraftCore plugin) {
         mc = plugin;
         
         setupTaskChecker();

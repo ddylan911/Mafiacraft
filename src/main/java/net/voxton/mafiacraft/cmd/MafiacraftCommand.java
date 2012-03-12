@@ -95,7 +95,7 @@ public class MafiacraftCommand {
     public static String doVersion(CommandSender sender) {
         sender.sendMessage(MsgColor.INFO
                 + "This server is running Mafiacraft version " + Mafiacraft.
-                getPlugin().getVersionDetailed() + ".");
+                getCore().getVersionDetailed() + ".");
         return null;
     }
 
