@@ -23,6 +23,9 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import net.voxton.mafiacraft.vault.Transactable;
+import net.voxton.mafiacraft.geo.District;
+import org.bukkit.Chunk;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.geo.City;
 import org.junit.Test;
@@ -39,6 +42,7 @@ import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.player.MsgColor;
 import org.junit.After;
 import org.junit.Before;
+import org.mockito.Matchers;
 import static org.powermock.api.mockito.PowerMockito.*;
 import static org.mockito.Matchers.*;
 import static org.junit.Assert.*;
@@ -194,14 +198,27 @@ public class CityCommandTest {
                 Boolean.FALSE);
 
         when(Mafiacraft.getCityManager()).thenReturn(cityManager);
+        
+        //Specific to this
+        Chunk chunk = mock(Chunk.class);
+        when(albireox.getChunk()).thenReturn(chunk);
+        
+        District district = mock(District.class);
+        when(Mafiacraft.getDistrict(chunk)).thenReturn(district);
+        //End
 
         String expected = null;
         String result = CityCommand.doFound(albireox, "AValidName");
 
         assertEquals(expected, result);
 
+        //Message sent?
         verify(albireox).sendMessage(MsgColor.SUCCESS + Mafiacraft.
                 getDefaultLocale().localize("command.city.founded"));
+        
+        //City founded?
+        verify(cityManager).foundCity(albireox, "AValidName", district);
+        verify(albireox).transferMoney(any(Transactable.class), eq(10000000.00));
     }
 
     @Test
@@ -403,12 +420,14 @@ public class CityCommandTest {
         System.out.println(
                 "Testing deposit subcommand of a player not in a city.");
 
+        when(aubhaze.getMoney()).thenReturn(300.00);
+        when(aubhaze.hasEnough(anyDouble())).thenReturn(true);
         when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
                 Boolean.TRUE);
         
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = CityCommand.doDeposit(aubhaze, "asdf");
+        String result = CityCommand.doDeposit(aubhaze, "10");
 
         assertEquals(expected, result);
     }
@@ -435,7 +454,7 @@ public class CityCommandTest {
         
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = CityCommand.doWithdraw(aubhaze, "asdf");
+        String result = CityCommand.doWithdraw(aubhaze, "20");
 
         assertEquals(expected, result);
     }

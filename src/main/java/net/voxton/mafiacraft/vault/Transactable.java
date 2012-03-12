@@ -69,8 +69,8 @@ public abstract class Transactable {
     /**
      * Returns true if the thing has enough.
      *
-     * @param amt
-     * @return
+     * @param amt The amount of money to check.
+     * @return True if the entity has enough money.
      */
     public boolean hasEnough(double amt) {
         return getMoney() >= amt;
