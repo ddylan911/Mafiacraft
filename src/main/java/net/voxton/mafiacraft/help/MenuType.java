@@ -27,6 +27,7 @@ import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.help.menu.CWorldMenu;
 import net.voxton.mafiacraft.help.menu.CityMenu;
 import net.voxton.mafiacraft.help.menu.DistrictMenu;
+import net.voxton.mafiacraft.help.menu.DivisionMenu;
 import net.voxton.mafiacraft.help.menu.GovernmentMenu;
 
 /**
@@ -49,8 +50,24 @@ public class MenuType {
      */
     public static final HelpMenu DISTRICT = new DistrictMenu();
 
+    /**
+     * Mafia help menu.
+     */
     public static final HelpMenu MAFIA = new GovernmentMenu(GovType.MAFIA);
 
+    /**
+     * Police help menu.
+     */
     public static final HelpMenu POLICE = new GovernmentMenu(GovType.POLICE);
+
+    /**
+     * Regime help menu.
+     */
+    public static final HelpMenu REGIME = new DivisionMenu(GovType.MAFIA);
+
+    /**
+     * Squad help menu.
+     */
+    public static final HelpMenu SQUAD = new DivisionMenu(GovType.POLICE);
 
 }
