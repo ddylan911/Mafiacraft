@@ -100,7 +100,7 @@ public class MafiacraftCore {
 
         //Setup config
         MLogger.log("Loading configuration...");
-        Config.bind(this);
+        Config.setConfig(impl.getMafiacraftConfig());
         impl.saveConfig();
 
         //Setup commands
@@ -119,7 +119,7 @@ public class MafiacraftCore {
         cityManager = new CityManager(this);
 
         MLogger.log("Initializing data...");
-        dataWorker = impl.getDataWorker();
+        dataWorker = new DataWorker(this);
 
         MLogger.log("Initializing governments...");
         governmentManager = new GovernmentManager(this);

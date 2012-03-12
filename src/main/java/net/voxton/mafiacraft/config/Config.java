@@ -35,28 +35,10 @@ import org.bukkit.configuration.Configuration;
  * @author ianschool
  */
 public class Config {
+    private static MafiacraftConfig config;
 
-    private static final Map<String, Object> defaults =
-            new HashMap<String, Object>();
-
-    private static MafiacraftCore plugin = null;
-
-    private static Configuration config = null;
-
-    /**
-     * Binds this singleton to the specified plugin.
-     *
-     * @param config
-     */
-    public static void bind(MafiacraftCore mc) {
-        if (Config.plugin == null || Config.config == null) {
-            Configuration conf = mc.getConfig();
-            for (Entry<String, Object> def : defaults.entrySet()) {
-                conf.addDefault(def.getKey(), def.getValue());
-            }
-            Config.plugin = mc;
-            Config.config = conf;
-        }
+    public static void setConfig(MafiacraftConfig config) {
+        Config.config = config;
     }
 
     public static List<String> getStringList(String string) {
@@ -92,15 +74,6 @@ public class Config {
     }
 
     /**
-     * Gets the configuration.
-     *
-     * @return
-     */
-    public static Configuration getConfig() {
-        return config;
-    }
-
-    /**
      * Sets a certain path to a certain value. (Persists)
      *
      * @param path
@@ -108,58 +81,6 @@ public class Config {
      */
     public static void set(String path, Object value) {
         config.set(path, value);
-        saveConfig();
+        config.saveConfig();
     }
-
-    /**
-     * Saves the configuration.
-     */
-    public static void saveConfig() {
-        plugin.saveConfig();
-    }
-
-    /**
-     * Adds a default config setting.
-     *
-     * @param key
-     * @param value
-     */
-    private static void addDefault(String key, Object value) {
-        defaults.put(key, value);
-    }
-
-    static {
-        //Locale
-        addDefault("locale.default", "en-us");
-        
-        //Currency
-        addDefault("currency.name", "dollar");
-        addDefault("currency.namepl", "dollars");
-
-        //City prices
-        addDefault("prices.city.annex", 10000.0);
-        addDefault("prices.city.claim", 100.0);
-
-        //Government
-        addDefault("prices.gov.sethq", 100.0);
-
-        //Mafia
-        addDefault("mafia.found", 150000.0);
-        addDefault("mafia.startupcapital", 100000.0);
-        addDefault("mafia.regimestartup", 5000.0);
-
-        //String standardization
-        addDefault("strings.maxnamelength", 15);
-        addDefault("strings.maxdesclength", 45);
-
-        //District
-        addDefault("district.bus-max-distance", 10);
-        
-        //City
-        addDefault("city.foundcost", 10000000.0);
-
-        //Spawn times
-        addDefault("warmup.cityspawn", 10);
-    }
-
 }

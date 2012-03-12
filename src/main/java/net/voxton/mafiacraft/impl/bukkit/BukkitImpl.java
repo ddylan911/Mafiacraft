@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.impl.bukkit;
 
+import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.MListener;
 import net.voxton.mafiacraft.Mafiacraft;
@@ -51,8 +52,6 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
     private MafiacraftCore mc;
 
-    private DataWorker dataWorker;
-
     @Override
     public void onDisable() {
         mc.onDisable();
@@ -61,7 +60,6 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     @Override
     public void onEnable() {
         mc = new MafiacraftCore(this);
-        dataWorker = new DataWorker(this);
         mc.onEnable();
     }
 
@@ -187,8 +185,8 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     }
 
     @Override
-    public DataWorker getDataWorker() {
-        return dataWorker;
+    public MafiacraftConfig getMafiacraftConfig() {
+        return new BukkitConfig(this);
     }
 
 }

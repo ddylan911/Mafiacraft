@@ -28,8 +28,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
-import org.bukkit.Bukkit;
 
 /**
  * A little slave that will manage all data for us.
@@ -46,8 +46,8 @@ public class DataWorker {
      *
      * @param plugin The plugin instance.
      */
-    public DataWorker(MafiacraftImpl plugin) {
-        this.plugin = plugin;
+    public DataWorker(MafiacraftCore core) {
+        this.plugin = core.getImpl();
         setupSaveTask();
     }
 
