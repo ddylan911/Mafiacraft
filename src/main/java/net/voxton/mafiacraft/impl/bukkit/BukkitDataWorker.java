@@ -27,7 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.MLogger;
-import net.voxton.mafiacraft.MafiacraftCore;
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.data.DataWorker;
 import org.bukkit.Bukkit;
 
@@ -39,15 +39,15 @@ public class BukkitDataWorker implements DataWorker {
     /**
      * Reference to the plugin instance.
      */
-    private final MafiacraftCore mc;
+    private final BukkitImpl plugin;
 
     /**
      * Constructor.
      *
      * @param plugin The plugin instance.
      */
-    public BukkitDataWorker(MafiacraftCore plugin) {
-        mc = plugin;
+    public BukkitDataWorker(BukkitImpl plugin) {
+        this.plugin = plugin;
         setupSaveTask();
     }
 
@@ -55,7 +55,7 @@ public class BukkitDataWorker implements DataWorker {
      * Sets up the task that will save everything every 5 minutes.
      */
     private void setupSaveTask() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(mc, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
             @Override
             public void run() {
@@ -72,8 +72,8 @@ public class BukkitDataWorker implements DataWorker {
      */
     @Override
     public BukkitDataWorker loadAll() {
-        mc.getCityManager().load();
-        mc.getGovernmentManager().load();
+        Mafiacraft.getCityManager().load();
+        Mafiacraft.getGovernmentManager().load();
         return this;
     }
 
@@ -84,9 +84,9 @@ public class BukkitDataWorker implements DataWorker {
      */
     @Override
     public BukkitDataWorker saveAll() {
-        mc.getCityManager().save();
-        mc.getGovernmentManager().save();
-        mc.getPlayerManager().saveAll();
+        Mafiacraft.getCityManager().save();
+        Mafiacraft.getGovernmentManager().save();
+        Mafiacraft.getPlayerManager().saveAll();
         return this;
     }
 
@@ -99,7 +99,7 @@ public class BukkitDataWorker implements DataWorker {
      */
     @Override
     public File getSubFolder(String name) {
-        File folder = new File(mc.getDataFolder().getPath() + File.separator
+        File folder = new File(plugin.getDataFolder().getPath() + File.separator
                 + name + File.separator);
         folder.mkdirs();
         return folder;
@@ -113,7 +113,7 @@ public class BukkitDataWorker implements DataWorker {
      */
     @Override
     public File getTopFile(String name) {
-        return getFileAndCreate(mc.getDataFolder().getPath() + File.separator
+        return getFileAndCreate(plugin.getDataFolder().getPath() + File.separator
                 + name);
     }
 

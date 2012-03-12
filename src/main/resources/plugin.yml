@@ -3,7 +3,7 @@ description: ${project.description}
 author: AlbireoX
 version: ${version.number}
 
-main: net.voxton.mafiacraft.MafiacraftPlugin
+main: net.voxton.mafiacraft.impl.bukkit.BukkitImpl
 depend: [Vault]
 
 commands:

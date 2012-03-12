@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.impl;
 
+import net.voxton.mafiacraft.data.DataWorker;
+
 /**
  * Represents an implementation of Mafiacraft.
  */
@@ -36,4 +38,6 @@ public interface MafiacraftImpl {
     public void registerEvents();
     
     public String getVersion();
+    
+    public DataWorker getDataWorker();
 }
