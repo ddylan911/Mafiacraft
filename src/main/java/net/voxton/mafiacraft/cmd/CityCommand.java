@@ -56,7 +56,7 @@ public final class CityCommand {
         if (!(sender instanceof Player)) {
             sender.sendMessage(
                     MsgColor.ERROR
-                    + Locale.getDefault().localize("command.general.ingame-only"));
+                    + Mafiacraft.getDefaultLocale().localize("command.general.ingame-only"));
             return;
         }
 

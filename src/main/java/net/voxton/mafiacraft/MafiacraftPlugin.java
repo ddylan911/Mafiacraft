@@ -28,6 +28,7 @@ import net.voxton.mafiacraft.cmd.Commands;
 import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.gov.GovernmentManager;
+import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
 import org.bukkit.Bukkit;
@@ -45,6 +46,8 @@ public class MafiacraftPlugin extends JavaPlugin {
     private DataWorker dataWorker;
 
     private GovernmentManager governmentManager;
+
+    private LocaleManager localeManager;
 
     private PlayerManager playerManager;
 
@@ -112,6 +115,9 @@ public class MafiacraftPlugin extends JavaPlugin {
         MLogger.log("Initializing governments...");
         governmentManager = new GovernmentManager(this);
 
+        MLogger.log("Initializing locale manager...");
+        localeManager = new LocaleManager();
+
         MLogger.log("Initializing players...");
         playerManager = new PlayerManager(this);
 
@@ -140,6 +146,10 @@ public class MafiacraftPlugin extends JavaPlugin {
 
     public GovernmentManager getGovernmentManager() {
         return governmentManager;
+    }
+
+    public LocaleManager getLocaleManager() {
+        return localeManager;
     }
 
     public PlayerManager getPlayerManager() {

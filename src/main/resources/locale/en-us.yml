@@ -33,7 +33,7 @@ command:
     deposited: You have deposited %s into %s.
     disbanded: The city has been disbanded. Anarchy will now take place.
     founded: Your city has been founded successfully.
-    funds: %s has %s in funds.
+    funds: "%s has %s in funds."
     invalid-name: That city name is invalid; city names must be less than 25 characters in length and alphanumeric.
     must-be-mayor:
       annex-district:  You must be the mayor of the city to annex this district.
@@ -95,5 +95,16 @@ help:
   not-found: 404 help page not found. Make sure you are typing in a valid page number from 1 to %s.
   strange-argument: Strange argument %s given.
   
-help-menu:
+cmd-help:
+  test:
+    test: A test method.
+    test1: A test1 method.
+    test2: A test2 method.
+    test3: A test3 method.
+    test4: A test4 method.
+    test5: A test5 method.
+    test6: A test6 method.
+    test7: A test7 method.
+    test8: A test8 method.
+    test9: A test9 method.
   

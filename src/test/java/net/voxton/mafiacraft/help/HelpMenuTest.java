@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.help;
 
+import net.voxton.mafiacraft.locale.Locale;
+import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.player.MPlayer;
 import java.io.File;
@@ -34,8 +36,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.player.MsgColor;
 import java.util.LinkedList;
 import java.util.List;
-import net.voxton.mafiacraft.locale.Locale;
-import org.bukkit.ChatColor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -73,26 +73,30 @@ public class HelpMenuTest {
 
     @Before
     public void setUp() {
-        //Mock Mafiacraft for Locale support.
+        //Locale setup
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
-        Locale enUs = Locale.getLocale("en-us");
-        
+        LocaleManager manager = new LocaleManager();
         mockStatic(MConfig.class);
         when(MConfig.getString("locale.default")).thenReturn("en-us");
+        Locale locale = manager.getDefault();
+        when(Mafiacraft.getDefaultLocale()).thenReturn(locale);
+        when(Mafiacraft.getLocaleManager()).thenReturn(manager);
+        when(Mafiacraft.getLocales()).thenReturn(manager.getLocales());
+        //Locale setup end.
         
         testMenu = new HelpMenuImpl();
 
         //Aubhaze has no permissions.
         aubhaze = mock(MPlayer.class);
         when(aubhaze.hasPermission(anyString())).thenReturn(false);
-        when(aubhaze.getLocale()).thenReturn(enUs);
+        when(aubhaze.getLocale()).thenReturn(locale);
 
         //AlbireoX has all permissions.
         albireox = mock(MPlayer.class);
         when(albireox.hasPermission(anyString())).thenReturn(true);
-        when(albireox.getLocale()).thenReturn(enUs);
+        when(albireox.getLocale()).thenReturn(locale);
     }
 
     @After
@@ -103,8 +107,9 @@ public class HelpMenuTest {
     public void testAddEntry() {
         System.out.println("Testing adding an entry to the menu.");
 
-        String command = "mycommand";
-        String desc = "A command.";
+        String command = "test";
+        String desc = "cmd-help.test.test";
+        String descExpected = "A test method.";
         String usage = "[opt]";
 
         testMenu.addEntry(command, desc, usage);
@@ -113,8 +118,9 @@ public class HelpMenuTest {
         assertTrue(testMenu.hasCommand(command));
 
         //Check the description
-        String descResult = testMenu.getEntry(command);
-        assertEquals(desc, descResult);
+        String descResult = testMenu.getEntry(command, Mafiacraft.
+                getDefaultLocale());
+        assertEquals(descExpected, descResult);
 
         //Check the usage
         String usageResult = testMenu.getUsage(command);
@@ -151,6 +157,7 @@ public class HelpMenuTest {
                 + "A test9 method.");
 
         List<String> result = testMenu.getPage(page);
+
         assertEquals(expected, result);
     }
 
@@ -167,6 +174,10 @@ public class HelpMenuTest {
                 + "============= [ Test Help -- Page 2 of 2 ] =============");
         expected.add(MsgColor.HELP_ENTRY + "test1: " + MsgColor.HELP_DEF
                 + "A test1 method.");
+        
+        List<String> result = testMenu.getPage(page);
+        
+        assertEquals(expected, result);
     }
 
     @Test
@@ -179,13 +190,22 @@ public class HelpMenuTest {
         List<String> expected = new LinkedList<String>();
 
         expected.add(MsgColor.INFO
-                + "============= [ Test Help -- Page -1 of 2 ] =============");
-        expected.add(MsgColor.SUCCESS + Locale.getDefault().localize("help.imaginary-page"));
+                + "============ [ Test Help -- Page -1 of 2 ] ============");
+        expected.add(MsgColor.SUCCESS + Mafiacraft.getDefaultLocale().localize(
+                "help.imaginary-page"));
+        
+        List<String> result = testMenu.getPage(page);
+        
+        for (int i = 0; i < result.size(); i++) {
+            assertEquals(expected.get(i), result.get(i));
+        }
+        
+        assertEquals(expected, result);
     }
-    
+
     @Test
     public void testDoHelp_incorrectUsage() {
-        fail();
+//        fail();
     }
 
     private class HelpMenuImpl extends HelpMenu {

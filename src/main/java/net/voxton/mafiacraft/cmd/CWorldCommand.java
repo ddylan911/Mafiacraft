@@ -48,7 +48,7 @@ public final class CWorldCommand {
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + Locale.getDefault().localize(
+            sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().localize(
                     "command.general.ingame-only"));
             return;
         }

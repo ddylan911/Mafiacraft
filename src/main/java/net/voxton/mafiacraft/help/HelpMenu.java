@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
@@ -57,9 +58,10 @@ public abstract class HelpMenu {
     private final String name;
 
     /**
-     * Contains help.
+     * Contains help in all languages.
      */
-    private Map<String, String> help = new LinkedHashMap<String, String>();
+    private Map<Locale, Map<String, String>> help =
+            new HashMap<Locale, Map<String, String>>();
 
     /**
      * Contains the usage.
@@ -67,9 +69,10 @@ public abstract class HelpMenu {
     private Map<String, String> usage = new HashMap<String, String>();
 
     /**
-     * The parsed and sorted help menu.
+     * The parsed and sorted help menus.
      */
-    private List<String> realHelp = new LinkedList<String>();
+    private Map<Locale, List<String>> realHelp =
+            new HashMap<Locale, List<String>>();
 
     /**
      * Constructor.
@@ -90,25 +93,33 @@ public abstract class HelpMenu {
      * Adds an entry to the help menu.
      *
      * @param command The name of the command to add.
-     * @param description The description of the command.
+     * @param description The description of the command as specified in the 
+     *      locale file.
      * @param usg The usage of the command.
      */
     protected void addEntry(String command, String description, String usg) {
         command = command.toLowerCase();
-        help.put(command, description);
         usage.put(command, usg);
 
-        String entry = MsgColor.HELP_ENTRY + command + ": "
-                + MsgColor.HELP_DEF + description;
+        for (Locale locale : Mafiacraft.getLocales()) {
+            String desc = locale.localize(description);
 
-        if (ChatColor.stripColor(entry).length() > WIDTH) {
-            MLogger.log(Level.WARNING, "The help entry for " + ChatColor.RED
-                    + "/" + getName() + " " + command + ChatColor.WHITE
-                    + " is over the limit of " + WIDTH
-                    + ". Unexpected formatting issues may occur!");
+            getLocalizedHelp(locale).put(command, desc);
+
+            List<String> localizedHelpParsed = getLocalizedHelpParsed(locale);
+
+            String entry = MsgColor.HELP_ENTRY + command + ": "
+                    + MsgColor.HELP_DEF + desc;
+
+            if (ChatColor.stripColor(entry).length() > WIDTH) {
+                MLogger.log(Level.WARNING, "The help entry for " + ChatColor.RED
+                        + "/" + getName() + " " + command + ChatColor.WHITE
+                        + " is over the limit of " + WIDTH
+                        + ". Unexpected formatting issues may occur!");
+            }
+
+            localizedHelpParsed.add(entry);
         }
-
-        realHelp.add(entry);
     }
 
     /**
@@ -118,7 +129,7 @@ public abstract class HelpMenu {
      * @return The page as a List<String>.
      */
     public List<String> getPage(int page) {
-        return getPage(page, Locale.getDefault());
+        return getPage(page, Mafiacraft.getDefaultLocale());
     }
 
     /**
@@ -142,7 +153,38 @@ public abstract class HelpMenu {
      * @return The amount of help pages.
      */
     public int getPages() {
-        return (int) Math.ceil((double) realHelp.size() / (HEIGHT - 1));
+        return (int) Math.ceil((double) getLocalizedHelp(Mafiacraft.
+                getDefaultLocale()).size() / (HEIGHT - 1));
+    }
+
+    /**
+     * Gets help localized for a locale.
+     * 
+     * @param locale The locale.
+     * @return The localized help as a List<String>.
+     */
+    public Map<String, String> getLocalizedHelp(Locale locale) {
+        Map<String, String> localized = help.get(locale);
+        if (localized == null) {
+            localized = new HashMap<String, String>();
+            help.put(locale, localized);
+        }
+        return localized;
+    }
+
+    /**
+     * Gets help localized for a locale, parsed.
+     * 
+     * @param locale The locale.
+     * @return The localized help as a List<String>.
+     */
+    public List<String> getLocalizedHelpParsed(Locale locale) {
+        List<String> localized = realHelp.get(locale);
+        if (localized == null) {
+            localized = new LinkedList<String>();
+            realHelp.put(locale, localized);
+        }
+        return localized;
     }
 
     /**
@@ -189,13 +231,16 @@ public abstract class HelpMenu {
      */
     public List<String> getPageContent(int page, Locale locale) {
         List<String> content = new LinkedList<String>();
-        int entries = realHelp.size();
+        List<String> helpP = getLocalizedHelpParsed(locale);
 
+        int entries = helpP.size();
+        int max = entries - 1;
+        
         int lines = HEIGHT - 1;
 
         int start = ((page - 1) * lines);
 
-        if (start > entries - 1) {
+        if (start > max) {
             content.add(MsgColor.ERROR + locale.localize("help.not-found",
                     getPages()));
             return content;
@@ -212,11 +257,14 @@ public abstract class HelpMenu {
             return content;
         }
 
-        int finish = start + lines;
-
-        for (int i = start; (i <= finish) && (i < (entries - 1)); i++) {
-            String entry = realHelp.get(i);
-            System.out.println(entry);
+        int finish = start + lines - 1;
+        
+        if (finish > max) {
+            finish = max;
+        }
+        
+        for (int i = start; i <= finish; i++) {
+            String entry = helpP.get(i);
             content.add(entry);
         }
 
@@ -227,10 +275,11 @@ public abstract class HelpMenu {
      * Gets a command entry.
      *
      * @param command The command.
+     * @param locale The locale.
      * @return The description of the command.
      */
-    public String getEntry(String command) {
-        return help.get(command.toLowerCase());
+    public String getEntry(String command, Locale locale) {
+        return getLocalizedHelp(locale).get(command.toLowerCase());
     }
 
     /**
@@ -297,7 +346,8 @@ public abstract class HelpMenu {
             return;
         }
 
-        player.sendMessage(MsgColor.ERROR + player.getLocale().localize("help.incorrect-usage",
+        player.sendMessage(MsgColor.ERROR + player.getLocale().localize(
+                "help.incorrect-usage",
                 getCompleteUsage(arg)));
     }
 

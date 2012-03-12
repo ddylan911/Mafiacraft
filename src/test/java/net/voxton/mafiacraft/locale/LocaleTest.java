@@ -23,15 +23,15 @@
  */
 package net.voxton.mafiacraft.locale;
 
-import java.io.File;
-import org.bukkit.scheduler.BukkitScheduler;
+import java.util.logging.Level;
 import org.bukkit.Bukkit;
+import net.voxton.mafiacraft.MConfig;
 import java.io.File;
-import net.voxton.mafiacraft.MafiacraftPlugin;
-import net.voxton.mafiacraft.data.DataWorker;
+import java.util.logging.Logger;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.Mafiacraft;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,8 +45,10 @@ import static org.powermock.api.mockito.PowerMockito.*;
  * Testing of locale.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Mafiacraft.class)
+@PrepareForTest({Mafiacraft.class, MConfig.class, Bukkit.class})
 public class LocaleTest {
+
+    private LocaleManager manager;
 
     public LocaleTest() {
     }
@@ -64,31 +66,25 @@ public class LocaleTest {
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
+
+        mockStatic(MConfig.class);
+        when(MConfig.getString("locale.default")).thenReturn("en-us");
+
+        manager = new LocaleManager();
     }
 
     @After
     public void tearDown() {
     }
 
-    /**
-     * Test of getLocale method, of class Locale.
-     */
-    @Test
-    public void testGetLocale() {
-        System.out.println("getLocale");
-
-        Locale locale = Locale.getLocale("en-us");
-        String expected = "en-us";
-        String result = locale.getName();
-        
-        assertEquals(expected, result);
-    }
-
     @Test
     public void testTopLevelLocalization() {
         System.out.println("Testing a top-level localization.");
 
-        Locale locale = Locale.getLocale("en-us");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("/Users/ianschool/Desktop/p/mfiacraft/target/classes/locale/en-us.yml"));
+        System.out.println(config);
+        
+        Locale locale = manager.getDefault();
         String expected = "en-us";
         String result = locale.localize("name");
 
@@ -99,7 +95,7 @@ public class LocaleTest {
     public void testSecondLevelLocalization() {
         System.out.println("Testing a second-level localization.");
 
-        Locale locale = Locale.getLocale("en-us");
+        Locale locale = manager.getDefault();
         String expected = "a citizen";
         String result = locale.localize("terms.a-citizen");
 
@@ -110,7 +106,7 @@ public class LocaleTest {
     public void testThirdLevelLocalization() {
         System.out.println("Testing a third-level localization.");
 
-        Locale locale = Locale.getLocale("en-us");
+        Locale locale = manager.getDefault();
         String expected = "You are not allowed to use this command.";
         String result = locale.localize("command.general.not-allowed");
 

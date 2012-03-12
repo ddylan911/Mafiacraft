@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import net.voxton.mafiacraft.MConfig;
+import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.geo.CityWorld;
 import java.io.File;
 import java.util.Arrays;
@@ -46,7 +48,7 @@ import static org.mockito.Mockito.verify;
  * CWorld command.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Mafiacraft.class})
+@PrepareForTest({Mafiacraft.class, MConfig.class})
 public class CWorldCommandTest {
 
     private CityWorld world;
@@ -57,11 +59,18 @@ public class CWorldCommandTest {
 
     @Before
     public void setUp() {
-        //Mock Mafiacraft for Locale support.
+        //Locale setup
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
-        Locale enUs = Locale.getLocale("en-us");
+        LocaleManager manager = new LocaleManager();
+        mockStatic(MConfig.class);
+        when(MConfig.getString("locale.default")).thenReturn("en-us");
+        Locale locale = manager.getDefault();
+        when(Mafiacraft.getDefaultLocale()).thenReturn(locale);
+        when(Mafiacraft.getLocaleManager()).thenReturn(manager);
+        when(Mafiacraft.getLocales()).thenReturn(manager.getLocales());
+        //Locale setup end.
 
         //Mock the cityworld
         world = mock(CityWorld.class);
@@ -69,13 +78,13 @@ public class CWorldCommandTest {
         //Aubhaze has no permissions.
         aubhaze = mock(MPlayer.class);
         when(aubhaze.hasPermission(anyString())).thenReturn(false);
-        when(aubhaze.getLocale()).thenReturn(enUs);
+        when(aubhaze.getLocale()).thenReturn(locale);
         when(aubhaze.getCityWorld()).thenReturn(world);
 
         //AlbireoX has all permissions.
         albireox = mock(MPlayer.class);
         when(albireox.hasPermission(anyString())).thenReturn(true);
-        when(albireox.getLocale()).thenReturn(enUs);
+        when(albireox.getLocale()).thenReturn(locale);
         when(albireox.getCityWorld()).thenReturn(world);
     }
 
@@ -87,7 +96,7 @@ public class CWorldCommandTest {
     public void testToggle_notAllowed() {
         System.out.println("Testing of a toggle that should not be allowed.");
 
-        String expected = Locale.getLocale("en-us").localize(
+        String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-allowed");
         String result = CWorldCommand.doToggle(aubhaze, WorldToggle.FREE_ROAM.
                 name());
@@ -101,7 +110,7 @@ public class CWorldCommandTest {
 
         String toggleList = Arrays.asList(WorldToggle.values()).toString();
 
-        String expected = Locale.getLocale("en-us").localize(
+        String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.cworld.toggle-invalid", toggleList);
         String result = CWorldCommand.doToggle(albireox, "free_rome"); //Intentional derp
 
@@ -118,7 +127,7 @@ public class CWorldCommandTest {
         String result = CWorldCommand.doToggle(albireox, toggle);
         assertNull(result);
 
-        String message = Locale.getLocale("en-us").localize(
+        String message = Mafiacraft.getDefaultLocale().localize(
                 "command.cworld.toggle-set", toggle, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
@@ -134,7 +143,7 @@ public class CWorldCommandTest {
         String result = CWorldCommand.doToggle(albireox, toggle);
         assertNull(result);
 
-        String message = Locale.getLocale("en-us").localize(
+        String message = Mafiacraft.getDefaultLocale().localize(
                 "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
@@ -151,7 +160,7 @@ public class CWorldCommandTest {
         String result = CWorldCommand.doToggle(albireox, toggle);
         assertNull(result);
 
-        String message = Locale.getLocale("en-us").localize(
+        String message = Mafiacraft.getDefaultLocale().localize(
                 "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);

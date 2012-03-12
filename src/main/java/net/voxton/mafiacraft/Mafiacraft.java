@@ -34,6 +34,8 @@ import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
 import java.util.List;
 import net.voxton.mafiacraft.data.DataWorker;
+import net.voxton.mafiacraft.locale.Locale;
+import net.voxton.mafiacraft.locale.LocaleManager;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
@@ -158,12 +160,21 @@ public class Mafiacraft {
     /**
      * Gets the government manager.
      *
-     * @return
+     * @return The government manager.
      */
     public static GovernmentManager getGovernmentManager() {
         return getPlugin().getGovernmentManager();
     }
 
+    /**
+     * Gets the locale manager.
+     * 
+     * @return The locale manager.
+     */
+    public static LocaleManager getLocaleManager() {
+        return getPlugin().getLocaleManager();
+    }
+    
     /**
      * Gets the player manager.
      *
@@ -265,4 +276,31 @@ public class Mafiacraft {
         return getCityManager().getDistrictList();
     }
 
+    /**
+     * Gets a list of all locales.
+     * 
+     * @return The list of all locales.
+     */
+    public static List<Locale> getLocales() {
+        return getLocaleManager().getLocales();
+    }
+    
+    /**
+     * Gets the default locale of Mafiacraft.
+     * 
+     * @return The default locale.
+     */
+    public static Locale getDefaultLocale() {
+        return getLocaleManager().getDefault();
+    }
+
+    /**
+     * Gets a locale by name.
+     * 
+     * @param name The name of the locale.
+     * @return The locale.
+     */
+    public static Locale getLocale(String name) {
+        return getLocaleManager().getLocale(name);
+    }
 }
