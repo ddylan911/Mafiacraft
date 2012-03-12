@@ -47,6 +47,7 @@ command:
       claim: You must be a member of the city to claim land as it.
       district:
         desc: You must be a member of the city to change a district description.
+        setbus: You must be a member of the city to set its bus stop.
       funds: You must be part of the city government to view the funds of the city.
       unclaim: You must be a member of the city to unclaim land as it.
     name-taken: A city with that name already exists; please try another name.
@@ -75,6 +76,7 @@ command:
     
   district:
     bus-far: You must be within %s blocks of a bus stop to ride the bus.
+    bus-set: The bus stop of %s has been successfully set to your location.
     claimed: You have successfuly claimed the district for your city.
     desc: You have changed the description of the district to `{SUCCESS_HILIGHT}%s`{SUCCESS}.
     must-be-mayor:

@@ -153,24 +153,26 @@ public final class DistrictCommand {
 
     public static String doSetBus(MPlayer player) {
         if (!player.hasPermission("mafiacraft.mod")) {
-            return "You aren't allowed to use this command.";
+            return player.getLocale().localize("command.general.not-allowed");
         }
 
         District district = player.getDistrict();
         City city = district.getCity();
         if (city == null) {
-            return "You aren't in a district that is part of a city.";
+            return player.getLocale().localize(
+                    "command.district.this-not-associated");
         }
 
         if (city.isMember(player)) {
-            return "You must be a member of this city.";
+            return player.getLocale().localize(
+                    "command.city.must-be-member.district.setbus");
         }
 
         Location bus = player.getLocation();
         district.setBusStop(bus);
 
-        player.sendMessage(MsgColor.SUCCESS + "The bus stop of " + district.
-                getNameInChat() + " has been set to your location.");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.district.bus-set", district.getNameInChat()));
         return null;
     }
 
