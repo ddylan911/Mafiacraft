@@ -156,22 +156,24 @@ public final class GovernmentCommand {
     public static String doAccept(MPlayer player, GovType type) {
         Integer inv = player.getSessionStore().getInt("gov-inv", -1);
         if (inv < 0) {
-            return "You have not been invited to a " + type.getName() + ".";
+            return player.getLocale().localize(
+                    "command.government.error.not-invited", type.getName());
         }
 
         Government gov = Mafiacraft.getGovernmentManager().getGovernment(inv);
         if (gov == null) {
-            return "The " + type.getName()
-                    + " you were invited to no longer exists.";
+            return player.getLocale().localize("command.government.error.invited-nonexistent"
+                    + type.getName());
         }
 
         gov.addAffiliate(player);
 
-        player.sendMessage(MsgColor.SUCCESS + "You have joined the " + type.
-                getName() + " " + gov.getName() + ".");
-        gov.broadcastMessage(player.getName() + " has joined the "
-                + gov.getType().
-                getName() + ".");
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.government.success.joined",
+                type.getName(), gov.getName()));
+        gov.broadcastMessage(player.getLocale().localize(
+                "event.government.player-joined", player.getName(),
+                gov.getType().getName()));
         return null;
     }
 

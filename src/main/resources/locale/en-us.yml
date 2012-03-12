@@ -99,6 +99,17 @@ command:
     unavailable: This district is already associated with the city.
     zoned: The district has been zoned to a %s district.
 
+  government:
+    error:
+      invited-nonexistent: The %s you were invited to no longer exists.
+      not-invited: You have not been invited to a %s.
+    success:
+      joined: You have joined the %s %s.
+
+event:
+  government:
+    player-joined: The player `{INFO_HILIGHT}%s`{INFO} has joined the %s.
+
 help:
   imaginary-page: You have found an imaginary page. The square root of -1. The rationalization of pi. The answer to life, the universe, and everything.
   incorrect-usage: Incorrect usage of the command %s. Usage is `{ERROR_HILIGHT}%s`{NORMAL}.
