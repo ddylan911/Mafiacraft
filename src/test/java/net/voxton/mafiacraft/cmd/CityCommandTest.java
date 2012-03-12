@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import net.voxton.mafiacraft.geo.City;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -48,6 +49,10 @@ import static org.junit.Assert.*;
 public class CityCommandTest {
 
     private CityWorld world;
+    
+    private CityWorld metroWorld;
+    
+    private City metroCity;
 
     private MPlayer aubhaze;
 
@@ -70,6 +75,11 @@ public class CityCommandTest {
 
         //Mock the cityworld
         world = mock(CityWorld.class);
+        
+        //Mock the real world
+        metroCity = mock(City.class);
+        metroWorld = mock(CityWorld.class);
+        when(metroWorld.getCapital()).thenReturn(metroCity) ;
 
         //Aubhaze has no permissions.
         aubhaze = mock(MPlayer.class);
@@ -94,6 +104,19 @@ public class CityCommandTest {
         
         String expected = Mafiacraft.getDefaultLocale().localize("command.general.not-citizen");
         String result = CityCommand.doFound(aubhaze, "test");
+        
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoFound_capitalEstablished() {
+        System.out.println("Testing found subcommand of a player in a world "
+                + "with a capital already established.");
+        
+        when(albireox.getCityWorld()).thenReturn(metroWorld);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize("command.city.capital-established");
+        String result = CityCommand.doFound(albireox, "test");
         
         assertEquals(expected, result);
     }
