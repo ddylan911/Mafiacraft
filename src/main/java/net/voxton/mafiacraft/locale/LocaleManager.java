@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import org.bukkit.configuration.ConfigurationSection;
@@ -138,7 +138,7 @@ public class LocaleManager {
      * @return The locale.
      */
     public Locale getDefault() {
-        return getLocale(MConfig.getString("locale.default"));
+        return getLocale(Config.getString("locale.default"));
     }
 
     /**

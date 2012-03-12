@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.util;
 
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.junit.runner.RunWith;
@@ -40,7 +40,7 @@ import static org.powermock.api.mockito.PowerMockito.*;
  * Testing of validation utils.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(MConfig.class)
+@PrepareForTest(Config.class)
 public class ValidationUtilsTest {
 
     public ValidationUtilsTest() {
@@ -56,9 +56,9 @@ public class ValidationUtilsTest {
 
     @Before
     public void setUp() {
-        mockStatic(MConfig.class);
-        when(MConfig.getInt("strings.maxnamelength")).thenReturn(15);
-        when(MConfig.getInt("strings.maxdesclength")).thenReturn(45);
+        mockStatic(Config.class);
+        when(Config.getInt("strings.maxnamelength")).thenReturn(15);
+        when(Config.getInt("strings.maxdesclength")).thenReturn(45);
     }
 
     @After

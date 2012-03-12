@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.City;
 import net.voxton.mafiacraft.geo.CityWorld;
@@ -150,7 +150,7 @@ public final class CityCommand {
         }
 
         double balance = player.getMoney();
-        double foundCost = MConfig.getDouble("city.foundcost");
+        double foundCost = Config.getDouble("city.foundcost");
 
         if (balance < foundCost) {
             return player.getLocale().localize("command.city.no-money.found",
@@ -209,7 +209,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.city.no-spawn");
         }
 
-        int citySpawnTime = MConfig.getInt("warmup.cityspawn");
+        int citySpawnTime = Config.getInt("warmup.cityspawn");
         TPCD.makeCountdown(citySpawnTime,
                 TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
         return null;
@@ -236,7 +236,7 @@ public final class CityCommand {
                     "command.district.must-be-mayor.annex");
         }
 
-        double cost = MConfig.getDouble("prices.city.annex");
+        double cost = Config.getDouble("prices.city.annex");
         if (!city.hasEnough(cost)) {
             return player.getLocale().localize("command.city.no-money.annex",
                     StringUtils.formatCurrency(cost));
@@ -357,7 +357,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.city.not-in");
         }
 
-        int busDist = MConfig.getInt("district.bus-max-distance");
+        int busDist = Config.getInt("district.bus-max-distance");
 
         District thisDist = player.getDistrict();
         Location thisBus = thisDist.getBusStop();
@@ -468,7 +468,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.city.already-owned");
         }
 
-        double amt = MConfig.getDouble("prices.city.claim");
+        double amt = Config.getDouble("prices.city.claim");
         String amtFmt = StringUtils.formatCurrency(amt);
         if (!city.hasEnough(amt)) {
             return player.getLocale().localize("command.city.no-money.claim",
@@ -545,7 +545,7 @@ public final class CityCommand {
                     "command.general.player-not-found", assistant);
         }
 
-        double amt = MConfig.getDouble("prices.city.makepolice");
+        double amt = Config.getDouble("prices.city.makepolice");
         if (!city.hasEnough(amt)) {
             return player.getLocale().localize(
                     "command.city.no-money.make-police", StringUtils.

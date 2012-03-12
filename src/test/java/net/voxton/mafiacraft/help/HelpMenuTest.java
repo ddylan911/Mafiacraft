@@ -29,7 +29,7 @@ import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.player.MPlayer;
 import java.io.File;
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -49,7 +49,7 @@ import static org.mockito.Matchers.*;
  * Help menu test.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({MConfig.class, Mafiacraft.class})
+@PrepareForTest({Config.class, Mafiacraft.class})
 public class HelpMenuTest {
 
     private CityWorld world;
@@ -78,8 +78,8 @@ public class HelpMenuTest {
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
-        mockStatic(MConfig.class);
-        when(MConfig.getString("locale.default")).thenReturn("en-us");
+        mockStatic(Config.class);
+        when(Config.getString("locale.default")).thenReturn("en-us");
         Locale locale = manager.getDefault();
         when(Mafiacraft.getDefaultLocale()).thenReturn(locale);
         when(Mafiacraft.getLocaleManager()).thenReturn(manager);

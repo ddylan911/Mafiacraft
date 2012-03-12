@@ -35,7 +35,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.player.MPlayer;
 import java.io.File;
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.locale.LocaleManager;
@@ -52,7 +52,7 @@ import static org.mockito.Mockito.verify;
  * Testing of the city command.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Mafiacraft.class, MConfig.class})
+@PrepareForTest({Mafiacraft.class, Config.class})
 public class CityCommandTest {
 
     private CityWorld world;
@@ -74,8 +74,8 @@ public class CityCommandTest {
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
-        mockStatic(MConfig.class);
-        when(MConfig.getString("locale.default")).thenReturn("en-us");
+        mockStatic(Config.class);
+        when(Config.getString("locale.default")).thenReturn("en-us");
         Locale locale = manager.getDefault();
         when(Mafiacraft.getDefaultLocale()).thenReturn(locale);
         when(Mafiacraft.getLocaleManager()).thenReturn(manager);
@@ -141,7 +141,7 @@ public class CityCommandTest {
                 + "enough money to found a city.");
 
         when(albireox.getMoney()).thenReturn(5000.0);
-        when(MConfig.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
+        when(Config.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.no-money.found", "$10,000,000.00");
@@ -155,7 +155,7 @@ public class CityCommandTest {
         System.out.println("Testing found subcommand with a bad name.");
 
         when(albireox.getMoney()).thenReturn(50000000000.0);
-        when(MConfig.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
+        when(Config.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.invalid-name");
@@ -170,8 +170,8 @@ public class CityCommandTest {
                 "Testing found subcommand with an already taken name.");
 
         when(albireox.getMoney()).thenReturn(50000000000.0);
-        when(MConfig.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
-        when(MConfig.getInt("strings.maxnamelength")).thenReturn(15);
+        when(Config.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
+        when(Config.getInt("strings.maxnamelength")).thenReturn(15);
 
         when(cityManager.cityExists("TakenName")).thenReturn(
                 Boolean.TRUE);
@@ -191,8 +191,8 @@ public class CityCommandTest {
                 "Testing found subcommand with valid circumstances.");
 
         when(albireox.getMoney()).thenReturn(50000000000.0);
-        when(MConfig.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
-        when(MConfig.getInt("strings.maxnamelength")).thenReturn(15);
+        when(Config.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
+        when(Config.getInt("strings.maxnamelength")).thenReturn(15);
 
         when(cityManager.cityExists("AValidName")).thenReturn(
                 Boolean.FALSE);

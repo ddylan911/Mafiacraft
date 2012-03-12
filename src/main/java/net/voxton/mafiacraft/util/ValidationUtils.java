@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.util;
 
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 
 /**
  * Contains various methods for validating strings for use within the plugin.
@@ -37,7 +37,7 @@ public class ValidationUtils {
      * @return True if the name is valid.
      */
     public static boolean validateName(String name) {
-        int max = MConfig.getInt("strings.maxnamelength");
+        int max = Config.getInt("strings.maxnamelength");
         return name.length() <= max && name.matches("[A-Za-z0-9]+");
     }
 
@@ -48,7 +48,7 @@ public class ValidationUtils {
      * @return The first error found with the description,
      */
     public static String validateDescription(String description) {
-        int max = MConfig.getInt("strings.maxdesclength");
+        int max = Config.getInt("strings.maxdesclength");
         if (description.length() > max) {
             return "Description must be under " + max + " characters.";
         }

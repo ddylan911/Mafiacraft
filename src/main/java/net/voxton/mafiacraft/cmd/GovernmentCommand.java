@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.geo.District;
@@ -197,7 +197,7 @@ public final class GovernmentCommand {
         }
 
         double balance = player.getMoney();
-        double cost = MConfig.getDouble("mafia.found");
+        double cost = Config.getDouble("mafia.found");
 
         if (balance < cost) {
             return player.getLocale().localize(
@@ -229,7 +229,7 @@ public final class GovernmentCommand {
 
         founded.setLeader(player);
 
-        double startupCapital = MConfig.getDouble("mafia.startupcapital");
+        double startupCapital = Config.getDouble("mafia.startupcapital");
         founded.addMoney(startupCapital);
 
         player.sendMessage(MsgColor.SUCCESS
@@ -424,7 +424,7 @@ public final class GovernmentCommand {
                     + " doesn't have enough money to perform this transaction.";
         }
 
-        player.sendMessage(MsgColor.SUCCESS + amount + " " + MConfig.getString(
+        player.sendMessage(MsgColor.SUCCESS + amount + " " + Config.getString(
                 "currency.namepl")
                 + " have been granted to the " + gov.getType().getLocale(
                 "division") + " " + div.getName() + ".");
@@ -462,8 +462,8 @@ public final class GovernmentCommand {
         Division div = gov.createDivision().setManager(player.getName()).setName(
                 name);
 
-        gov.subtractMoney(MConfig.getDouble("prices.mafia.regimefound"));
-        div.addMoney(MConfig.getDouble("mafia.regimestartup"));
+        gov.subtractMoney(Config.getDouble("prices.mafia.regimefound"));
+        div.addMoney(Config.getDouble("mafia.regimestartup"));
 
         player.sendMessage(MsgColor.SUCCESS + "You have founded a " + gov.
                 getType().getLocale("division") + " successfully.");
@@ -560,7 +560,7 @@ public final class GovernmentCommand {
             return "The HQ must be specified within HQ land.";
         }
 
-        double needed = MConfig.getDouble("prices.gov.sethq");
+        double needed = Config.getDouble("prices.gov.sethq");
         if (!gov.hasEnough(needed)) {
             return "Your " + gov.getType().getName()
                     + " does not have enough money to set its HQ. (Costs "

@@ -24,7 +24,7 @@
 package net.voxton.mafiacraft;
 
 import net.voxton.mafiacraft.logging.MLogger;
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.chat.ChatHandler;
 import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.data.DataWorker;
@@ -100,7 +100,7 @@ public class MafiacraftCore {
 
         //Setup config
         MLogger.log("Loading configuration...");
-        MConfig.bind(this);
+        Config.bind(this);
         impl.saveConfig();
 
         //Setup commands

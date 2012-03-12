@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.geo.CityWorld;
 import java.io.File;
@@ -48,7 +48,7 @@ import static org.mockito.Mockito.verify;
  * CWorld command.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Mafiacraft.class, MConfig.class})
+@PrepareForTest({Mafiacraft.class, Config.class})
 public class CWorldCommandTest {
 
     private CityWorld world;
@@ -64,8 +64,8 @@ public class CWorldCommandTest {
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
-        mockStatic(MConfig.class);
-        when(MConfig.getString("locale.default")).thenReturn("en-us");
+        mockStatic(Config.class);
+        when(Config.getString("locale.default")).thenReturn("en-us");
         Locale locale = manager.getDefault();
         when(Mafiacraft.getDefaultLocale()).thenReturn(locale);
         when(Mafiacraft.getLocaleManager()).thenReturn(manager);

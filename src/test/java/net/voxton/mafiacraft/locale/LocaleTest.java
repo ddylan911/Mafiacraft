@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.locale;
 
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
-import net.voxton.mafiacraft.config.MConfig;
+import net.voxton.mafiacraft.config.Config;
 import java.io.File;
 import java.util.logging.Logger;
 import org.junit.runner.RunWith;
@@ -45,7 +45,7 @@ import static org.powermock.api.mockito.PowerMockito.*;
  * Testing of locale.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Mafiacraft.class, MConfig.class, Bukkit.class})
+@PrepareForTest({Mafiacraft.class, Config.class, Bukkit.class})
 public class LocaleTest {
 
     private LocaleManager manager;
@@ -67,8 +67,8 @@ public class LocaleTest {
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
 
-        mockStatic(MConfig.class);
-        when(MConfig.getString("locale.default")).thenReturn("en-us");
+        mockStatic(Config.class);
+        when(Config.getString("locale.default")).thenReturn("en-us");
 
         manager = new LocaleManager();
     }

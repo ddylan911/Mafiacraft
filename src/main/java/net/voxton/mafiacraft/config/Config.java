@@ -34,7 +34,7 @@ import org.bukkit.configuration.Configuration;
  *
  * @author ianschool
  */
-public class MConfig {
+public class Config {
 
     private static final Map<String, Object> defaults =
             new HashMap<String, Object>();
@@ -49,13 +49,13 @@ public class MConfig {
      * @param config
      */
     public static void bind(MafiacraftCore mc) {
-        if (MConfig.plugin == null || MConfig.config == null) {
+        if (Config.plugin == null || Config.config == null) {
             Configuration conf = mc.getConfig();
             for (Entry<String, Object> def : defaults.entrySet()) {
                 conf.addDefault(def.getKey(), def.getValue());
             }
-            MConfig.plugin = mc;
-            MConfig.config = conf;
+            Config.plugin = mc;
+            Config.config = conf;
         }
     }
 
