@@ -130,4 +130,99 @@ public class StringUtilsTest {
         assertEquals(expected, result);
     }
     
+    @Test
+    public void testTitleize() {
+        System.out.println("Testing titleize method.");
+        
+        String string = "This is titleized text.";
+        
+        String expected = "This Is Titleized Text.";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testTitleize_trailing() {
+        System.out.println("Testing titleize method with trailing whitespace.");
+        
+        String string = "This is titleized text.   ";
+        
+        String expected = "This Is Titleized Text.   ";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testTitleize_bigSpaces() {
+        System.out.println("Testing titleize method with big spaces.");
+        
+        String string = "This    is    titleized text.";
+        
+        String expected = "This    Is    Titleized Text.";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testTitleize_trailingAndBigSpaces() {
+        System.out.println("Testing titleize method with trailing whitespace and big spaces.");
+        
+        String string = "This    is    titleized text.   ";
+        
+        String expected = "This    Is    Titleized Text.   ";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testTitleize_noSpaces() {
+        System.out.println("Testing titleize method with no spaces.");
+        
+        String string = "this_is_titleized_text.";
+        
+        String expected = "This_is_titleized_text.";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testTitleize_uppercaseString() {
+        System.out.println("Testing titleize method with an uppercase string.");
+        
+        String string = "THIS IS TITLEIZED TEXT.";
+        
+        String expected = "This Is Titleized Text.";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testTitleize_mixedcaseString() {
+        System.out.println("Testing titleize method with a mixed case string.");
+        
+        String string = "tHiS Is tItLeIzeD tEXt.";
+        
+        String expected = "This Is Titleized Text.";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testTitleize_mixedcaseWithNumbersString() {
+        System.out.println("Testing titleize method with a mixed case with numbers string.");
+        
+        String string = "tHiS 4Is tIt123LeIzeD tEXt.";
+        
+        String expected = "This 4is Tit123leized Text.";
+        String result = StringUtils.titleize(string);
+        
+        assertEquals(expected, result);
+    }
 }

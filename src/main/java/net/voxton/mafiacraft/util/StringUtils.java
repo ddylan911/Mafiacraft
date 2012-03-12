@@ -41,4 +41,27 @@ public class StringUtils {
         return NumberFormat.getCurrencyInstance(Locale.US).format(num);
     }
 
+    public static String titleize(String string) {
+        if (string.length() < 1) {
+            return string;
+        }
+
+        StringBuilder builder = new StringBuilder(string.toLowerCase());
+
+        //Capitalize first
+        builder.setCharAt(0, Character.toUpperCase(builder.charAt(0)));
+
+        int index;
+        for (int i = 0; (index = builder.indexOf(" ", i)) > 0; i++) {
+            index++;
+            if (builder.length() <= index) {
+                continue;
+            }
+            char after = builder.charAt(index);
+            after = Character.toUpperCase(after);
+            builder.setCharAt(index, after);
+        }
+        return builder.toString();
+    }
+
 }
