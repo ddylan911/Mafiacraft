@@ -217,6 +217,36 @@ public class CityCommandTest {
     }
 
     @Test
+    public void testDoSetSpawn_notInCity() {
+        System.out.println(
+                "Testing setspawn subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doSetSpawn(aubhaze);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoSpawn_notInCity() {
+        System.out.println(
+                "Testing spawn subcommand of a player not in a city.");
+
+        when(aubhaze.hasPermission("mafiacraft.citizen")).thenReturn(
+                Boolean.TRUE);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.not-in");
+        String result = CityCommand.doSetSpawn(aubhaze);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void testDoAnnex_notCitizen() {
         System.out.println("Testing annex subcommand of a player not citizen.");
 
