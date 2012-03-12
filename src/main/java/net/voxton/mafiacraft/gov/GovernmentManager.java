@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;

@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.util;
 
-import net.voxton.mafiacraft.MConfig;
+import net.voxton.mafiacraft.config.MConfig;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.junit.runner.RunWith;

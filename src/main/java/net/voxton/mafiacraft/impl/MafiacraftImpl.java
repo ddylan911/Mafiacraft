@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.impl;
 
+import java.io.File;
+import java.util.logging.Logger;
 import net.voxton.mafiacraft.data.DataWorker;
 
 /**
@@ -40,4 +42,8 @@ public interface MafiacraftImpl {
     public String getVersion();
     
     public DataWorker getDataWorker();
+    
+    public File getDataFolder();
+
+    public Logger getLogger();
 }

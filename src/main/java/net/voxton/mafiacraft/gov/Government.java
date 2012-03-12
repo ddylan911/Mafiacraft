@@ -40,7 +40,7 @@ import net.voxton.mafiacraft.vault.Transactable;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.util.LocationSerializer;
 import org.bukkit.Chunk;
 import org.bukkit.Location;

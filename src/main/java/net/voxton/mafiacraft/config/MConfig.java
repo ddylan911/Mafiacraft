@@ -21,12 +21,13 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft;
+package net.voxton.mafiacraft.config;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import net.voxton.mafiacraft.MafiacraftCore;
 import org.bukkit.configuration.Configuration;
 
 /**

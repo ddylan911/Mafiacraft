@@ -30,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;

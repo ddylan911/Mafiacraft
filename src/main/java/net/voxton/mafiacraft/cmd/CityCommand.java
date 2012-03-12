@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
-import net.voxton.mafiacraft.MConfig;
+import net.voxton.mafiacraft.config.MConfig;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.City;
 import net.voxton.mafiacraft.geo.CityWorld;

@@ -31,7 +31,7 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.vault.Transactable;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.util.LocationSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;

@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.gov;
 
 import java.util.*;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.LandPurchaser;

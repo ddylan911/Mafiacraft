@@ -23,9 +23,11 @@
  */
 package net.voxton.mafiacraft;
 
+import net.voxton.mafiacraft.logging.MLogger;
+import net.voxton.mafiacraft.config.MConfig;
 import net.voxton.mafiacraft.chat.ChatHandler;
 import net.voxton.mafiacraft.data.DataWorker;
-import net.voxton.mafiacraft.impl.bukkit.BukkitDataWorker;
+import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.gov.GovernmentManager;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
@@ -147,7 +149,7 @@ public class MafiacraftCore {
         return cityManager;
     }
 
-    public BukkitDataWorker getDataWorker() {
+    public DataWorker getDataWorker() {
         return dataWorker;
     }
 
@@ -165,6 +167,10 @@ public class MafiacraftCore {
 
     public VaultHelper getVaultHelper() {
         return vaultHelper;
+    }
+
+    public MafiacraftImpl getImpl() {
+        return impl;
     }
 
     /**

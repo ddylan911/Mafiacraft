@@ -21,10 +21,11 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft;
+package net.voxton.mafiacraft.logging;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.voxton.mafiacraft.Mafiacraft;
 
 /**
  * A class to log.
@@ -34,7 +35,7 @@ public class MLogger {
     /**
      * The logger.
      */
-    private static final Logger LOGGER = Mafiacraft.getCore().getLogger();
+    private static final Logger LOGGER = Mafiacraft.getImpl().getLogger();
 
     /**
      * The verbosity to use.

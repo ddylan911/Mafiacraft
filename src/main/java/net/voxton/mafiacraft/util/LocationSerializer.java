@@ -26,7 +26,7 @@ package net.voxton.mafiacraft.util;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

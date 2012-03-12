@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.geo;
 
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.gov.Division;
 import net.voxton.mafiacraft.player.MPlayer;

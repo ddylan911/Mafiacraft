@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.util;
 
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.Mafiacraft;
 import org.powermock.modules.junit4.PowerMockRunner;

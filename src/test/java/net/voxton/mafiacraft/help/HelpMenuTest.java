@@ -29,7 +29,7 @@ import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.player.MPlayer;
 import java.io.File;
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.MConfig;
+import net.voxton.mafiacraft.config.MConfig;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;

@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.player;
 
-import net.voxton.mafiacraft.MLogger;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.MafiacraftCore;
 import java.io.File;
 import java.io.IOException;
