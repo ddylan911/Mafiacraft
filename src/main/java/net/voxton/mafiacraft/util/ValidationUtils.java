@@ -38,7 +38,6 @@ public class ValidationUtils {
      */
     public static boolean validateName(String name) {
         int max = MConfig.getInt("strings.maxnamelength");
-        System.out.println(name.length() + " <= " + max);
         return name.length() <= max && name.matches("[A-Za-z0-9]+");
     }
 

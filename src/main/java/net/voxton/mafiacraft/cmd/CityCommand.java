@@ -166,14 +166,14 @@ public final class CityCommand {
         }
 
         //Found a city
-        Chunk sample = player.getBukkitEntity().getLocation().getChunk();
+        Chunk sample = player.getChunk();
         District district = Mafiacraft.getDistrict(sample);
         City city =
                 Mafiacraft.getCityManager().foundCity(player, name, district);
         player.transferMoney(city, foundCost);
 
         //Notify
-        player.getBukkitEntity().sendMessage(MsgColor.SUCCESS
+        player.sendMessage(MsgColor.SUCCESS
                 + player.getLocale().localize("command.city.founded"));
         return null;
     }
