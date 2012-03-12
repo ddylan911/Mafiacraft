@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import net.voxton.mafiacraft.help.MenuType;
+import net.voxton.mafiacraft.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -177,48 +178,53 @@ public final class GovernmentCommand {
         return null;
     }
 
+    /**
+     * Found command.
+     * 
+     * @param player The player.
+     * @param name The name to found as.
+     * @param type The type of government.
+     * @return The first error.
+     */
     public static String doFound(MPlayer player, String name, GovType type) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return "You must be a citizen to use this command. "
-                    + "Apply for citizen on the website at " + MsgColor.URL
-                    + "http://voxton.net/" + ".";
-        }
-
-        if (type.equals(GovType.POLICE)) {
-            return "You can't found a police.";
+            return player.getLocale().localize("command.general.not-citizen");
         }
 
         if (!type.canFound()) {
-            return "You can't found a " + type.getName() + ".";
+            return player.getLocale().localize(
+                    "command.government.error.found", type.getName());
         }
 
         double balance = player.getMoney();
         double cost = MConfig.getDouble("mafia.found");
 
         if (balance < cost) {
-            return "You don't have enough money to do this. (Costs $" + cost
-                    + ")";
+            return player.getLocale().localize(
+                    "command.government.error.no-money.found", StringUtils.
+                    formatCurrency(cost));
         }
 
         if (player.getGovernment() != null) {
-            return "You are already in a government!";
+            return player.getLocale().localize("command.government.error.in-gov");
         }
 
         name = name.trim();
         boolean result = ValidationUtils.validateName(name);
         if (!result) {
-            return "Invalid name";
+            return player.getLocale().localize(
+                    "command.government.error.invalid-name", name);
         }
 
         if (Mafiacraft.getGovernmentManager().getGovernment(name) != null) {
-            return "Another government with that name already exists.";
+            return player.getLocale().localize("command.government.error.exists");
         }
 
         //Found the government
         Government founded = Mafiacraft.getGovernmentManager().createGovernment(
                 name, type);
         if (!founded.addAffiliate(player)) {
-            return "Error adding. We can't do math.";
+            return player.getLocale().localize("error.fatal.adding");
         }
 
         founded.setLeader(player);
@@ -227,7 +233,8 @@ public final class GovernmentCommand {
         founded.addMoney(startupCapital);
 
         player.sendMessage(MsgColor.SUCCESS
-                + "You have successfully founded a new " + type.getName() + ".");
+                + player.getLocale().localize(
+                "command.government.success.founded", type.getName(), name));
         return null;
     }
 

@@ -101,14 +101,25 @@ command:
 
   government:
     error:
+      exists: A government with that name already exists; please choose a different one.
+      found: You cannot directly found a %s.
+      in-gov: You are already in a government!
+      invalid-name: The name "%s" is invalid.
       invited-nonexistent: The %s you were invited to no longer exists.
+      no-money:
+        found: You don't have enough money to found a %s. (Costs %s)
       not-invited: You have not been invited to a %s.
     success:
+      founded: You have founded the %s %s.
       joined: You have joined the %s %s.
 
 event:
   government:
     player-joined: The player `{INFO_HILIGHT}%s`{INFO} has joined the %s.
+
+error:
+  fatal:
+    adding: Error adding. We can't do math.
 
 help:
   imaginary-page: You have found an imaginary page. The square root of -1. The rationalization of pi. The answer to life, the universe, and everything.
