@@ -34,19 +34,12 @@ public class ValidationUtils {
      * Validates a name to be easy to type in chat.
      *
      * @param name The name to validate.
-     * @return The first error found with the name.
+     * @return True if the name is valid.
      */
-    public static String validateName(String name) {
-        int max = MConfig.getInt("division.maxnamelength");
-        if (name.length() > max) {
-            return "Name must be under " + max + " characters.";
-        }
-
-        if (!name.matches("[A-Za-z0-9]+")) {
-            return "Name must be alphanumeric.";
-        }
-
-        return null;
+    public static boolean validateName(String name) {
+        int max = MConfig.getInt("strings.maxnamelength");
+        System.out.println(name.length() + " <= " + max);
+        return name.length() <= max && name.matches("[A-Za-z0-9]+");
     }
 
     /**
@@ -56,7 +49,7 @@ public class ValidationUtils {
      * @return The first error found with the description,
      */
     public static String validateDescription(String description) {
-        int max = MConfig.getInt("district.maxdesclength");
+        int max = MConfig.getInt("strings.maxdesclength");
         if (description.length() > max) {
             return "Description must be under " + max + " characters.";
         }

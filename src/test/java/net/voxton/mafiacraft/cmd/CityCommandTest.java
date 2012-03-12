@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import org.mockito.Matchers;
+import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.geo.City;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,6 +55,8 @@ public class CityCommandTest {
     private CityWorld metroWorld;
 
     private City metroCity;
+    
+    private CityManager cityManager;
 
     private MPlayer aubhaze;
 
@@ -73,6 +77,9 @@ public class CityCommandTest {
         when(Mafiacraft.getLocales()).thenReturn(manager.getLocales());
         //Locale setup end.
 
+        //Mock the city manager
+        cityManager = mock(CityManager.class);
+        
         //Mock the cityworld
         world = mock(CityWorld.class);
 
@@ -115,10 +122,61 @@ public class CityCommandTest {
                 + "with a capital already established.");
 
         when(albireox.getCityWorld()).thenReturn(metroWorld);
-
+        
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.capital-established");
         String result = CityCommand.doFound(albireox, "test");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoFound_noMoney() {
+        System.out.println("Testing found subcommand of a player with not "
+                + "enough money to found a city.");
+
+        when(albireox.getMoney()).thenReturn(5000.0);
+        when(MConfig.getDouble("city.foundcost"))
+                .thenReturn(10000000.0); //$10,000,000.00
+
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.no-money.found", "$10,000,000.00");
+        String result = CityCommand.doFound(albireox, "5000");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoFound_invalidName() {
+        System.out.println("Testing found subcommand with a bad name.");
+
+        when(albireox.getMoney()).thenReturn(50000000000.0);
+        when(MConfig.getDouble("city.foundcost"))
+                .thenReturn(10000000.0); //$10,000,000.00
+
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.invalid-name");
+        String result = CityCommand.doFound(albireox, "The Name Of No Gods");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoFound_nameTaken() {
+        System.out.println("Testing found subcommand with an already taken name.");
+
+        when(albireox.getMoney()).thenReturn(50000000000.0);
+        when(MConfig.getDouble("city.foundcost"))
+                .thenReturn(10000000.0); //$10,000,000.00
+        
+        when(cityManager.cityExists("AValidButTakenName")).thenReturn(
+                Boolean.TRUE);
+        
+        when(Mafiacraft.getCityManager()).thenReturn(cityManager);
+        
+        String expected = Mafiacraft.getDefaultLocale().localize(
+                "command.city.name-taken");
+        String result = CityCommand.doFound(albireox, "AValidButTakenName");
 
         assertEquals(expected, result);
     }

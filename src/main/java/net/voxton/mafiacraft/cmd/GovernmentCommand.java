@@ -200,9 +200,9 @@ public final class GovernmentCommand {
         }
 
         name = name.trim();
-        String result = ValidationUtils.validateName(name);
-        if (result != null) {
-            return result;
+        boolean result = ValidationUtils.validateName(name);
+        if (!result) {
+            return "Invalid name";
         }
 
         if (Mafiacraft.getGovernmentManager().getGovernment(name) != null) {
@@ -436,9 +436,8 @@ public final class GovernmentCommand {
         }
 
         name = name.trim();
-        String validName = ValidationUtils.validateName(name);
-        if (validName != null) {
-            return validName;
+        if (!ValidationUtils.validateName(name)) {
+            return "invalid name";
         }
 
         if (!gov.canHaveMoreDivisions()) {

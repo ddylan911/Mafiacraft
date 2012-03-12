@@ -57,7 +57,8 @@ public class ValidationUtilsTest {
     @Before
     public void setUp() {
         mockStatic(MConfig.class);
-        when(MConfig.getInt(Matchers.anyString())).thenReturn(25);
+        when(MConfig.getInt("strings.maxnamelength")).thenReturn(15);
+        when(MConfig.getInt("strings.maxdesclength")).thenReturn(45);
     }
 
     @After
@@ -68,9 +69,27 @@ public class ValidationUtilsTest {
     public void testValidateName_valid() {
         System.out.println("Testing of name validation with a valid name.");
         String name = "MyName1239M";
-        String result = ValidationUtils.validateName(name);
+        boolean result = ValidationUtils.validateName(name);
 
-        assertNull(result);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testValidateName_tooLong() {
+        System.out.println("Testing of name validation with a name too long.");
+        String name = "1234567890123456";
+        boolean result = ValidationUtils.validateName(name);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testValidateName_notAlphaNum() {
+        System.out.println("Testing of name validation with a name not alphanumeric.");
+        String name = "@#CJOJRcweCRJJ@#PRC";
+        boolean result = ValidationUtils.validateName(name);
+
+        assertFalse(result);
     }
 
     @Test

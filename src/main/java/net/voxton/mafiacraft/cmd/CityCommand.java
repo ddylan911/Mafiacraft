@@ -150,14 +150,14 @@ public final class CityCommand {
         }
 
         double balance = player.getMoney();
-        double foundCost = MConfig.getDouble("prices.city.found");
+        double foundCost = MConfig.getDouble("city.foundcost");
 
         if (balance < foundCost) {
             return player.getLocale().localize("command.city.no-money.found",
                     StringUtils.formatCurrency(foundCost));
         }
 
-        if (!name.matches("[\\w\\s]+") || name.length() > 25) {
+        if (!ValidationUtils.validateName(name)) {
             return player.getLocale().localize("command.city.invalid-name");
         }
 
@@ -294,9 +294,8 @@ public final class CityCommand {
                     "command.city.must-be-mayor.rename");
         }
 
-        String valid = ValidationUtils.validateName(name);
-        if (valid != null) {
-            return valid;
+        if (!ValidationUtils.validateName(name)) {
+            return player.getLocale().localize("command.city.invalid-name");
         }
 
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(

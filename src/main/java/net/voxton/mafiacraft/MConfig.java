@@ -138,7 +138,6 @@ public class MConfig {
         //City prices
         addDefault("prices.city.annex", 10000.0);
         addDefault("prices.city.claim", 100.0);
-        addDefault("prices.city.found", 1000000.0);
 
         //Government
         addDefault("prices.gov.sethq", 100.0);
@@ -148,12 +147,15 @@ public class MConfig {
         addDefault("mafia.startupcapital", 100000.0);
         addDefault("mafia.regimestartup", 5000.0);
 
-        //Division
-        addDefault("division.maxnamelength", 15);
+        //String standardization
+        addDefault("strings.maxnamelength", 15);
+        addDefault("strings.maxdesclength", 45);
 
         //District
         addDefault("district.bus-max-distance", 10);
-        addDefault("district.maxdesclength", 45);
+        
+        //City
+        addDefault("city.foundcost", 10000000.0);
 
         //Spawn times
         addDefault("warmup.cityspawn", 10);
