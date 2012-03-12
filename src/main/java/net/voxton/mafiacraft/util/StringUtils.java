@@ -41,6 +41,12 @@ public class StringUtils {
         return NumberFormat.getCurrencyInstance(Locale.US).format(num);
     }
 
+    /**
+     * Formats a string to capitalize the first letter of each word.
+     * 
+     * @param string The string to format.
+     * @return The formatted string.
+     */
     public static String titleize(String string) {
         if (string.length() < 1) {
             return string;

@@ -25,15 +25,22 @@ package net.voxton.mafiacraft.help.menu;
 
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.help.HelpMenu;
+import net.voxton.mafiacraft.util.StringUtils;
 
 /**
  * Government help menu.
  */
-public abstract class GovernmentMenu extends HelpMenu {
+public class GovernmentMenu extends HelpMenu {
+
     private final GovType type;
-    
+
+    /**
+     * Constructor.
+     * 
+     * @param type The type of government.
+     */
     public GovernmentMenu(GovType type) {
-        super(type.getName());
+        super(StringUtils.titleize(type.getName()));
         this.type = type;
     }
 

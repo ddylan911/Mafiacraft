@@ -23,9 +23,11 @@
  */
 package net.voxton.mafiacraft.help;
 
+import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.help.menu.CWorldMenu;
 import net.voxton.mafiacraft.help.menu.CityMenu;
 import net.voxton.mafiacraft.help.menu.DistrictMenu;
+import net.voxton.mafiacraft.help.menu.GovernmentMenu;
 
 /**
  * The type of menu.
@@ -46,5 +48,9 @@ public class MenuType {
      * District help menu.
      */
     public static final HelpMenu DISTRICT = new DistrictMenu();
+
+    public static final HelpMenu MAFIA = new GovernmentMenu(GovType.MAFIA);
+
+    public static final HelpMenu POLICE = new GovernmentMenu(GovType.POLICE);
 
 }
