@@ -110,7 +110,8 @@ public final class Commands {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                DivisionCommand.parseCmd(cs, cmnd, string, strings);
+                DivisionCommand.parseCmd(cs, cmnd, string, strings,
+                        GovType.MAFIA);
                 return true;
             }
 
@@ -119,7 +120,8 @@ public final class Commands {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                DivisionCommand.parseCmd(cs, cmnd, string, strings);
+                DivisionCommand.parseCmd(cs, cmnd, string, strings,
+                        GovType.POLICE);
                 return true;
             }
 

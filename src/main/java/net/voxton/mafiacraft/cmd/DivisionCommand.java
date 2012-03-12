@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import net.voxton.mafiacraft.gov.GovType;
+import net.voxton.mafiacraft.help.MenuType;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -49,7 +51,7 @@ import org.bukkit.entity.Player;
 public final class DivisionCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args) {
+            String[] args, GovType type) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR
                     + "You can not use this command through console.");
@@ -59,7 +61,7 @@ public final class DivisionCommand {
         MPlayer player = Mafiacraft.getPlayer((Player) sender);
 
         if (args.length < 1) {
-            doHelp(player);
+            doHelp(player, type);
             return;
         }
 
@@ -77,8 +79,10 @@ public final class DivisionCommand {
                 result = doClaim(player);
             } else if (function.equalsIgnoreCase("unclaim")) {
                 result = doUnclaim(player);
+            } else if (function.equalsIgnoreCase("help")) {
+                result = doHelp(player, type);
             } else {
-                result = doHelp(player);
+                result = doHelp(player, type);
             }
         } else if (largs.size() < 2) {
             if (function.equalsIgnoreCase("create")) {
@@ -89,8 +93,10 @@ public final class DivisionCommand {
                 result = doName(player, largs.get(0));
             } else if (function.equalsIgnoreCase("invite")) {
                 result = doInvite(player, largs.get(0));
+            } else if (function.equalsIgnoreCase("help")) {
+                result = doHelp(player, largs.get(0), type);
             } else {
-                result = doHelp(player);
+                result = doHelp(player, type);
             }
         } else {
             result = doDesc(player, Joiner.on(' ').join(largs));
@@ -101,8 +107,36 @@ public final class DivisionCommand {
         }
     }
 
-    public static String doHelp(MPlayer player) {
-        player.sendMessage(MsgColor.INFO + "TODO: help.");
+    /**
+     * Performs help.
+     * 
+     * @param player The player performing help.
+     * @param type The type of government.
+     * @return The errors.
+     */
+    public static String doHelp(MPlayer player, GovType type) {
+        if (type.equals(GovType.MAFIA)) {
+            MenuType.REGIME.doHelp(player);
+        } else if (type.equals(GovType.POLICE)) {
+            MenuType.SQUAD.doHelp(player);
+        }
+        return null;
+    }
+
+    /**
+     * Performs help.
+     * 
+     * @param player The player performing help.
+     * @param arg The help argument.
+     * @param type The type of government.
+     * @return The errors.
+     */
+    public static String doHelp(MPlayer player, String arg, GovType type) {
+        if (type.equals(GovType.MAFIA)) {
+            MenuType.REGIME.doHelp(player, arg);
+        } else if (type.equals(GovType.POLICE)) {
+            MenuType.SQUAD.doHelp(player, arg);
+        }
         return null;
     }
 
