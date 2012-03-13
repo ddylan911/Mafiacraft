@@ -115,8 +115,10 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = Mafiacraft.getPlayer(((Player) e.getEntity()).getName());
-        MPlayer damager = Mafiacraft.getPlayer(((Player) e.getDamager()).getName());
+        MPlayer player =
+                Mafiacraft.getPlayer(((Player) e.getEntity()).getName());
+        MPlayer damager =
+                Mafiacraft.getPlayer(((Player) e.getDamager()).getName());
 
         District d = player.getDistrict();
 
