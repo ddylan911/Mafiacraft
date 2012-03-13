@@ -144,8 +144,8 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                DivisionActions.parseCmd(cs, cmnd, string, strings,
-                        GovType.MAFIA);
+                BukkitImpl.this.performActionCommand(cs, cmnd, string, strings,
+                        ActionType.REGIME);
                 return true;
             }
 
