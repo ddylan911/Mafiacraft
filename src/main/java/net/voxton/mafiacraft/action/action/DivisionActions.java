@@ -32,24 +32,19 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import com.google.common.base.Joiner;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import net.voxton.mafiacraft.action.ActionType;
-import net.voxton.mafiacraft.action.Actions;
+import net.voxton.mafiacraft.action.PlayerActions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.help.MenuType;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 /**
  * Division related commands.
  */
-public final class DivisionActions extends Actions {
+public final class DivisionActions extends PlayerActions {
 
     private final GovType type;
 
@@ -57,61 +52,43 @@ public final class DivisionActions extends Actions {
         this.type = type;
     }
 
-    public void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR
-                    + "You can not use this command through console.");
-            return;
-        }
-
-        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
-
-        if (args.length < 1) {
-            doHelp(player, type);
-            return;
-        }
-
-        //Get the function we want to do.
-        String function = args[0];
-        List<String> largs = new ArrayList<String>(Arrays.asList(args));
-        largs.remove(0);
-
+    @Override
+    protected String performActionCommand(MPlayer performer,
+            String action,
+            List<String> args) {
         String result = null;
 
-        if (largs.size() < 1) {
-            if (function.equalsIgnoreCase("accept")) {
-                result = doAccept(player);
-            } else if (function.equalsIgnoreCase("claim")) {
-                result = doClaim(player);
-            } else if (function.equalsIgnoreCase("unclaim")) {
-                result = doUnclaim(player);
-            } else if (function.equalsIgnoreCase("help")) {
-                result = doHelp(player, type);
+        if (args.size() < 1) {
+            if (action.equalsIgnoreCase("accept")) {
+                result = doAccept(performer);
+            } else if (action.equalsIgnoreCase("claim")) {
+                result = doClaim(performer);
+            } else if (action.equalsIgnoreCase("unclaim")) {
+                result = doUnclaim(performer);
+            } else if (action.equalsIgnoreCase("help")) {
+                result = doHelp(performer, type);
             } else {
-                result = doHelp(player, type);
+                result = doHelp(performer, type);
             }
-        } else if (largs.size() < 2) {
-            if (function.equalsIgnoreCase("create")) {
-                result = doCreate(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("kick")) {
-                result = doKick(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("name")) {
-                result = doName(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("invite")) {
-                result = doInvite(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("help")) {
-                result = doHelp(player, largs.get(0), type);
+        } else if (args.size() < 2) {
+            if (action.equalsIgnoreCase("create")) {
+                result = doCreate(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("kick")) {
+                result = doKick(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("name")) {
+                result = doName(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("invite")) {
+                result = doInvite(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("help")) {
+                result = doHelp(performer, args.get(0), type);
             } else {
-                result = doHelp(player, type);
+                result = doHelp(performer, type);
             }
         } else {
-            result = doDesc(player, Joiner.on(' ').join(largs));
+            result = doDesc(performer, Joiner.on(' ').join(args));
         }
 
-        if (result != null) {
-            player.sendMessage(MsgColor.ERROR + result);
-        }
+        return result;
     }
 
     /**
