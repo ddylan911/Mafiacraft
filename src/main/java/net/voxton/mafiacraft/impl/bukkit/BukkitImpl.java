@@ -297,7 +297,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     }
 
     @Override
-    public String matchName(String name) {
+    public String matchPlayerName(String name) {
         Player player = Bukkit.getPlayer(name);
         return (player == null) ? name : player.getName();
     }

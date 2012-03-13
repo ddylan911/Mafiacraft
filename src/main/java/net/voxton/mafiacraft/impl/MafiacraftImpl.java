@@ -72,6 +72,6 @@ public interface MafiacraftImpl {
 
     public List<MPlayer> getOnlinePlayers();
 
-    public String matchName(String name);
+    public String matchPlayerName(String name);
 
 }

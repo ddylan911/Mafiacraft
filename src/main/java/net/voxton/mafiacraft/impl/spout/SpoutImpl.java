@@ -139,7 +139,7 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
     }
 
     @Override
-    public String matchName(String name) {
+    public String matchPlayerName(String name) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
