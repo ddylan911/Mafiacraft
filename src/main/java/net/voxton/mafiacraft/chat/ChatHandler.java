@@ -28,7 +28,6 @@ import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.gov.Position;
 import net.voxton.mafiacraft.player.MPlayer;
-import org.bukkit.entity.Player;
 
 /**
  * Handles chat.
