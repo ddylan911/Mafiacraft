@@ -21,8 +21,9 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft;
+package net.voxton.mafiacraft.impl.bukkit;
 
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.classes.UtilityClass;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.LandOwner;
@@ -49,11 +50,11 @@ import org.bukkit.util.Vector;
 /**
  * Mafiacraft listener.
  */
-public class MListener implements Listener {
+public class BukkitListener implements Listener {
 
     private final BukkitImpl impl;
 
-    public MListener(BukkitImpl impl) {
+    public BukkitListener(BukkitImpl impl) {
         this.impl = impl;
     }
 

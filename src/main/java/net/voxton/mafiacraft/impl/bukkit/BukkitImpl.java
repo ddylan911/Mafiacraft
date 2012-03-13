@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
-import net.voxton.mafiacraft.MListener;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.action.ActionPerformer;
@@ -194,7 +193,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
     @Override
     public void registerEvents() {
-        MListener l = new MListener(this);
+        BukkitListener l = new BukkitListener(this);
         Bukkit.getPluginManager().registerEvents(l, this);
     }
 
