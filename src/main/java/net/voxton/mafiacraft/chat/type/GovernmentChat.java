@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.chat.type;
 
 import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.player.MPlayer;
-import org.bukkit.ChatColor;
+import net.voxton.mafiacraft.player.MsgColor;
 
 /**
  * Government chat type.
@@ -35,7 +35,7 @@ public class GovernmentChat extends ChatType {
     @Override
     public void chat(MPlayer player, String message) {
         String pref = player.getGovernment().getType().getLocale("gov.chatp");
-        String msg = pref + " " + ChatColor.WHITE + player.getDisplayName()
+        String msg = pref + " " + MsgColor.NORMAL + player.getDisplayName()
                 + ": " + message;
 
         for (MPlayer p : player.getGovernment().getOnlineMembers()) {
