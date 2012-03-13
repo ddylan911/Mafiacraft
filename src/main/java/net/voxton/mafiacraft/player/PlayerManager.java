@@ -142,6 +142,7 @@ public class PlayerManager {
      * @return The MPlayer corresponding with the name.
      */
     public MPlayer getPlayer(String name) {
+        name = Mafiacraft.getImpl().matchName(name);
         try {
             return players.get(name);
         } catch (ExecutionException ex) {

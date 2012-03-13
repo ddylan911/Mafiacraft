@@ -59,7 +59,7 @@ public final class DivisionCommand {
             return;
         }
 
-        MPlayer player = Mafiacraft.getPlayer((Player) sender);
+        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
 
         if (args.length < 1) {
             doHelp(player, type);
@@ -434,8 +434,7 @@ public final class DivisionCommand {
         }
 
         //Teleport.
-        TPCD.makeCountdown(10, TPCD.Type.GOVHQ, player.
-                getBukkitEntity(), hq);
+        player.teleportWithCountdown(hq);
         return null;
     }
 

@@ -315,7 +315,7 @@ public class GovernmentTest {
         Chunk c = null;
         Government instance = null;
         boolean expResult = false;
-        boolean result = instance.canBuild(player, c);
+        boolean result = instance.canBuild(player, null);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -995,7 +995,7 @@ public class GovernmentTest {
         LandOwner futureOwner = null;
         Government instance = null;
         boolean expResult = false;
-        boolean result = instance.canBeClaimed(chunk, futureOwner);
+        boolean result = instance.canBeClaimed(null, futureOwner);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -1123,7 +1123,7 @@ public class GovernmentTest {
         Chunk chunk = null;
         Government instance = null;
         Government expResult = null;
-        Government result = instance.claim(chunk);
+        Government result = instance.claim(null);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -1138,7 +1138,7 @@ public class GovernmentTest {
         Chunk chunk = null;
         Government instance = null;
         Government expResult = null;
-        Government result = instance.unclaim(chunk);
+        Government result = instance.unclaim(null);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

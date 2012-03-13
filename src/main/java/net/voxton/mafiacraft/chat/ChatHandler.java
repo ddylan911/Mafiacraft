@@ -60,12 +60,6 @@ public class ChatHandler {
      * @param player The player to update.
      */
     public void updateDisplayName(MPlayer player) {
-        Player ent = player.getBukkitEntity();
-        if (ent == null) {
-            throw new IllegalStateException(
-                    "Player not online to update display name of!");
-        }
-
         String display = player.getName();
 
         //TODO: Do donator colors.
@@ -80,8 +74,8 @@ public class ChatHandler {
                 display = "Chief " + display;
             }
         }
-        
-        ent.setDisplayName(display);
+
+        player.setDisplayName(display);
     }
 
 }

@@ -59,7 +59,7 @@ public class MListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer(event.getPlayer().getName());
         Section c = impl.getPoint(event.getBlock().getLocation()).getSection();
         District d = Mafiacraft.getDistrict(c);
 
@@ -82,12 +82,12 @@ public class MListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
-        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer(event.getPlayer().getName());
         Section c = player.getSection();
         District d = Mafiacraft.getDistrict(c);
 
         if (!d.canBuild(player, c)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR
+            player.sendMessage(MsgColor.ERROR
                     + "You aren't allowed to place blocks here.");
             event.setCancelled(true);
             return;
@@ -95,7 +95,7 @@ public class MListener implements Listener {
 
         LandOwner owner = d.getOwner(c);
         if (!owner.canBuild(player, c)) {
-            player.getBukkitEntity().sendMessage(MsgColor.ERROR
+            player.sendMessage(MsgColor.ERROR
                     + "You aren't allowed to place blocks in here; this land is owned by "
                     + owner.getOwnerName() + ".");
             event.setCancelled(true);
@@ -115,14 +115,14 @@ public class MListener implements Listener {
             return;
         }
 
-        MPlayer player = Mafiacraft.getPlayer((Player) e.getEntity());
-        MPlayer damager = Mafiacraft.getPlayer((Player) e.getDamager());
+        MPlayer player = Mafiacraft.getPlayer(((Player) e.getEntity()).getName());
+        MPlayer damager = Mafiacraft.getPlayer(((Player) e.getDamager()).getName());
 
         District d = player.getDistrict();
 
         //Check for PvP
         if (!d.getType().isPvp()) {
-            damager.getBukkitEntity().sendMessage(MsgColor.ERROR
+            damager.sendMessage(MsgColor.ERROR
                     + "You aren't allowed to PvP in this district.");
             event.setCancelled(true);
             return;
@@ -149,8 +149,8 @@ public class MListener implements Listener {
         if ((!(damager instanceof Player)) || !(entity instanceof Player)) {
             return;
         }
-        MPlayer attacker = Mafiacraft.getPlayer((Player) damager);
-        MPlayer attacked = Mafiacraft.getPlayer((Player) entity);
+        MPlayer attacker = Mafiacraft.getPlayer(((Player) damager).getName());
+        MPlayer attacked = Mafiacraft.getPlayer(((Player) entity).getName());
 
         //Check for thief
         double money = attacked.getMoney() * ((attacker.getUtilityClass().equals(
@@ -179,20 +179,20 @@ public class MListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerChat(PlayerChatEvent event) {
-        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer((event.getPlayer()).getName());
         Mafiacraft.getChatHandler().handleMessage(player, event.getMessage());
         event.setCancelled(true);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        Mafiacraft.getChatHandler().updateDisplayName(Mafiacraft.getPlayer(event.
-                getPlayer()));
+        Mafiacraft.getChatHandler().updateDisplayName(Mafiacraft.getPlayer((event.
+                getPlayer()).getName()));
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {
-        MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
+        MPlayer player = Mafiacraft.getPlayer((event.getPlayer()).getName());
         SessionStore store = player.getSessionStore();
 
         Section last = store.getObject("lastsect", Section.class);
@@ -251,12 +251,12 @@ public class MListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        Mafiacraft.getPlayer(event.getPlayer()).clearSessionStore();
+        Mafiacraft.getPlayer((event.getPlayer()).getName()).clearSessionStore();
     }
 
     @EventHandler
     public void onPlayerKick(PlayerKickEvent event) {
-        Mafiacraft.getPlayer(event.getPlayer()).clearSessionStore();
+        Mafiacraft.getPlayer((event.getPlayer()).getName()).clearSessionStore();
     }
 
 }

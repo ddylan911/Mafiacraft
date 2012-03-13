@@ -271,8 +271,14 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     public List<MPlayer> getOnlinePlayers() {
         List<MPlayer> players = new ArrayList<MPlayer>();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            players.add(Mafiacraft.getPlayer(player));
+            players.add(Mafiacraft.getPlayer(player.getName()));
         }
         return players;
+    }
+
+    @Override
+    public String matchName(String name) {
+        Player player = Bukkit.getPlayer(name);
+        return (player == null) ? name : player.getName();
     }
 }

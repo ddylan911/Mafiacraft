@@ -353,6 +353,12 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return displayName;
     }
 
+    public MPlayer setDisplayName(String displayName) {
+        this.displayName = displayName;
+        //TODO: update in the impl
+        return this;
+    }
+
     public String getOwnerName() {
         return getName();
     }
@@ -569,6 +575,16 @@ public class MPlayer extends Transactable implements LandPurchaser {
     public MPlayer teleport(MPoint point) {
         Mafiacraft.getImpl().teleportPlayer(this, point);
         return this;
+    }
+    
+    /**
+     * Teleports the player to a given location in the default time.
+     * 
+     * @param point The point to teleport to.
+     * @return This MPlayer.
+     */
+    public MPlayer teleportWithCountdown(MPoint point) {
+        return teleportWithCountdown(point, 10);
     }
     
     /**

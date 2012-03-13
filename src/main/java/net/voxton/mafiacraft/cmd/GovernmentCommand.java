@@ -61,7 +61,7 @@ public final class GovernmentCommand {
             return;
         }
 
-        MPlayer player = Mafiacraft.getPlayer((Player) sender);
+        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
 
         if (args.length < 1) {
             doHelp(player, type);
@@ -249,7 +249,7 @@ public final class GovernmentCommand {
                     + "http://voxton.net/" + ".";
         }
 
-        MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
+        MPlayer tgt = Mafiacraft.getPlayer(target);
         if (tgt == null) {
             return "The player you specified is either not online or does not exist.";
         }
@@ -309,8 +309,7 @@ public final class GovernmentCommand {
         }
 
         //Teleport.
-        TPCD.makeCountdown(10, TPCD.Type.GOVHQ, player.
-                getBukkitEntity(), hq);
+        player.teleportWithCountdown(hq);
         return null;
     }
 
@@ -321,7 +320,7 @@ public final class GovernmentCommand {
                     + "http://voxton.net/" + ".";
         }
 
-        MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
+        MPlayer tgt = Mafiacraft.getPlayer(target);
         if (tgt == null) {
             return "The player you specified is either not online or does not exist.";
         }
@@ -360,7 +359,7 @@ public final class GovernmentCommand {
                     + "http://voxton.net/" + ".";
         }
 
-        MPlayer tgt = Mafiacraft.getPlayer(Bukkit.getPlayer(target));
+        MPlayer tgt = Mafiacraft.getPlayer(target);
         if (tgt == null) {
             return "The player you specified is either not online or does not exist.";
         }

@@ -192,11 +192,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
      * @return
      */
     public MPlayer getMayorIfOnline() {
-        Player p = Bukkit.getPlayer(mayor);
-        if (p != null) {
-            return Mafiacraft.getPlayer(p);
-        }
-        return null;
+        return Mafiacraft.getOnlinePlayer(getMayor());
     }
 
     /**

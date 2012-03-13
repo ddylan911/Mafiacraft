@@ -52,7 +52,7 @@ public final class CWorldCommand {
             return;
         }
 
-        MPlayer player = Mafiacraft.getPlayer((Player) sender);
+        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName()); //TODO eradicate bukkit
 
         if (args.length < 1) {
             doHelp(player);
@@ -122,8 +122,7 @@ public final class CWorldCommand {
 
     public static String doSpawn(MPlayer player) {
         MPoint spawn = player.getCityWorld().getSpawnPoint();
-        TPCD.makeCountdown(10, Type.CSPAWN, player.
-                getBukkitEntity(), spawn);
+        player.teleportWithCountdown(spawn);
         return null;
     }
 

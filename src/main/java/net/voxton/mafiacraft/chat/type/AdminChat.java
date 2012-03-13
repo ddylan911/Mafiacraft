@@ -51,7 +51,7 @@ public class AdminChat extends ChatType {
 
     @Override
     public boolean canJoin(MPlayer player) {
-        return player.getBukkitEntity().hasPermission("mafiacraft.admin");
+        return player.hasPermission("mafiacraft.admin");
     }
 
     @Override

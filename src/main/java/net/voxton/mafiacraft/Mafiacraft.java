@@ -72,16 +72,6 @@ public class Mafiacraft {
     }
 
     /**
-     * Gets an MPlayer from a Player.
-     *
-     * @param player
-     * @return
-     */
-    public static MPlayer getPlayer(Player player) {
-        return getCore().getPlayerManager().getPlayer(player);
-    }
-
-    /**
      * Returns a list of all MPlayers currently online the server.
      *
      * @return

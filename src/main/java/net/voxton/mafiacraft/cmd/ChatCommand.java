@@ -48,7 +48,7 @@ public final class ChatCommand {
             return;
         }
 
-        MPlayer player = Mafiacraft.getPlayer((Player) sender);
+        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
 
         if (args.length < 1) {
             doChat(player);

@@ -61,7 +61,7 @@ public final class CityCommand {
             return;
         }
 
-        MPlayer player = Mafiacraft.getPlayer((Player) sender);
+        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
 
         if (args.length < 1) {
             doHelp(player);
@@ -211,8 +211,7 @@ public final class CityCommand {
         }
 
         int citySpawnTime = Config.getInt("warmup.cityspawn");
-        TPCD.makeCountdown(citySpawnTime,
-                TPCD.Type.CSPAWN, player.getBukkitEntity(), spawn);
+        player.teleportWithCountdown(spawn);
         return null;
     }
 
@@ -379,8 +378,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.district.no-bus");
         }
 
-        TPCD.makeCountdown(10, TPCD.Type.DBUS, player.
-                getBukkitEntity(), bus);
+        player.teleportWithCountdown(bus);
         return null;
     }
 
@@ -540,7 +538,7 @@ public final class CityCommand {
                     "command.general.player-not-found", chief);
         }
 
-        MPlayer a = Mafiacraft.getPlayer(Bukkit.getPlayer(assistant));
+        MPlayer a = Mafiacraft.getPlayer(assistant);
         if (a == null) {
             return player.getLocale().localize(
                     "command.general.player-not-found", assistant);

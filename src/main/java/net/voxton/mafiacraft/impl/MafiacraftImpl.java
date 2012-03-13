@@ -66,4 +66,6 @@ public interface MafiacraftImpl {
     public boolean hasPermission(MPlayer player, String permission);
     
     public List<MPlayer> getOnlinePlayers();
+
+    public String matchName(String name);
 }
