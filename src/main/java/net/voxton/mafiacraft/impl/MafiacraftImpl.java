@@ -51,4 +51,10 @@ public interface MafiacraftImpl {
     public MafiacraftConfig getMafiacraftConfig();
 
     public MPoint getPoint(MPlayer player);
+    
+    public int scheduleRepeatingTask(Runnable runnable, long interval);
+    
+    public int scheduleDelayedTask(Runnable runnable, long interval);
+    
+    public void cancelTask(int id);
 }

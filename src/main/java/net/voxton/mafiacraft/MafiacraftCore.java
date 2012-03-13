@@ -27,12 +27,12 @@ import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.chat.ChatHandler;
 import net.voxton.mafiacraft.data.DataWorker;
-import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.gov.GovernmentManager;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.player.PlayerManager;
+import net.voxton.mafiacraft.task.TaskManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
 
 /**
@@ -53,6 +53,8 @@ public class MafiacraftCore {
     private LocaleManager localeManager;
 
     private PlayerManager playerManager;
+    
+    private TaskManager taskManager;
 
     private VaultHelper vaultHelper;
 
@@ -129,6 +131,9 @@ public class MafiacraftCore {
 
         MLogger.log("Initializing players...");
         playerManager = new PlayerManager(this);
+        
+        MLogger.log("Setting up the task manager...");
+        taskManager = new TaskManager();
 
         MLogger.log("Hooking Vault...");
         vaultHelper = new VaultHelper(this);

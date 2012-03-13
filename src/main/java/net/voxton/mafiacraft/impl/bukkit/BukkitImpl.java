@@ -206,4 +206,21 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         return new MPoint(Mafiacraft.getWorld(location.getWorld().getName()),
                 location.getX(), location.getY(), location.getZ());
     }
+
+    @Override
+    public int scheduleRepeatingTask(Runnable runnable, long interval) {
+        return Bukkit.getScheduler().scheduleSyncRepeatingTask(this, runnable,
+                interval, interval);
+    }
+
+    @Override
+    public int scheduleDelayedTask(Runnable runnable, long interval) {
+        return Bukkit.getScheduler().scheduleSyncDelayedTask(this, runnable,
+                interval);
+    }
+
+    @Override
+    public void cancelTask(int id) {
+        Bukkit.getScheduler().cancelTask(id);
+    }
 }

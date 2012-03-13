@@ -23,8 +23,6 @@
  */
 package net.voxton.mafiacraft.task;
 
-import net.voxton.mafiacraft.impl.bukkit.BukkitTaskManager;
-
 /**
  * Checks if tasks are due.
  */
@@ -33,14 +31,14 @@ public class TaskChecker implements Runnable {
     /**
      * Reference to the task manager.
      */
-    private final BukkitTaskManager tm;
+    private final TaskManager tm;
 
     /**
      * The constructor.
      * 
      * @param tm The task manager.
      */
-    public TaskChecker(BukkitTaskManager tm) {
+    public TaskChecker(TaskManager tm) {
         this.tm = tm;
     }
 

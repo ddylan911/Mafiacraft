@@ -35,8 +35,6 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.*;
 import net.voxton.mafiacraft.locale.Locale;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -578,4 +576,13 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return Mafiacraft.getDefaultLocale();
     }
 
+    /**
+     * Teleports the player to the given point.
+     * 
+     * @param point The point to teleport to.
+     * @return The point.
+     */
+    public MPlayer teleport(MPoint point) {
+        return this;
+    }
 }

@@ -27,13 +27,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
 
 /**
- *
- * @author ianschool
+ * The manager of tasks.
  */
-public abstract class TaskManager {
+public class TaskManager {
+
     /**
      * The tasks.
      */
@@ -43,13 +44,16 @@ public abstract class TaskManager {
     /**
      * An unnecessary but line-number increasing reference to the task checker.
      */
-    protected TaskChecker taskChecker;
+    private TaskChecker taskChecker;
 
     public TaskManager() {
         setupTaskChecker();
     }
-    
-    protected abstract void setupTaskChecker();
+
+    private void setupTaskChecker() {
+        taskChecker = new TaskChecker(this);
+        Mafiacraft.getImpl().scheduleRepeatingTask(taskChecker, 20L * 60L); //Every minute
+    }
 
     /**
      * Gets a list of all tasks that are due.

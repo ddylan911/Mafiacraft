@@ -23,9 +23,9 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.vault.Transactable;
 import net.voxton.mafiacraft.geo.District;
-import org.bukkit.Chunk;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.geo.City;
 import org.junit.Test;
@@ -42,7 +42,6 @@ import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.player.MsgColor;
 import org.junit.After;
 import org.junit.Before;
-import org.mockito.Matchers;
 import static org.powermock.api.mockito.PowerMockito.*;
 import static org.mockito.Matchers.*;
 import static org.junit.Assert.*;
@@ -200,11 +199,11 @@ public class CityCommandTest {
         when(Mafiacraft.getCityManager()).thenReturn(cityManager);
         
         //Specific to this
-        Chunk chunk = mock(Chunk.class);
-        when(albireox.getChunk()).thenReturn(chunk);
+        Section section = mock(Section.class);
+        when(albireox.getSection()).thenReturn(section);
         
         District district = mock(District.class);
-        when(Mafiacraft.getDistrict(chunk)).thenReturn(district);
+        when(Mafiacraft.getDistrict(section)).thenReturn(district);
         //End
 
         String expected = null;
