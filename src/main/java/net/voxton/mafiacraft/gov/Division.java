@@ -33,6 +33,7 @@ import net.voxton.mafiacraft.geo.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.vault.Transactable;
 import net.voxton.mafiacraft.geo.LandOwner;
+import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.util.LocationSerializer;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -103,7 +104,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
         return hq.getChunk();
     }
 
-    public boolean canBuild(MPlayer player, Chunk chunk) {
+    public boolean canBuild(MPlayer player, Section section) {
         return getOnlineMembers().contains(player);
     }
 
@@ -367,13 +368,15 @@ public class Division extends Transactable implements LandPurchaser, Configurati
         return power;
     }
 
-    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
-        if (chunk.equals(getHqSection())) {
+    @Override
+    public boolean canBeClaimed(Section section, LandOwner futureOwner) {
+        if (section.equals(getHqSection())) {
             return canHQBeClaimed();
         }
         return getPower() >= getLand();
     }
 
+    @Override
     public OwnerType getOwnerType() {
         return OwnerType.DIVISION;
     }
@@ -384,6 +387,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getLand() {
         return land;
     }
@@ -391,6 +395,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     /**
      * {@inheritDoc}
      */
+    @Override
     public Division setLand(int amt) {
         this.land = amt;
         return this;
@@ -399,6 +404,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     /**
      * {@inheritDoc}
      */
+    @Override
     public Division incLand() {
         land++;
         return this;
@@ -407,6 +413,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     /**
      * {@inheritDoc}
      */
+    @Override
     public Division decLand() {
         land--;
         return this;
@@ -415,9 +422,9 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     /**
      * {@inheritDoc}
      */
-    public Division claim(Chunk chunk) {
-        District district = Mafiacraft.getDistrict(chunk);
-        district.setOwner(chunk, this);
+    public Division claim(Section section) {
+        District district = Mafiacraft.getDistrict(section);
+        district.setOwner(section, this);
         incLand();
         return this;
     }
@@ -425,9 +432,9 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     /**
      * {@inheritDoc}
      */
-    public Division unclaim(Chunk chunk) {
-        District district = Mafiacraft.getDistrict(chunk);
-        district.removeOwner(chunk);
+    public Division unclaim(Section section) {
+        District district = Mafiacraft.getDistrict(section);
+        district.removeOwner(section);
         decLand();
         return this;
     }

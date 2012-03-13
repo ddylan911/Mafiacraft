@@ -171,7 +171,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
     @Override
     public void registerEvents() {
-        MListener l = new MListener(Mafiacraft.getCore());
+        MListener l = new MListener(this);
         Bukkit.getPluginManager().registerEvents(l, this);
     }
 
@@ -193,8 +193,17 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     @Override
     public MPoint getPoint(MPlayer player) {
         Location location = Bukkit.getPlayer(player.getName()).getLocation();
+        return getPoint(location);
+    }
+    
+    /**
+     * Gets an MPoint from a location.
+     * 
+     * @param location
+     * @return 
+     */
+    public MPoint getPoint(Location location) {
         return new MPoint(Mafiacraft.getWorld(location.getWorld().getName()),
                 location.getX(), location.getY(), location.getZ());
     }
-
 }

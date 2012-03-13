@@ -43,8 +43,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.logging.MLogger;
-import net.voxton.mafiacraft.util.LocationSerializer;
 import net.voxton.mafiacraft.util.StringSerializer;
 import org.bukkit.Chunk;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -180,7 +180,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
         this.type = type;
     }
 
-    public boolean canBuild(MPlayer player, Chunk c) {
+    public boolean canBuild(MPlayer player, Section section) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -781,10 +781,10 @@ public class Government extends Transactable implements LandPurchaser, Configura
      * <p>This only applies to the land directly owned by the government, not
      * division land.</p>
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
+    public boolean canBeClaimed(Section section, LandOwner futureOwner) {
         return getPower() >= getLand();
     }
 
@@ -849,9 +849,10 @@ public class Government extends Transactable implements LandPurchaser, Configura
     /**
      * {@inheritDoc}
      */
-    public Government claim(Chunk chunk) {
-        District district = Mafiacraft.getDistrict(chunk);
-        district.setOwner(chunk, this);
+    @Override
+    public Government claim(Section section) {
+        District district = Mafiacraft.getDistrict(section);
+        district.setOwner(section, this);
         incLand();
         return this;
     }
@@ -859,9 +860,10 @@ public class Government extends Transactable implements LandPurchaser, Configura
     /**
      * {@inheritDoc}
      */
-    public Government unclaim(Chunk chunk) {
-        District district = Mafiacraft.getDistrict(chunk);
-        district.setOwner(chunk, null);
+    @Override
+    public Government unclaim(Section section) {
+        District district = Mafiacraft.getDistrict(section);
+        district.setOwner(section, null);
         decLand();
         return this;
     }
@@ -941,7 +943,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
         data.put("name", getName());
         data.put("type", getType().getName());
         data.put("land", getLand());
-        data.put("hq", StringSerializer.toString(hq));
+        data.put("hq", hq.serializeToString());
 
         data.put("leader", getLeader());
         data.put("vleader", getViceLeader());
@@ -980,15 +982,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
         }
 
         String hqS = data.get("hq").toString();
-        MPoint hq;
-        try {
-            hq = StringSerializer.fromString(hqS, MPoint.class);
-        } catch (IOException ex) {
-            Logger.getLogger(Government.class.getName()).log(Level.SEVERE, null,
-                    ex);
-        } catch (ClassNotFoundException ex) {
-            MLogger.log(Level.SEVERE, "The class to deserialize the MPoint was not found!");
-        }
+        MPoint hq = MPoint.deserialize(hqS);
 
         String landS = data.get("land").toString();
         int land = 0;

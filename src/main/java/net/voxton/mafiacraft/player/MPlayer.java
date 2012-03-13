@@ -358,7 +358,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return this;
     }
 
-    public boolean canBuild(MPlayer player, Chunk chunk) {
+    public boolean canBuild(MPlayer player, Section section) {
         //TODO: check if the player lets the person build in that chunk?
         return player.equals(this);
     }
@@ -404,7 +404,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
     /**
      * {@inheritDoc}
      */
-    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
+    @Override
+    public boolean canBeClaimed(Section section, LandOwner futureOwner) {
         return false;
     }
 
@@ -455,9 +456,9 @@ public class MPlayer extends Transactable implements LandPurchaser {
     /**
      * {@inheritDoc}
      */
-    public MPlayer claim(Chunk chunk) {
-        District district = Mafiacraft.getDistrict(chunk);
-        district.setOwner(chunk, this);
+    @Override
+    public MPlayer claim(Section section) {
+        section.getDistrict().setOwner(section, this);
         incLand();
         return this;
     }
@@ -465,9 +466,10 @@ public class MPlayer extends Transactable implements LandPurchaser {
     /**
      * {@inheritDoc}
      */
-    public MPlayer unclaim(Chunk chunk) {
-        District district = Mafiacraft.getDistrict(chunk);
-        district.setOwner(chunk, null);
+    @Override
+    public MPlayer unclaim(Section section) {
+        District district = section.getDistrict();
+        district.setOwner(section, null);
         decLand();
         return this;
     }

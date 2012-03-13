@@ -26,12 +26,13 @@ package net.voxton.mafiacraft;
 import net.voxton.mafiacraft.classes.UtilityClass;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.LandOwner;
+import net.voxton.mafiacraft.geo.Section;
+import net.voxton.mafiacraft.impl.bukkit.BukkitImpl;
 import net.voxton.mafiacraft.player.KillTracker;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.player.SessionStore;
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,22 +47,21 @@ import org.bukkit.event.player.*;
 import org.bukkit.util.Vector;
 
 /**
- *
- * @author simplyianm
+ * Mafiacraft listener.
  */
 public class MListener implements Listener {
 
-    private final MafiacraftCore mc;
+    private final BukkitImpl impl;
 
-    public MListener(MafiacraftCore mc) {
-        this.mc = mc;
+    public MListener(BukkitImpl impl) {
+        this.impl = impl;
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
-        Chunk c = event.getBlock().getLocation().getChunk();
-        District d = mc.getCityManager().getDistrict(c);
+        Section c = impl.getPoint(event.getBlock().getLocation()).getSection();
+        District d = Mafiacraft.getDistrict(c);
 
         if (!d.canBuild(player, c)) {
             player.sendMessage(MsgColor.ERROR
@@ -83,8 +83,8 @@ public class MListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
-        Chunk c = player.getBukkitEntity().getLocation().getChunk();
-        District d = mc.getCityManager().getDistrict(c);
+        Section c = player.getSection();
+        District d = Mafiacraft.getDistrict(c);
 
         if (!d.canBuild(player, c)) {
             player.getBukkitEntity().sendMessage(MsgColor.ERROR
@@ -118,8 +118,7 @@ public class MListener implements Listener {
         MPlayer player = Mafiacraft.getPlayer((Player) e.getEntity());
         MPlayer damager = Mafiacraft.getPlayer((Player) e.getDamager());
 
-        District d = mc.getCityManager().getDistrict(player.getBukkitEntity().
-                getLocation().getChunk());
+        District d = player.getDistrict();
 
         //Check for PvP
         if (!d.getType().isPvp()) {
@@ -181,13 +180,13 @@ public class MListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerChat(PlayerChatEvent event) {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
-        mc.getChatHandler().handleMessage(player, event.getMessage());
+        Mafiacraft.getChatHandler().handleMessage(player, event.getMessage());
         event.setCancelled(true);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        mc.getChatHandler().updateDisplayName(Mafiacraft.getPlayer(event.
+        Mafiacraft.getChatHandler().updateDisplayName(Mafiacraft.getPlayer(event.
                 getPlayer()));
     }
 
@@ -196,12 +195,11 @@ public class MListener implements Listener {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer());
         SessionStore store = player.getSessionStore();
 
-        Chunk last = store.getObject("lastchunk", Chunk.class);
-        Chunk current = player.getBukkitEntity().getLocation().getChunk();
+        Section last = store.getObject("lastsect", Section.class);
+        Section current = player.getSection();
 
         if (last == null) {
-            store.setData("lastchunk", player.getBukkitEntity().getLocation().
-                    getChunk());
+            store.setData("lastsect", player.getSection());
             return;
         }
 
@@ -217,8 +215,8 @@ public class MListener implements Listener {
         }
 
         //Check for reserved district
-        District dest = mc.getCityManager().getDistrict(current);
-        District prev = mc.getCityManager().getDistrict(last);
+        District dest = Mafiacraft.getCityManager().getDistrict(current);
+        District prev = Mafiacraft.getCityManager().getDistrict(last);
 
         if (!dest.getType().canEnter(player)) {
             long now = System.currentTimeMillis();

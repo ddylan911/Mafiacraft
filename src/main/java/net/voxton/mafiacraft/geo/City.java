@@ -133,11 +133,11 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
     /**
      * Gets the district in this city from the specified chunk.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public District getDistrict(Chunk chunk) {
-        return Mafiacraft.getDistrict(chunk);
+    public District getDistrict(Section section) {
+        return Mafiacraft.getDistrict(section);
     }
 
     /**
@@ -336,11 +336,11 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
         return "C" + id;
     }
 
-    public boolean canBuild(MPlayer player, Chunk chunk) {
+    public boolean canBuild(MPlayer player, Section section) {
         return isMember(player);
     }
 
-    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner) {
+    public boolean canBeClaimed(Section section, LandOwner futureOwner) {
         return false;
     }
 
@@ -418,8 +418,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
      * @param chunk
      * @return
      */
-    public String getSectionName(Chunk chunk) {
-        return getDistrict(chunk).getSectionName(chunk);
+    public String getSectionName(Section section) {
+        return section.getDistrict().getSectionName(section);
     }
 
     /**

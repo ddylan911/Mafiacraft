@@ -60,19 +60,19 @@ public interface LandPurchaser extends LandOwner {
     public LandOwner decLand();
 
     /**
-     * Claims the given chunk.
+     * Claims the given section.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public LandOwner claim(Chunk chunk);
+    public LandOwner claim(Section section);
 
     /**
-     * Unclaims the given chunk.
+     * Unclaims the given section.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public LandOwner unclaim(Chunk chunk);
+    public LandOwner unclaim(Section section);
 
 }

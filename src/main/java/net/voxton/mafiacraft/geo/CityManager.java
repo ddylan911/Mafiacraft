@@ -195,8 +195,7 @@ public class CityManager {
         city.attachNewDistrict(center);
         center.setType(DistrictType.GOVERNMENT);
         insertCity(city);
-        Mafiacraft.getCityManager().getCityWorld(center.getWorld()).setCapital(
-                city);
+        center.getWorld().setCapital(city);
         return city;
     }
 
@@ -223,7 +222,7 @@ public class CityManager {
      * @return
      */
     public District getDistrict(MPlayer player) {
-        return getDistrict(player.getBukkitEntity().getLocation().getChunk());
+        return getDistrict(player.getSection());
     }
 
     /**
@@ -294,7 +293,7 @@ public class CityManager {
                     + uid + "'.");
         }
 
-        World world = Bukkit.getWorld(split[0]);
+        CityWorld world = getCityWorld(split[0]);
         if (world == null) {
             MLogger.log(Level.SEVERE, "Invalid District UID encountered for world: '"
                     + uid + "'!");
@@ -370,7 +369,7 @@ public class CityManager {
      * @param sample
      * @return
      */
-    private District createDistrict(Chunk sample) {
+    private District createDistrict(Section sample) {
         return createDistrict(sample.getWorld(), ((sample.getX()) >> 4),
                 ((sample.getZ() >> 4)));
     }
@@ -397,7 +396,7 @@ public class CityManager {
      * @param world
      * @return
      */
-    private TIntObjectMap<District> getDistrictMap(World world) {
+    private TIntObjectMap<District> getDistrictMap(CityWorld world) {
         TIntObjectMap<District> worldDistricts = worlds.get(world.getName());
         if (worldDistricts == null) {
             worldDistricts = new TIntObjectHashMap<District>();
@@ -412,7 +411,7 @@ public class CityManager {
      * @param world
      * @return
      */
-    public List<District> getDistrictList(World world) {
+    public List<District> getDistrictList(CityWorld world) {
         return new ArrayList<District>(getDistrictMap(world).valueCollection());
     }
 
@@ -490,22 +489,19 @@ public class CityManager {
      * @return
      */
     public LandOwner getSectionOwner(Section section) {
-        
-        int x = chunk.getX() % 0x10;
-        int z = chunk.getZ() % 0x10;
-        return getDistrict(chunk).getOwner(x, z);
+        return getDistrict(section).getOwner(section);
     }
 
     /**
      * Gets the name of the specified section.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public String getSectionName(Chunk chunk) {
-        District d = getDistrict(chunk);
+    public String getSectionName(Section section) {
+        District d = getDistrict(section);
         StringBuilder nameBuilder = new StringBuilder(d.getName()).append('-');
-        byte sid = d.getSectionId(chunk);
+        byte sid = d.getSectionId(section);
         nameBuilder.append(Byte.toString(sid));
         return nameBuilder.toString();
     }

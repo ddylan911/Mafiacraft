@@ -35,6 +35,7 @@ import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
 import java.util.List;
 import net.voxton.mafiacraft.data.DataWorker;
+import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.locale.LocaleManager;
@@ -176,7 +177,7 @@ public class Mafiacraft {
     public static LocaleManager getLocaleManager() {
         return getCore().getLocaleManager();
     }
-    
+
     /**
      * Gets the player manager.
      *
@@ -194,7 +195,7 @@ public class Mafiacraft {
     public static VaultHelper getVaultHelper() {
         return getCore().getVaultHelper();
     }
-    
+
     /**
      * Gets the Mafiacraft implementation.
      * 
@@ -205,23 +206,23 @@ public class Mafiacraft {
     }
 
     /**
-     * Gets the district associated with the given chunk.
+     * Gets the district associated with the given section.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public static District getDistrict(Chunk chunk) {
-        return getCityManager().getDistrict(chunk);
+    public static District getDistrict(Section section) {
+        return getCityManager().getDistrict(section);
     }
 
     /**
-     * Gets the owner of the given chunk.
+     * Gets the owner of the given section.
      *
      * @param last
      * @return
      */
-    public static LandOwner getOwner(Chunk chunk) {
-        return getCityManager().getSectionOwner(chunk);
+    public static LandOwner getOwner(Section section) {
+        return getCityManager().getSectionOwner(section);
     }
 
     /**
@@ -230,7 +231,7 @@ public class Mafiacraft {
      * @param section
      * @return
      */
-    public static LandOwner getSectionOwner(Chunk section) {
+    public static LandOwner getSectionOwner(Section section) {
         return getCityManager().getSectionOwner(section);
     }
 
@@ -295,7 +296,7 @@ public class Mafiacraft {
     public static List<Locale> getLocales() {
         return getLocaleManager().getLocales();
     }
-    
+
     /**
      * Gets the default locale of Mafiacraft.
      * 
@@ -324,4 +325,5 @@ public class Mafiacraft {
     public static CityWorld getWorld(String worldString) {
         return getCityManager().getCityWorld(worldString);
     }
+
 }
