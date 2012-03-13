@@ -23,17 +23,15 @@
  */
 package net.voxton.mafiacraft.chat.type;
 
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.chat.ChatType;
+import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 /**
- *
- * @author Dylan
+ * Local chat channel.
  */
 public class LocalChat extends ChatType {
 
@@ -45,13 +43,15 @@ public class LocalChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_LOCAL + "[L] " + govPref + ChatColor.WHITE
+        message = MsgColor.CHAT_LOCAL + "[L] " + govPref + MsgColor.NORMAL
                 + player.getDisplayName() + ": " + message;
 
-        for (Player bPlayer : Bukkit.getOnlinePlayers()) {
-            if (bPlayer.getLocation().distanceSquared(bPlayer.getLocation())
-                    <= 2500) {
-                bPlayer.sendMessage(msg);
+        int dist = Config.getInt("chat.localdistance");
+        int ds = dist * dist;
+
+        for (MPlayer recipient : Mafiacraft.getOnlinePlayers()) {
+            if (recipient.getPoint().distanceSquared(player.getPoint()) <= ds) {
+                recipient.sendMessage(message);
             }
         }
     }
