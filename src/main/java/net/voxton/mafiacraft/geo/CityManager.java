@@ -50,9 +50,9 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 public class CityManager {
 
     /**
-     * Contains worlds mapped to their respective cityworlds.
+     * Contains world names mapped to their respective cityworlds.
      */
-    private Map<World, CityWorld> cityWorldMap = new HashMap<World, CityWorld>();
+    private Map<String, CityWorld> cityWorldMap = new HashMap<String, CityWorld>();
 
     /**
      * Contains mappings of cities to their ids.
@@ -106,17 +106,19 @@ public class CityManager {
     /////////////////
     // CITY WORLD
     /////////////////
+
     /**
-     * Gets a city world from a world.
-     *
-     * @param world
-     * @return
+     * Gets a city world from its name.
+     * 
+     * @param worldString The name of the world.
+     * @return The CityWorld corresponding with the name, or null if there is
+     *      no such world.
      */
-    public CityWorld getCityWorld(World world) {
-        CityWorld cworld = cityWorldMap.get(world);
+    public CityWorld getCityWorld(String worldString) {
+        CityWorld cworld = cityWorldMap.get(worldString);
         if (cworld == null) {
-            cworld = new CityWorld(world);
-            cityWorldMap.put(world, cworld);
+            cworld = new CityWorld(worldString);
+            cityWorldMap.put(worldString, cworld);
         }
         return cworld;
     }
@@ -231,10 +233,8 @@ public class CityManager {
      * @param chunk
      * @return
      */
-    public District getDistrict(Chunk chunk) {
-        int dx = chunk.getX() >> 4;
-        int dz = chunk.getZ() >> 4;
-        return getDistrict(chunk.getWorld(), dx, dz);
+    public District getDistrict(Section section) {
+        return getDistrict(section.getWorld(), section.getDistrictX(), section.getDistrictZ());
     }
 
     /**
@@ -246,7 +246,7 @@ public class CityManager {
      * @param z
      * @return
      */
-    public District getDistrict(World world, int x, int z) {
+    public District getDistrict(CityWorld world, int x, int z) {
         int id = GeoUtils.coordsToDistrictId(x, z);
         District d = getDistrictMap(world).get(id);
         if (d == null) {
@@ -257,7 +257,7 @@ public class CityManager {
         return d;
     }
 
-    public District getDistrict(World world, int id) {
+    public District getDistrict(CityWorld world, int id) {
         District d = getDistrictMap(world).get(id);
 
         int x = GeoUtils.xFromDistrictId(id);
@@ -330,7 +330,7 @@ public class CityManager {
      * @return This CityManager.
      */
     public CityManager insertDistrict(District district) {
-        World world = district.getWorld();
+        CityWorld world = district.getWorld();
         getDistrictMap(world).put(district.getId(), district);
         registerLandOwner(district);
         return this;
@@ -383,7 +383,7 @@ public class CityManager {
      * @param city
      * @return The created district, or the existing district
      */
-    private District createDistrict(World world, int x, int z) {
+    private District createDistrict(CityWorld world, int x, int z) {
         District d = new District(world, x, z);
         insertDistrict(d);
         MLogger.logVerbose("A district was created in the world '" + world.
@@ -473,13 +473,24 @@ public class CityManager {
     /////////////////
     // SECTION METHODS
     /////////////////
+
+    /**
+     * Gets the section that corresponds with the point.
+     * 
+     * @param point
+     * @return 
+     */
+    public Section getSection(MPoint point) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     /**
      * Gets the owner of a section.
      *
      * @param chunk
      * @return
      */
-    public LandOwner getSectionOwner(Chunk chunk) {
+    public LandOwner getSectionOwner(Section section) {
+        
         int x = chunk.getX() % 0x10;
         int z = chunk.getZ() % 0x10;
         return getDistrict(chunk).getOwner(x, z);
@@ -563,11 +574,11 @@ public class CityManager {
         File cityFile = Mafiacraft.getOrCreateSubFile("geo", "cityworlds.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
 
-        cityWorldMap = new HashMap<World, CityWorld>();
+        cityWorldMap = new HashMap<String, CityWorld>();
 
         for (String key : conf.getKeys(false)) {
             CityWorld cityWorld = (CityWorld) conf.get(key);
-            cityWorldMap.put(cityWorld.getWorld(), cityWorld);
+            cityWorldMap.put(cityWorld.getName(), cityWorld);
         }
 
         return this;

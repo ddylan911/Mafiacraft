@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.gov;
 
+import org.bukkit.World;
 import java.util.ArrayList;
 import java.util.Arrays;
 import net.voxton.mafiacraft.Mafiacraft;
@@ -185,13 +186,36 @@ public class GovernmentTest {
      */
     @Test
     public void testGetPower() {
-        System.out.println("getPower");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getPower();
+        System.out.println("Testing the getPower method.");
+        
+        String leader = "Frank";
+        String viceLeader = "Joe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPower()).thenReturn(12);
+        MPlayer joe = mock(MPlayer.class);
+        when(joe.getPower()).thenReturn(4);
+        MPlayer bob = mock(MPlayer.class);
+        when(bob.getPower()).thenReturn(7);
+        MPlayer tim = mock(MPlayer.class);
+        when(tim.getPower()).thenReturn(-9);
+        MPlayer nancy = mock(MPlayer.class);
+        when(nancy.getPower()).thenReturn(-22);
+
+        when(Mafiacraft.getPlayer("Frank")).thenReturn(frank);
+        when(Mafiacraft.getPlayer("Joe")).thenReturn(joe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        
+        int expResult = -8;
+        int result = government.getPower();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -256,13 +280,14 @@ public class GovernmentTest {
      */
     @Test
     public void testGetType() {
-        System.out.println("getType");
-        Government instance = null;
-        GovType expResult = null;
-        GovType result = instance.getType();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getType method.");
+        
+        GovType type = GovType.MAFIA;
+        government.setType(type);
+        
+        GovType expected = type;
+        GovType result = government.getType();
+        assertEquals(expected, result);
     }
 
     /**
@@ -270,12 +295,14 @@ public class GovernmentTest {
      */
     @Test
     public void testSetType() {
-        System.out.println("setType");
-        GovType type = null;
-        Government instance = null;
-        instance.setType(type);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setType method.");
+        
+        GovType type = GovType.MAFIA;
+        government.setType(type);
+        
+        GovType expected = type;
+        GovType result = government.getType();
+        assertEquals(expected, result);
     }
 
     /**
@@ -300,10 +327,10 @@ public class GovernmentTest {
     @Test
     public void testGetOwnerName() {
         System.out.println("getOwnerName");
-        Government instance = null;
-        String expResult = "";
-        String result = instance.getOwnerName();
-        assertEquals(expResult, result);
+        
+        String expResult = "GovarnMent";
+//        String result = instance.getOwnerName();
+        assertEquals(expResult, null);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -313,13 +340,14 @@ public class GovernmentTest {
      */
     @Test
     public void testGetLeader() {
-        System.out.println("getLeader");
-        Government instance = null;
-        String expResult = "";
-        String result = instance.getLeader();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getLeader method.");
+        
+        String leader = "Tim";
+        government.setLeader(leader);
+        
+        String expected = leader;
+        String result = government.getLeader();
+        assertEquals(expected, result);
     }
 
     /**
@@ -327,13 +355,14 @@ public class GovernmentTest {
      */
     @Test
     public void testGetViceLeader() {
-        System.out.println("getViceLeader");
-        Government instance = null;
-        String expResult = "";
-        String result = instance.getViceLeader();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getViceLeader method.");
+        
+        String viceLeader = "bob";
+        government.setViceLeader(viceLeader);
+        
+        String expected = viceLeader;
+        String result = government.getViceLeader();
+        assertEquals(expected, result);
     }
 
     /**
@@ -709,11 +738,10 @@ public class GovernmentTest {
     @Test
     public void testSetHq() {
         System.out.println("setHq");
-        Location hq = null;
+        
         Government instance = null;
         Government expResult = null;
-        Government result = instance.setHq(hq);
-        assertEquals(expResult, result);
+        assertEquals(expResult, null);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -723,14 +751,15 @@ public class GovernmentTest {
      */
     @Test
     public void testSetLeader_MPlayer() {
-        System.out.println("setLeader");
-        MPlayer player = null;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.setLeader(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setLeader method with a MPlayer.");
+        
+        MPlayer leader = mock(MPlayer.class);
+        when(leader.getName()).thenReturn("Tim");
+        government.setLeader(leader);
+        
+        String expected = "Tim";
+        String result = government.getLeader();
+        assertEquals(expected, result);
     }
 
     /**
@@ -738,14 +767,14 @@ public class GovernmentTest {
      */
     @Test
     public void testSetLeader_String() {
-        System.out.println("setLeader");
-        String leader = "";
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.setLeader(leader);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setLeader method with a string.");
+        
+        String leader = "Tim";
+        government.setLeader(leader);
+        
+        String expected = leader;
+        String result = government.getLeader();
+        assertEquals(expected, result);
     }
 
     /**
@@ -753,14 +782,15 @@ public class GovernmentTest {
      */
     @Test
     public void testSetViceLeader_MPlayer() {
-        System.out.println("setViceLeader");
-        MPlayer viceLeader = null;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.setViceLeader(viceLeader);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setViceLeader method with an MPlayer.");
+        
+        MPlayer viceLeader = mock(MPlayer.class);
+        when(viceLeader.getName()).thenReturn("prince");
+        government.setViceLeader(viceLeader);
+        
+        String expected = "prince";
+        String result = government.getViceLeader();
+        assertEquals(expected, result);
     }
 
     /**
@@ -768,14 +798,14 @@ public class GovernmentTest {
      */
     @Test
     public void testSetViceLeader_String() {
-        System.out.println("setViceLeader");
-        String viceLeader = "";
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.setViceLeader(viceLeader);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setViceLeader method with a string.");
+        
+        String viceLeader = "bob";
+        government.setViceLeader(viceLeader);
+        
+        String expected = viceLeader;
+        String result = government.getViceLeader();
+        assertEquals(expected, result);
     }
 
     /**
@@ -1121,9 +1151,6 @@ public class GovernmentTest {
     public void testGetHq() {
         System.out.println("getHq");
         Government instance = null;
-        Location expResult = null;
-        Location result = instance.getHq();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

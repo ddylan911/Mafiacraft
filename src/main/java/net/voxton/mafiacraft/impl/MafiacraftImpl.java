@@ -27,6 +27,8 @@ import java.io.File;
 import java.util.logging.Logger;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.data.DataWorker;
+import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.player.MPlayer;
 
 /**
  * Represents an implementation of Mafiacraft.
@@ -47,4 +49,6 @@ public interface MafiacraftImpl {
     public Logger getLogger();
 
     public MafiacraftConfig getMafiacraftConfig();
+
+    public MPoint getPoint(MPlayer player);
 }

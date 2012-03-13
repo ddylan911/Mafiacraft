@@ -388,8 +388,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
      *
      * @return
      */
-    public Chunk getChunk() {
-        return getBukkitEntity().getLocation().getChunk();
+    public Section getSection() {
+        return getPoint().getSection();
     }
 
     /**
@@ -398,7 +398,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * @return
      */
     public District getDistrict() {
-        return Mafiacraft.getCityManager().getDistrict(getChunk());
+        return getSection().getDistrict();
     }
 
     /**
@@ -472,8 +472,13 @@ public class MPlayer extends Transactable implements LandPurchaser {
         return this;
     }
 
-    public Location getLocation() {
-        return getBukkitEntity().getLocation();
+    /**
+     * Gets the point where the player is located.
+     * 
+     * @return The point where the player is located.
+     */
+    public MPoint getPoint() {
+        return Mafiacraft.getImpl().getPoint(this);
     }
 
     /**
@@ -542,7 +547,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * @return
      */
     public CityWorld getCityWorld() {
-        return Mafiacraft.getCityManager().getCityWorld(getLocation().getWorld());
+        return getPoint().getWorld();
     }
 
     /**

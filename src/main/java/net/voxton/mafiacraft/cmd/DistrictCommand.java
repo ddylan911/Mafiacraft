@@ -168,7 +168,7 @@ public final class DistrictCommand {
                     "command.city.must-be-member.district.setbus");
         }
 
-        Location bus = player.getLocation();
+        Location bus = player.getPoint();
         district.setBusStop(bus);
 
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(

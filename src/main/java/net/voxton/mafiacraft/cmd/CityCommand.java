@@ -192,7 +192,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.city.not-allowed");
         }
 
-        city.setSpawnLocation(player.getLocation());
+        city.setSpawnPoint(player.getPoint());
         player.sendMessage(MsgColor.SUCCESS
                 + player.getLocale().localize("command.city.set-spawn"));
         return null;
@@ -204,7 +204,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.city.not-in");
         }
 
-        Location spawn = city.getSpawnLocation();
+        Location spawn = city.getSpawnPoint();
         if (spawn == null) {
             return player.getLocale().localize("command.city.no-spawn");
         }
@@ -361,7 +361,7 @@ public final class CityCommand {
 
         District thisDist = player.getDistrict();
         Location thisBus = thisDist.getBusStop();
-        if (player.getLocation().distanceSquared(thisBus) > busDist * busDist) {
+        if (player.getPoint().distanceSquared(thisBus) > busDist * busDist) {
             return player.getLocale().localize(
                     "command.district.bus-max-distance", busDist);
         }

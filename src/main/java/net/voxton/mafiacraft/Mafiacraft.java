@@ -26,6 +26,7 @@ package net.voxton.mafiacraft;
 import java.io.File;
 import net.voxton.mafiacraft.chat.ChatHandler;
 import net.voxton.mafiacraft.geo.CityManager;
+import net.voxton.mafiacraft.geo.CityWorld;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.gov.GovernmentManager;
@@ -312,5 +313,15 @@ public class Mafiacraft {
      */
     public static Locale getLocale(String name) {
         return getLocaleManager().getLocale(name);
+    }
+
+    /**
+     * Gets a CityWorld from its name.
+     * 
+     * @param worldString The string name of the CityWorld.
+     * @return The CityWorld.
+     */
+    public static CityWorld getWorld(String worldString) {
+        return getCityManager().getCityWorld(worldString);
     }
 }

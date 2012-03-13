@@ -24,7 +24,6 @@
 package net.voxton.mafiacraft.impl.bukkit;
 
 import net.voxton.mafiacraft.config.MafiacraftConfig;
-import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.MListener;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
@@ -36,10 +35,12 @@ import net.voxton.mafiacraft.cmd.DivisionCommand;
 import net.voxton.mafiacraft.cmd.GovernmentCommand;
 import net.voxton.mafiacraft.cmd.MafiacraftCommand;
 import net.voxton.mafiacraft.cmd.SectionCommand;
-import net.voxton.mafiacraft.data.DataWorker;
+import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
+import net.voxton.mafiacraft.player.MPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -187,6 +188,13 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     @Override
     public MafiacraftConfig getMafiacraftConfig() {
         return new BukkitConfig(this);
+    }
+
+    @Override
+    public MPoint getPoint(MPlayer player) {
+        Location location = Bukkit.getPlayer(player.getName()).getLocation();
+        return new MPoint(Mafiacraft.getWorld(location.getWorld().getName()),
+                location.getX(), location.getY(), location.getZ());
     }
 
 }

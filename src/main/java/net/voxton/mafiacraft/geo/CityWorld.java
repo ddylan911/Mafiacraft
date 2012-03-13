@@ -36,7 +36,7 @@ import org.bukkit.configuration.serialization.SerializableAs;
 @SerializableAs("cw")
 public class CityWorld implements ConfigurationSerializable {
 
-    private final World world;
+    private final String name;
 
     private City capital;
 
@@ -45,17 +45,8 @@ public class CityWorld implements ConfigurationSerializable {
      */
     private Set<String> toggles = new HashSet<String>();
 
-    public CityWorld(World world) {
-        this.world = world;
-    }
-
-    /**
-     * Gets the World this CityWorld is associated with.
-     *
-     * @return
-     */
-    public World getWorld() {
-        return world;
+    public CityWorld(String name) {
+        this.name = name;
     }
 
     /**
@@ -143,7 +134,7 @@ public class CityWorld implements ConfigurationSerializable {
      * @return The name of the CityWorld.
      */
     public String getName() {
-        return getWorld().getName();
+        return name;
     }
 
     ////////////
@@ -165,8 +156,7 @@ public class CityWorld implements ConfigurationSerializable {
      */
     public static CityWorld deserialize(Map<String, Object> data) {
         String worldName = data.get("world").toString();
-        World world = Bukkit.getWorld(worldName);
-        CityWorld cw = new CityWorld(world);
+        CityWorld cw = new CityWorld(worldName);
 
         List<String> toggles = (List<String>) data.get("toggles");
         for (String toggle : toggles) {
@@ -182,17 +172,13 @@ public class CityWorld implements ConfigurationSerializable {
     }
 
     /**
-     * Gets the spawn location of the city world.
+     * Gets the spawn point of the city world.
      *
-     * @return The spawn location of the city world.
+     * @return The spawn point of the city world.
      */
-    public Location getSpawnLocation() {
+    public MPoint getSpawnPoint() {
         City cap = getCapital();
-        if (cap == null) {
-            return getWorld().getSpawnLocation();
-        }
-
-        return cap.getSpawnLocation();
+        return cap.getSpawnPoint();
     }
 
 }

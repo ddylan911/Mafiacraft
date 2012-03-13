@@ -23,12 +23,14 @@
  */
 package net.voxton.mafiacraft.gov;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.District;
@@ -40,10 +42,11 @@ import net.voxton.mafiacraft.vault.Transactable;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
+import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.util.LocationSerializer;
+import net.voxton.mafiacraft.util.StringSerializer;
 import org.bukkit.Chunk;
-import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
@@ -67,7 +70,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
 
     private Set<String> affiliates = new HashSet<String>();
 
-    private Location hq;
+    private MPoint hq;
 
     /**
      * Holds the land of the government. (Not divisions!)
@@ -528,7 +531,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
      * @param hq
      * @return
      */
-    public Government setHq(Location hq) {
+    public Government setHq(MPoint hq) {
         this.hq = hq;
         return this;
     }
@@ -868,7 +871,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
      *
      * @return
      */
-    public Location getHq() {
+    public MPoint getHq() {
         return hq;
     }
 
@@ -938,7 +941,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
         data.put("name", getName());
         data.put("type", getType().getName());
         data.put("land", getLand());
-        data.put("hq", LocationSerializer.serializeFull(getHq()));
+        data.put("hq", StringSerializer.toString(hq));
 
         data.put("leader", getLeader());
         data.put("vleader", getViceLeader());
@@ -976,8 +979,16 @@ public class Government extends Transactable implements LandPurchaser, Configura
                     + typeStr + "'!");
         }
 
-        Map<String, Object> hqM = (Map<String, Object>) data.get("hq");
-        Location hq = LocationSerializer.deserializeFull(hqM);
+        String hqS = data.get("hq").toString();
+        MPoint hq;
+        try {
+            hq = StringSerializer.fromString(hqS, MPoint.class);
+        } catch (IOException ex) {
+            Logger.getLogger(Government.class.getName()).log(Level.SEVERE, null,
+                    ex);
+        } catch (ClassNotFoundException ex) {
+            MLogger.log(Level.SEVERE, "The class to deserialize the MPoint was not found!");
+        }
 
         String landS = data.get("land").toString();
         int land = 0;

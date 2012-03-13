@@ -52,12 +52,17 @@ import org.bukkit.configuration.serialization.SerializableAs;
  */
 @SerializableAs("district")
 public class District implements LandOwner, ConfigurationSerializable {
-
-    private transient final int id;
+    public static final int HEIGHT_BITS = 8;
+    
+    public static final int SIDE_BITS = 4;
+    
+    public static final int HEIGHT_MASK  = (~0) >>> (Integer.SIZE - HEIGHT_BITS);
+    
+    public static final int SIDE_MASK = (~0) >>> (Integer.SIZE - SIDE_BITS);
 
     private String name;
 
-    private final World world;
+    private final CityWorld world;
 
     private final int x;
 
@@ -73,8 +78,7 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     private double landCost;
 
-    public District(World world, int x, int z) {
-        this.id = GeoUtils.coordsToDistrictId(x, z);
+    public District(CityWorld world, int x, int z) {
         this.world = world;
         this.x = x;
         this.z = z;
@@ -86,7 +90,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     public int getId() {
-        return id;
+        return GeoUtils.coordsToDistrictId(x, z);
     }
 
     /**
@@ -123,18 +127,18 @@ public class District implements LandOwner, ConfigurationSerializable {
      *
      * @return
      */
-    public World getWorld() {
+    public CityWorld getWorld() {
         return world;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public boolean canBeClaimed(Chunk chunk, LandOwner owner) {
-        LandOwner currentOwner = getOwner(chunk);
+    public boolean canBeClaimed(Section section, LandOwner owner) {
+        LandOwner currentOwner = getOwner(section);
         if (currentOwner.equals(this) && getType().isClaim()) {
             return true;
         }
@@ -236,17 +240,16 @@ public class District implements LandOwner, ConfigurationSerializable {
     /**
      * Gets the owner of a chunk.
      *
-     * @param chunk
+     * @param section
      * @return The government assigned to the chunk, or null if the chunk is not
      * part of the district.
      */
-    public LandOwner getOwner(Chunk chunk) {
-        if (!contains(chunk)) {
+    public LandOwner getOwner(Section section) {
+        if (!contains(section)) {
             throw new IllegalArgumentException("Chunk out of bounds of district "
                     + getName() + "!");
         }
-        return getOwner(getDistrictOrigin(chunk.getX()),
-                getDistrictOrigin(chunk.getZ()));
+        return getOwner(section.getOriginX(), section.getOriginZ());
     }
 
     /**
@@ -269,16 +272,16 @@ public class District implements LandOwner, ConfigurationSerializable {
     /**
      * Sets the owner of a section.
      *
-     * @param chunk
+     * @param section
      * @param owner
      * @return
      */
-    public District setOwner(Chunk chunk, LandOwner owner) {
-        if (!contains(chunk)) {
+    public District setOwner(Section section, LandOwner owner) {
+        if (!contains(section)) {
             throw new IllegalArgumentException("Chunk out of bounds of district "
                     + getName() + "!");
         }
-        return setOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10, owner);
+        return setOwner(section.getOriginX(), section.getOriginZ(), owner);
     }
 
     /**
@@ -318,15 +321,15 @@ public class District implements LandOwner, ConfigurationSerializable {
     /**
      * Removes the owner of a section.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public District removeOwner(Chunk chunk) {
-        if (!contains(chunk)) {
+    public District removeOwner(Section section) {
+        if (!contains(section)) {
             throw new IllegalArgumentException("Chunk out of bounds of district "
                     + getName() + "!");
         }
-        return removeOwner(chunk.getX() % 0x10, chunk.getZ() % 0x10);
+        return removeOwner(section.getX() % 0x10, section.getZ() % 0x10);
     }
 
     /**
@@ -355,25 +358,25 @@ public class District implements LandOwner, ConfigurationSerializable {
     /**
      * Gets the user-friendly name of the section.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public String getSectionName(Chunk chunk) {
-        short idUnsigned = (short) (getSectionId(chunk) + 127);
+    public String getSectionName(Section section) {
+        short idUnsigned = (short) (getSectionId(section) + 127);
         return getName() + '-' + idUnsigned;
     }
 
     /**
      * Gets the id of the specified section.
      *
-     * @param chunk
+     * @param section
      * @return
      */
-    public byte getSectionId(Chunk chunk) {
-        if (!contains(chunk)) {
+    public byte getSectionId(Section section) {
+        if (!contains(section)) {
             return -1;
         }
-        return GeoUtils.coordsToSectionId(chunk.getX(), chunk.getZ());
+        return GeoUtils.coordsToSectionId(section.getX(), section.getZ());
     }
 
     /**
@@ -382,28 +385,28 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @param location
      * @return
      */
-    public boolean contains(Location location) {
-        return contains(location.getChunk());
+    public boolean contains(MPoint point) {
+        return contains(point.getSection());
     }
 
     /**
-     * Checks if the district contains the specified chunk.
+     * Checks if the district contains the specified section.
      *
-     * @param c
+     * @param section
      * @return
      */
-    public boolean contains(Chunk c) {
-        int sx = x << 4;
-        int sz = z << 4;
-        MLogger.logVerbose("Checking if chunk " + c.getX() + ", " + c.getZ()
+    public boolean contains(Section section) {
+        int sx = x << SIDE_BITS;
+        int sz = z << SIDE_BITS;
+        MLogger.logVerbose("Checking if section " + section.getX() + ", " + section.getZ()
                 + " is within the bounds of " + sx + ", " + sz + ".", 5);
-        return (c.getX() >= sx)
-                && (c.getX() < (sx + 0x10))
-                && (c.getZ() >= sz)
-                && (c.getZ() < (sz + 0x10));
+        return (section.getX() >= sx)
+                && (section.getX() < (sx + 0x10))
+                && (section.getZ() >= sz)
+                && (section.getZ() < (sz + 0x10));
     }
 
-    public boolean canBuild(MPlayer player, Chunk chunk) {
+    public boolean canBuild(MPlayer player, Section section) {
         if (getType().canBuild()) {
             return true;
         }
@@ -425,7 +428,7 @@ public class District implements LandOwner, ConfigurationSerializable {
     }
 
     public String getOwnerId() {
-        return "R" + id;
+        return "R" + getId();
     }
 
     /**
@@ -456,7 +459,7 @@ public class District implements LandOwner, ConfigurationSerializable {
     public List<MPlayer> getPlayers() {
         List<MPlayer> players = new ArrayList<MPlayer>();
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
-            if (this.contains(player.getChunk())) {
+            if (this.contains(player.getSection())) {
                 players.add(player);
             }
         }
@@ -525,7 +528,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     public CityWorld getCityWorld() {
-        return Mafiacraft.getCityManager().getCityWorld(world);
+        return world;
     }
 
     public String getEntryMessage() {
@@ -580,7 +583,7 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     public static District deserialize(Map<String, Object> data) {
         String worldS = data.get("world").toString();
-        World world = Bukkit.getWorld(worldS);
+        CityWorld world = Mafiacraft.getWorld(worldS);
         if (world == null) {
             MLogger.log(Level.SEVERE, "Invalid world named '" + worldS
                     + "' encountered when deserializing a district!");

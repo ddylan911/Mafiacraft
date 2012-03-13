@@ -60,21 +60,21 @@ public interface LandOwner {
     public String getEntryMessage();
 
     /**
-     * Returns true if the given player can build in this chunk.
+     * Returns true if the given player can build in this section.
      *
      * @param player
-     * @param chunk
+     * @param section
      * @return
      */
-    public boolean canBuild(MPlayer player, Chunk chunk);
+    public boolean canBuild(MPlayer player, Section section);
 
     /**
      * Returns true if the given section can be claimed from this owner.
      *
-     * @param chunk
+     * @param section
      * @param futureOwner The entity that is trying to claim the land.
      * @return
      */
-    public boolean canBeClaimed(Chunk chunk, LandOwner futureOwner);
+    public boolean canBeClaimed(Section section, LandOwner futureOwner);
 
 }

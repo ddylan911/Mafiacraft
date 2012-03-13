@@ -122,7 +122,7 @@ public final class CWorldCommand {
     }
 
     public static String doSpawn(MPlayer player) {
-        Location spawn = player.getCityWorld().getSpawnLocation();
+        Location spawn = player.getCityWorld().getSpawnPoint();
         TPCD.makeCountdown(10, Type.CSPAWN, player.
                 getBukkitEntity(), spawn);
         return null;

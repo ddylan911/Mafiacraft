@@ -55,7 +55,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
 
     private Set<String> advisors = new HashSet<String>();
 
-    private Location spawn;
+    private MPoint spawn;
 
     private CityWorld cityWorld;
 
@@ -370,10 +370,10 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
     /**
      * Sets the spawn location of the city.
      *
-     * @param location
+     * @param point
      */
-    public void setSpawnLocation(Location location) {
-        this.spawn = location;
+    public void setSpawnPoint(MPoint point) {
+        this.spawn = point;
     }
 
     /**
@@ -381,7 +381,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
      *
      * @return
      */
-    public Location getSpawnLocation() {
+    public MPoint getSpawnPoint() {
         return spawn;
     }
 
@@ -487,8 +487,8 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
 
         data.put("id", getId());
         data.put("name", getName());
-        data.put("spawn", LocationSerializer.serializeFull(getSpawnLocation()));
-        data.put("world", getCityWorld().getWorld().getName());
+        data.put("spawn", getSpawnPoint().serializeToString());
+        data.put("world", getCityWorld().getName());
 
         data.put("mayor", getMayor());
         data.put("advisors", getAdvisors());
@@ -516,16 +516,11 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
 
         String name = data.get("name").toString();
 
-        Map<String, Object> spawnS = (Map<String, Object>) data.get("spawn");
-        Location spawn = LocationSerializer.deserializeFull(spawnS);
+        String spawnS = data.get("spawn").toString();
+        MPoint spawn = MPoint.deserialize(spawnS);
 
         String worldS = data.get("world").toString();
-        World world = Bukkit.getWorld(worldS);
-        if (world == null) {
-            MLogger.log(Level.SEVERE, "The world '" + worldS
-                    + "' does not exist for " + name + "!");
-        }
-        CityWorld cworld = Mafiacraft.getCityManager().getCityWorld(world);
+        CityWorld cworld = Mafiacraft.getCityManager().getCityWorld(worldS);
 
         String mayor = data.get("mayor").toString();
 
@@ -533,7 +528,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
         Set<String> advisors = new HashSet<String>(advisorsS);
 
         //Set info
-        city.setName(name).setSpawnLocation(spawn);
+        city.setName(name).setSpawnPoint(spawn);
         city.setCityWorld(cworld);
 
         //Set members

@@ -24,8 +24,7 @@
 package net.voxton.mafiacraft.util;
 
 /**
- *
- * @author simplyianm
+ * Utilities for geography.
  */
 public class GeoUtils {
 
