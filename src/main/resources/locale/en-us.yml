@@ -16,8 +16,8 @@ action:
     invalid-number: The number "%s" is an invalid number.
     no-money:
       deposit: You aren't able to deposit that much money. (You are trying to deposit %s when you only have %s)
-    not-allowed: You are not allowed to use this action.
-    not-citizen: You must be a citizen to use this action. To apply for citizenship, please visit `{URL}$(server-url)`{NORMAL}.
+    not-allowed: You are not allowed to perform this action.
+    not-citizen: You must be a citizen to perform this action. To apply for citizenship, please visit `{URL}$(server-url)`{NORMAL}.
     player-not-found: The player "%s" is either offlne or does not exist.
     
   chat:
