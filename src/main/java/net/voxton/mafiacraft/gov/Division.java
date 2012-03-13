@@ -425,7 +425,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
      * {@inheritDoc}
      */
     public Division claim(Section section) {
-        District district = Mafiacraft.getDistrict(section);
+        District district = section.getDistrict();
         district.setOwner(section, this);
         incLand();
         return this;
@@ -435,7 +435,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
      * {@inheritDoc}
      */
     public Division unclaim(Section section) {
-        District district = Mafiacraft.getDistrict(section);
+        District district = section.getDistrict();
         district.removeOwner(section);
         decLand();
         return this;
