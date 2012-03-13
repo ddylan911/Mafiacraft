@@ -37,10 +37,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.help.MenuType;
 import org.bukkit.Chunk;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -272,7 +273,7 @@ public final class DivisionCommand {
                     format(price) + ")";
         }
 
-        Chunk chunk = player.getChunk();
+        Section chunk = player.getSection();
         if (!dis.canBeClaimed(chunk, div)) {
             return "You aren't allowed to buy land here.";
         }
@@ -368,7 +369,7 @@ public final class DivisionCommand {
             return "You do not have the proper rank to do this.";
         }
 
-        div.unclaim(player.getChunk());
+        div.unclaim(player.getSection());
         player.sendMessage(MsgColor.SUCCESS
                 + "You have successfully unclaimed this section.");
         return null;
@@ -426,7 +427,7 @@ public final class DivisionCommand {
                     + " is not high enough to use HQ teleport.";
         }
 
-        Location hq = div.getHq();
+        MPoint hq = div.getHq();
         if (hq == null) {
             return "Your " + div.getGovernment().getType().getLocale("division")
                     + " does not have a HQ set.";
@@ -455,14 +456,14 @@ public final class DivisionCommand {
                     getGovernment().getType().getLocale("division") + ".";
         }
 
-        Chunk section = player.getChunk();
+        Section section = player.getSection();
         if (!Mafiacraft.getSectionOwner(section).equals(div)) {
             return "The HQ must be specified within HQ land.";
         }
 
         //TODO: take money from the mafia, idk how much
 
-        div.setHq(player.getBukkitEntity().getLocation());
+        div.setHq(player.getPoint());
         player.sendMessage(MsgColor.SUCCESS + "Your " + div.getGovernment().
                 getType().getLocale("division") + " HQ has been set.");
         return null;

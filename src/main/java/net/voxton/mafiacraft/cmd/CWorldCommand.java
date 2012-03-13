@@ -31,11 +31,10 @@ import net.voxton.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.help.MenuType;
-import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.util.TPCD;
 import net.voxton.mafiacraft.util.TPCD.Type;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -122,7 +121,7 @@ public final class CWorldCommand {
     }
 
     public static String doSpawn(MPlayer player) {
-        Location spawn = player.getCityWorld().getSpawnPoint();
+        MPoint spawn = player.getCityWorld().getSpawnPoint();
         TPCD.makeCountdown(10, Type.CSPAWN, player.
                 getBukkitEntity(), spawn);
         return null;
