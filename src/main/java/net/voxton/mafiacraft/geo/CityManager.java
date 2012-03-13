@@ -226,16 +226,6 @@ public class CityManager {
     // DISTRICT METHODS
     /////////////////
     /**
-     * Gets the district a player is in.
-     *
-     * @param player
-     * @return
-     */
-    public District getDistrict(MPlayer player) {
-        return player.getSection().getDistrict();
-    }
-
-    /**
      * Gets the district in the specified world. This will create a district if
      * it needs to.
      *
