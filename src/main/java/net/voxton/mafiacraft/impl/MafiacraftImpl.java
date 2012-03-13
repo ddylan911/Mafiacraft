@@ -28,44 +28,50 @@ import java.util.List;
 import java.util.logging.Logger;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.player.MPlayer;
 
 /**
  * Represents an implementation of Mafiacraft.
  */
 public interface MafiacraftImpl {
+
     public void saveConfig();
-    
+
     public void cancelTasks();
-    
+
     public void setupCommands();
-    
+
     public void registerEvents();
-    
+
     public String getVersion();
-    
+
     public File getDataFolder();
 
     public Logger getLogger();
+    
+    public MWorld getWorld(String name);
 
     public MafiacraftConfig getMafiacraftConfig();
 
     public MPoint getPoint(MPlayer player);
-    
+
     public int scheduleRepeatingTask(Runnable runnable, long interval);
-    
+
     public int scheduleDelayedTask(Runnable runnable, long interval);
-    
+
     public void cancelTask(int id);
 
     public void teleportPlayer(MPlayer player, MPoint point);
+
     public boolean isOnline(MPlayer player);
 
     public void sendMessage(MPlayer player, String message);
 
     public boolean hasPermission(MPlayer player, String permission);
-    
+
     public List<MPlayer> getOnlinePlayers();
 
     public String matchName(String name);
+
 }
