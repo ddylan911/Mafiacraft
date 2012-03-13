@@ -24,7 +24,6 @@
 package net.voxton.mafiacraft.geo;
 
 import net.voxton.mafiacraft.player.MPlayer;
-import org.bukkit.Chunk;
 
 /**
  * Represents an entity that can own parcels of land. (chunks)
