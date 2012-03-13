@@ -10,7 +10,7 @@ terms:
   chief: Chief
   city: city
 
-command:
+action:
   general:
     ingame-only: Sorry, this command is only available ingame.
     invalid-number: The number "%s" is an invalid number.

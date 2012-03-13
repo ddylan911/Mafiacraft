@@ -113,7 +113,7 @@ public final class CityActions extends PlayerActions {
 
     public String doFound(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         MWorld cw = player.getCityWorld();
@@ -127,16 +127,16 @@ public final class CityActions extends PlayerActions {
         double foundCost = Config.getDouble("city.foundcost");
 
         if (balance < foundCost) {
-            return player.getLocale().localize("command.city.no-money.found",
+            return player.getLocale().localize("action.city.no-money.found",
                     StringUtils.formatCurrency(foundCost));
         }
 
         if (!ValidationUtils.validateName(name)) {
-            return player.getLocale().localize("command.city.invalid-name");
+            return player.getLocale().localize("action.city.invalid-name");
         }
 
         if (Mafiacraft.getCityManager().cityExists(name)) {
-            return player.getLocale().localize("command.city.name-taken");
+            return player.getLocale().localize("action.city.name-taken");
         }
 
         //Found a city
@@ -148,39 +148,39 @@ public final class CityActions extends PlayerActions {
 
         //Notify
         player.sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.city.founded"));
+                + player.getLocale().localize("action.city.founded"));
         return null;
     }
 
     public String doSetSpawn(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMember(player)) {
-            return player.getLocale().localize("command.city.not-allowed");
+            return player.getLocale().localize("action.city.not-allowed");
         }
 
         city.setSpawnPoint(player.getPoint());
         player.sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.city.set-spawn"));
+                + player.getLocale().localize("action.city.set-spawn"));
         return null;
     }
 
     public String doSpawn(MPlayer player) {
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         MPoint spawn = city.getSpawnPoint();
         if (spawn == null) {
-            return player.getLocale().localize("command.city.no-spawn");
+            return player.getLocale().localize("action.city.no-spawn");
         }
 
         int citySpawnTime = Config.getInt("warmup.cityspawn");
@@ -190,12 +190,12 @@ public final class CityActions extends PlayerActions {
 
     public String doAnnex(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCityWorld().getCapital();
         if (city == null) {
-            return player.getLocale().localize("command.city.none-in-world");
+            return player.getLocale().localize("action.city.none-in-world");
         }
 
         District district = player.getDistrict();
@@ -211,34 +211,34 @@ public final class CityActions extends PlayerActions {
 
         double cost = Config.getDouble("prices.city.annex");
         if (!city.hasEnough(cost)) {
-            return player.getLocale().localize("command.city.no-money.annex",
+            return player.getLocale().localize("action.city.no-money.annex",
                     StringUtils.formatCurrency(cost));
         }
 
         city.subtractMoney(cost);
         city.attachNewDistrict(district);
         player.sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.district.claimed"));
+                + player.getLocale().localize("action.district.claimed"));
         return null;
     }
 
     public String doUnannex(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         District district = player.getDistrict();
         if (district.getCity() == null) {
-            return player.getLocale().localize("command.district.not-associated");
+            return player.getLocale().localize("action.district.not-associated");
         }
 
         if (!district.getCity().equals(city)) {
-            return player.getLocale().localize("command.district.not-owned");
+            return player.getLocale().localize("action.district.not-owned");
         }
 
         if (!city.isMayor(player)) {
@@ -248,18 +248,18 @@ public final class CityActions extends PlayerActions {
 
         district.detachFromCity();
         player.sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.district.unclaimed"));
+                + player.getLocale().localize("action.district.unclaimed"));
         return null;
     }
 
     public String doRename(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMayor(player)) {
@@ -268,7 +268,7 @@ public final class CityActions extends PlayerActions {
         }
 
         if (!ValidationUtils.validateName(name)) {
-            return player.getLocale().localize("command.city.invalid-name");
+            return player.getLocale().localize("action.city.invalid-name");
         }
 
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
@@ -279,12 +279,12 @@ public final class CityActions extends PlayerActions {
 
     public String doFunds(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMember(player)) {
@@ -301,12 +301,12 @@ public final class CityActions extends PlayerActions {
 
     public String doDisband(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMayor(player)) {
@@ -316,18 +316,18 @@ public final class CityActions extends PlayerActions {
 
         city.disband(); //Holy crap!
         player.sendMessage(MsgColor.SUCCESS
-                + player.getLocale().localize("command.city.disbanded"));
+                + player.getLocale().localize("action.city.disbanded"));
         return null;
     }
 
     public String doBus(MPlayer player, String districtName) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         int busDist = Config.getInt("district.bus-max-distance");
@@ -342,13 +342,13 @@ public final class CityActions extends PlayerActions {
         districtName = districtName.toUpperCase().trim();
         District d = city.getDistrictByName(districtName);
         if (d == null) {
-            return player.getLocale().localize("command.district.not-exist",
+            return player.getLocale().localize("action.district.not-exist",
                     districtName);
         }
 
         MPoint bus = d.getBusStop();
         if (bus == null) {
-            return player.getLocale().localize("command.district.no-bus");
+            return player.getLocale().localize("action.district.no-bus");
         }
 
         player.teleportWithCountdown(bus);
@@ -357,14 +357,14 @@ public final class CityActions extends PlayerActions {
 
     public String doDeposit(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         double amt;
         try {
             amt = Double.parseDouble(amount);
         } catch (NumberFormatException ex) {
-            return player.getLocale().localize("command.general.invalid-number",
+            return player.getLocale().localize("action.general.invalid-number",
                     amount);
         }
 
@@ -377,7 +377,7 @@ public final class CityActions extends PlayerActions {
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         player.transferMoney(city, amt);
@@ -388,19 +388,19 @@ public final class CityActions extends PlayerActions {
 
     public String doWithdraw(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         double amt;
         try {
             amt = Double.parseDouble(amount);
         } catch (NumberFormatException ex) {
-            return player.getLocale().localize("command.general.invalid-number");
+            return player.getLocale().localize("action.general.invalid-number");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMayor(player)) {
@@ -410,7 +410,7 @@ public final class CityActions extends PlayerActions {
 
         String amtFmt = StringUtils.formatCurrency(amt);
         if (!city.hasEnough(amt)) {
-            return player.getLocale().localize("command.city.no-money.withdraw",
+            return player.getLocale().localize("action.city.no-money.withdraw",
                     StringUtils.formatCurrency(city.getMoney()), amtFmt);
         }
 
@@ -422,12 +422,12 @@ public final class CityActions extends PlayerActions {
 
     public String doClaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMember(player)) {
@@ -437,13 +437,13 @@ public final class CityActions extends PlayerActions {
 
         District d = player.getDistrict();
         if (d.getType().isGovernment()) {
-            return player.getLocale().localize("command.city.already-owned");
+            return player.getLocale().localize("action.city.already-owned");
         }
 
         double amt = Config.getDouble("prices.city.claim");
         String amtFmt = StringUtils.formatCurrency(amt);
         if (!city.hasEnough(amt)) {
-            return player.getLocale().localize("command.city.no-money.claim",
+            return player.getLocale().localize("action.city.no-money.claim",
                     amtFmt);
         }
 
@@ -460,12 +460,12 @@ public final class CityActions extends PlayerActions {
 
     public String doUnclaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMember(player)) {
@@ -475,7 +475,7 @@ public final class CityActions extends PlayerActions {
 
         District d = player.getDistrict();
         if (d.getType().isGovernment()) {
-            return player.getLocale().localize("command.city.already-owned");
+            return player.getLocale().localize("action.city.already-owned");
         }
 
         Section section = player.getSection();
@@ -492,12 +492,12 @@ public final class CityActions extends PlayerActions {
     public String doMakePolice(MPlayer player, String chief,
             String assistant) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMayor(player)) {
@@ -532,12 +532,12 @@ public final class CityActions extends PlayerActions {
 
     public String doSetChief(MPlayer player, String chief) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMayor(player)) {
@@ -553,7 +553,7 @@ public final class CityActions extends PlayerActions {
 
         Government police = city.getPolice();
         if (police == null) {
-            return player.getLocale().localize("command.city.no-police");
+            return player.getLocale().localize("action.city.no-police");
         }
 
         police.setLeader(c);
@@ -564,12 +564,12 @@ public final class CityActions extends PlayerActions {
 
     public String doSetAssistant(MPlayer player, String assistant) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         City city = player.getCity();
         if (city == null) {
-            return player.getLocale().localize("command.city.not-in");
+            return player.getLocale().localize("action.city.not-in");
         }
 
         if (!city.isMayor(player)) {
@@ -585,7 +585,7 @@ public final class CityActions extends PlayerActions {
 
         Government police = city.getPolice();
         if (police == null) {
-            return player.getLocale().localize("command.city.no-police");
+            return player.getLocale().localize("action.city.no-police");
         }
 
         police.setViceLeader(a);

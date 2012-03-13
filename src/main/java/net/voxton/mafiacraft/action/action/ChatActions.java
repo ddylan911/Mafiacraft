@@ -58,11 +58,11 @@ public final class ChatActions extends PlayerActions {
     public String doChat(MPlayer player, String type) {
         ChatType chatType = ChatType.valueOf(type);
         if (chatType == null) {
-            return player.getLocale().localize("command.chat.invalid-chat-type");
+            return player.getLocale().localize("action.chat.invalid-chat-type");
         }
 
         if (!chatType.canJoin(player)) {
-            return player.getLocale().localize("command.chat.not-allowed");
+            return player.getLocale().localize("action.chat.not-allowed");
         }
 
         player.setChatType(chatType);

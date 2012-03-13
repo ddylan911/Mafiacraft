@@ -67,7 +67,7 @@ public final class CWorldActions extends PlayerActions {
 
     public String doToggle(MPlayer player, String toggle) {
         if (!player.hasPermission("mafiacraft.admin")) {
-            return player.getLocale().localize("command.general.not-allowed");
+            return player.getLocale().localize("action.general.not-allowed");
         }
 
         MWorld world = player.getCityWorld();
@@ -76,7 +76,7 @@ public final class CWorldActions extends PlayerActions {
         try {
             tog = WorldToggle.valueOf(toggle.toUpperCase().replace('-', '_'));
         } catch (IllegalArgumentException ex) {
-            return player.getLocale().localize("command.cworld.toggle-invalid",
+            return player.getLocale().localize("action.cworld.toggle-invalid",
                     Arrays.asList(WorldToggle.values()));
         }
 

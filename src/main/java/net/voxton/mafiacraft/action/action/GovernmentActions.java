@@ -143,7 +143,7 @@ public final class GovernmentActions extends PlayerActions {
 
         Government gov = Mafiacraft.getGovernmentManager().getGovernment(inv);
         if (gov == null) {
-            return player.getLocale().localize("command.government.error.invited-nonexistent"
+            return player.getLocale().localize("action.government.error.invited-nonexistent"
                     + type.getName());
         }
 
@@ -168,7 +168,7 @@ public final class GovernmentActions extends PlayerActions {
      */
     public String doFound(MPlayer player, String name, GovType type) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         if (!type.canFound()) {
@@ -186,7 +186,7 @@ public final class GovernmentActions extends PlayerActions {
         }
 
         if (player.getGovernment() != null) {
-            return player.getLocale().localize("command.government.error.in-gov");
+            return player.getLocale().localize("action.government.error.in-gov");
         }
 
         name = name.trim();
@@ -197,7 +197,7 @@ public final class GovernmentActions extends PlayerActions {
         }
 
         if (Mafiacraft.getGovernmentManager().getGovernment(name) != null) {
-            return player.getLocale().localize("command.government.error.exists");
+            return player.getLocale().localize("action.government.error.exists");
         }
 
         //Found the government

@@ -108,7 +108,7 @@ public class LocaleTest {
 
         Locale locale = manager.getDefault();
         String expected = "You are not allowed to use this command.";
-        String result = locale.localize("command.general.not-allowed");
+        String result = locale.localize("action.general.not-allowed");
 
         assertEquals(expected, result);
     }

@@ -80,7 +80,7 @@ public final class DistrictActions extends PlayerActions {
 
     public String doDesc(MPlayer player, String description) {
         if (!player.hasPermission("mafiacraft.mod")) {
-            return player.getLocale().localize("command.general.not-allowed");
+            return player.getLocale().localize("action.general.not-allowed");
         }
 
         District district = player.getDistrict();
@@ -129,7 +129,7 @@ public final class DistrictActions extends PlayerActions {
 
     public String doSetBus(MPlayer player) {
         if (!player.hasPermission("mafiacraft.mod")) {
-            return player.getLocale().localize("command.general.not-allowed");
+            return player.getLocale().localize("action.general.not-allowed");
         }
 
         District district = player.getDistrict();
@@ -154,7 +154,7 @@ public final class DistrictActions extends PlayerActions {
 
     public String doZone(MPlayer player, String typeString) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         District district = player.getDistrict();
@@ -171,7 +171,7 @@ public final class DistrictActions extends PlayerActions {
 
         DistrictType type = DistrictType.fromString(typeString);
         if (type == null) {
-            return player.getLocale().localize("command.district.no-such-type",
+            return player.getLocale().localize("action.district.no-such-type",
                     typeString);
         }
 
@@ -188,7 +188,7 @@ public final class DistrictActions extends PlayerActions {
 
     public String doClaimGrid(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         District district = player.getDistrict();
@@ -216,7 +216,7 @@ public final class DistrictActions extends PlayerActions {
 
     public String doSetCost(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
-            return player.getLocale().localize("command.general.not-citizen");
+            return player.getLocale().localize("action.general.not-citizen");
         }
 
         District district = player.getDistrict();
@@ -235,7 +235,7 @@ public final class DistrictActions extends PlayerActions {
         try {
             cost = Double.parseDouble(amount);
         } catch (NumberFormatException ex) {
-            return player.getLocale().localize("command.general.invalid-number",
+            return player.getLocale().localize("action.general.invalid-number",
                     amount);
         }
 

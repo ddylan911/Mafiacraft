@@ -214,7 +214,7 @@ public class CityActionsTest {
 
         //Message sent?
         verify(albireox).sendMessage(MsgColor.SUCCESS + Mafiacraft.
-                getDefaultLocale().localize("command.city.founded"));
+                getDefaultLocale().localize("action.city.founded"));
 
         //City founded?
         verify(cityManager).foundCity(albireox, "AValidName", district);
