@@ -31,46 +31,50 @@ import net.voxton.mafiacraft.MafiacraftCore;
 import org.bukkit.configuration.Configuration;
 
 /**
- *
- * @author ianschool
+ * Configuration access object.
  */
 public class Config {
+
     private static MafiacraftConfig config;
 
     public static void setConfig(MafiacraftConfig config) {
         Config.config = config;
     }
 
+    public static MafiacraftConfig getConfig() {
+        return config;
+    }
+
     public static List<String> getStringList(String string) {
-        return config.getStringList(string);
+        return getConfig().getStringList(string);
     }
 
     public static String getString(String string) {
-        return config.getString(string);
+        return getConfig().getString(string);
     }
 
     public static long getLong(String string) {
-        return config.getLong(string);
+        return getConfig().getLong(string);
     }
 
     public static int getInt(String string) {
-        return config.getInt(string);
+        return getConfig().getInt(string);
     }
 
     public static double getDouble(String string) {
-        return config.getDouble(string);
+        return getConfig().getDouble(string);
     }
 
     public static List<Boolean> getBooleanList(String string) {
-        return config.getBooleanList(string);
+        return getConfig().getBooleanList(string);
     }
 
     public static boolean getBoolean(String string) {
-        return config.getBoolean(string);
+        return getConfig().getBoolean(string);
     }
 
     public static Object get(String string) {
-        return config.get(string);
+        return getConfig().get(string);
     }
 
     /**
@@ -80,7 +84,8 @@ public class Config {
      * @param value
      */
     public static void set(String path, Object value) {
-        config.set(path, value);
-        config.saveConfig();
+        getConfig().set(path, value);
+        getConfig().saveConfig();
     }
+
 }
