@@ -56,7 +56,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
 
     private MPoint spawn;
 
-    private CityWorld cityWorld;
+    private MWorld cityWorld;
 
     public City(int id) {
         this.id = id;
@@ -422,7 +422,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
      *
      * @return
      */
-    public CityWorld getCityWorld() {
+    public MWorld getCityWorld() {
         return cityWorld;
     }
 
@@ -431,7 +431,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
      *
      * @param cityWorld
      */
-    public City setCityWorld(CityWorld cityWorld) {
+    public City setCityWorld(MWorld cityWorld) {
         this.cityWorld = cityWorld;
         return this;
     }
@@ -515,7 +515,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
         MPoint spawn = MPoint.deserialize(spawnS);
 
         String worldS = data.get("world").toString();
-        CityWorld cworld = Mafiacraft.getCityManager().getCityWorld(worldS);
+        MWorld cworld = Mafiacraft.getCityManager().getCityWorld(worldS);
 
         String mayor = data.get("mayor").toString();
 

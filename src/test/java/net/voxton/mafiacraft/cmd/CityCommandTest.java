@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import net.voxton.mafiacraft.geo.CityWorld;
+import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.player.MPlayer;
 import java.io.File;
 import net.voxton.mafiacraft.config.Config;
@@ -55,9 +55,9 @@ import static org.mockito.Mockito.verify;
 @PrepareForTest({Mafiacraft.class, Config.class})
 public class CityCommandTest {
 
-    private CityWorld world;
+    private MWorld world;
 
-    private CityWorld metroWorld;
+    private MWorld metroWorld;
 
     private City metroCity;
 
@@ -86,11 +86,11 @@ public class CityCommandTest {
         cityManager = mock(CityManager.class);
 
         //Mock the cityworld
-        world = mock(CityWorld.class);
+        world = mock(MWorld.class);
 
         //Mock the real world
         metroCity = mock(City.class);
-        metroWorld = mock(CityWorld.class);
+        metroWorld = mock(MWorld.class);
         when(metroWorld.getCapital()).thenReturn(metroCity);
 
         //Aubhaze has no permissions.

@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.help;
 
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.locale.LocaleManager;
-import net.voxton.mafiacraft.geo.CityWorld;
+import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.player.MPlayer;
 import java.io.File;
 import net.voxton.mafiacraft.Mafiacraft;
@@ -52,7 +52,7 @@ import static org.mockito.Matchers.*;
 @PrepareForTest({Config.class, Mafiacraft.class})
 public class HelpMenuTest {
 
-    private CityWorld world;
+    private MWorld world;
 
     private MPlayer aubhaze;
 

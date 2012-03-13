@@ -537,7 +537,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
      *
      * @return
      */
-    public CityWorld getCityWorld() {
+    public MWorld getCityWorld() {
         return getPoint().getWorld();
     }
 

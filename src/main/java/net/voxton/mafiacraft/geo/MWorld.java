@@ -34,7 +34,7 @@ import org.bukkit.configuration.serialization.SerializableAs;
  * Represents a world that contains cities.
  */
 @SerializableAs("cw")
-public class CityWorld implements ConfigurationSerializable {
+public class MWorld implements ConfigurationSerializable {
 
     private final String name;
 
@@ -45,7 +45,7 @@ public class CityWorld implements ConfigurationSerializable {
      */
     private Set<String> toggles = new HashSet<String>();
 
-    public CityWorld(String name) {
+    public MWorld(String name) {
         this.name = name;
     }
 
@@ -64,7 +64,7 @@ public class CityWorld implements ConfigurationSerializable {
      * @param capital
      * @return
      */
-    public CityWorld setCapital(City capital) {
+    public MWorld setCapital(City capital) {
         this.capital = capital;
         capital.setCityWorld(this);
         return this;
@@ -75,7 +75,7 @@ public class CityWorld implements ConfigurationSerializable {
      *
      * @return
      */
-    public CityWorld removeCapital() {
+    public MWorld removeCapital() {
         capital.setCityWorld(null);
         capital = null;
         return this;
@@ -154,9 +154,9 @@ public class CityWorld implements ConfigurationSerializable {
      * @param data The data in Map form.
      * @return The deserialized CityWorld object.
      */
-    public static CityWorld deserialize(Map<String, Object> data) {
+    public static MWorld deserialize(Map<String, Object> data) {
         String worldName = data.get("world").toString();
-        CityWorld cw = new CityWorld(worldName);
+        MWorld cw = new MWorld(worldName);
 
         List<String> toggles = (List<String>) data.get("toggles");
         for (String toggle : toggles) {

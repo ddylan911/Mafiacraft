@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.action.action;
 
-import net.voxton.mafiacraft.geo.CityWorld;
+import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.geo.WorldToggle;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
@@ -70,7 +70,7 @@ public final class CWorldActions extends PlayerActions {
             return player.getLocale().localize("command.general.not-allowed");
         }
 
-        CityWorld world = player.getCityWorld();
+        MWorld world = player.getCityWorld();
 
         WorldToggle tog = null;
         try {

@@ -55,7 +55,7 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     private String name;
 
-    private final CityWorld world;
+    private final MWorld world;
 
     private final int x;
 
@@ -71,7 +71,7 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     private double landCost;
 
-    public District(CityWorld world, int x, int z) {
+    public District(MWorld world, int x, int z) {
         this.world = world;
         this.x = x;
         this.z = z;
@@ -120,7 +120,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      *
      * @return
      */
-    public CityWorld getWorld() {
+    public MWorld getWorld() {
         return world;
     }
 
@@ -520,7 +520,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      *
      * @return
      */
-    public CityWorld getCityWorld() {
+    public MWorld getCityWorld() {
         return world;
     }
 
@@ -576,7 +576,7 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     public static District deserialize(Map<String, Object> data) {
         String worldS = data.get("world").toString();
-        CityWorld world = Mafiacraft.getWorld(worldS);
+        MWorld world = Mafiacraft.getWorld(worldS);
         if (world == null) {
             MLogger.log(Level.SEVERE, "Invalid world named '" + worldS
                     + "' encountered when deserializing a district!");

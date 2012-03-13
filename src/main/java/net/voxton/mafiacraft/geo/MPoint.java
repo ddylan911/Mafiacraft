@@ -36,7 +36,7 @@ import org.bukkit.Location;
  */
 public class MPoint implements Serializable {
 
-    private transient CityWorld world;
+    private transient MWorld world;
 
     private String worldString;
 
@@ -46,7 +46,7 @@ public class MPoint implements Serializable {
 
     private double z;
 
-    public MPoint(CityWorld world, double x, double y, double z) {
+    public MPoint(MWorld world, double x, double y, double z) {
         this.worldString = world.getName();
         this.world = world;
         this.x = x;
@@ -59,7 +59,7 @@ public class MPoint implements Serializable {
      * 
      * @return The world as a CityWorld.
      */
-    public CityWorld getWorld() {
+    public MWorld getWorld() {
         if (world == null) {
             world = Mafiacraft.getWorld(worldString);
         }

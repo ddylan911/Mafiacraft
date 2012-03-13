@@ -42,7 +42,7 @@ public class Section {
     
     public static final int SIDE_LENGTH = SIDE_MASK + 1;
 
-    private final CityWorld world;
+    private final MWorld world;
 
     private final int x;
     
@@ -50,14 +50,14 @@ public class Section {
 
     private final int z;
 
-    public Section(CityWorld world, int x, int y, int z) {
+    public Section(MWorld world, int x, int y, int z) {
         this.world = world;
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public CityWorld getWorld() {
+    public MWorld getWorld() {
         return world;
     }
 

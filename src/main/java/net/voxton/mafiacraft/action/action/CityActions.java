@@ -27,7 +27,7 @@ import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.City;
-import net.voxton.mafiacraft.geo.CityWorld;
+import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
@@ -116,7 +116,7 @@ public final class CityActions extends PlayerActions {
             return player.getLocale().localize("command.general.not-citizen");
         }
 
-        CityWorld cw = player.getCityWorld();
+        MWorld cw = player.getCityWorld();
         City capital = cw.getCapital();
         if (capital != null) {
             return player.getLocale().localize(

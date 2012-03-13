@@ -26,7 +26,7 @@ package net.voxton.mafiacraft.cmd;
 import net.voxton.mafiacraft.action.ActionType;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.locale.LocaleManager;
-import net.voxton.mafiacraft.geo.CityWorld;
+import net.voxton.mafiacraft.geo.MWorld;
 import java.io.File;
 import java.util.Arrays;
 import static org.mockito.Matchers.*;
@@ -52,7 +52,7 @@ import static org.mockito.Mockito.verify;
 @PrepareForTest({Mafiacraft.class, Config.class})
 public class CWorldCommandTest {
 
-    private CityWorld world;
+    private MWorld world;
 
     private MPlayer aubhaze;
 
@@ -74,7 +74,7 @@ public class CWorldCommandTest {
         //Locale setup end.
 
         //Mock the cityworld
-        world = mock(CityWorld.class);
+        world = mock(MWorld.class);
 
         //Aubhaze has no permissions.
         aubhaze = mock(MPlayer.class);
