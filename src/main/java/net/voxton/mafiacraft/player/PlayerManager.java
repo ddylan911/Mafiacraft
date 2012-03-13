@@ -30,7 +30,6 @@ import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.MafiacraftCore;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -68,7 +67,7 @@ public class PlayerManager {
     /**
      * Constructor.
      *
-     * @param mc The MafiaCraft plugin.
+     * @param mc The Mafiacraft plugin.
      */
     public PlayerManager(MafiacraftCore mc) {
         this.mc = mc;
