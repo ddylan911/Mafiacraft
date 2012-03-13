@@ -23,65 +23,46 @@
  */
 package net.voxton.mafiacraft.action.action;
 
-import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import net.voxton.mafiacraft.action.Actions;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import net.voxton.mafiacraft.action.PlayerActions;
 
 /**
  * Commands related to working with sections.
  */
-public final class SectionActions extends Actions {
+public final class SectionActions extends PlayerActions {
 
-    public  void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR
-                    + "Sorry, this command is only usable in game.");
-            return;
-        }
-
-        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
-
-        if (args.length < 1) {
-            doHelp(player);
-            return;
-        }
-
-        //Get the function we want to do.
-        String function = args[0];
-        List<String> largs = new ArrayList<String>(Arrays.asList(args));
-        largs.remove(0);
-
-        String result = null;
-        if (largs.size() < 1) {
-            if (function.equalsIgnoreCase("info")) {
-                result = doInfo(player);
-            } else {
-                result = doHelp(player);
-            }
-        } else {
-            result = doHelp(player);
-        }
-
-        if (result != null) {
-            player.sendMessage(MsgColor.ERROR + result);
-        }
+    public SectionActions() {
+        super(null); //TODO ake a help menu
     }
 
-    public  String doHelp(MPlayer player) {
+    @Override
+    protected String performActionCommand(MPlayer performer,
+            String action,
+            List<String> args) {
+
+        String result = null;
+        if (args.size() < 1) {
+            if (action.equalsIgnoreCase("info")) {
+                result = doInfo(performer);
+            } else {
+                result = doHelp(performer);
+            }
+        } else {
+            result = doHelp(performer);
+        }
+
+        return result;
+    }
+
+    public String doHelp(MPlayer player) {
         //TODO: help
         player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOL");
         return null;
     }
 
-    public  String doInfo(MPlayer player) {
+    public String doInfo(MPlayer player) {
         //TODO: info
         player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOLO");
         return null;
