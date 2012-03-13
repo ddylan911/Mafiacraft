@@ -330,4 +330,20 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         return new MWorld(world.getName());
     }
 
+    @Override
+    public double getMoney(MPlayer player) {
+        return economy.getBalance(player.getName());
+    }
+
+    @Override
+    public double setMoney(MPlayer player, double amt) {
+        double deposit = amt - getMoney(player);
+        if (deposit > 0) {
+            return economy.depositPlayer(player.getName(), deposit).balance;
+        } else if (deposit < 0) {
+            return economy.withdrawPlayer(player.getName(), -deposit).balance;
+        }
+        return 0;
+    }
+
 }

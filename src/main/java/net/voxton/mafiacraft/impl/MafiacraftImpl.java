@@ -75,4 +75,7 @@ public interface MafiacraftImpl {
 
     public String matchPlayerName(String name);
 
+    public double getMoney(MPlayer player);
+    
+    public double setMoney(MPlayer player, double amt);
 }

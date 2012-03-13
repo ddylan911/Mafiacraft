@@ -42,8 +42,9 @@ import org.bukkit.configuration.ConfigurationSection;
  * Represents a player.
  */
 public class MPlayer extends Transactable implements LandPurchaser, ActionPerformer {
+
     private final String name;
-    
+
     private String displayName;
 
     private String title;
@@ -216,32 +217,22 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
 
     @Override
     public double getMoney() {
-        return Mafiacraft.getVaultHelper().getEconomy().getBalance(name);
+        return Mafiacraft.getImpl().getMoney(this);
     }
 
     @Override
     public double setMoney(double amt) {
-        double deposit = amt - getMoney();
-        if (deposit > 0) {
-            return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(name, deposit).balance;
-        } else if (deposit < 0) {
-            return Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(name, -deposit).balance;
-        }
-        return 0;
+        return Mafiacraft.getImpl().setMoney(this, amt);
     }
 
     @Override
     public double addMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().
-                depositPlayer(name, amount);
-        return response.balance;
+        return setMoney(getMoney() + amount);
     }
 
     @Override
     public double subtractMoney(double amount) {
-        EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().
-                withdrawPlayer(name, amount);
-        return response.balance;
+        return setMoney(getMoney() - amount);
     }
 
     public boolean isOnline() {
@@ -577,7 +568,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
         Mafiacraft.getImpl().teleportPlayer(this, point);
         return this;
     }
-    
+
     /**
      * Teleports the player to a given location in the default time.
      * 
@@ -587,7 +578,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
     public MPlayer teleportWithCountdown(MPoint point) {
         return teleportWithCountdown(point, 10);
     }
-    
+
     /**
      * Teleports the player to a given location in the given time.
      * 
@@ -599,4 +590,5 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
         Mafiacraft.getPlayerManager().startTeleport(this, duration, point);
         return this;
     }
+
 }
