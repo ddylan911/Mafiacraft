@@ -23,13 +23,11 @@
  */
 package net.voxton.mafiacraft.chat.type;
 
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 /**
  * Global chat.
@@ -44,11 +42,11 @@ public class GlobalChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_GLOBAL + "[G] " + govPref + ChatColor.WHITE
+        String msg = MsgColor.CHAT_GLOBAL + "[G] " + govPref + MsgColor.NORMAL
                 + player.getDisplayName() + ": " + message;
 
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            players.sendMessage(msg);
+        for (MPlayer recipient : Mafiacraft.getOnlinePlayers()) {
+            recipient.sendMessage(msg);
         }
     }
 
