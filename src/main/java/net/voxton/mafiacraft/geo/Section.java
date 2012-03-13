@@ -24,6 +24,7 @@
 package net.voxton.mafiacraft.geo;
 
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.util.GeoUtils;
 
 /**
  * Represents a section of land.
@@ -33,19 +34,19 @@ public class Section {
     public static final int HEIGHT_BITS = 8;
 
     public static final int SIDE_BITS = 4;
-    
-    public static final int HEIGHT_MASK  = (~0) >>> (Integer.SIZE - HEIGHT_BITS);
-    
+
+    public static final int HEIGHT_MASK = (~0) >>> (Integer.SIZE - HEIGHT_BITS);
+
     public static final int SIDE_MASK = (~0) >>> (Integer.SIZE - SIDE_BITS);
-    
+
     public static final int HEIGHT_LENGTH = HEIGHT_MASK + 1;
-    
+
     public static final int SIDE_LENGTH = SIDE_MASK + 1;
 
     private final MWorld world;
 
     private final int x;
-    
+
     private final int y;
 
     private final int z;
@@ -68,7 +69,7 @@ public class Section {
     public int getY() {
         return y;
     }
-    
+
     public int getZ() {
         return z;
     }
@@ -84,21 +85,38 @@ public class Section {
     public int getDistrictZ() {
         return z >> District.SIDE_BITS;
     }
-    
+
     public int getOriginX() {
         return x & ~SIDE_MASK;
     }
-    
+
     public int getOriginY() {
         return y & ~HEIGHT_MASK;
     }
-    
+
     public int getOriginZ() {
         return z & ~SIDE_MASK;
     }
 
     public District getDistrict() {
-        return Mafiacraft.getCityManager().getDistrict(this);
+        return Mafiacraft.getCityManager().getDistrict(getWorld(),
+                getDistrictX(), getDistrictZ());
+    }
+
+    public LandOwner getOwner() {
+        return getDistrict().getOwner(this);
+    }
+
+    public byte getIdWithinDistrict() {
+        return GeoUtils.coordsToSectionId(x, z);
+    }
+
+    public String getName() {
+        District d = getDistrict();
+        StringBuilder nameBuilder = new StringBuilder(d.getName()).append('-');
+        byte sid = getIdWithinDistrict();
+        nameBuilder.append(Byte.toString(sid));
+        return nameBuilder.toString();
     }
 
 }

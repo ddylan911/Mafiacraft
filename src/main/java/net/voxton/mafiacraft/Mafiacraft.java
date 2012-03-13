@@ -204,36 +204,6 @@ public class Mafiacraft {
     }
 
     /**
-     * Gets the district associated with the given section.
-     *
-     * @param section
-     * @return
-     */
-    public static District getDistrict(Section section) {
-        return getCityManager().getDistrict(section);
-    }
-
-    /**
-     * Gets the owner of the given section.
-     *
-     * @param last
-     * @return
-     */
-    public static LandOwner getOwner(Section section) {
-        return getCityManager().getSectionOwner(section);
-    }
-
-    /**
-     * Gets the owner of the given section of land.
-     *
-     * @param section
-     * @return
-     */
-    public static LandOwner getSectionOwner(Section section) {
-        return getCityManager().getSectionOwner(section);
-    }
-
-    /**
      * Gets the LandOwner from the given String id.
      *
      * @param id

@@ -232,19 +232,7 @@ public class CityManager {
      * @return
      */
     public District getDistrict(MPlayer player) {
-        return getDistrict(player.getSection());
-    }
-
-    /**
-     * Gets the district that a chunk is part of. This will create a district if
-     * it needs to.
-     *
-     * @param chunk
-     * @return
-     */
-    public District getDistrict(Section section) {
-        return getDistrict(section.getWorld(), section.getDistrictX(), section.
-                getDistrictZ());
+        return player.getSection().getDistrict();
     }
 
     /**
@@ -500,30 +488,6 @@ public class CityManager {
                     + ", " + x + ", " + y + ", " + z + ") from cache.", ex);
         }
         return null;
-    }
-
-    /**
-     * Gets the owner of a section.
-     *
-     * @param chunk
-     * @return
-     */
-    public LandOwner getSectionOwner(Section section) {
-        return getDistrict(section).getOwner(section);
-    }
-
-    /**
-     * Gets the name of the specified section.
-     *
-     * @param section
-     * @return
-     */
-    public String getSectionName(Section section) {
-        District d = getDistrict(section);
-        StringBuilder nameBuilder = new StringBuilder(d.getName()).append('-');
-        byte sid = d.getSectionId(section);
-        nameBuilder.append(Byte.toString(sid));
-        return nameBuilder.toString();
     }
 
     /**

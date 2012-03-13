@@ -349,30 +349,6 @@ public class District implements LandOwner, ConfigurationSerializable {
     }
 
     /**
-     * Gets the user-friendly name of the section.
-     *
-     * @param section
-     * @return
-     */
-    public String getSectionName(Section section) {
-        short idUnsigned = (short) (getSectionId(section) + 127);
-        return getName() + '-' + idUnsigned;
-    }
-
-    /**
-     * Gets the id of the specified section.
-     *
-     * @param section
-     * @return
-     */
-    public byte getSectionId(Section section) {
-        if (!contains(section)) {
-            return -1;
-        }
-        return GeoUtils.coordsToSectionId(section.getX(), section.getZ());
-    }
-
-    /**
      * Checks if the district contains the specified location.
      *
      * @param location
