@@ -32,14 +32,8 @@ import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.vault.Transactable;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.logging.MLogger;
-import net.voxton.mafiacraft.util.LocationSerializer;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
-import org.bukkit.entity.Player;
 
 /**
  * Represents a... CITY!
