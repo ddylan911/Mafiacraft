@@ -99,7 +99,8 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                CityActions.parseCmd(cs, cmnd, string, strings);
+                BukkitImpl.this.performActionCommand(cs, cmnd, string, strings,
+                        ActionType.CITY);
                 return true;
             }
 
