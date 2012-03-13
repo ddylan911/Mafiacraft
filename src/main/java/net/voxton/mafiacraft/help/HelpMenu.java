@@ -25,13 +25,13 @@ package net.voxton.mafiacraft.help;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
@@ -235,7 +235,7 @@ public abstract class HelpMenu {
 
         int entries = helpP.size();
         int max = entries - 1;
-        
+
         int lines = HEIGHT - 1;
 
         int start = ((page - 1) * lines);
@@ -258,11 +258,11 @@ public abstract class HelpMenu {
         }
 
         int finish = start + lines - 1;
-        
+
         if (finish > max) {
             finish = max;
         }
-        
+
         for (int i = start; i <= finish; i++) {
             String entry = helpP.get(i);
             content.add(entry);
@@ -293,14 +293,14 @@ public abstract class HelpMenu {
     }
 
     /**
-     * Sends a page to the given player.
+     * Sends a page to the given performer.
      *
      * @param page The page to send.
-     * @param player The player to send to.
+     * @param performer The performer to send to.
      */
-    public void sendPage(int page, MPlayer player) {
-        for (String line : getPage(page, player.getLocale())) {
-            player.sendMessage(line);
+    public void sendPage(int page, ActionPerformer performer) {
+        for (String line : getPage(page, performer.getLocale())) {
+            performer.sendMessage(line);
         }
     }
 
@@ -328,25 +328,26 @@ public abstract class HelpMenu {
     /**
      * Does help for the given player.
      *
-     * @param player The player.
+     * @param performer The player.
      * @param arg The argument that is being parsed.
      */
-    public void doHelp(MPlayer player, String arg) {
+    public void doHelp(ActionPerformer performer, String arg) {
         int page = 1;
         try {
             page = Integer.parseInt(arg);
-            sendPage(page, player);
+            sendPage(page, performer);
             return;
         } catch (NumberFormatException ex) {
         }
 
         if (!hasCommand(arg)) {
-            player.sendMessage(MsgColor.ERROR + player.getLocale().localize(
+            performer.sendMessage(MsgColor.ERROR + performer.getLocale().
+                    localize(
                     "help.strange-argument"));
             return;
         }
 
-        player.sendMessage(MsgColor.ERROR + player.getLocale().localize(
+        performer.sendMessage(MsgColor.ERROR + performer.getLocale().localize(
                 "help.incorrect-usage",
                 getCompleteUsage(arg)));
     }
@@ -363,10 +364,10 @@ public abstract class HelpMenu {
     /**
      * Default help command.
      * 
-     * @param player The player to send the help menu to.
+     * @param performer The performer to send the help menu to.
      */
-    public void doHelp(MPlayer player) {
-        doHelp(player, "1");
+    public void doHelp(ActionPerformer performer) {
+        doHelp(performer, "1");
     }
 
 }

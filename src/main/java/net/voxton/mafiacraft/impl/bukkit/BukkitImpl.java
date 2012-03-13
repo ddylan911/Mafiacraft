@@ -24,18 +24,21 @@
 package net.voxton.mafiacraft.impl.bukkit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.MListener;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
+import net.voxton.mafiacraft.action.ActionPerformer;
+import net.voxton.mafiacraft.action.ActionType;
+import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.action.action.CWorldActions;
 import net.voxton.mafiacraft.action.action.ChatActions;
 import net.voxton.mafiacraft.action.action.CityActions;
 import net.voxton.mafiacraft.action.action.DistrictActions;
 import net.voxton.mafiacraft.action.action.DivisionActions;
 import net.voxton.mafiacraft.action.action.GovernmentActions;
-import net.voxton.mafiacraft.action.action.MafiacraftActions;
 import net.voxton.mafiacraft.action.action.SectionActions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.gov.GovType;
@@ -162,11 +165,29 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
             @Override
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                MafiacraftActions.parseCmd(cs, cmnd, string, strings);
+                BukkitImpl.this.performActionCommand(cs, cmnd, string, strings,
+                        ActionType.MAFIACRAFT);
                 return true;
             }
 
         });
+    }
+
+    private void performActionCommand(CommandSender sender, Command cmd,
+            String label, String[] args, Actions actions) {
+        ActionPerformer performer = null;
+        if (sender instanceof Player) {
+            performer = Mafiacraft.getPlayer(((Player) sender).getName());
+        } else {
+            performer = Mafiacraft.getConsolePerformer();
+        }
+
+        //Get the action we want to do.
+        String action = (args.length > 0) ? args[0] : "";
+        List<String> largs = Arrays.asList(args);
+        largs.remove(0);
+
+        actions.parseActionCommand(performer, action, largs);
     }
 
     @Override
@@ -200,7 +221,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         Location location = Bukkit.getPlayer(player.getName()).getLocation();
         return getPoint(location);
     }
-    
+
     /**
      * Gets an MPoint from a location.
      * 
@@ -236,7 +257,8 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
             return;
         }
         World world = Bukkit.getWorld(point.getWorld().getName());
-        Location location = new Location(world, point.getX(), point.getY(), point.getZ());
+        Location location = new Location(world, point.getX(), point.getY(),
+                point.getZ());
         bk.teleport(location);
     }
 
@@ -244,7 +266,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     public boolean isOnline(MPlayer player) {
         return getOfflinePlayer(player).isOnline();
     }
-    
+
     private OfflinePlayer getOfflinePlayer(MPlayer mplayer) {
         return Bukkit.getOfflinePlayer(mplayer.getName());
     }
@@ -257,12 +279,13 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         }
         op.getPlayer().sendMessage(message);
     }
-    
+
     @Override
     public boolean hasPermission(MPlayer player, String permission) {
         OfflinePlayer op = getOfflinePlayer(player);
         if (!op.isOnline()) {
-            throw new IllegalArgumentException("Player must be online to check permissions!");
+            throw new IllegalArgumentException(
+                    "Player must be online to check permissions!");
         }
         return op.getPlayer().hasPermission(permission);
     }
@@ -281,4 +304,5 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         Player player = Bukkit.getPlayer(name);
         return (player == null) ? name : player.getName();
     }
+
 }

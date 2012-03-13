@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.action.action;
 
+import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.City;
@@ -32,98 +33,72 @@ import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.ValidationUtils;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import net.voxton.mafiacraft.action.Actions;
+import net.voxton.mafiacraft.action.PlayerActions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.help.MenuType;
 import net.voxton.mafiacraft.util.StringUtils;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 /**
  * Contains all city-related commands.
  */
-public final class CityActions extends Actions {
+public final class CityActions extends PlayerActions {
 
-    public void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(
-                    MsgColor.ERROR
-                    + Mafiacraft.getDefaultLocale().localize(
-                    "command.general.ingame-only"));
-            return;
-        }
+    @Override
+    public String performActionCommand(MPlayer performer, String action,
+            List<String> args) {
 
-        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
-
-        if (args.length < 1) {
-            doHelp(player);
-            return;
-        }
-
-        //Get the function we want to do.
-        String function = args[0];
-        List<String> largs = new ArrayList<String>(Arrays.asList(args));
-        largs.remove(0);
-
-        String result = null;
-
-        if (largs.size() < 1) {
-            if (function.equalsIgnoreCase("annex")) {
-                result = doAnnex(player);
-            } else if (function.equalsIgnoreCase("funds")) {
-                result = doFunds(player);
-            } else if (function.equalsIgnoreCase("spawn")) {
-                result = doSpawn(player);
-            } else if (function.equalsIgnoreCase("setspawn")) {
-                result = doSetSpawn(player);
-            } else if (function.equalsIgnoreCase("unannex")) {
-                result = doUnannex(player);
-            } else if (function.equalsIgnoreCase("disband")) {
-                result = doDisband(player);
-            } else if (function.equalsIgnoreCase("claim")) {
-                result = doClaim(player);
-            } else if (function.equalsIgnoreCase("unclaim")) {
-                result = doUnclaim(player);
+        String result;
+        if (args.size() < 1) {
+            if (action.equalsIgnoreCase("annex")) {
+                result = doAnnex(performer);
+            } else if (action.equalsIgnoreCase("funds")) {
+                result = doFunds(performer);
+            } else if (action.equalsIgnoreCase("spawn")) {
+                result = doSpawn(performer);
+            } else if (action.equalsIgnoreCase("setspawn")) {
+                result = doSetSpawn(performer);
+            } else if (action.equalsIgnoreCase("unannex")) {
+                result = doUnannex(performer);
+            } else if (action.equalsIgnoreCase("disband")) {
+                result = doDisband(performer);
+            } else if (action.equalsIgnoreCase("claim")) {
+                result = doClaim(performer);
+            } else if (action.equalsIgnoreCase("unclaim")) {
+                result = doUnclaim(performer);
             } else {
-                result = doHelp(player, function);
+                result = doHelp(performer, action);
             }
-        } else if (largs.size() < 2) {
-            if (function.equalsIgnoreCase("bus")) {
-                result = doBus(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("found")) {
-                result = doFound(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("rename")) {
-                result = doRename(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("deposit")) {
-                result = doDeposit(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("withdraw")) {
-                result = doWithdraw(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("setchief")) {
-                result = doSetChief(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("setassistant")) {
-                result = doSetAssistant(player, largs.get(0));
+        } else if (args.size() < 2) {
+            if (action.equalsIgnoreCase("bus")) {
+                result = doBus(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("found")) {
+                result = doFound(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("rename")) {
+                result = doRename(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("deposit")) {
+                result = doDeposit(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("withdraw")) {
+                result = doWithdraw(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("setchief")) {
+                result = doSetChief(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("setassistant")) {
+                result = doSetAssistant(performer, args.get(0));
             } else {
-                result = doHelp(player, function);
+                result = doHelp(performer, action);
             }
-        } else if (largs.size() < 3) {
-            if (function.equalsIgnoreCase("makepolice")) {
-                result = doMakePolice(player, largs.get(0), largs.get(1));
+        } else if (args.size() < 3) {
+            if (action.equalsIgnoreCase("makepolice")) {
+                result = doMakePolice(performer, args.get(0), args.get(1));
             } else {
-                result = doHelp(player, function);
+                result = doHelp(performer, action);
             }
         } else {
-            result = doHelp(player, function);
+            result = doHelp(performer, action);
         }
 
-        if (result != null) {
-            player.sendMessage(MsgColor.ERROR + result);
-        }
+        return result;
     }
 
     public String doHelp(MPlayer player) {

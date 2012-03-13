@@ -24,6 +24,8 @@
 package net.voxton.mafiacraft.action;
 
 import java.util.logging.Level;
+import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.player.MsgColor;
 
@@ -35,6 +37,11 @@ public class ConsolePerformer implements ActionPerformer {
     @Override
     public void sendMessage(String message) {
         MLogger.log(Level.INFO, MsgColor.INFO + message);
+    }
+
+    @Override
+    public Locale getLocale() {
+        return Mafiacraft.getDefaultLocale();
     }
 
 }

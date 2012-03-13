@@ -24,12 +24,31 @@
 package net.voxton.mafiacraft.action;
 
 import java.util.List;
+import net.voxton.mafiacraft.help.HelpMenu;
 import net.voxton.mafiacraft.player.MsgColor;
 
 /**
  * Performs actions.
  */
 public abstract class Actions {
+
+    private final HelpMenu help;
+
+    /**
+     * Constructor for unhelpful actions.
+     */
+    public Actions() {
+        this.help = null;
+    }
+
+    /**
+     * Constructor for helpful actions.
+     * 
+     * @param help The help menu.
+     */
+    public Actions(HelpMenu help) {
+        this.help = help;
+    }
 
     /**
      * Parses an action command into a distinct performer, action, and arguments.
@@ -40,6 +59,11 @@ public abstract class Actions {
      */
     public void parseActionCommand(ActionPerformer performer, String action,
             List<String> args) {
+        if (action.isEmpty() && help != null) {
+            doHelp(performer);
+            return;
+        }
+
         String result = performActionCommand(performer, action, args);
         if (result != null) {
             performer.sendMessage(MsgColor.ERROR + result);
@@ -54,7 +78,15 @@ public abstract class Actions {
      * @param args The arguments if any.
      * @return The result of the action.
      */
-    public abstract String performActionCommand(ActionPerformer performer,
+    protected abstract String performActionCommand(ActionPerformer performer,
             String action, List<String> args);
+
+    public void doHelp(ActionPerformer performer) {
+        help.doHelp(performer);
+    }
+
+    public void doHelp(ActionPerformer performer, String arg) {
+        help.doHelp(performer, arg);
+    }
 
 }

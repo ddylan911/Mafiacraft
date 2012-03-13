@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft;
 
+import net.voxton.mafiacraft.action.ConsolePerformer;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.chat.ChatHandler;
@@ -46,6 +47,8 @@ public class MafiacraftCore {
 
     private CityManager cityManager;
 
+    private ConsolePerformer consolePerformer;
+
     private DataWorker dataWorker;
 
     private GovernmentManager governmentManager;
@@ -53,7 +56,7 @@ public class MafiacraftCore {
     private LocaleManager localeManager;
 
     private PlayerManager playerManager;
-    
+
     private TaskManager taskManager;
 
     private VaultHelper vaultHelper;
@@ -120,6 +123,9 @@ public class MafiacraftCore {
         MLogger.log("Initializing cities...");
         cityManager = new CityManager(this);
 
+        MLogger.log("Initializing console performer...");
+        consolePerformer = new ConsolePerformer();
+
         MLogger.log("Initializing data...");
         dataWorker = new DataWorker(this);
 
@@ -131,7 +137,7 @@ public class MafiacraftCore {
 
         MLogger.log("Initializing players...");
         playerManager = new PlayerManager(this);
-        
+
         MLogger.log("Setting up the task manager...");
         taskManager = new TaskManager();
 
@@ -139,7 +145,7 @@ public class MafiacraftCore {
         vaultHelper = new VaultHelper(this);
 
         //Load data
-        MLogger.log("Loading all data...");
+        MLogger.log("Loading all data into memory...");
         dataWorker.loadAll();
 
         //Log
@@ -152,6 +158,10 @@ public class MafiacraftCore {
 
     public CityManager getCityManager() {
         return cityManager;
+    }
+
+    public ConsolePerformer getConsolePerformer() {
+        return consolePerformer;
     }
 
     public DataWorker getDataWorker() {

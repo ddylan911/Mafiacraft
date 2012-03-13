@@ -26,6 +26,7 @@ package net.voxton.mafiacraft.action.action;
 import java.util.List;
 import net.voxton.mafiacraft.action.PlayerActions;
 import net.voxton.mafiacraft.chat.ChatType;
+import net.voxton.mafiacraft.help.HelpMenu;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 
@@ -33,6 +34,10 @@ import net.voxton.mafiacraft.player.MsgColor;
  * /chat command.
  */
 public final class ChatActions extends PlayerActions {
+
+    public ChatActions() {
+        super();
+    }
 
     @Override
     public String performActionCommand(MPlayer performer, String action,

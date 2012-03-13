@@ -29,6 +29,7 @@ import net.voxton.mafiacraft.action.action.CityActions;
 import net.voxton.mafiacraft.action.action.DistrictActions;
 import net.voxton.mafiacraft.action.action.DivisionActions;
 import net.voxton.mafiacraft.action.action.GovernmentActions;
+import net.voxton.mafiacraft.action.action.MafiacraftActions;
 import net.voxton.mafiacraft.action.action.SectionActions;
 import net.voxton.mafiacraft.gov.GovType;
 
@@ -47,6 +48,8 @@ public class ActionType {
 
     public static final GovernmentActions MAFIA = new GovernmentActions(
             GovType.MAFIA);
+    
+    public static final MafiacraftActions MAFIACRAFT = new MafiacraftActions();
 
     public static final DivisionActions REGIME = new DivisionActions(
             GovType.MAFIA);

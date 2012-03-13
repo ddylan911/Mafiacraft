@@ -34,13 +34,12 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.vault.VaultHelper;
 import java.util.List;
+import net.voxton.mafiacraft.action.ConsolePerformer;
 import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.locale.LocaleManager;
-import org.bukkit.Chunk;
-import org.bukkit.entity.Player;
 
 /**
  * Mafiacraft API accessor static class.
@@ -139,6 +138,15 @@ public class Mafiacraft {
      */
     public static CityManager getCityManager() {
         return getCore().getCityManager();
+    }
+    
+    /**
+     * Gets the console performer.
+     * 
+     * @return The console performer.
+     */
+    public static ConsolePerformer getConsolePerformer() {
+        return getCore().getConsolePerformer();
     }
 
     /**

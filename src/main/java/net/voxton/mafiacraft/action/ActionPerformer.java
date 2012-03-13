@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.action;
 
+import net.voxton.mafiacraft.locale.Locale;
+
 /**
  * Interface for entities that can perform actions.
  */
@@ -33,4 +35,11 @@ public interface ActionPerformer {
      * @param message The message to send.
      */
     public void sendMessage(String message);
+    
+    /**
+     * Gets the locale of the {@link ActionPerformer}.
+     * 
+     * @return The {@link Locale}.
+     */
+    public Locale getLocale();
 }

@@ -25,6 +25,7 @@ package net.voxton.mafiacraft.action;
 
 import java.util.List;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.help.HelpMenu;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 
@@ -33,8 +34,16 @@ import net.voxton.mafiacraft.player.MsgColor;
  */
 public abstract class PlayerActions extends Actions {
 
+    public PlayerActions() {
+        super();
+    }
+
+    public PlayerActions(HelpMenu help) {
+        super(help);
+    }
+
     @Override
-    public String performActionCommand(ActionPerformer performer, String action,
+    protected String performActionCommand(ActionPerformer performer, String action,
             List<String> args) {
         if (!(performer instanceof MPlayer)) {
             performer.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().
@@ -45,8 +54,7 @@ public abstract class PlayerActions extends Actions {
         return performActionCommand((MPlayer) performer, action, args);
     }
 
-    
-    public abstract String performActionCommand(MPlayer performer, String action,
+    protected abstract String performActionCommand(MPlayer performer, String action,
             List<String> args);
 
 }
