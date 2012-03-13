@@ -44,4 +44,9 @@ public class ConsolePerformer implements ActionPerformer {
         return Mafiacraft.getDefaultLocale();
     }
 
+    @Override
+    public boolean hasPermission(String permission) {
+        return true;
+    }
+
 }
