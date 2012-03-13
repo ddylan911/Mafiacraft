@@ -27,11 +27,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.bukkit.ChatColor;
+import net.voxton.mafiacraft.player.MsgColor;
 
 /**
- *
- * @author simplyianm
+ * Represents a type of Government.
  */
 public abstract class GovType {
 
@@ -45,9 +44,9 @@ public abstract class GovType {
 
     private final boolean canFound;
 
-    private final ChatColor color;
+    private final String color;
 
-    public GovType(boolean canFound, ChatColor color) {
+    public GovType(boolean canFound, String color) {
         locale();
         this.canFound = canFound;
         this.color = color;
@@ -77,7 +76,7 @@ public abstract class GovType {
 
     public abstract void locale();
 
-    public ChatColor getColor() {
+    public String getColor() {
         return color;
     }
 
@@ -98,7 +97,7 @@ public abstract class GovType {
     }
 
     static {
-        MAFIA = new GovType(true, ChatColor.DARK_RED) {
+        MAFIA = new GovType(true, MsgColor.MAFIA) {
 
             @Override
             public String getName() {
@@ -123,18 +122,18 @@ public abstract class GovType {
 
                 //Chat
                 m("gov.chatpref", "m"); //Mafia
-                m("gov.chatp", ChatColor.DARK_RED + "[M]");
+                m("gov.chatp", MsgColor.MAFIA + "[M]");
                 m("gov.chatalias", "maf");
                 m("div.chatpref", "r"); //Regime
-                m("div.chatp", ChatColor.GOLD + "[R]");
+                m("div.chatp", MsgColor.REGIME + "[R]");
                 m("div.chatalias", "reg");
                 m("off.chatpref", "o"); //Officer
-                m("off.chatp", ChatColor.GREEN + "[O]");
+                m("off.chatp", MsgColor.OFFICER + "[O]");
                 m("off.chatalias", "off");
             }
 
         };
-        POLICE = new GovType(false, ChatColor.BLUE) {
+        POLICE = new GovType(false, MsgColor.POLICE) {
 
             @Override
             public String getName() {
@@ -159,13 +158,13 @@ public abstract class GovType {
 
                 //Chat
                 m("gov.chatpref", "p"); //Police
-                m("gov.chatp", ChatColor.DARK_BLUE + "[P]");
+                m("gov.chatp", MsgColor.POLICE + "[P]");
                 m("gov.chatalias", "pol");
                 m("div.chatpref", "s"); //Squad
-                m("div.chatp", ChatColor.AQUA + "[S]");
+                m("div.chatp", MsgColor.SQUAD + "[S]");
                 m("div.chatalias", "sq");
                 m("off.chatpref", "o"); //Commander
-                m("off.chatp", ChatColor.GRAY + "[CM]");
+                m("off.chatp", MsgColor.COMMANDER + "[CM]");
                 m("off.chatalias", "cmd");
             }
 

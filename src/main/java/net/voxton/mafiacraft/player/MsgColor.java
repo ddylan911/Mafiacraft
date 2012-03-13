@@ -30,6 +30,9 @@ import org.bukkit.ChatColor;
 
 /**
  * Holds message colors.
+ * 
+ * <p>Note: I include Bukkit references here because I think they are set
+ * at compile time. If they aren't... well... crap.</p>
  */
 public class MsgColor {
 
@@ -64,6 +67,18 @@ public class MsgColor {
     public static final String HELP_DEF = ChatColor.YELLOW.toString();
     
     public static final String NORMAL = ChatColor.WHITE.toString();
+    
+    public static final String MAFIA = ChatColor.DARK_RED.toString();
+    
+    public static final String REGIME = ChatColor.GOLD.toString();
+
+    public static final String OFFICER = ChatColor.GREEN.toString();
+    
+    public static final String POLICE = ChatColor.BLUE.toString();
+    
+    public static final String SQUAD = ChatColor.AQUA.toString();
+    
+    public static final String COMMANDER = ChatColor.GRAY.toString();
 
     private static final Map<String, String> colors = new HashMap<String, String>();
     

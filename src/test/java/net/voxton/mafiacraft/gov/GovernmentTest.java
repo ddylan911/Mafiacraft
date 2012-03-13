@@ -23,7 +23,6 @@
  */
 package net.voxton.mafiacraft.gov;
 
-import org.bukkit.World;
 import java.util.ArrayList;
 import java.util.Arrays;
 import net.voxton.mafiacraft.Mafiacraft;
@@ -36,7 +35,6 @@ import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.geo.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
 import org.bukkit.Chunk;
-import org.bukkit.Location;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
