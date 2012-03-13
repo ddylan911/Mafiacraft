@@ -24,6 +24,8 @@
 package net.voxton.mafiacraft.player;
 
 import com.google.common.cache.*;
+import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.MafiacraftCore;
 import java.io.File;
@@ -34,6 +36,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.geo.MPoint;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -58,6 +61,12 @@ public class PlayerManager {
      * The Kill tracker.
      */
     private KillTracker killTracker;
+
+    /**
+     * Holds people teleporting, value as the task id.
+     */
+    private TObjectIntMap<MPlayer> teleporting =
+            new TObjectIntHashMap<MPlayer>();
 
     /**
      * Constructor.
@@ -278,4 +287,25 @@ public class PlayerManager {
         return getPlayer(player);
     }
 
+    public PlayerManager startTeleport(MPlayer player, int duration, MPoint point) {
+        if (hasTeleport(player)) {
+            throw new IllegalStateException("Player already teleporting!");
+        }
+        
+        TeleportCountdown tc = new TeleportCountdown(player, duration, point);
+        teleporting.put(player, Mafiacraft.getImpl().scheduleRepeatingTask(tc, 20L));
+        return this;
+    }
+    
+    public PlayerManager cancelTeleport(MPlayer player) {
+        int task = teleporting.get(player);
+        if (task > 0) {
+            Mafiacraft.getImpl().cancelTask(task);
+        }
+        return this;
+    }
+    
+    public boolean hasTeleport(MPlayer player) {
+        return teleporting.containsKey(player);
+    }
 }
