@@ -29,7 +29,6 @@ import java.util.logging.Level;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.util.StringSerializer;
-import org.bukkit.Location;
 
 /**
  * Represents a point in space.
