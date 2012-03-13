@@ -27,18 +27,16 @@ import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import org.bukkit.ChatColor;
 
 /**
- *
- * @author Dylan
+ * District chat channel.
  */
 public class DistrictChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
         if (player.getDistrict() == null) {
-            player.sendMessage(ChatColor.RED + "You are not in a district."); //Why
+            player.sendMessage(MsgColor.ERROR + "You are not in a district."); //Why
             return;
         }
 
@@ -48,7 +46,7 @@ public class DistrictChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_DISTRICT + "[D] " + govPref + ChatColor.WHITE
+        String msg = MsgColor.CHAT_DISTRICT + "[D] " + govPref + MsgColor.NORMAL
                 + player.getDisplayName() + ": " + message;
 
         for (MPlayer players : player.getDistrict().getPlayers()) {
