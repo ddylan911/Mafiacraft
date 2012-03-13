@@ -23,7 +23,9 @@
  */
 package net.voxton.mafiacraft.action.action;
 
+import java.util.List;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.player.MsgColor;
 import org.bukkit.command.Command;
@@ -34,67 +36,50 @@ import org.bukkit.command.CommandSender;
  */
 public class MafiacraftActions extends Actions {
 
-    /**
-     * Parses the command and executes it.
-     *
-     * @param sender The command sender.
-     * @param cmd The command.
-     * @param label The command label.
-     * @param args The arguments.
-     */
-    public void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args) {
+    @Override
+    protected String performActionCommand(ActionPerformer performer,
+            String action,
+            List<String> args) {
 
-        if (args.length < 1) {
-            doHelp(sender);
-            return;
-        }
-
-        String function = args[0];
-
-        if (function.equalsIgnoreCase("reload")) {
-            doReload(sender);
-        } else if (function.equalsIgnoreCase("saveall")) {
-            doSaveAll(sender);
-        } else if (function.equalsIgnoreCase("version")) {
-            doVersion(sender);
+        if (action.equalsIgnoreCase("reload")) {
+            doReload(performer);
+        } else if (action.equalsIgnoreCase("saveall")) {
+            doSaveAll(performer);
+        } else if (action.equalsIgnoreCase("version")) {
+            doVersion(performer);
         } else {
-            doHelp(sender);
+            doHelp(performer);
         }
-    }
-
-    public String doHelp(CommandSender sender) {
-        sender.sendMessage(MsgColor.INFO
-                + "Help: /mafiacraft <version|reload|saveall>. Nuff said.");
+        
         return null;
     }
 
-    public String doReload(CommandSender sender) {
-        if (!sender.hasPermission("mafiacraft.admin")) {
-            sender.sendMessage(MsgColor.ERROR
+    public String doReload(ActionPerformer performer) {
+        if (!performer.hasPermission("mafiacraft.admin")) {
+            performer.sendMessage(MsgColor.ERROR
                     + "You are not allowed to use this command.");
         }
 
-        sender.sendMessage(MsgColor.INFO + "Mafiacraft reloading...");
+        performer.sendMessage(MsgColor.INFO + "Mafiacraft reloading...");
         Mafiacraft.loadAll();
-        sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft reload complete.");
+        performer.sendMessage(MsgColor.SUCCESS + "Mafiacraft reload complete.");
         return null;
     }
 
-    public String doSaveAll(CommandSender sender) {
-        if (!sender.hasPermission("mafiacraft.admin")) {
-            sender.sendMessage(MsgColor.ERROR
+    public String doSaveAll(ActionPerformer performer) {
+        if (!performer.hasPermission("mafiacraft.admin")) {
+            performer.sendMessage(MsgColor.ERROR
                     + "You are not allowed to use this command.");
         }
 
-        sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft saving all...");
+        performer.sendMessage(MsgColor.SUCCESS + "Mafiacraft saving all...");
         Mafiacraft.saveAll();
-        sender.sendMessage(MsgColor.SUCCESS + "Mafiacraft save complete.");
+        performer.sendMessage(MsgColor.SUCCESS + "Mafiacraft save complete.");
         return null;
     }
 
-    public String doVersion(CommandSender sender) {
-        sender.sendMessage(MsgColor.INFO
+    public String doVersion(ActionPerformer performer) {
+        performer.sendMessage(MsgColor.INFO
                 + "This server is running Mafiacraft version " + Mafiacraft.
                 getCore().getVersionDetailed() + ".");
         return null;
