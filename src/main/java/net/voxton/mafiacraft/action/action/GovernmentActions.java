@@ -512,8 +512,7 @@ public final class GovernmentActions extends PlayerActions {
         gov.subtractMoney(price);
 
         player.sendMessage(MsgColor.SUCCESS
-                + "You have successfully claimed the section " + district.
-                getSectionName(section) + " for your " + gov.getType().getName()
+                + "You have successfully claimed the section " + section.getName() + " for your " + gov.getType().getName()
                 + ".");
         return null;
     }
@@ -535,7 +534,7 @@ public final class GovernmentActions extends PlayerActions {
         }
 
         Section section = player.getSection();
-        if (!Mafiacraft.getSectionOwner(section).equals(gov)) {
+        if (!section.getOwner().equals(gov)) {
             return "The HQ must be specified within HQ land.";
         }
 
