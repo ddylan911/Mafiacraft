@@ -321,7 +321,7 @@ public class Mafiacraft {
      * @return The CityWorld.
      */
     public static MWorld getWorld(String worldString) {
-        return getCityManager().getCityWorld(worldString);
+        return getCityManager().getWorld(worldString);
     }
 
 }

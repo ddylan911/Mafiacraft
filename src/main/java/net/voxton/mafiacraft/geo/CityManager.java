@@ -57,7 +57,7 @@ public class CityManager {
     /**
      * Contains world names mapped to their respective cityworlds.
      */
-    private Map<String, MWorld> cityWorldMap =
+    private Map<String, MWorld> worldMap =
             new HashMap<String, MWorld>();
 
     /**
@@ -115,7 +115,7 @@ public class CityManager {
     }
 
     /////////////////
-    // CITY WORLD
+    // WORLD
     /////////////////
     /**
      * Gets a city world from its name.
@@ -124,11 +124,11 @@ public class CityManager {
      * @return The CityWorld corresponding with the name, or null if there is
      *      no such world.
      */
-    public MWorld getCityWorld(String worldString) {
-        MWorld cworld = cityWorldMap.get(worldString);
+    public MWorld getWorld(String worldString) {
+        MWorld cworld = worldMap.get(worldString);
         if (cworld == null) {
             cworld = new MWorld(worldString);
-            cityWorldMap.put(worldString, cworld);
+            worldMap.put(worldString, cworld);
         }
         return cworld;
     }
@@ -138,8 +138,8 @@ public class CityManager {
      *
      * @return The city world list.
      */
-    public List<MWorld> getCityWorldList() {
-        return new ArrayList<MWorld>(cityWorldMap.values());
+    public List<MWorld> getWorldList() {
+        return new ArrayList<MWorld>(worldMap.values());
     }
 
     /////////////////
@@ -304,7 +304,7 @@ public class CityManager {
                     + uid + "'.");
         }
 
-        MWorld world = getCityWorld(split[0]);
+        MWorld world = getWorld(split[0]);
         if (world == null) {
             MLogger.log(Level.SEVERE, "Invalid District UID encountered for world: '"
                     + uid + "'!");
@@ -558,7 +558,7 @@ public class CityManager {
     private Section createSection(MWorld world, int x, int y, int z) {
         return new Section(world, x, y, z);
     }
-    
+
     /**
      * Gets a section key from an x, y, and z.
      * 
@@ -637,11 +637,11 @@ public class CityManager {
         File cityFile = Mafiacraft.getOrCreateSubFile("geo", "cityworlds.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(cityFile);
 
-        cityWorldMap = new HashMap<String, MWorld>();
+        worldMap = new HashMap<String, MWorld>();
 
         for (String key : conf.getKeys(false)) {
             MWorld cityWorld = (MWorld) conf.get(key);
-            cityWorldMap.put(cityWorld.getName(), cityWorld);
+            worldMap.put(cityWorld.getName(), cityWorld);
         }
 
         return this;
@@ -738,7 +738,7 @@ public class CityManager {
         File cityFile = Mafiacraft.getOrCreateSubFile("geo", "cityworlds.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
-        for (MWorld cityWorld : getCityWorldList()) {
+        for (MWorld cityWorld : getWorldList()) {
             conf.set(cityWorld.getName(), cityWorld);
         }
 

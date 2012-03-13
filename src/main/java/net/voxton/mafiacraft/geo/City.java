@@ -515,7 +515,7 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
         MPoint spawn = MPoint.deserialize(spawnS);
 
         String worldS = data.get("world").toString();
-        MWorld cworld = Mafiacraft.getCityManager().getCityWorld(worldS);
+        MWorld cworld = Mafiacraft.getCityManager().getWorld(worldS);
 
         String mayor = data.get("mayor").toString();
 
