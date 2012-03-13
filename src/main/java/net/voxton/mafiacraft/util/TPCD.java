@@ -26,6 +26,7 @@ package net.voxton.mafiacraft.util;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.impl.bukkit.BukkitImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -72,7 +73,7 @@ public class TPCD implements Runnable {
     }
 
     public static void makeCountdown(int iterations, Type type,
-            Player player, Location location) {
+            Player player, MPoint location) {
         if (isSpawning(player)) {
             removeCountdown(player);
         }

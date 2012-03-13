@@ -68,7 +68,7 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     private final int z;
 
-    private Location busStop;
+    private MPoint busStop;
 
     private DistrictType type;
 
@@ -436,7 +436,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      *
      * @return
      */
-    public Location getBusStop() {
+    public MPoint getBusStop() {
         return busStop;
     }
 
@@ -446,7 +446,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @param busStop
      * @return This district
      */
-    public District setBusStop(Location busStop) {
+    public District setBusStop(MPoint busStop) {
         this.busStop = busStop;
         return this;
     }
@@ -565,7 +565,7 @@ public class District implements LandOwner, ConfigurationSerializable {
         data.put("name", getName());
         data.put("desc", getDescription());
 
-        data.put("bus", LocationSerializer.serializeFull(getBusStop()));
+        data.put("bus", getBusStop().serializeToString());
         data.put("type", getType().name());
         data.put("landcost", getLandCost());
 
@@ -635,8 +635,7 @@ public class District implements LandOwner, ConfigurationSerializable {
                     + typeStr + "'!", ex);
         }
 
-        Map<String, Object> busS = (Map<String, Object>) data.get("bus");
-        Location bus = LocationSerializer.deserializeFull(busS);
+        MPoint bus = MPoint.deserialize(data.get("bus").toString());
 
         String landCostS = data.get("landcost").toString();
         double landCost = 0.0d;

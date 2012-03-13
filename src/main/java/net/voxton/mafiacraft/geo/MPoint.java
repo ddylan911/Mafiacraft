@@ -29,6 +29,7 @@ import java.util.logging.Level;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.util.StringSerializer;
+import org.bukkit.Location;
 
 /**
  * Represents a point in space.
@@ -99,6 +100,19 @@ public class MPoint implements Serializable {
      */
     public Section getSection() {
         return Mafiacraft.getCityManager().getSection(this);
+    }
+
+    /**
+     * Gets the distance from the other MPoint squared.
+     * 
+     * @param other
+     * @return 
+     */
+    public double distanceSquared(MPoint other) {
+        double dx = x - other.x;
+        double dy = y - other.y;
+        double dz = z - other.z;
+        return (dx * dx + dy * dy + dz * dz);
     }
 
     /**

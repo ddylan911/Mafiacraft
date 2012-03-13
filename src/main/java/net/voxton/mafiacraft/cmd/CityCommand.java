@@ -36,8 +36,9 @@ import net.voxton.mafiacraft.util.ValidationUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.help.MenuType;
-import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -166,7 +167,7 @@ public final class CityCommand {
         }
 
         //Found a city
-        Chunk sample = player.getChunk();
+        Section sample = player.getSection();
         District district = Mafiacraft.getDistrict(sample);
         City city =
                 Mafiacraft.getCityManager().foundCity(player, name, district);
@@ -204,7 +205,7 @@ public final class CityCommand {
             return player.getLocale().localize("command.city.not-in");
         }
 
-        Location spawn = city.getSpawnPoint();
+        MPoint spawn = city.getSpawnPoint();
         if (spawn == null) {
             return player.getLocale().localize("command.city.no-spawn");
         }
@@ -360,7 +361,7 @@ public final class CityCommand {
         int busDist = Config.getInt("district.bus-max-distance");
 
         District thisDist = player.getDistrict();
-        Location thisBus = thisDist.getBusStop();
+        MPoint thisBus = thisDist.getBusStop();
         if (player.getPoint().distanceSquared(thisBus) > busDist * busDist) {
             return player.getLocale().localize(
                     "command.district.bus-max-distance", busDist);
@@ -373,7 +374,7 @@ public final class CityCommand {
                     districtName);
         }
 
-        Location bus = d.getBusStop();
+        MPoint bus = d.getBusStop();
         if (bus == null) {
             return player.getLocale().localize("command.district.no-bus");
         }
@@ -475,11 +476,11 @@ public final class CityCommand {
                     amtFmt);
         }
 
-        Chunk chunk = player.getChunk();
-        String sn = city.getSectionName(chunk);
+        Section section = player.getSection();
+        String sn = city.getSectionName(section);
 
         //Claim the section
-        d.setOwner(chunk, city);
+        d.setOwner(section, city);
 
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
                 "command.city.claimed", sn));
@@ -506,11 +507,11 @@ public final class CityCommand {
             return player.getLocale().localize("command.city.already-owned");
         }
 
-        Chunk chunk = player.getChunk();
-        String sn = city.getSectionName(chunk);
+        Section section = player.getSection();
+        String sn = city.getSectionName(section);
 
         //Unclaim the section
-        d.removeOwner(chunk);
+        d.removeOwner(section);
 
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
                 "command.city.unclaimed", sn));
