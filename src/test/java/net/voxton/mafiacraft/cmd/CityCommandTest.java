@@ -204,7 +204,7 @@ public class CityCommandTest {
         when(albireox.getSection()).thenReturn(section);
 
         District district = mock(District.class);
-        when(Mafiacraft.getDistrict(section)).thenReturn(district);
+        when(section.getDistrict()).thenReturn(district);
         //End
 
         String expected = null;
