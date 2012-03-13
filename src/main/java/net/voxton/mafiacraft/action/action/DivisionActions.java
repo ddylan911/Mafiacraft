@@ -445,7 +445,7 @@ public final class DivisionActions extends PlayerActions {
         }
 
         Section section = player.getSection();
-        if (!Mafiacraft.getSectionOwner(section).equals(div)) {
+        if (!section.getOwner().equals(div)) {
             return "The HQ must be specified within HQ land.";
         }
 
