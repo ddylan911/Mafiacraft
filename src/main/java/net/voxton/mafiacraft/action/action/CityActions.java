@@ -141,7 +141,7 @@ public final class CityActions extends PlayerActions {
 
         //Found a city
         Section sample = player.getSection();
-        District district = Mafiacraft.getDistrict(sample);
+        District district = sample.getDistrict();
         City city =
                 Mafiacraft.getCityManager().foundCity(player, name, district);
         player.transferMoney(city, foundCost);
