@@ -23,11 +23,9 @@
  */
 package net.voxton.mafiacraft.locale;
 
-import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import net.voxton.mafiacraft.config.Config;
 import java.io.File;
-import java.util.logging.Logger;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.Mafiacraft;

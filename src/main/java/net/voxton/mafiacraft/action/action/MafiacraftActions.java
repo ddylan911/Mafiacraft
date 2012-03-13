@@ -28,8 +28,6 @@ import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.player.MsgColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 
 /**
  * Mafiacraft command.
