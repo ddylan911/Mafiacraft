@@ -62,7 +62,7 @@ public class BukkitListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer().getName());
         Section c = impl.getPoint(event.getBlock().getLocation()).getSection();
-        District d = Mafiacraft.getDistrict(c);
+        District d = c.getDistrict();
 
         if (!d.canBuild(player, c)) {
             player.sendMessage(MsgColor.ERROR
@@ -85,7 +85,7 @@ public class BukkitListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         MPlayer player = Mafiacraft.getPlayer(event.getPlayer().getName());
         Section c = player.getSection();
-        District d = Mafiacraft.getDistrict(c);
+        District d = c.getDistrict();
 
         if (!d.canBuild(player, c)) {
             player.sendMessage(MsgColor.ERROR
@@ -210,16 +210,16 @@ public class BukkitListener implements Listener {
             return;
         }
 
-        LandOwner lastOwner = Mafiacraft.getOwner(last);
-        LandOwner currentOwner = Mafiacraft.getOwner(current);
+        LandOwner lastOwner = last.getOwner();
+        LandOwner currentOwner = current.getOwner();
 
         if (!lastOwner.equals(currentOwner)) {
             player.sendMessage(currentOwner.getEntryMessage());
         }
 
         //Check for reserved district
-        District dest = Mafiacraft.getCityManager().getDistrict(current);
-        District prev = Mafiacraft.getCityManager().getDistrict(last);
+        District dest = current.getDistrict();
+        District prev = last.getDistrict();
 
         if (!dest.getType().canEnter(player)) {
             long now = System.currentTimeMillis();
