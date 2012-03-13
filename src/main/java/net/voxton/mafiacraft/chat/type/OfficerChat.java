@@ -26,18 +26,17 @@ package net.voxton.mafiacraft.chat.type;
 import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
-import org.bukkit.ChatColor;
+import net.voxton.mafiacraft.player.MsgColor;
 
 /**
- *
- * @author Dylan
+ * Officer chat chanel.
  */
 public class OfficerChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
         String pref = player.getGovernment().getType().getLocale("off.chatp");
-        String msg = pref + " " + ChatColor.WHITE + player.getDisplayName()
+        String msg = pref + " " + MsgColor.NORMAL + player.getDisplayName()
                 + ": " + message;
 
         for (MPlayer o : player.getGovernment().getOnlineOfficers()) {
