@@ -23,14 +23,12 @@
  */
 package net.voxton.mafiacraft.gov;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.District;
@@ -45,8 +43,6 @@ import java.util.logging.Level;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.logging.MLogger;
-import net.voxton.mafiacraft.util.StringSerializer;
-import org.bukkit.Chunk;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
