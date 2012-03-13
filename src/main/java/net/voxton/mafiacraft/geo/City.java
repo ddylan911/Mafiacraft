@@ -23,7 +23,12 @@
  */
 package net.voxton.mafiacraft.geo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.gov.Government;
