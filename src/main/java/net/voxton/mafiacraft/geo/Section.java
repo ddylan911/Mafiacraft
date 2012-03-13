@@ -45,12 +45,15 @@ public class Section {
     private final CityWorld world;
 
     private final int x;
+    
+    private final int y;
 
     private final int z;
 
-    public Section(CityWorld world, int x, int z) {
+    public Section(CityWorld world, int x, int y, int z) {
         this.world = world;
         this.x = x;
+        this.y = y;
         this.z = z;
     }
 
@@ -62,6 +65,10 @@ public class Section {
         return x;
     }
 
+    public int getY() {
+        return y;
+    }
+    
     public int getZ() {
         return z;
     }
@@ -70,30 +77,28 @@ public class Section {
         return x >> District.SIDE_BITS;
     }
 
+    public int getDistrictY() {
+        return y >> District.HEIGHT_BITS;
+    }
+
     public int getDistrictZ() {
         return z >> District.SIDE_BITS;
     }
     
     public int getOriginX() {
-        return getSectionOrigin(x);
+        return x & ~SIDE_MASK;
+    }
+    
+    public int getOriginY() {
+        return y & ~HEIGHT_MASK;
     }
     
     public int getOriginZ() {
-        return getSectionOrigin(z);
+        return z & ~SIDE_MASK;
     }
 
     public District getDistrict() {
         return Mafiacraft.getCityManager().getDistrict(this);
     }
 
-    /**
-     * Gets the origin of a section in relation to a district.
-     * 
-     * @param coord
-     * @return 
-     */
-    private static int getSectionOrigin(int coord) {
-        return (coord >= 0) ? (coord & ~SIDE_MASK) : -((Math.abs(coord + 1) & ~SIDE_MASK)
-                + SIDE_LENGTH);
-    }
 }

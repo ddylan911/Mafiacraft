@@ -23,6 +23,13 @@
  */
 package net.voxton.mafiacraft.geo;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
@@ -37,10 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
@@ -52,7 +57,8 @@ public class CityManager {
     /**
      * Contains world names mapped to their respective cityworlds.
      */
-    private Map<String, CityWorld> cityWorldMap = new HashMap<String, CityWorld>();
+    private Map<String, CityWorld> cityWorldMap =
+            new HashMap<String, CityWorld>();
 
     /**
      * Contains mappings of cities to their ids.
@@ -81,6 +87,11 @@ public class CityManager {
      */
     private Map<District, City> districtCityMap = new HashMap<District, City>();
 
+    /**
+     * Map that stores section caches.
+     */
+    private Map<String, Cache<Long, Section>> sections;
+
     private final MafiacraftCore mc;
 
     /**
@@ -106,7 +117,6 @@ public class CityManager {
     /////////////////
     // CITY WORLD
     /////////////////
-
     /**
      * Gets a city world from its name.
      * 
@@ -233,7 +243,8 @@ public class CityManager {
      * @return
      */
     public District getDistrict(Section section) {
-        return getDistrict(section.getWorld(), section.getDistrictX(), section.getDistrictZ());
+        return getDistrict(section.getWorld(), section.getDistrictX(), section.
+                getDistrictZ());
     }
 
     /**
@@ -472,16 +483,25 @@ public class CityManager {
     /////////////////
     // SECTION METHODS
     /////////////////
-
     /**
-     * Gets the section that corresponds with the point.
+     * Gets a section from its coordinates.
      * 
-     * @param point
-     * @return 
+     * @param world The world.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param z The z coordinate.
+     * @return The section.
      */
-    public Section getSection(MPoint point) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Section getSection(CityWorld world, int x, int y, int z) {
+        try {
+            return getSectionCache(world).get(getSectionKey(x, y, z));
+        } catch (ExecutionException ex) {
+            MLogger.log(Level.SEVERE, "Could not retrieve section (" + world
+                    + ", " + x + ", " + y + ", " + z + ") from cache.", ex);
+        }
+        return null;
     }
+
     /**
      * Gets the owner of a section.
      *
@@ -504,6 +524,53 @@ public class CityManager {
         byte sid = d.getSectionId(section);
         nameBuilder.append(Byte.toString(sid));
         return nameBuilder.toString();
+    }
+
+    /**
+     * Gets the section cache of a world.
+     * 
+     * @param world The world of the cache.
+     * @return The section cache.
+     */
+    private Cache<Long, Section> getSectionCache(final CityWorld world) {
+        Cache<Long, Section> cache = sections.get(world.getName());
+        if (cache == null) {
+            CacheBuilder builder = CacheBuilder.newBuilder();
+
+            builder.maximumSize(10000).expireAfterWrite(10, TimeUnit.MINUTES);
+
+            cache = builder.build(
+                    new CacheLoader<Long, Section>() {
+
+                        @Override
+                        public Section load(Long key) throws Exception {
+                            int x = (int) ((key & 0xFFFFF80000000000L) >>> 43);
+                            int y = (int) ((key & 0x7FFFFC00000L) >>> 22);
+                            int z = (int) ((key & 0x3ffffe) >>> 1);
+                            return createSection(world, x, y, z);
+                        }
+
+                    });
+        }
+        return cache;
+    }
+
+    private Section createSection(CityWorld world, int x, int y, int z) {
+        return new Section(world, x, y, z);
+    }
+    
+    /**
+     * Gets a section key from an x, y, and z.
+     * 
+     * @param x The x.
+     * @param y The y.
+     * @param z The z.
+     * @return The section key.
+     */
+    private static long getSectionKey(int x, int y, int z) {
+        return ((x & 0x1fffff) << 1)
+                | ((y & 0x1fffffL) << 22)
+                | ((z & 0x1fffffL) << 43);
     }
 
     /////////////
@@ -606,7 +673,8 @@ public class CityManager {
      * @return This newly loaded CityManager.
      */
     public CityManager loadDistricts() {
-        File districtFile = Mafiacraft.getOrCreateSubFile("geo", "districts.yml");
+        File districtFile =
+                Mafiacraft.getOrCreateSubFile("geo", "districts.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(
                 districtFile);
 
@@ -715,7 +783,8 @@ public class CityManager {
      * @return This CityManager.
      */
     public CityManager saveDistricts() {
-        File districtFile = Mafiacraft.getOrCreateSubFile("geo", "districts.yml");
+        File districtFile =
+                Mafiacraft.getOrCreateSubFile("geo", "districts.yml");
         YamlConfiguration conf = new YamlConfiguration();
 
         for (District district : getDistrictList()) {

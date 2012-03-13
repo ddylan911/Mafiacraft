@@ -35,7 +35,7 @@ import org.bukkit.Location;
  * Represents a point in space.
  */
 public class MPoint implements Serializable {
-    
+
     private transient CityWorld world;
 
     private String worldString;
@@ -93,13 +93,28 @@ public class MPoint implements Serializable {
         return z;
     }
 
+    public int getBlockX() {
+        return (int) getX();
+    }
+
+    public int getBlockY() {
+        return (int) getY();
+    }
+
+    public int getBlockZ() {
+        return (int) getZ();
+    }
+
     /**
      * Gets the section this MPoint is located.
      * 
      * @return The section containing the MPoint.
      */
     public Section getSection() {
-        return Mafiacraft.getCityManager().getSection(this);
+        int sx = (getBlockX() & ~0xf) >> Section.SIDE_BITS;
+        int sy = (getBlockY() & ~0xf) >> Section.HEIGHT_BITS;
+        int sz = (getBlockZ() & ~0xf) >> Section.SIDE_BITS;
+        return Mafiacraft.getCityManager().getSection(world, sx, sy, sz);
     }
 
     /**
@@ -124,11 +139,12 @@ public class MPoint implements Serializable {
         try {
             return StringSerializer.toString(this);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "Could not serialize the MPoint " + this + "!", ex);
+            MLogger.log(Level.SEVERE, "Could not serialize the MPoint " + this
+                    + "!", ex);
         }
         return null;
     }
-    
+
     /**
      * Deserializes an MPoint from a string.
      * 
@@ -139,12 +155,16 @@ public class MPoint implements Serializable {
         try {
             return StringSerializer.fromString(string, MPoint.class);
         } catch (IOException ex) {
-            MLogger.log(Level.SEVERE, "Could not deserialize an MPoint from a string!", ex);
+            MLogger.log(Level.SEVERE,
+                    "Could not deserialize an MPoint from a string!", ex);
         } catch (ClassNotFoundException ex) {
-            MLogger.log(Level.SEVERE, "Could not deserialize an MPoint due to a class not being found!", ex);
+            MLogger.log(Level.SEVERE,
+                    "Could not deserialize an MPoint due to a class not being found!",
+                    ex);
         } catch (ClassCastException ex) {
             MLogger.log(Level.SEVERE, "Given string is not an MPoint!", ex);
         }
         return null;
     }
+
 }
