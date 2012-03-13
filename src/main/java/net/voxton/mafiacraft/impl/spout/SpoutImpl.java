@@ -157,4 +157,14 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public double getMoney(MPlayer player) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double setMoney(MPlayer player, double amt) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
