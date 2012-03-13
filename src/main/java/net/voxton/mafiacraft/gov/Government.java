@@ -110,7 +110,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
      * @return
      */
     public boolean canHQBeClaimed() {
-        return getLand() > getTotalLand();
+        return getLand() >= getTotalLand();
     }
 
     /**
@@ -228,7 +228,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
         List<String> members = new ArrayList<String>();
         members.add(leader);
         members.add(viceLeader);
-        members.addAll(getMembers(Position.OFFICER));
+        members.addAll(officers);
         return members;
     }
 
