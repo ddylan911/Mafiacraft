@@ -29,6 +29,7 @@ import net.voxton.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.action.Actions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ import org.bukkit.entity.Player;
 /**
  * Commands related to working with sections.
  */
-public final class SectionActions {
+public final class SectionActions extends Actions {
 
     public  void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {

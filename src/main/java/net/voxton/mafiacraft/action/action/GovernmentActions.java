@@ -37,6 +37,7 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.help.MenuType;
@@ -48,7 +49,7 @@ import org.bukkit.entity.Player;
 /**
  * Holds government-related commands.
  */
-public final class GovernmentActions {
+public final class GovernmentActions extends Actions {
 
     private final GovType type;
 

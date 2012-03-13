@@ -21,49 +21,32 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.action.action;
+package net.voxton.mafiacraft.action;
 
 import java.util.List;
-import net.voxton.mafiacraft.action.PlayerActions;
-import net.voxton.mafiacraft.chat.ChatType;
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 
 /**
- * /chat command.
+ * Represents actions that can only be done ingame.
  */
-public final class ChatActions extends PlayerActions {
+public abstract class PlayerActions extends Actions {
 
     @Override
-    public String performActionCommand(MPlayer performer, String action,
+    public String performActionCommand(ActionPerformer performer, String action,
             List<String> args) {
-        if (action.isEmpty()) {
-            doChat(performer);
-            return null;
+        if (!(performer instanceof MPlayer)) {
+            performer.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().
+                    localize(
+                    "command.general.ingame-only"));
         }
 
-        return doChat(performer, action);
+        return performActionCommand((MPlayer) performer, action, args);
     }
 
-    public String doChat(MPlayer player) {
-        doChat(player, "");
-        return null;
-    }
-
-    public String doChat(MPlayer player, String type) {
-        ChatType chatType = ChatType.valueOf(type);
-        if (chatType == null) {
-            return player.getLocale().localize("command.chat.invalid-chat-type");
-        }
-
-        if (!chatType.canJoin(player)) {
-            return player.getLocale().localize("command.chat.not-allowed");
-        }
-
-        player.setChatType(chatType);
-        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
-                "command.chat.changed", chatType.getName()));
-        return null;
-    }
+    
+    public abstract String performActionCommand(MPlayer performer, String action,
+            List<String> args);
 
 }

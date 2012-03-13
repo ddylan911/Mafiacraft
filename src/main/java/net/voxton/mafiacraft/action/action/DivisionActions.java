@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import net.voxton.mafiacraft.action.ActionType;
+import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.gov.GovType;
@@ -48,7 +49,7 @@ import org.bukkit.entity.Player;
 /**
  * Division related commands.
  */
-public final class DivisionActions {
+public final class DivisionActions extends Actions {
 
     private final GovType type;
 

@@ -34,6 +34,7 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.help.MenuType;
 import net.voxton.mafiacraft.util.StringUtils;
@@ -44,9 +45,9 @@ import org.bukkit.entity.Player;
 /**
  * Commands relating to districts.
  */
-public final class DistrictActions {
+public final class DistrictActions extends Actions {
 
-    public  void parseCmd(CommandSender sender, Command cmd, String label,
+    public void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().
@@ -102,7 +103,7 @@ public final class DistrictActions {
         }
     }
 
-    public  String doDesc(MPlayer player, String description) {
+    public String doDesc(MPlayer player, String description) {
         if (!player.hasPermission("mafiacraft.mod")) {
             return player.getLocale().localize("command.general.not-allowed");
         }
@@ -134,24 +135,24 @@ public final class DistrictActions {
         return null;
     }
 
-    public  String doHelp(MPlayer player) {
+    public String doHelp(MPlayer player) {
         MenuType.DISTRICT.doHelp(player);
         return null;
     }
 
-    public  String doHelp(MPlayer player, String arg) {
+    public String doHelp(MPlayer player, String arg) {
         MenuType.DISTRICT.doHelp(player, arg);
         return null;
     }
 
-    public  String doInfo(MPlayer player) {
+    public String doInfo(MPlayer player) {
         //TODO add real info
         player.sendMessage("You are in the district " + player.getDistrict().
                 getNameInChat());
         return null;
     }
 
-    public  String doSetBus(MPlayer player) {
+    public String doSetBus(MPlayer player) {
         if (!player.hasPermission("mafiacraft.mod")) {
             return player.getLocale().localize("command.general.not-allowed");
         }
@@ -176,7 +177,7 @@ public final class DistrictActions {
         return null;
     }
 
-    public  String doZone(MPlayer player, String typeString) {
+    public String doZone(MPlayer player, String typeString) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return player.getLocale().localize("command.general.not-citizen");
         }
@@ -210,7 +211,7 @@ public final class DistrictActions {
         return null;
     }
 
-    public  String doClaimGrid(MPlayer player) {
+    public String doClaimGrid(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return player.getLocale().localize("command.general.not-citizen");
         }
@@ -238,7 +239,7 @@ public final class DistrictActions {
         return null;
     }
 
-    public  String doSetCost(MPlayer player, String amount) {
+    public String doSetCost(MPlayer player, String amount) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return player.getLocale().localize("command.general.not-citizen");
         }

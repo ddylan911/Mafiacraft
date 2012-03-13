@@ -31,6 +31,7 @@ import net.voxton.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.help.MenuType;
 import org.bukkit.command.Command;
@@ -40,7 +41,7 @@ import org.bukkit.entity.Player;
 /**
  * Manages the CityWorld.
  */
-public final class CWorldActions {
+public final class CWorldActions extends Actions {
 
     public void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
