@@ -24,21 +24,19 @@
 package net.voxton.mafiacraft.chat.type;
 
 import net.voxton.mafiacraft.chat.ChatType;
-import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
-import org.bukkit.ChatColor;
+import net.voxton.mafiacraft.player.MsgColor;
 
 /**
- *
- * @author Dylan
+ * Division chat channel.
  */
 public class DivisionChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
         String pref = player.getGovernment().getType().getLocale("div.chatp");
-        String msg = pref + " " + ChatColor.WHITE + player.getDisplayName()
+        String msg = pref + " " + MsgColor.NORMAL + player.getDisplayName()
                 + ": " + message;
 
         for (MPlayer p : player.getDivision().getOnlineMembers()) {
