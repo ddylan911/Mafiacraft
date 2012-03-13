@@ -23,7 +23,12 @@
  */
 package net.voxton.mafiacraft.gov;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.Mafiacraft;
@@ -35,7 +40,6 @@ import net.voxton.mafiacraft.vault.Transactable;
 import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
-import net.voxton.mafiacraft.util.LocationSerializer;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 /**
