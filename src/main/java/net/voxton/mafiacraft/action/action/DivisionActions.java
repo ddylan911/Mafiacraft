@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import net.voxton.mafiacraft.action.Actions;
+import net.voxton.mafiacraft.action.ActionType;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.gov.GovType;
@@ -195,9 +195,9 @@ public final class DivisionActions {
      */
     public String doCreate(MPlayer player, String name) {
         if (type.equals(GovType.MAFIA)) {
-            return Actions.MAFIA.doCreateDivision(player, name);
+            return ActionType.MAFIA.doCreateDivision(player, name);
         } else if (type.equals(GovType.POLICE)) {
-            return Actions.POLICE.doCreateDivision(player, name);
+            return ActionType.POLICE.doCreateDivision(player, name);
         }
 
         return "THE WORLD HAS ENDED";

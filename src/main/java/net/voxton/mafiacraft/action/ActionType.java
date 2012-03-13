@@ -35,7 +35,7 @@ import net.voxton.mafiacraft.gov.GovType;
 /**
  * Contains constants to get to each action quickly.
  */
-public class Actions {
+public class ActionType {
 
     public static final CWorldActions CWORLD = new CWorldActions();
 

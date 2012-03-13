@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
-import net.voxton.mafiacraft.action.Actions;
+import net.voxton.mafiacraft.action.ActionType;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.vault.Transactable;
 import net.voxton.mafiacraft.geo.District;
@@ -116,7 +116,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doFound(aubhaze, "test");
+        String result = ActionType.CITY.doFound(aubhaze, "test");
 
         assertEquals(expected, result);
     }
@@ -130,7 +130,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.capital-established");
-        String result = Actions.CITY.doFound(albireox, "test");
+        String result = ActionType.CITY.doFound(albireox, "test");
 
         assertEquals(expected, result);
     }
@@ -145,7 +145,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.no-money.found", "$10,000,000.00");
-        String result = Actions.CITY.doFound(albireox, "5000");
+        String result = ActionType.CITY.doFound(albireox, "5000");
 
         assertEquals(expected, result);
     }
@@ -159,7 +159,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.invalid-name");
-        String result = Actions.CITY.doFound(albireox, "The Name Of No Gods");
+        String result = ActionType.CITY.doFound(albireox, "The Name Of No Gods");
 
         assertEquals(expected, result);
     }
@@ -180,7 +180,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.name-taken");
-        String result = Actions.CITY.doFound(albireox, "TakenName");
+        String result = ActionType.CITY.doFound(albireox, "TakenName");
 
         assertEquals(expected, result);
     }
@@ -208,7 +208,7 @@ public class CityCommandTest {
         //End
 
         String expected = null;
-        String result = Actions.CITY.doFound(albireox, "AValidName");
+        String result = ActionType.CITY.doFound(albireox, "AValidName");
 
         assertEquals(expected, result);
 
@@ -228,7 +228,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doSetSpawn(aubhaze);
+        String result = ActionType.CITY.doSetSpawn(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -243,7 +243,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doSetSpawn(aubhaze);
+        String result = ActionType.CITY.doSetSpawn(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -258,7 +258,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doSpawn(aubhaze);
+        String result = ActionType.CITY.doSpawn(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -269,7 +269,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doAnnex(aubhaze);
+        String result = ActionType.CITY.doAnnex(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -280,7 +280,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doUnannex(aubhaze);
+        String result = ActionType.CITY.doUnannex(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -295,7 +295,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doUnannex(aubhaze);
+        String result = ActionType.CITY.doUnannex(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -306,7 +306,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doRename(aubhaze, "test");
+        String result = ActionType.CITY.doRename(aubhaze, "test");
 
         assertEquals(expected, result);
     }
@@ -321,7 +321,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doRename(aubhaze, "test");
+        String result = ActionType.CITY.doRename(aubhaze, "test");
 
         assertEquals(expected, result);
     }
@@ -332,7 +332,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doFunds(aubhaze);
+        String result = ActionType.CITY.doFunds(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -347,7 +347,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doFunds(aubhaze);
+        String result = ActionType.CITY.doFunds(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -358,7 +358,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doDisband(aubhaze);
+        String result = ActionType.CITY.doDisband(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -373,7 +373,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doDisband(aubhaze);
+        String result = ActionType.CITY.doDisband(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -384,7 +384,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doBus(aubhaze, "there");
+        String result = ActionType.CITY.doBus(aubhaze, "there");
 
         assertEquals(expected, result);
     }
@@ -399,7 +399,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doBus(aubhaze, "asdf");
+        String result = ActionType.CITY.doBus(aubhaze, "asdf");
 
         assertEquals(expected, result);
     }
@@ -410,7 +410,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doDeposit(aubhaze, "test");
+        String result = ActionType.CITY.doDeposit(aubhaze, "test");
 
         assertEquals(expected, result);
     }
@@ -427,7 +427,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doDeposit(aubhaze, "10");
+        String result = ActionType.CITY.doDeposit(aubhaze, "10");
 
         assertEquals(expected, result);
     }
@@ -439,7 +439,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doWithdraw(aubhaze, "test");
+        String result = ActionType.CITY.doWithdraw(aubhaze, "test");
 
         assertEquals(expected, result);
     }
@@ -454,7 +454,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doWithdraw(aubhaze, "20");
+        String result = ActionType.CITY.doWithdraw(aubhaze, "20");
 
         assertEquals(expected, result);
     }
@@ -465,7 +465,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doClaim(aubhaze);
+        String result = ActionType.CITY.doClaim(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -480,7 +480,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doClaim(aubhaze);
+        String result = ActionType.CITY.doClaim(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -491,7 +491,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doUnclaim(aubhaze);
+        String result = ActionType.CITY.doUnclaim(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -506,7 +506,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doUnclaim(aubhaze);
+        String result = ActionType.CITY.doUnclaim(aubhaze);
 
         assertEquals(expected, result);
     }
@@ -518,7 +518,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doMakePolice(aubhaze, "asdf", "derp");
+        String result = ActionType.CITY.doMakePolice(aubhaze, "asdf", "derp");
 
         assertEquals(expected, result);
     }
@@ -533,7 +533,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doMakePolice(aubhaze, "bob", "marley");
+        String result = ActionType.CITY.doMakePolice(aubhaze, "bob", "marley");
 
         assertEquals(expected, result);
     }
@@ -545,7 +545,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doSetChief(aubhaze, "asdf");
+        String result = ActionType.CITY.doSetChief(aubhaze, "asdf");
 
         assertEquals(expected, result);
     }
@@ -560,7 +560,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doSetChief(aubhaze, "person");
+        String result = ActionType.CITY.doSetChief(aubhaze, "person");
 
         assertEquals(expected, result);
     }
@@ -572,7 +572,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-citizen");
-        String result = Actions.CITY.doSetAssistant(aubhaze, "asdf");
+        String result = ActionType.CITY.doSetAssistant(aubhaze, "asdf");
 
         assertEquals(expected, result);
     }
@@ -587,7 +587,7 @@ public class CityCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.city.not-in");
-        String result = Actions.CITY.doSetAssistant(aubhaze, "Asdf");
+        String result = ActionType.CITY.doSetAssistant(aubhaze, "Asdf");
 
         assertEquals(expected, result);
     }
