@@ -34,22 +34,17 @@ import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import net.voxton.mafiacraft.action.Actions;
+import net.voxton.mafiacraft.action.PlayerActions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.help.MenuType;
 import net.voxton.mafiacraft.util.StringUtils;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 /**
  * Holds government-related commands.
  */
-public final class GovernmentActions extends Actions {
+public final class GovernmentActions extends PlayerActions {
 
     private final GovType type;
 
@@ -57,87 +52,68 @@ public final class GovernmentActions extends Actions {
         this.type = type;
     }
 
-    public void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().
-                    localize("command.general.ingame-only"));
-            return;
-        }
-
-        MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
-
-        if (args.length < 1) {
-            doHelp(player, type);
-            return;
-        }
-
-        //Get the function we want to do.
-        String function = args[0];
-        List<String> largs = new ArrayList<String>(Arrays.asList(args));
-        largs.remove(0);
-
+    @Override
+    protected String performActionCommand(MPlayer performer, String action,
+            List<String> args) {
         String result = null;
 
-        if (largs.size() < 1) {
-            if (function.equalsIgnoreCase("who")) {
-                result = doWho(player);
-            } else if (function.equalsIgnoreCase("claim")) {
-                result = doClaim(player);
-            } else if (function.equalsIgnoreCase("hq")) {
-                result = doHq(player);
-            } else if (function.equalsIgnoreCase("sethq")) {
-                result = doSetHq(player);
-            } else if (function.equalsIgnoreCase("leave")) {
-                result = doLeave(player, type);
-            } else if (function.equalsIgnoreCase("player")) {
-                result = doPlayer(player);
-            } else if (function.equalsIgnoreCase("accept")) {
-                result = doAccept(player, type);
+        if (args.size() < 1) {
+            if (action.equalsIgnoreCase("who")) {
+                result = doWho(performer);
+            } else if (action.equalsIgnoreCase("claim")) {
+                result = doClaim(performer);
+            } else if (action.equalsIgnoreCase("hq")) {
+                result = doHq(performer);
+            } else if (action.equalsIgnoreCase("sethq")) {
+                result = doSetHq(performer);
+            } else if (action.equalsIgnoreCase("leave")) {
+                result = doLeave(performer, type);
+            } else if (action.equalsIgnoreCase("player")) {
+                result = doPlayer(performer);
+            } else if (action.equalsIgnoreCase("accept")) {
+                result = doAccept(performer, type);
             } else {
-                result = doHelp(player, function, type);
+                result = doHelp(performer, action, type);
             }
-        } else if (largs.size() < 2) {
-            if (function.equalsIgnoreCase("who")) {
-                result = doWho(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("invite")) {
-                result = doInvite(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("createdivision")) {
-                result = doCreateDivision(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("kick")) {
-                result = doKick(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("player")) {
-                result = doPlayer(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("found")) {
-                result = doFound(player, largs.get(0), type);
-            } else if (function.equalsIgnoreCase("promoteofficer")) {
-                result = doPromoteOfficer(player, largs.get(0));
-            } else if (function.equalsIgnoreCase("demoteofficer")) {
-                result = doDemoteOfficer(player, largs.get(0));
+        } else if (args.size() < 2) {
+            if (action.equalsIgnoreCase("who")) {
+                result = doWho(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("invite")) {
+                result = doInvite(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("createdivision")) {
+                result = doCreateDivision(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("kick")) {
+                result = doKick(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("player")) {
+                result = doPlayer(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("found")) {
+                result = doFound(performer, args.get(0), type);
+            } else if (action.equalsIgnoreCase("promoteofficer")) {
+                result = doPromoteOfficer(performer, args.get(0));
+            } else if (action.equalsIgnoreCase("demoteofficer")) {
+                result = doDemoteOfficer(performer, args.get(0));
             } else {
-                result = doHelp(player, function, type);
+                result = doHelp(performer, action, type);
             }
-        } else if (largs.size() < 3) {
-            if (function.equalsIgnoreCase("grant")) {
-                result = doGrant(player, largs.get(0), largs.get(1));
-            } else if (function.equalsIgnoreCase("setmanager")
-                    || function.equalsIgnoreCase("setcapo")
-                    || function.equalsIgnoreCase("setsergeant")) {
-                result = doSetManager(player, largs.get(0), largs.get(1));
+        } else if (args.size() < 3) {
+            if (action.equalsIgnoreCase("grant")) {
+                result = doGrant(performer, args.get(0), args.get(1));
+            } else if (action.equalsIgnoreCase("setmanager")
+                    || action.equalsIgnoreCase("setcapo")
+                    || action.equalsIgnoreCase("setsergeant")) {
+                result = doSetManager(performer, args.get(0), args.get(1));
             } else {
-                result = doHelp(player, function, type);
+                result = doHelp(performer, action, type);
             }
         } else {
-            if (function.equalsIgnoreCase("found")) {
-                result = doFound(player, Joiner.on(' ').join(largs), type);
+            if (action.equalsIgnoreCase("found")) {
+                result = doFound(performer, Joiner.on(' ').join(args), type);
             } else {
-                result = doHelp(player, function, type);
+                result = doHelp(performer, action, type);
             }
         }
 
-        if (result != null) {
-            player.sendMessage(MsgColor.ERROR + result);
-        }
+        return result;
     }
 
     public String doHelp(MPlayer player, GovType type) {
