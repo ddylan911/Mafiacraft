@@ -448,7 +448,7 @@ public final class CityActions extends PlayerActions {
         }
 
         Section section = player.getSection();
-        String sn = city.getSectionName(section);
+        String sn = section.getName();
 
         //Claim the section
         d.setOwner(section, city);
@@ -479,7 +479,7 @@ public final class CityActions extends PlayerActions {
         }
 
         Section section = player.getSection();
-        String sn = city.getSectionName(section);
+        String sn = section.getName();
 
         //Unclaim the section
         d.removeOwner(section);
