@@ -23,8 +23,6 @@
  */
 package net.voxton.mafiacraft.geo;
 
-import org.bukkit.Chunk;
-
 /**
  * Represents an entity that can both own and purchase land.
  */
