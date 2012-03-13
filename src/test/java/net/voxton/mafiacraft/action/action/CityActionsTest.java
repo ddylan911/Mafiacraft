@@ -21,7 +21,7 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.cmd;
+package net.voxton.mafiacraft.action.action;
 
 import net.voxton.mafiacraft.action.ActionType;
 import net.voxton.mafiacraft.geo.Section;
@@ -53,7 +53,7 @@ import static org.mockito.Mockito.verify;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Mafiacraft.class, Config.class})
-public class CityCommandTest {
+public class CityActionsTest {
 
     private MWorld world;
 
