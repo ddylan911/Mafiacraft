@@ -25,7 +25,6 @@ package net.voxton.mafiacraft.cmd;
 
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.gov.Division;
 import net.voxton.mafiacraft.gov.GovType;
@@ -39,11 +38,12 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.help.MenuType;
 import net.voxton.mafiacraft.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -302,7 +302,7 @@ public final class GovernmentCommand {
                     + " is not high enough to use HQ teleport.";
         }
 
-        Location hq = gov.getHq();
+        MPoint hq = gov.getHq();
         if (hq == null) {
             return "Your " + gov.getType().getName()
                     + " does not have a HQ set.";
@@ -517,7 +517,7 @@ public final class GovernmentCommand {
             return "You aren't allowed to claim land for your government.";
         }
 
-        Chunk section = player.getChunk();
+        Section section = player.getSection();
         District district = player.getDistrict();
 
         if (!district.canBeClaimed(section, gov)) {
@@ -555,7 +555,7 @@ public final class GovernmentCommand {
             return "You aren't in a government.";
         }
 
-        Chunk section = player.getChunk();
+        Section section = player.getSection();
         if (!Mafiacraft.getSectionOwner(section).equals(gov)) {
             return "The HQ must be specified within HQ land.";
         }
@@ -567,7 +567,7 @@ public final class GovernmentCommand {
                     + needed + ")";
         }
 
-        gov.setHq(player.getBukkitEntity().getLocation()).subtractMoney(needed);
+        gov.setHq(player.getPoint()).subtractMoney(needed);
         player.sendMessage(MsgColor.SUCCESS + "Your " + gov.getType().getName()
                 + " HQ has been set to your current location.");
         return null;

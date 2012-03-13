@@ -34,9 +34,9 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.help.MenuType;
 import net.voxton.mafiacraft.util.StringUtils;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -168,7 +168,7 @@ public final class DistrictCommand {
                     "command.city.must-be-member.district.setbus");
         }
 
-        Location bus = player.getPoint();
+        MPoint bus = player.getPoint();
         district.setBusStop(bus);
 
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(

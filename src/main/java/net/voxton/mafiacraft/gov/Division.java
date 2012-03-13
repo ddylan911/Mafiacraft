@@ -33,11 +33,9 @@ import net.voxton.mafiacraft.geo.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.vault.Transactable;
 import net.voxton.mafiacraft.geo.LandOwner;
+import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.util.LocationSerializer;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 /**
@@ -57,7 +55,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
 
     private int land;
 
-    private Location hq;
+    private MPoint hq;
 
     public Division(int id) {
         this.id = id;
@@ -77,7 +75,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
      *
      * @return
      */
-    public Location getHq() {
+    public MPoint getHq() {
         return hq;
     }
 
@@ -86,7 +84,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
      *
      * @param hq
      */
-    public Division setHq(Location hq) {
+    public Division setHq(MPoint hq) {
         this.hq = hq;
         return this;
     }
@@ -96,12 +94,12 @@ public class Division extends Transactable implements LandPurchaser, Configurati
      *
      * @return
      */
-    public Chunk getHqSection() {
+    public Section getHqSection() {
         if (hq == null) {
             return null;
         }
 
-        return hq.getChunk();
+        return hq.getSection();
     }
 
     public boolean canBuild(MPlayer player, Section section) {
@@ -457,7 +455,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
 
         data.put("manager", getManager());
         data.put("workers", getWorkers());
-        data.put("hq", LocationSerializer.serializeFull(getHq()));
+        data.put("hq", getHq().serializeToString());
 
         return data;
     }
@@ -484,8 +482,7 @@ public class Division extends Transactable implements LandPurchaser, Configurati
         String name = data.get("name").toString();
         String desc = data.get("desc").toString();
 
-        Map<String, Object> hqM = (Map<String, Object>) data.get("hq");
-        Location hq = LocationSerializer.deserializeFull(hqM);
+        MPoint hq = MPoint.deserialize(data.get("hq").toString());
 
         String landS = data.get("land").toString();
         int land = 0;
