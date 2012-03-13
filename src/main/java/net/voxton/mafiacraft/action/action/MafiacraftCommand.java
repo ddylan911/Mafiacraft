@@ -21,7 +21,7 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.action.actions;
+package net.voxton.mafiacraft.action.action;
 
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.player.MsgColor;

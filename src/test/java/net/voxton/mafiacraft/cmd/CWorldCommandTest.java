@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
-import net.voxton.mafiacraft.action.actions.CWorldCommand;
+import net.voxton.mafiacraft.action.action.CWorldCommand;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.geo.CityWorld;

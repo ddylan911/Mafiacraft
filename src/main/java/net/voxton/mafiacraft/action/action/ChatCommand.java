@@ -21,68 +21,64 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.action.actions;
+package net.voxton.mafiacraft.action.action;
 
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.voxton.mafiacraft.locale.Locale;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * Commands related to working with sections.
+ * /chat command.
  */
-public final class SectionCommand {
+public final class ChatCommand {
 
     public static void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR
-                    + "Sorry, this command is only usable in game.");
+            sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().localize(
+                    "command.general.ingame-only"));
             return;
         }
 
         MPlayer player = Mafiacraft.getPlayer(((Player) sender).getName());
 
         if (args.length < 1) {
-            doHelp(player);
+            doChat(player);
             return;
         }
 
-        //Get the function we want to do.
-        String function = args[0];
-        List<String> largs = new ArrayList<String>(Arrays.asList(args));
-        largs.remove(0);
-
-        String result = null;
-        if (largs.size() < 1) {
-            if (function.equalsIgnoreCase("info")) {
-                result = doInfo(player);
-            } else {
-                result = doHelp(player);
-            }
-        } else {
-            result = doHelp(player);
-        }
-
+        String result = doChat(player, args[0]);
         if (result != null) {
             player.sendMessage(MsgColor.ERROR + result);
         }
     }
 
-    public static String doHelp(MPlayer player) {
-        //TODO: help
-        player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOL");
+    public static String doChat(MPlayer player) {
+        doChat(player, "");
         return null;
     }
 
-    public static String doInfo(MPlayer player) {
-        //TODO: info
-        player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOLO");
+    public static String doChat(MPlayer player, String type) {
+        ChatType chatType = ChatType.valueOf(type);
+        if (chatType == null) {
+            return player.getLocale().localize("command.chat.invalid-chat-type");
+        }
+
+        if (!chatType.canJoin(player)) {
+            return player.getLocale().localize("command.chat.not-allowed");
+        }
+
+        player.setChatType(chatType);
+        player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
+                "command.chat.changed", chatType.getName()));
         return null;
     }
 
