@@ -35,7 +35,6 @@ import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import org.bukkit.ChatColor;
 
 /**
  * Represents a help menu.
@@ -111,9 +110,10 @@ public abstract class HelpMenu {
             String entry = MsgColor.HELP_ENTRY + command + ": "
                     + MsgColor.HELP_DEF + desc;
 
-            if (ChatColor.stripColor(entry).length() > WIDTH) {
-                MLogger.log(Level.WARNING, "The help entry for " + ChatColor.RED
-                        + "/" + getName() + " " + command + ChatColor.WHITE
+            if (MsgColor.stripColor(entry).length() > WIDTH) {
+                MLogger.log(Level.WARNING, "The help entry for "
+                        + MsgColor.INFO_HILIGHT
+                        + "/" + getName() + " " + command + MsgColor.NORMAL
                         + " is over the limit of " + WIDTH
                         + ". Unexpected formatting issues may occur!");
             }

@@ -105,6 +105,10 @@ public class MsgColor {
         return colors.get(colorName.toUpperCase());
     }
     
+    public static String stripColor(String string) {
+        return ChatColor.stripColor(string);
+    }
+    
     static {
         colors.put("ERROR", ERROR);
         colors.put("ERROR_HILIGHT", ERROR_HILIGHT);
