@@ -23,29 +23,26 @@
  */
 package net.voxton.mafiacraft.chat.type;
 
+import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 /**
- *
- * @author Dylan
+ * Admin chat channel.
  */
 public class AdminChat extends ChatType {
 
     @Override
     public void chat(MPlayer player, String message) {
-        String msg = MsgColor.CHAT_ADMIN + "[A] " + ChatColor.WHITE + player.
+        String msg = MsgColor.CHAT_ADMIN + "[A] " + MsgColor.NORMAL + player.
                 getDisplayName() + ": " + message;
 
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            if (!players.hasPermission("mafiacraft.admin")) {
+        for (MPlayer recipient : Mafiacraft.getOnlinePlayers()) {
+            if (!recipient.hasPermission("mafiacraft.admin")) {
                 continue;
             }
-            players.sendMessage(msg);
+            recipient.sendMessage(msg);
         }
     }
 
