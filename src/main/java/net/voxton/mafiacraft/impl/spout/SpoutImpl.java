@@ -27,9 +27,11 @@ import java.util.List;
 import net.voxton.mafiacraft.MafiacraftCore;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.player.MPlayer;
 import org.spout.api.Spout;
+import org.spout.api.geo.World;
 import org.spout.api.player.Player;
 import org.spout.api.plugin.CommonPlugin;
 
@@ -139,6 +141,15 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
     @Override
     public String matchName(String name) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public MWorld getWorld(String name) {
+        World world = Spout.getGame().getWorld(name);
+        if (world == null) {
+            return null;
+        }
+        return new MWorld(world.getName());
     }
 
 }
