@@ -35,16 +35,17 @@ import net.voxton.mafiacraft.player.MPlayer;
  * Represents an implementation of Mafiacraft.
  */
 public interface MafiacraftImpl {
+    public String getFullName();
 
     public void saveConfig();
 
     public void cancelTasks();
 
     public void setupCommands();
+    
+    public void setupEconomy();
 
     public void registerEvents();
-
-    public String getVersion();
 
     public File getDataFolder();
 

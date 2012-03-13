@@ -21,7 +21,7 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.vault;
+package net.voxton.mafiacraft.econ;
 
 /**
  * Represents an object that can be transacted with.

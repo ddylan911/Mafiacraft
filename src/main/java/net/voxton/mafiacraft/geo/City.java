@@ -34,7 +34,7 @@ import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import net.voxton.mafiacraft.vault.Transactable;
+import net.voxton.mafiacraft.econ.Transactable;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.logging.MLogger;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;

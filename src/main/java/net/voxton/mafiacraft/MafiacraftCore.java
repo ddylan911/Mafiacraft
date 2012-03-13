@@ -23,6 +23,10 @@
  */
 package net.voxton.mafiacraft;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.voxton.mafiacraft.action.ConsolePerformer;
 import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.config.Config;
@@ -34,7 +38,7 @@ import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.player.PlayerManager;
 import net.voxton.mafiacraft.task.TaskManager;
-import net.voxton.mafiacraft.vault.VaultHelper;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * Mafiacraft core class.
@@ -59,7 +63,7 @@ public class MafiacraftCore {
 
     private TaskManager taskManager;
 
-    private VaultHelper vaultHelper;
+    private String version;
 
     /**
      * Constructor.
@@ -100,6 +104,9 @@ public class MafiacraftCore {
         //Greet
         MLogger.log("=========== MAFIACRAFT START ===========");
 
+        //Load desc file
+        loadMainYml();
+        
         //Notify
         MLogger.log("Mafiacraft " + getVersionDetailed() + " loading...");
 
@@ -107,14 +114,6 @@ public class MafiacraftCore {
         MLogger.log("Loading configuration...");
         Config.setConfig(impl.getMafiacraftConfig());
         impl.saveConfig();
-
-        //Setup commands
-        MLogger.log("Setting up commands...");
-        impl.setupCommands();
-
-        //Initialize the listener
-        MLogger.log("Registering events...");
-        impl.registerEvents();
 
         //Initialize managers/handlers/helpers
         MLogger.log("Initializing chat...");
@@ -141,15 +140,43 @@ public class MafiacraftCore {
         MLogger.log("Setting up the task manager...");
         taskManager = new TaskManager();
 
-        MLogger.log("Hooking Vault...");
-        vaultHelper = new VaultHelper(this);
-
         //Load data
         MLogger.log("Loading all data into memory...");
         dataWorker.loadAll();
 
+        /////////////////////////////////
+        // Set up platform specific things
+        /////////////////////////////////
+        MLogger.log("----- Detecting platform-specific things... -----");
+        MLogger.log("Platform detected: " + impl.getFullName());
+
+        //Setup commands
+        MLogger.log("Setting up commands...");
+        impl.setupCommands();
+
+        //Initialize the listener
+        MLogger.log("Registering events...");
+        impl.registerEvents();
+
+        //Setup economy
+        MLogger.log("Setting up economy...");
+        impl.setupEconomy();
+
         //Log
         MLogger.log("========== MAFIACRAFT ENABLED ==========");
+    }
+
+    private void loadMainYml() {
+        YamlConfiguration main;
+        try {
+            main =
+                    YamlConfiguration.loadConfiguration(new File(Mafiacraft.class.
+                    getResource(
+                    "./mafiacraft.yml").toURI()));
+            this.version = main.getString("version");
+        } catch (URISyntaxException ex) {
+            MLogger.log(Level.SEVERE, "Unexpected URI syntax exception!", ex);
+        }
     }
 
     public ChatHandler getChatHandler() {
@@ -180,10 +207,6 @@ public class MafiacraftCore {
         return playerManager;
     }
 
-    public VaultHelper getVaultHelper() {
-        return vaultHelper;
-    }
-
     public MafiacraftImpl getImpl() {
         return impl;
     }
@@ -203,7 +226,7 @@ public class MafiacraftCore {
      * @return The detailed version.
      */
     public String getVersionDetailed() {
-        return impl.getVersion() + "-" + getImplementationVersion();
+        return version + "-" + getImplementationVersion();
     }
 
 }

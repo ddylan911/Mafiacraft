@@ -28,7 +28,7 @@ import net.voxton.mafiacraft.classes.UtilityClass;
 import net.voxton.mafiacraft.gov.Division;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.gov.Position;
-import net.voxton.mafiacraft.vault.Transactable;
+import net.voxton.mafiacraft.econ.Transactable;
 import java.util.ArrayList;
 import java.util.List;
 import net.milkbowl.vault.economy.EconomyResponse;

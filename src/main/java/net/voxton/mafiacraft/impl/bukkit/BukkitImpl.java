@@ -26,6 +26,8 @@ package net.voxton.mafiacraft.impl.bukkit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import net.milkbowl.vault.economy.Economy;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
@@ -35,6 +37,7 @@ import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
+import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.player.MPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -44,6 +47,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -52,6 +56,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
     private MafiacraftCore mc;
+
+    /**
+     * Vault hook for economy.
+     */
+    private Economy economy = null;
 
     @Override
     public void onDisable() {
@@ -62,6 +71,11 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     public void onEnable() {
         mc = new MafiacraftCore(this);
         mc.onEnable();
+    }
+
+    @Override
+    public String getFullName() {
+        return "Bukkit " + Bukkit.getBukkitVersion();
     }
 
     @Override
@@ -188,6 +202,21 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     }
 
     @Override
+    public void setupEconomy() {
+        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().
+                getServicesManager().getRegistration(
+                net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            economy = economyProvider.getProvider();
+        }
+
+        if (economy == null) {
+            MLogger.log(Level.SEVERE,
+                    "No supported economy by Vault detected! Things WILL go wrong!");
+        }
+    }
+
+    @Override
     public void cancelTasks() {
         Bukkit.getScheduler().cancelTasks(this);
     }
@@ -196,16 +225,6 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     public void registerEvents() {
         BukkitListener l = new BukkitListener(this);
         Bukkit.getPluginManager().registerEvents(l, this);
-    }
-
-    /**
-     * Gets the version of the plugin.
-     *
-     * @return The version of the plugin.
-     */
-    @Override
-    public String getVersion() {
-        return getDescription().getVersion();
     }
 
     @Override

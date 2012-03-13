@@ -74,11 +74,6 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
     }
 
     @Override
-    public String getVersion() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public MafiacraftConfig getMafiacraftConfig() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -150,6 +145,16 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
             return null;
         }
         return new MWorld(world.getName());
+    }
+
+    @Override
+    public String getFullName() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setupEconomy() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

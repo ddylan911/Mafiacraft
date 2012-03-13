@@ -36,7 +36,7 @@ import net.voxton.mafiacraft.geo.LandPurchaser;
 import net.voxton.mafiacraft.geo.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import net.voxton.mafiacraft.vault.Transactable;
+import net.voxton.mafiacraft.econ.Transactable;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;

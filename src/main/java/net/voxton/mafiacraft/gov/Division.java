@@ -36,7 +36,7 @@ import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.LandPurchaser;
 import net.voxton.mafiacraft.geo.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.vault.Transactable;
+import net.voxton.mafiacraft.econ.Transactable;
 import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;

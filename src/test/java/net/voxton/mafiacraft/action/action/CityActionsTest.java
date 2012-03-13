@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.action.action;
 
 import net.voxton.mafiacraft.action.ActionType;
 import net.voxton.mafiacraft.geo.Section;
-import net.voxton.mafiacraft.vault.Transactable;
+import net.voxton.mafiacraft.econ.Transactable;
 import net.voxton.mafiacraft.geo.District;
 import net.voxton.mafiacraft.geo.CityManager;
 import net.voxton.mafiacraft.geo.City;

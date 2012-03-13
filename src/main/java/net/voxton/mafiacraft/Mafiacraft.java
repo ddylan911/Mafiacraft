@@ -32,11 +32,9 @@ import net.voxton.mafiacraft.geo.LandOwner;
 import net.voxton.mafiacraft.gov.GovernmentManager;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.PlayerManager;
-import net.voxton.mafiacraft.vault.VaultHelper;
 import java.util.List;
 import net.voxton.mafiacraft.action.ConsolePerformer;
 import net.voxton.mafiacraft.data.DataWorker;
-import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.locale.LocaleManager;
@@ -183,15 +181,6 @@ public class Mafiacraft {
      */
     public static PlayerManager getPlayerManager() {
         return getCore().getPlayerManager();
-    }
-
-    /**
-     * Gets the vault helper.
-     *
-     * @return
-     */
-    public static VaultHelper getVaultHelper() {
-        return getCore().getVaultHelper();
     }
 
     /**
