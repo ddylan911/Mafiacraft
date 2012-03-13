@@ -29,14 +29,14 @@ import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.MListener;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.MafiacraftCore;
-import net.voxton.mafiacraft.action.action.CWorldCommand;
-import net.voxton.mafiacraft.action.action.ChatCommand;
-import net.voxton.mafiacraft.action.action.CityCommand;
-import net.voxton.mafiacraft.action.action.DistrictCommand;
-import net.voxton.mafiacraft.action.action.DivisionCommand;
-import net.voxton.mafiacraft.action.action.GovernmentCommand;
-import net.voxton.mafiacraft.action.action.MafiacraftCommand;
-import net.voxton.mafiacraft.action.action.SectionCommand;
+import net.voxton.mafiacraft.action.action.CWorldActions;
+import net.voxton.mafiacraft.action.action.ChatActions;
+import net.voxton.mafiacraft.action.action.CityActions;
+import net.voxton.mafiacraft.action.action.DistrictActions;
+import net.voxton.mafiacraft.action.action.DivisionActions;
+import net.voxton.mafiacraft.action.action.GovernmentActions;
+import net.voxton.mafiacraft.action.action.MafiacraftActions;
+import net.voxton.mafiacraft.action.action.SectionActions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
@@ -76,7 +76,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                GovernmentCommand.parseCmd(cs, cmnd, string, strings,
+                GovernmentActions.parseCmd(cs, cmnd, string, strings,
                         GovType.MAFIA);
                 return true;
             }
@@ -86,7 +86,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                GovernmentCommand.parseCmd(cs, cmnd, string, strings,
+                GovernmentActions.parseCmd(cs, cmnd, string, strings,
                         GovType.POLICE);
                 return true;
             }
@@ -96,7 +96,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                CityCommand.parseCmd(cs, cmnd, string, strings);
+                CityActions.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
 
@@ -105,7 +105,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                DistrictCommand.parseCmd(cs, cmnd, string, strings);
+                DistrictActions.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
 
@@ -114,7 +114,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                SectionCommand.parseCmd(cs, cmnd, string, strings);
+                SectionActions.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
 
@@ -123,7 +123,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                ChatCommand.parseCmd(cs, cmnd, string, strings);
+                ChatActions.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
 
@@ -132,7 +132,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                CWorldCommand.parseCmd(cs, cmnd, string, strings);
+                CWorldActions.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
 
@@ -141,7 +141,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                DivisionCommand.parseCmd(cs, cmnd, string, strings,
+                DivisionActions.parseCmd(cs, cmnd, string, strings,
                         GovType.MAFIA);
                 return true;
             }
@@ -151,7 +151,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                DivisionCommand.parseCmd(cs, cmnd, string, strings,
+                DivisionActions.parseCmd(cs, cmnd, string, strings,
                         GovType.POLICE);
                 return true;
             }
@@ -162,7 +162,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
             @Override
             public boolean onCommand(CommandSender cs, Command cmnd,
                     String string, String[] strings) {
-                MafiacraftCommand.parseCmd(cs, cmnd, string, strings);
+                MafiacraftActions.parseCmd(cs, cmnd, string, strings);
                 return true;
             }
 

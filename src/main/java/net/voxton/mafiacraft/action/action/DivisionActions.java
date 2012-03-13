@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.gov.GovType;
@@ -47,10 +48,16 @@ import org.bukkit.entity.Player;
 /**
  * Division related commands.
  */
-public final class DivisionCommand {
+public final class DivisionActions {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args, GovType type) {
+    private final GovType type;
+
+    public DivisionActions(GovType type) {
+        this.type = type;
+    }
+
+    public void parseCmd(CommandSender sender, Command cmd, String label,
+            String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR
                     + "You can not use this command through console.");
@@ -113,7 +120,7 @@ public final class DivisionCommand {
      * @param type The type of government.
      * @return The errors.
      */
-    public static String doHelp(MPlayer player, GovType type) {
+    public String doHelp(MPlayer player, GovType type) {
         if (type.equals(GovType.MAFIA)) {
             MenuType.REGIME.doHelp(player);
         } else if (type.equals(GovType.POLICE)) {
@@ -130,7 +137,7 @@ public final class DivisionCommand {
      * @param type The type of government.
      * @return The errors.
      */
-    public static String doHelp(MPlayer player, String arg, GovType type) {
+    public String doHelp(MPlayer player, String arg, GovType type) {
         if (type.equals(GovType.MAFIA)) {
             MenuType.REGIME.doHelp(player, arg);
         } else if (type.equals(GovType.POLICE)) {
@@ -147,7 +154,7 @@ public final class DivisionCommand {
      * @param tgt
      * @return
      */
-    public static String doKick(MPlayer player, String target) {
+    public String doKick(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -186,8 +193,14 @@ public final class DivisionCommand {
      * @param name
      * @return
      */
-    public static String doCreate(MPlayer player, String name) {
-        return GovernmentCommand.doCreateDivision(player, name);
+    public String doCreate(MPlayer player, String name) {
+        if (type.equals(GovType.MAFIA)) {
+            return Actions.MAFIA.doCreateDivision(player, name);
+        } else if (type.equals(GovType.POLICE)) {
+            return Actions.POLICE.doCreateDivision(player, name);
+        }
+
+        return "THE WORLD HAS ENDED";
     }
 
     /**
@@ -196,7 +209,7 @@ public final class DivisionCommand {
      * @param player
      * @return
      */
-    public static String doAccept(MPlayer player) {
+    public String doAccept(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -237,7 +250,7 @@ public final class DivisionCommand {
      * @param player
      * @return
      */
-    public static String doClaim(MPlayer player) {
+    public String doClaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -291,7 +304,7 @@ public final class DivisionCommand {
      * @param target
      * @return
      */
-    public static String doInvite(MPlayer player, String target) {
+    public String doInvite(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -320,7 +333,7 @@ public final class DivisionCommand {
      * @param name
      * @return
      */
-    public static String doName(MPlayer player, String name) {
+    public String doName(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -345,7 +358,7 @@ public final class DivisionCommand {
         return null;
     }
 
-    public static String doUnclaim(MPlayer player) {
+    public String doUnclaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -380,7 +393,7 @@ public final class DivisionCommand {
      * @param desc
      * @return
      */
-    public static String doDesc(MPlayer player, String desc) {
+    public String doDesc(MPlayer player, String desc) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -405,7 +418,7 @@ public final class DivisionCommand {
         return null;
     }
 
-    public static String doHq(MPlayer player) {
+    public String doHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -436,7 +449,7 @@ public final class DivisionCommand {
         return null;
     }
 
-    public static String doSetHq(MPlayer player) {
+    public String doSetHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL

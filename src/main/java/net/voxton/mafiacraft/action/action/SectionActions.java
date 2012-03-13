@@ -36,9 +36,9 @@ import org.bukkit.entity.Player;
 /**
  * Commands related to working with sections.
  */
-public final class SectionCommand {
+public final class SectionActions {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label,
+    public  void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR
@@ -74,13 +74,13 @@ public final class SectionCommand {
         }
     }
 
-    public static String doHelp(MPlayer player) {
+    public  String doHelp(MPlayer player) {
         //TODO: help
         player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOL");
         return null;
     }
 
-    public static String doInfo(MPlayer player) {
+    public  String doInfo(MPlayer player) {
         //TODO: info
         player.sendMessage(MsgColor.ERROR + "TROLOLOLOLOLO");
         return null;

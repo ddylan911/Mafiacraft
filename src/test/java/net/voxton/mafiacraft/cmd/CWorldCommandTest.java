@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
-import net.voxton.mafiacraft.action.action.CWorldCommand;
+import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.locale.LocaleManager;
 import net.voxton.mafiacraft.geo.CityWorld;
@@ -99,7 +99,7 @@ public class CWorldCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.general.not-allowed");
-        String result = CWorldCommand.doToggle(aubhaze, WorldToggle.FREE_ROAM.
+        String result = Actions.CWORLD.doToggle(aubhaze, WorldToggle.FREE_ROAM.
                 name());
 
         assertEquals(expected, result);
@@ -113,7 +113,7 @@ public class CWorldCommandTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "command.cworld.toggle-invalid", toggleList);
-        String result = CWorldCommand.doToggle(albireox, "free_rome"); //Intentional derp
+        String result = Actions.CWORLD.doToggle(albireox, "free_rome"); //Intentional derp
 
         assertEquals(expected, result);
     }
@@ -125,7 +125,7 @@ public class CWorldCommandTest {
         String toggle = WorldToggle.FREE_ROAM.name();
         boolean value = false;
 
-        String result = CWorldCommand.doToggle(albireox, toggle);
+        String result = Actions.CWORLD.doToggle(albireox, toggle);
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(
@@ -141,7 +141,7 @@ public class CWorldCommandTest {
         String toggle = "free_RoaM";
         boolean value = false;
 
-        String result = CWorldCommand.doToggle(albireox, toggle);
+        String result = Actions.CWORLD.doToggle(albireox, toggle);
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(
@@ -158,7 +158,7 @@ public class CWorldCommandTest {
         String toggle = "free-RoaM";
         boolean value = false;
 
-        String result = CWorldCommand.doToggle(albireox, toggle);
+        String result = Actions.CWORLD.doToggle(albireox, toggle);
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(

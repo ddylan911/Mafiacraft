@@ -38,9 +38,9 @@ import org.bukkit.entity.Player;
 /**
  * /chat command.
  */
-public final class ChatCommand {
+public final class ChatActions {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label,
+    public  void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().localize(
@@ -61,12 +61,12 @@ public final class ChatCommand {
         }
     }
 
-    public static String doChat(MPlayer player) {
+    public  String doChat(MPlayer player) {
         doChat(player, "");
         return null;
     }
 
-    public static String doChat(MPlayer player, String type) {
+    public  String doChat(MPlayer player, String type) {
         ChatType chatType = ChatType.valueOf(type);
         if (chatType == null) {
             return player.getLocale().localize("command.chat.invalid-chat-type");

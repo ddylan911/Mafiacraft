@@ -40,12 +40,13 @@ import org.bukkit.entity.Player;
 /**
  * Manages the CityWorld.
  */
-public final class CWorldCommand {
+public final class CWorldActions {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label,
+    public void parseCmd(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().localize(
+            sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().
+                    localize(
                     "command.general.ingame-only"));
             return;
         }
@@ -87,17 +88,17 @@ public final class CWorldCommand {
         }
     }
 
-    public static String doHelp(MPlayer player) {
+    public String doHelp(MPlayer player) {
         MenuType.CWORLD.sendPage(1, player);
         return null;
     }
 
-    public static String doHelp(MPlayer player, String arg) {
+    public String doHelp(MPlayer player, String arg) {
         MenuType.CWORLD.doHelp(player, arg);
         return null;
     }
 
-    public static String doToggle(MPlayer player, String toggle) {
+    public String doToggle(MPlayer player, String toggle) {
         if (!player.hasPermission("mafiacraft.admin")) {
             return player.getLocale().localize("command.general.not-allowed");
         }
@@ -118,7 +119,7 @@ public final class CWorldCommand {
         return null;
     }
 
-    public static String doSpawn(MPlayer player) {
+    public String doSpawn(MPlayer player) {
         MPoint spawn = player.getCityWorld().getSpawnPoint();
         player.teleportWithCountdown(spawn);
         return null;

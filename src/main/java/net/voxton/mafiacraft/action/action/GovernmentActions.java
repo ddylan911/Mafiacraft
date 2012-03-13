@@ -48,10 +48,16 @@ import org.bukkit.entity.Player;
 /**
  * Holds government-related commands.
  */
-public final class GovernmentCommand {
+public final class GovernmentActions {
 
-    public static void parseCmd(CommandSender sender, Command cmd, String label,
-            String[] args, GovType type) {
+    private final GovType type;
+
+    public GovernmentActions(GovType type) {
+        this.type = type;
+    }
+
+    public void parseCmd(CommandSender sender, Command cmd, String label,
+            String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().
                     localize("command.general.ingame-only"));
@@ -133,7 +139,7 @@ public final class GovernmentCommand {
         }
     }
 
-    public static String doHelp(MPlayer player, GovType type) {
+    public String doHelp(MPlayer player, GovType type) {
         if (type.equals(GovType.MAFIA)) {
             MenuType.MAFIA.doHelp(player);
         } else if (type.equals(GovType.POLICE)) {
@@ -142,7 +148,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doHelp(MPlayer player, String arg, GovType type) {
+    public String doHelp(MPlayer player, String arg, GovType type) {
         if (type.equals(GovType.MAFIA)) {
             MenuType.MAFIA.doHelp(player, arg);
         } else if (type.equals(GovType.POLICE)) {
@@ -151,7 +157,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doAccept(MPlayer player, GovType type) {
+    public String doAccept(MPlayer player, GovType type) {
         Integer inv = player.getSessionStore().getInt("gov-inv", -1);
         if (inv < 0) {
             return player.getLocale().localize(
@@ -183,7 +189,7 @@ public final class GovernmentCommand {
      * @param type The type of government.
      * @return The first error.
      */
-    public static String doFound(MPlayer player, String name, GovType type) {
+    public String doFound(MPlayer player, String name, GovType type) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return player.getLocale().localize("command.general.not-citizen");
         }
@@ -235,11 +241,11 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doPlayer(MPlayer player) {
+    public String doPlayer(MPlayer player) {
         return doPlayer(player, player.getName());
     }
 
-    public static String doPlayer(MPlayer player, String target) {
+    public String doPlayer(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -258,11 +264,11 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doWho(MPlayer player) {
+    public String doWho(MPlayer player) {
         return doWho(player, player.getGovernment().getName());
     }
 
-    public static String doWho(MPlayer player, String govName) {
+    public String doWho(MPlayer player, String govName) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -281,7 +287,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doHq(MPlayer player) {
+    public String doHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -310,7 +316,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doInvite(MPlayer player, String target) {
+    public String doInvite(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -349,7 +355,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doKick(MPlayer player, String target) {
+    public String doKick(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -392,7 +398,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doGrant(MPlayer player, String division, String amt) {
+    public String doGrant(MPlayer player, String division, String amt) {
         double amount;
         try {
             amount = Double.parseDouble(amt);
@@ -427,7 +433,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doCreateDivision(MPlayer player, String name) {
+    public String doCreateDivision(MPlayer player, String name) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -466,7 +472,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doSetManager(MPlayer player, String division,
+    public String doSetManager(MPlayer player, String division,
             String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
@@ -497,7 +503,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doClaim(MPlayer player) {
+    public String doClaim(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -535,7 +541,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doSetHq(MPlayer player) {
+    public String doSetHq(MPlayer player) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -569,7 +575,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doLeave(MPlayer player, GovType type) {
+    public String doLeave(MPlayer player, GovType type) {
         Government gov = player.getGovernment();
         if (gov == null) {
             return "You aren't in a " + type.getName();
@@ -584,7 +590,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doPromoteOfficer(MPlayer player, String target) {
+    public String doPromoteOfficer(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
@@ -625,7 +631,7 @@ public final class GovernmentCommand {
         return null;
     }
 
-    public static String doDemoteOfficer(MPlayer player, String target) {
+    public String doDemoteOfficer(MPlayer player, String target) {
         if (!player.hasPermission("mafiacraft.citizen")) {
             return "You must be a citizen to use this command. "
                     + "Apply for citizen on the website at " + MsgColor.URL
