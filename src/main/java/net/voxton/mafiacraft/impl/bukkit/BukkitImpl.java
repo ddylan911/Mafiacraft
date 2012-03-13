@@ -33,6 +33,7 @@ import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.action.ActionType;
 import net.voxton.mafiacraft.action.Actions;
 import net.voxton.mafiacraft.geo.MPoint;
+import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.player.MPlayer;
 import org.bukkit.Bukkit;
@@ -299,6 +300,15 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     public String matchName(String name) {
         Player player = Bukkit.getPlayer(name);
         return (player == null) ? name : player.getName();
+    }
+
+    @Override
+    public MWorld getWorld(String name) {
+        World world = Bukkit.getWorld(name);
+        if (world == null) {
+            return null;
+        }
+        return new MWorld(world.getName());
     }
 
 }

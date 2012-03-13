@@ -127,7 +127,7 @@ public class CityManager {
     public MWorld getWorld(String worldString) {
         MWorld cworld = worldMap.get(worldString);
         if (cworld == null) {
-            cworld = new MWorld(worldString);
+            cworld = Mafiacraft.getImpl().getWorld(worldString);
             worldMap.put(worldString, cworld);
         }
         return cworld;
