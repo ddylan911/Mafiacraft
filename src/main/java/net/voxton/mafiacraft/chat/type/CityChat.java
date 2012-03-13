@@ -27,11 +27,9 @@ import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
-import org.bukkit.ChatColor;
 
 /**
- *
- * @author Dylan
+ * City chat channel.
  */
 public class CityChat extends ChatType {
 
@@ -40,7 +38,7 @@ public class CityChat extends ChatType {
         if (player.getCity() == null) {
             player.setChatType(ChatType.GLOBAL);
             player.sendMessage(
-                    ChatColor.RED
+                    MsgColor.ERROR
                     + "You are not in a city; you have been moved to global chat.");
             return;
         }
@@ -51,7 +49,7 @@ public class CityChat extends ChatType {
             govPref = gov.getChatPrefix() + " ";
         }
 
-        String msg = MsgColor.CHAT_CITY + "[C] " + govPref + ChatColor.WHITE
+        String msg = MsgColor.CHAT_CITY + "[C] " + govPref + MsgColor.NORMAL
                 + player.getDisplayName() + ": " + message;
 
         for (MPlayer players : player.getCity().getPlayers()) {
