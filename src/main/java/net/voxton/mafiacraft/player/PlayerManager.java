@@ -289,7 +289,7 @@ public class PlayerManager {
 
     public PlayerManager startTeleport(MPlayer player, int duration, MPoint point) {
         if (hasTeleport(player)) {
-            throw new IllegalStateException("Player already teleporting!");
+            cancelTeleport(player);
         }
         
         TeleportCountdown tc = new TeleportCountdown(player, duration, point);
