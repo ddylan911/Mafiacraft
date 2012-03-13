@@ -851,7 +851,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
      */
     @Override
     public Government claim(Section section) {
-        District district = Mafiacraft.getDistrict(section);
+        District district = section.getDistrict();
         district.setOwner(section, this);
         incLand();
         return this;
@@ -862,7 +862,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
      */
     @Override
     public Government unclaim(Section section) {
-        District district = Mafiacraft.getDistrict(section);
+        District district = section.getDistrict();
         district.setOwner(section, null);
         decLand();
         return this;
