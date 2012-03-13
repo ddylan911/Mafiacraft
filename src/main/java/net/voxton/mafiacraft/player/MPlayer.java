@@ -35,18 +35,15 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.*;
 import net.voxton.mafiacraft.locale.Locale;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
 
 /**
  * Represents a player.
  */
 public class MPlayer extends Transactable implements LandPurchaser {
-
-    private final OfflinePlayer offlinePlayer;
-
-    private Player onlinePlayer = null;
+    private final String name;
+    
+    private String displayName;
 
     private String title;
 
@@ -60,8 +57,8 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     private int land;
 
-    public MPlayer(OfflinePlayer player) {
-        this.offlinePlayer = player;
+    public MPlayer(String name) {
+        this.name = name;
     }
 
     /**
@@ -218,19 +215,16 @@ public class MPlayer extends Transactable implements LandPurchaser {
 
     @Override
     public double getMoney() {
-        return Mafiacraft.getVaultHelper().getEconomy().getBalance(offlinePlayer.
-                getName());
+        return Mafiacraft.getVaultHelper().getEconomy().getBalance(name);
     }
 
     @Override
     public double setMoney(double amt) {
         double deposit = amt - getMoney();
         if (deposit > 0) {
-            return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(offlinePlayer.
-                    getName(), deposit).balance;
+            return Mafiacraft.getVaultHelper().getEconomy().depositPlayer(name, deposit).balance;
         } else if (deposit < 0) {
-            return Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(offlinePlayer.
-                    getName(), -deposit).balance;
+            return Mafiacraft.getVaultHelper().getEconomy().withdrawPlayer(name, -deposit).balance;
         }
         return 0;
     }
@@ -238,29 +232,19 @@ public class MPlayer extends Transactable implements LandPurchaser {
     @Override
     public double addMoney(double amount) {
         EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().
-                depositPlayer(offlinePlayer.getName(), amount);
+                depositPlayer(name, amount);
         return response.balance;
     }
 
     @Override
     public double subtractMoney(double amount) {
         EconomyResponse response = Mafiacraft.getVaultHelper().getEconomy().
-                withdrawPlayer(offlinePlayer.getName(), amount);
+                withdrawPlayer(name, amount);
         return response.balance;
     }
 
-    public Player getBukkitEntity() {
-        if (onlinePlayer == null) {
-            onlinePlayer = offlinePlayer.getPlayer();
-            if (onlinePlayer == null) {
-                return null;
-            }
-        }
-        return onlinePlayer;
-    }
-
     public boolean isOnline() {
-        return getBukkitEntity() != null;
+        return Mafiacraft.getImpl().isOnline(this);
     }
 
     /**
@@ -362,19 +346,19 @@ public class MPlayer extends Transactable implements LandPurchaser {
     }
 
     public String getName() {
-        return offlinePlayer.getName();
+        return name;
     }
 
     public String getDisplayName() {
-        return getBukkitEntity().getDisplayName();
+        return displayName;
     }
 
     public String getOwnerName() {
-        return offlinePlayer.getName();
+        return getName();
     }
 
     public void sendMessage(String message) {
-        getBukkitEntity().sendMessage(message);
+        Mafiacraft.getImpl().sendMessage(this, message);
     }
 
     public String getOwnerId() {
@@ -557,7 +541,7 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * @return
      */
     public boolean hasPermission(String permission) {
-        return getBukkitEntity().hasPermission(permission);
+        return Mafiacraft.getImpl().hasPermission(this, permission);
     }
 
     /**
@@ -580,9 +564,22 @@ public class MPlayer extends Transactable implements LandPurchaser {
      * Teleports the player to the given point.
      * 
      * @param point The point to teleport to.
-     * @return The point.
+     * @return This MPlayer.
      */
     public MPlayer teleport(MPoint point) {
+        Mafiacraft.getImpl().teleportPlayer(this, point);
+        return this;
+    }
+    
+    /**
+     * Teleports the player to a given location in the given time.
+     * 
+     * @param point The point to teleport to.
+     * @param duration The duration of teleportation in seconds.
+     * @return This MPlayer.
+     */
+    public MPlayer teleportWithCountdown(MPoint point, int duration) {
+        Mafiacraft.getPlayerManager().startTeleport(this, duration, point);
         return this;
     }
 }

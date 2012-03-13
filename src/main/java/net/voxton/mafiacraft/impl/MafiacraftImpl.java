@@ -24,9 +24,9 @@
 package net.voxton.mafiacraft.impl;
 
 import java.io.File;
+import java.util.List;
 import java.util.logging.Logger;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
-import net.voxton.mafiacraft.data.DataWorker;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.player.MPlayer;
 
@@ -57,4 +57,13 @@ public interface MafiacraftImpl {
     public int scheduleDelayedTask(Runnable runnable, long interval);
     
     public void cancelTask(int id);
+
+    public void teleportPlayer(MPlayer player, MPoint point);
+    public boolean isOnline(MPlayer player);
+
+    public void sendMessage(MPlayer player, String message);
+
+    public boolean hasPermission(MPlayer player, String permission);
+    
+    public List<MPlayer> getOnlinePlayers();
 }

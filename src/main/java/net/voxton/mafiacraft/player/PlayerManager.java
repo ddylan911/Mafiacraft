@@ -37,10 +37,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.MPoint;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 /**
  * Manages MPlayer objects.
@@ -135,11 +132,7 @@ public class PlayerManager {
      * @return
      */
     public List<MPlayer> getOnlinePlayers() {
-        List<MPlayer> players = new ArrayList<MPlayer>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            players.add(getPlayer(player));
-        }
-        return players;
+        return Mafiacraft.getImpl().getOnlinePlayers();
     }
 
     /**
@@ -159,35 +152,12 @@ public class PlayerManager {
     }
 
     /**
-     * Gets a player from a Bukkit player.
-     *
-     * @param player
-     * @return The player that corresponds to the given Bukkit player.
-     */
-    public MPlayer getPlayer(Player player) {
-        if (player == null) {
-            return null;
-        }
-        return getPlayer(player.getName());
-    }
-
-    /**
      * Loads a player.
      *
      * @param player
      * @return The player loaded from the given player.
      */
     private MPlayer loadPlayer(String player) {
-        return loadPlayer(Bukkit.getOfflinePlayer(player));
-    }
-
-    /**
-     * Loads a player.
-     *
-     * @param player The player to load the MPlayer of.
-     * @return The player loaded from the OfflinePlayer.
-     */
-    private MPlayer loadPlayer(OfflinePlayer player) {
         MPlayer mplayer = new MPlayer(player);
 
         YamlConfiguration pf = getPlayerYml(player);
@@ -222,25 +192,15 @@ public class PlayerManager {
     }
 
     /**
-     * Gets a player's YML file.
-     *
-     * @param player
-     * @return
-     */
-    private YamlConfiguration getPlayerYml(OfflinePlayer player) {
-        return getPlayerYml(player.getName());
-    }
-
-    /**
      * Saves the given MPlayer to its appropriate file.
      *
      * @param player The player to save.
      * @return True if the saving was successful, false otherwise.
      */
     public boolean savePlayer(MPlayer player) {
-        YamlConfiguration yml = getPlayerYml(player.getBukkitEntity());
+        YamlConfiguration yml = getPlayerYml(player.getName());
         player.save(yml);
-        boolean result = savePlayerYml(player.getBukkitEntity(), yml);
+        boolean result = savePlayerYml(player.getName(), yml);
         return result;
     }
 
@@ -263,40 +223,28 @@ public class PlayerManager {
     }
 
     /**
-     * Saves a player's YML file.
-     *
-     * @param player
-     * @param yml
-     * @return
-     */
-    private boolean savePlayerYml(OfflinePlayer player, YamlConfiguration yml) {
-        return savePlayerYml(player.getName(), yml);
-    }
-
-    /**
      * Gets a player that is currently online.
      *
      * @param target The name of the player.
-     * @return
+     * @return Null if the player is not online.
      */
     public MPlayer getOnlinePlayer(String target) {
-        Player player = Bukkit.getPlayer(target);
-        if (player == null) {
-            return null;
-        }
-        return getPlayer(player);
+        MPlayer player = getPlayer(target);
+        return (player.isOnline()) ? player : null;
     }
 
-    public PlayerManager startTeleport(MPlayer player, int duration, MPoint point) {
+    public PlayerManager startTeleport(MPlayer player, int duration,
+            MPoint point) {
         if (hasTeleport(player)) {
             cancelTeleport(player);
         }
-        
+
         TeleportCountdown tc = new TeleportCountdown(player, duration, point);
-        teleporting.put(player, Mafiacraft.getImpl().scheduleRepeatingTask(tc, 20L));
+        teleporting.put(player, Mafiacraft.getImpl().scheduleRepeatingTask(tc,
+                20L));
         return this;
     }
-    
+
     public PlayerManager cancelTeleport(MPlayer player) {
         int task = teleporting.get(player);
         if (task > 0) {
@@ -304,8 +252,9 @@ public class PlayerManager {
         }
         return this;
     }
-    
+
     public boolean hasTeleport(MPlayer player) {
         return teleporting.containsKey(player);
     }
+
 }

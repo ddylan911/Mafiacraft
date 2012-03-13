@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.impl.bukkit;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.voxton.mafiacraft.config.MafiacraftConfig;
 import net.voxton.mafiacraft.MListener;
 import net.voxton.mafiacraft.Mafiacraft;
@@ -41,9 +43,12 @@ import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.player.MPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -222,5 +227,52 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     @Override
     public void cancelTask(int id) {
         Bukkit.getScheduler().cancelTask(id);
+    }
+
+    @Override
+    public void teleportPlayer(MPlayer player, MPoint point) {
+        Player bk = getOfflinePlayer(player).getPlayer();
+        if (bk == null) {
+            return;
+        }
+        World world = Bukkit.getWorld(point.getWorld().getName());
+        Location location = new Location(world, point.getX(), point.getY(), point.getZ());
+        bk.teleport(location);
+    }
+
+    @Override
+    public boolean isOnline(MPlayer player) {
+        return getOfflinePlayer(player).isOnline();
+    }
+    
+    private OfflinePlayer getOfflinePlayer(MPlayer mplayer) {
+        return Bukkit.getOfflinePlayer(mplayer.getName());
+    }
+
+    @Override
+    public void sendMessage(MPlayer player, String message) {
+        OfflinePlayer op = getOfflinePlayer(player);
+        if (op == null) {
+            return;
+        }
+        op.getPlayer().sendMessage(message);
+    }
+    
+    @Override
+    public boolean hasPermission(MPlayer player, String permission) {
+        OfflinePlayer op = getOfflinePlayer(player);
+        if (!op.isOnline()) {
+            throw new IllegalArgumentException("Player must be online to check permissions!");
+        }
+        return op.getPlayer().hasPermission(permission);
+    }
+
+    @Override
+    public List<MPlayer> getOnlinePlayers() {
+        List<MPlayer> players = new ArrayList<MPlayer>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            players.add(Mafiacraft.getPlayer(player));
+        }
+        return players;
     }
 }
