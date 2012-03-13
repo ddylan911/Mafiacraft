@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.cmd;
 
+import net.voxton.mafiacraft.action.actions.CityCommand;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.vault.Transactable;
 import net.voxton.mafiacraft.geo.District;

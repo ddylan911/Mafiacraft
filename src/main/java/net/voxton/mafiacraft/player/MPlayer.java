@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.voxton.mafiacraft.Mafiacraft;
+import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.geo.*;
 import net.voxton.mafiacraft.locale.Locale;
 import org.bukkit.configuration.ConfigurationSection;
@@ -40,7 +41,7 @@ import org.bukkit.configuration.ConfigurationSection;
 /**
  * Represents a player.
  */
-public class MPlayer extends Transactable implements LandPurchaser {
+public class MPlayer extends Transactable implements LandPurchaser, ActionPerformer {
     private final String name;
     
     private String displayName;
