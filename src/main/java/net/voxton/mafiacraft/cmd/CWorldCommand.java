@@ -33,8 +33,6 @@ import java.util.Arrays;
 import java.util.List;
 import net.voxton.mafiacraft.geo.MPoint;
 import net.voxton.mafiacraft.help.MenuType;
-import net.voxton.mafiacraft.util.TPCD;
-import net.voxton.mafiacraft.util.TPCD.Type;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
