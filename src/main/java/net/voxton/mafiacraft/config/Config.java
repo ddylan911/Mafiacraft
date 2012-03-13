@@ -23,12 +23,7 @@
  */
 package net.voxton.mafiacraft.config;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import net.voxton.mafiacraft.MafiacraftCore;
-import org.bukkit.configuration.Configuration;
 
 /**
  * Configuration access object.
