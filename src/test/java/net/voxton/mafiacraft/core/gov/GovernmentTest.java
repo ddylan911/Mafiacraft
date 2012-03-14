@@ -632,22 +632,16 @@ public class GovernmentTest {
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
 
-        Set<String> expectedSet = new HashSet<String>();
-        expectedSet.add(leader);
-        expectedSet.add(viceLeader);
-        expectedSet.add("Bob");
-        expectedSet.add("Tim");
-        expectedSet.add("Nancy");
+        Set<String> expected = new HashSet<String>();
+        expected.add(leader);
+        expected.add(viceLeader);
+        expected.add("Bob");
+        expected.add("Tim");
+        expected.add("Nancy");
 
-        Set<String> resultSet = government.getCouncilMembers();
+        Set<String> result = government.getCouncilMembers();
 
-        //Order to satisfy
-        Object[] expected = expectedSet.toArray();
-        Arrays.sort(expected);
-        Object[] result = resultSet.toArray();
-        Arrays.sort(result);
-
-        assertArrayEquals(expected, result);
+        assertEquals(expected, result);
     }
 
     /**
