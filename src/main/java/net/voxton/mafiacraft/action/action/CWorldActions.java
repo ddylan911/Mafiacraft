@@ -82,7 +82,7 @@ public final class CWorldActions extends PlayerActions {
 
         boolean val = world.toggle(tog);
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
-                "command.cworld.toggle-set", tog, val));
+                "action.cworld.toggle-set", tog, val));
         return null;
     }
 
