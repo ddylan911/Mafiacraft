@@ -35,9 +35,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.core.logging.MLogger;
 import net.voxton.mafiacraft.core.Mafiacraft;
@@ -194,8 +196,8 @@ public class GovernmentManager {
      * @param gov The government.
      * @return A list of divisions.
      */
-    public List<Division> getDivisions(Government gov) {
-        return new ArrayList<Division>(getActualDivisionList(gov));
+    public Set<Division> getDivisions(Government gov) {
+        return new HashSet<Division>(getActualDivisionList(gov));
     }
 
     /**

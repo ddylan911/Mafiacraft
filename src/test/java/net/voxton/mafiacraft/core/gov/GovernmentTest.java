@@ -28,13 +28,13 @@ import net.voxton.mafiacraft.core.gov.GovType;
 import net.voxton.mafiacraft.core.gov.GovernmentManager;
 import net.voxton.mafiacraft.core.gov.Position;
 import net.voxton.mafiacraft.core.gov.Division;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Arrays;
 import net.voxton.mafiacraft.core.Mafiacraft;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import java.util.List;
+import java.util.Set;
 import java.util.Map;
 import net.voxton.mafiacraft.core.chat.MsgColor;
 import net.voxton.mafiacraft.core.city.LandOwner;
@@ -138,7 +138,7 @@ public class GovernmentTest {
         when(div1.getLand()).thenReturn(20);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(203);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         int expected = 424;
@@ -158,7 +158,9 @@ public class GovernmentTest {
         when(div1.getLand()).thenReturn(0);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(0);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = new HashSet<Division>();
+        divs.add(div1);
+        divs.add(div2);
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         boolean expResult = true;
@@ -178,7 +180,7 @@ public class GovernmentTest {
         when(div1.getLand()).thenReturn(1);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(0);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         boolean expResult = false;
@@ -507,19 +509,19 @@ public class GovernmentTest {
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
 
-        List<String> expectedList = new ArrayList<String>();
-        expectedList.add(leader);
-        expectedList.add(viceLeader);
-        expectedList.add("Bob");
-        expectedList.add("Tim");
-        expectedList.add("Nancy");
+        Set<String> expectedSet = new HashSet<String>();
+        expectedSet.add(leader);
+        expectedSet.add(viceLeader);
+        expectedSet.add("Bob");
+        expectedSet.add("Tim");
+        expectedSet.add("Nancy");
 
-        List<String> resultList = government.getMembers();
+        Set<String> resultSet = government.getMembers();
 
         //Order to satisfy
-        Object[] expected = expectedList.toArray();
+        Object[] expected = expectedSet.toArray();
         Arrays.sort(expected);
-        Object[] result = resultList.toArray();
+        Object[] result = resultSet.toArray();
         Arrays.sort(result);
 
         assertArrayEquals(expected, result);
@@ -545,23 +547,23 @@ public class GovernmentTest {
         government.addAffiliate("Billy");
         government.addAffiliate("Bobby");
 
-        List<String> expectedList = new ArrayList<String>();
-        expectedList.add(leader);
-        expectedList.add(viceLeader);
-        expectedList.add("Bob");
-        expectedList.add("Tim");
-        expectedList.add("Nancy");
-        expectedList.add("Steve");
-        expectedList.add("Bill");
-        expectedList.add("Billy");
-        expectedList.add("Bobby");
+        Set<String> expectedSet = new HashSet<String>();
+        expectedSet.add(leader);
+        expectedSet.add(viceLeader);
+        expectedSet.add("Bob");
+        expectedSet.add("Tim");
+        expectedSet.add("Nancy");
+        expectedSet.add("Steve");
+        expectedSet.add("Bill");
+        expectedSet.add("Billy");
+        expectedSet.add("Bobby");
 
-        List<String> resultList = government.getMembers();
+        Set<String> resultSet = government.getMembers();
 
         //Order to satisfy
-        Object[] expected = expectedList.toArray();
+        Object[] expected = expectedSet.toArray();
         Arrays.sort(expected);
-        Object[] result = resultList.toArray();
+        Object[] result = resultSet.toArray();
         Arrays.sort(result);
 
         assertArrayEquals(expected, result);
@@ -579,7 +581,7 @@ public class GovernmentTest {
         when(div1.getLand()).thenReturn(20);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = Arrays.asSet(div1, div2);
         when(governmentManager.getDivisions(government)).thenReturn(divs);
         
         String leader = "Leader";
@@ -591,42 +593,42 @@ public class GovernmentTest {
         government.addOfficer("Nancy");
         
         when(div1.getManager()).thenReturn("Fred");
-        when(div1.getWorkers()).thenReturn(Arrays.asList("Darren", "Phillip"));
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Darren", "Phillip")));
         
         when(div2.getManager()).thenReturn("Marquise");
-        when(div2.getWorkers()).thenReturn(Arrays.asList("Steven", "Nick"));
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Steven", "Nick")));
         
         government.addAffiliate("Steve");
         government.addAffiliate("Bill");
         government.addAffiliate("Billy");
         government.addAffiliate("Bobby");
 
-        List<String> expectedList = new ArrayList<String>();
-        expectedList.add(leader);
-        expectedList.add(viceLeader);
-        expectedList.add("Bob");
-        expectedList.add("Tim");
-        expectedList.add("Nancy");
+        Set<String> expectedSet = new HashSet<String>();
+        expectedSet.add(leader);
+        expectedSet.add(viceLeader);
+        expectedSet.add("Bob");
+        expectedSet.add("Tim");
+        expectedSet.add("Nancy");
         
-        expectedList.add("Fred");
-        expectedList.add("Darren");
-        expectedList.add("Phillip");
+        expectedSet.add("Fred");
+        expectedSet.add("Darren");
+        expectedSet.add("Phillip");
         
-        expectedList.add("Marquise");
-        expectedList.add("Steven");
-        expectedList.add("Nick");
+        expectedSet.add("Marquise");
+        expectedSet.add("Steven");
+        expectedSet.add("Nick");
         
-        expectedList.add("Steve");
-        expectedList.add("Bill");
-        expectedList.add("Billy");
-        expectedList.add("Bobby");
+        expectedSet.add("Steve");
+        expectedSet.add("Bill");
+        expectedSet.add("Billy");
+        expectedSet.add("Bobby");
 
-        List<String> resultList = government.getMembers();
+        Set<String> resultSet = government.getMembers();
 
         //Order to satisfy
-        Object[] expected = expectedList.toArray();
+        Object[] expected = expectedSet.toArray();
         Arrays.sort(expected);
-        Object[] result = resultList.toArray();
+        Object[] result = resultSet.toArray();
         Arrays.sort(result);
 
         assertArrayEquals(expected, result);
@@ -647,19 +649,19 @@ public class GovernmentTest {
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
 
-        List<String> expectedList = new ArrayList<String>();
-        expectedList.add(leader);
-        expectedList.add(viceLeader);
-        expectedList.add("Bob");
-        expectedList.add("Tim");
-        expectedList.add("Nancy");
+        Set<String> expectedSet = new HashSet<String>();
+        expectedSet.add(leader);
+        expectedSet.add(viceLeader);
+        expectedSet.add("Bob");
+        expectedSet.add("Tim");
+        expectedSet.add("Nancy");
 
-        List<String> resultList = government.getCouncilMembers();
+        Set<String> resultSet = government.getCouncilMembers();
 
         //Order to satisfy
-        Object[] expected = expectedList.toArray();
+        Object[] expected = expectedSet.toArray();
         Arrays.sort(expected);
-        Object[] result = resultList.toArray();
+        Object[] result = resultSet.toArray();
         Arrays.sort(result);
 
         assertArrayEquals(expected, result);
@@ -672,8 +674,8 @@ public class GovernmentTest {
     public void testGetPositions() {
         System.out.println("Testing the getPositions method.");
         
-        Map<Position, List<String>> expected = null;
-        Map<Position, List<String>> result = government.getPositions();
+        Map<Position, Set<String>> expected = null;
+        Map<Position, Set<String>> result = government.getPositions();
         assertEquals(expected, result);
     }
 
@@ -685,8 +687,8 @@ public class GovernmentTest {
         System.out.println("getMembers");
         Position position = null;
         Government instance = null;
-        List expResult = null;
-        List result = instance.getMembers(position);
+        Set expResult = null;
+        Set result = instance.getMembers(position);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -729,8 +731,8 @@ public class GovernmentTest {
     public void testGetDivisions() {
         System.out.println("getDivisions");
         Government instance = null;
-        List expResult = null;
-        List result = instance.getDivisions();
+        Set expResult = null;
+        Set result = instance.getDivisions();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -900,7 +902,7 @@ public class GovernmentTest {
         when(div1.getLand()).thenReturn(20);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
         
         String leader = "Jeff";
@@ -912,10 +914,10 @@ public class GovernmentTest {
         government.addOfficer("Nancy");
         
         when(div1.getManager()).thenReturn("Fred");
-        when(div1.getWorkers()).thenReturn(Arrays.asList("Darren", "Phillip"));
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Darren", "Phillip")));
         
         when(div2.getManager()).thenReturn("Marquise");
-        when(div2.getWorkers()).thenReturn(Arrays.asList("Steven", "Nick"));
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Steven", "Nick")));
         
         government.addAffiliate("Steve");
         government.addAffiliate("Bill");
@@ -954,7 +956,7 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
         when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
         
-        List<MPlayer> onlineMembers = new ArrayList<MPlayer>();
+        Set<MPlayer> onlineMembers = new HashSet<MPlayer>();
         onlineMembers.add(jeff);
         onlineMembers.add(spe);
         onlineMembers.add(bob);
@@ -971,7 +973,7 @@ public class GovernmentTest {
         onlineMembers.add(billy);
         onlineMembers.add(bobby);
         
-        List<MPlayer> expectedList = new ArrayList<MPlayer>(onlineMembers);
+        Set<MPlayer> expectedSet = new HashSet<MPlayer>(onlineMembers);
         
         //Fake players now!
         MPlayer notin = mock(MPlayer.class);
@@ -984,14 +986,14 @@ public class GovernmentTest {
         when(afforess.getName()).thenReturn("Afforess");
         onlineMembers.add(afforess);
         
-        List<MPlayer> resultList = government.getOnlineMembers();
+        Set<MPlayer> resultSet = government.getOnlineMembers();
         
-        assertEquals(expectedList, resultList);
+        assertEquals(expectedSet, resultSet);
         
         //Order to satisfy
-//        Object[] expected = expectedList.toArray();
+//        Object[] expected = expectedSet.toArray();
 //        Arrays.sort(expected);
-//        Object[] result = resultList.toArray();
+//        Object[] result = resultSet.toArray();
 //        Arrays.sort(result);
 //
 //        assertArrayEquals(expected, result);
@@ -1005,8 +1007,8 @@ public class GovernmentTest {
         System.out.println("getOnlineMembers");
         Position position = null;
         Government instance = null;
-        List expResult = null;
-        List result = instance.getOnlineMembers(position);
+        Set expResult = null;
+        Set result = instance.getOnlineMembers(position);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -1131,7 +1133,7 @@ public class GovernmentTest {
         when(div1.getManager()).thenReturn(player);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         Position expected = Position.MANAGER;
@@ -1151,10 +1153,15 @@ public class GovernmentTest {
         //Mock divisions
         Division div1 = mock(Division.class);
         when(div1.getLand()).thenReturn(20);
-        when(div1.getWorkers()).thenReturn(Arrays.asList(player));
+        Set<String> workerSet = new HashSet<String>();
+        workerSet.add(player);
+        when(div1.getWorkers()).thenReturn(workerSet);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = new HashSet<Division>();
+        divs.add(div1);
+        divs.add(div2);
+        
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         Position expected = Position.WORKER;
@@ -1176,10 +1183,10 @@ public class GovernmentTest {
         //Mock divisions
         Division div1 = mock(Division.class);
         when(div1.getLand()).thenReturn(20);
-        when(div1.getWorkers()).thenReturn(Arrays.asList(playerName));
+        when(div1.getWorkers()).thenReturn(Arrays.asSet(playerName));
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = Arrays.asSet(div1, div2);
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         Position expected = Position.WORKER;
@@ -1447,8 +1454,8 @@ public class GovernmentTest {
     public void testGetAffiliates() {
         System.out.println("getAffiliates");
         Government instance = null;
-        List expResult = null;
-        List result = instance.getAffiliates();
+        Set expResult = null;
+        Set result = instance.getAffiliates();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -1461,8 +1468,8 @@ public class GovernmentTest {
     public void testGetOfficers() {
         System.out.println("getOfficers");
         Government instance = null;
-        List expResult = null;
-        List result = instance.getOfficers();
+        Set expResult = null;
+        Set result = instance.getOfficers();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -1475,8 +1482,8 @@ public class GovernmentTest {
     public void testGetOnlineOfficers() {
         System.out.println("getOnlineOfficers");
         Government instance = null;
-        List expResult = null;
-        List result = instance.getOnlineOfficers();
+        Set expResult = null;
+        Set result = instance.getOnlineOfficers();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -1568,7 +1575,7 @@ public class GovernmentTest {
         when(div1.getLand()).thenReturn(20);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        List<Division> divs = Arrays.asList(div1, div2);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         int expected = 16;
@@ -1738,19 +1745,19 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
         when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
 
-        List<MPlayer> expectedList = new ArrayList<MPlayer>();
-        expectedList.add(frank);
-        expectedList.add(joe);
-        expectedList.add(bob);
-        expectedList.add(tim);
-        expectedList.add(nancy);
+        Set<MPlayer> expectedSet = new HashSet<MPlayer>();
+        expectedSet.add(frank);
+        expectedSet.add(joe);
+        expectedSet.add(bob);
+        expectedSet.add(tim);
+        expectedSet.add(nancy);
 
-        List<MPlayer> resultList = government.getCouncilMembersAsMPlayers();
+        Set<MPlayer> resultSet = government.getCouncilMembersAsMPlayers();
 
         //Order to satisfy
-        Object[] expected = expectedList.toArray();
+        Object[] expected = expectedSet.toArray();
         Arrays.sort(expected);
-        Object[] result = resultList.toArray();
+        Object[] result = resultSet.toArray();
         Arrays.sort(result);
 
         assertArrayEquals(expected, result);
