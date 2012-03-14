@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.core.gov;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Arrays;
 import net.voxton.mafiacraft.core.Mafiacraft;
@@ -613,7 +613,7 @@ public class GovernmentTest {
         expected.add("Bobby");
 
         Set<String> result = government.getMembers();
-        
+
         assertEquals(expected, result);
     }
 
@@ -651,11 +651,108 @@ public class GovernmentTest {
     public void testGetPositions() {
         System.out.println("Testing the getPositions method.");
 
-        Map<Position, Set<String>> expected = new HashMap<Position, Set<String>>();
-        
-        
-        
+        Map<Position, Set<String>> expected =
+                new EnumMap<Position, Set<String>>(Position.class);
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+
+        Set<String> leaders = new HashSet<String>();
+        leaders.add("Jeff");
+        expected.put(Position.LEADER, leaders);
+
+        Set<String> viceLeaders = new HashSet<String>();
+        viceLeaders.add("Spe");
+        expected.put(Position.VICE_LEADER, viceLeaders);
+
+        Set<String> officers = new HashSet<String>();
+        officers.add("Bob");
+        officers.add("Tim");
+        officers.add("Nancy");
+        expected.put(Position.OFFICER, officers);
+
+        Set<String> managers = new HashSet<String>();
+        managers.add("Fred");
+        managers.add("Marquise");
+        expected.put(Position.MANAGER, managers);
+
+        Set<String> workers = new HashSet<String>();
+        workers.add("Darren");
+        workers.add("Phillip");
+        workers.add("Steven");
+        workers.add("Nick");
+        expected.put(Position.WORKER, workers);
+
+        Set<String> affiliates = new HashSet<String>();
+        affiliates.add("Steve");;
+        affiliates.add("Bill");
+        affiliates.add("Billy");
+        affiliates.add("Bobby");
+        expected.put(Position.AFFILIATE, affiliates);
+
+        Set<String> none = new HashSet<String>();
+        expected.put(Position.NONE, none);
+
         Map<Position, Set<String>> result = government.getPositions();
+
         assertEquals(expected, result);
     }
 
@@ -663,15 +760,454 @@ public class GovernmentTest {
      * Test of getMembers method, of class Government.
      */
     @Test
-    public void testGetMembers_Position() {
-        System.out.println("getMembers");
-        Position position = null;
-        Government instance = null;
-        Set expResult = null;
-        Set result = instance.getMembers(position);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetMembers_Position_leader() {
+        System.out.println(
+                "Testing the getMembers (Position) method with a leader.");
+        Position position = Position.LEADER;
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+
+        Set<String> expected = new HashSet<String>(Arrays.asList("Jeff"));
+        Set<String> result = government.getMembers(position);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getMembers method, of class Government.
+     */
+    @Test
+    public void testGetMembers_Position_viceLeader() {
+        System.out.println(
+                "Testing the getMembers (Position) method with a vice leader.");
+        Position position = Position.VICE_LEADER;
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+
+        Set<String> expected = new HashSet<String>(Arrays.asList("Spe"));
+        Set<String> result = government.getMembers(position);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getMembers method, of class Government.
+     */
+    @Test
+    public void testGetMembers_Position_officer() {
+        System.out.println(
+                "Testing the getMembers (Position) method with officers.");
+        Position position = Position.OFFICER;
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+
+        Set<String> expected = new HashSet<String>(Arrays.asList("Bob", "Tim",
+                "Nancy"));
+        Set<String> result = government.getMembers(position);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getMembers method, of class Government.
+     */
+    @Test
+    public void testGetMembers_Position_manager() {
+        System.out.println(
+                "Testing the getMembers (Position) method with managers.");
+        Position position = Position.MANAGER;
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+
+        Set<String> expected = new HashSet<String>(Arrays.asList("Fred",
+                "Marquise"));
+        Set<String> result = government.getMembers(position);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getMembers method, of class Government.
+     */
+    @Test
+    public void testGetMembers_Position_worker() {
+        System.out.println(
+                "Testing the getMembers (Position) method with workers.");
+        Position position = Position.WORKER;
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+
+        Set<String> expected = new HashSet<String>(Arrays.asList("Darren",
+                "Phillip", "Steven", "Nick"));
+        Set<String> result = government.getMembers(position);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getMembers method, of class Government.
+     */
+    @Test
+    public void testGetMembers_Position_affiliate() {
+        System.out.println(
+                "Testing the getMembers (Position) method with affiliates.");
+        Position position = Position.OFFICER;
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+
+        Set<String> expected = new HashSet<String>(Arrays.asList("Steve", "Bill",
+                "Billy", "Bobby"));
+        Set<String> result = government.getMembers(position);
+        assertEquals(expected, result);
     }
 
     /**
@@ -1431,17 +1967,17 @@ public class GovernmentTest {
     @Test
     public void testGetAffiliates() {
         System.out.println("getAffiliates");
-        
+
         government.setLeader("Billy");
         government.addAffiliate("Jim");
         government.addAffiliate("John");
         government.addAffiliate("Phil");
-        
+
         Set<String> expected = new HashSet<String>();
         expected.add("Jim");
         expected.add("John");
         expected.add("Phil");
-        
+
         Set<String> result = government.getAffiliates();
         assertEquals(expected, result);
     }
@@ -1452,17 +1988,17 @@ public class GovernmentTest {
     @Test
     public void testGetOfficers() {
         System.out.println("Testing the getOfficers method.");
-        
+
         government.setLeader("Billy");
         government.addOfficer("Jim");
         government.addOfficer("John");
         government.addOfficer("Phil");
-        
+
         Set<String> expected = new HashSet<String>();
         expected.add("Jim");
         expected.add("John");
         expected.add("Phil");
-        
+
         Set<String> result = government.getOfficers();
         assertEquals(expected, result);
     }
