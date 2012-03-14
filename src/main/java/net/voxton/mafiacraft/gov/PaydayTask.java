@@ -24,8 +24,8 @@
 package net.voxton.mafiacraft.gov;
 
 import net.voxton.mafiacraft.Mafiacraft;
-import net.voxton.mafiacraft.geo.District;
-import net.voxton.mafiacraft.geo.LandOwner;
+import net.voxton.mafiacraft.city.District;
+import net.voxton.mafiacraft.city.LandOwner;
 import net.voxton.mafiacraft.gov.Division;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;

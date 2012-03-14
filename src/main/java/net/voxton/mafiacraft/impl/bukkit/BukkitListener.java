@@ -25,8 +25,8 @@ package net.voxton.mafiacraft.impl.bukkit;
 
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.classes.UtilityClass;
-import net.voxton.mafiacraft.geo.District;
-import net.voxton.mafiacraft.geo.LandOwner;
+import net.voxton.mafiacraft.city.District;
+import net.voxton.mafiacraft.city.LandOwner;
 import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.impl.bukkit.BukkitImpl;
 import net.voxton.mafiacraft.player.KillTracker;

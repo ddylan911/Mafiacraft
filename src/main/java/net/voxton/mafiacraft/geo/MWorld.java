@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.geo;
 
+import net.voxton.mafiacraft.city.DistrictType;
+import net.voxton.mafiacraft.city.City;
 import java.util.*;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;

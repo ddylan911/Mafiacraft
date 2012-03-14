@@ -25,10 +25,10 @@ package net.voxton.mafiacraft;
 
 import java.io.File;
 import net.voxton.mafiacraft.chat.ChatHandler;
-import net.voxton.mafiacraft.geo.CityManager;
+import net.voxton.mafiacraft.city.CityManager;
 import net.voxton.mafiacraft.geo.MWorld;
-import net.voxton.mafiacraft.geo.District;
-import net.voxton.mafiacraft.geo.LandOwner;
+import net.voxton.mafiacraft.city.District;
+import net.voxton.mafiacraft.city.LandOwner;
 import net.voxton.mafiacraft.gov.GovernmentManager;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.PlayerManager;

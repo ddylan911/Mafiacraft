@@ -32,7 +32,7 @@ import net.voxton.mafiacraft.logging.MLogger;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.chat.ChatHandler;
 import net.voxton.mafiacraft.data.DataWorker;
-import net.voxton.mafiacraft.geo.CityManager;
+import net.voxton.mafiacraft.city.CityManager;
 import net.voxton.mafiacraft.gov.GovernmentManager;
 import net.voxton.mafiacraft.impl.MafiacraftImpl;
 import net.voxton.mafiacraft.locale.LocaleManager;

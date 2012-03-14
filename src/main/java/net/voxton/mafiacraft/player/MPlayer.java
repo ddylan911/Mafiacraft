@@ -23,6 +23,11 @@
  */
 package net.voxton.mafiacraft.player;
 
+import net.voxton.mafiacraft.city.LandPurchaser;
+import net.voxton.mafiacraft.city.OwnerType;
+import net.voxton.mafiacraft.city.LandOwner;
+import net.voxton.mafiacraft.city.District;
+import net.voxton.mafiacraft.city.City;
 import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.classes.UtilityClass;
 import net.voxton.mafiacraft.gov.Division;

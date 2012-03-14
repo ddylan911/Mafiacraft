@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.gov;
 
 import gnu.trove.iterator.TIntIntIterator;
 import net.voxton.mafiacraft.MafiacraftCore;
-import net.voxton.mafiacraft.geo.City;
+import net.voxton.mafiacraft.city.City;
 import net.voxton.mafiacraft.player.MPlayer;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;

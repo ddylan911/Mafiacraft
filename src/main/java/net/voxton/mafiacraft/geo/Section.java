@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.geo;
 
+import net.voxton.mafiacraft.city.LandOwner;
+import net.voxton.mafiacraft.city.District;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.util.GeoUtils;
 

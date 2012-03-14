@@ -23,9 +23,9 @@
  */
 package net.voxton.mafiacraft.action.action;
 
-import net.voxton.mafiacraft.geo.City;
-import net.voxton.mafiacraft.geo.District;
-import net.voxton.mafiacraft.geo.DistrictType;
+import net.voxton.mafiacraft.city.City;
+import net.voxton.mafiacraft.city.District;
+import net.voxton.mafiacraft.city.DistrictType;
 import net.voxton.mafiacraft.player.MPlayer;
 import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.ValidationUtils;
