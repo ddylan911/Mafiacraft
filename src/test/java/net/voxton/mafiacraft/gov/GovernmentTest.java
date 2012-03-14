@@ -1212,13 +1212,21 @@ public class GovernmentTest {
      */
     @Test
     public void testDecLand() {
-        System.out.println("decLand");
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.decLand();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the decLand method.");
+        
+        int expected = 201;
+        int result = government.getLand();
+        assertEquals(expected, result);
+        
+        government.decLand();
+        expected = 200;
+        result = government.getLand();
+        assertEquals(expected, result);
+        
+        government.decLand();
+        expected = 199;
+        result = government.getLand();
+        assertEquals(expected, result);
     }
 
     /**
