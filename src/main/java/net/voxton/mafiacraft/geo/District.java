@@ -31,6 +31,7 @@ import net.voxton.mafiacraft.player.MsgColor;
 import net.voxton.mafiacraft.util.GeoUtils;
 import gnu.trove.map.hash.TByteObjectHashMap;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,18 +45,23 @@ import org.bukkit.configuration.serialization.SerializableAs;
  * Represents a 16x16 section area.
  */
 @SerializableAs("district")
-public class District implements LandOwner, ConfigurationSerializable {
+public class District implements LandOwner, ConfigurationSerializable, Serializable {
+
     public static final int HEIGHT_BITS = 8;
-    
+
     public static final int SIDE_BITS = 4;
-    
-    public static final int HEIGHT_MASK  = (~0) >>> (Integer.SIZE - HEIGHT_BITS);
-    
+
+    public static final int HEIGHT_MASK = (~0) >>> (Integer.SIZE - HEIGHT_BITS);
+
     public static final int SIDE_MASK = (~0) >>> (Integer.SIZE - SIDE_BITS);
+
+    private transient MWorld mworld;
+
+    private transient DistrictType districtType;
 
     private String name;
 
-    private final MWorld world;
+    private final String world;
 
     private final int x;
 
@@ -63,18 +69,21 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     private MPoint busStop;
 
-    private DistrictType type;
-
     private String description;
 
     private TByteObjectHashMap<String> owners = new TByteObjectHashMap<String>();
 
     private double landCost;
 
-    public District(MWorld world, int x, int z) {
+    public District(String world, int x, int z) {
         this.world = world;
         this.x = x;
         this.z = z;
+    }
+
+    public District(MWorld world, int x, int z) {
+        this(world.getName(), x, z);
+        this.mworld = world;
     }
 
     /**
@@ -121,7 +130,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     public MWorld getWorld() {
-        return world;
+        return mworld;
     }
 
     /**
@@ -193,10 +202,10 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     public DistrictType getType() {
-        if (type == null) {
-            return getCityWorld().getDefaultDistrictType();
+        if (districtType == null) {
+            return getWorld().getDefaultDistrictType();
         }
-        return type;
+        return districtType;
     }
 
     /**
@@ -206,7 +215,7 @@ public class District implements LandOwner, ConfigurationSerializable {
      * @return
      */
     public District setType(DistrictType type) {
-        this.type = type;
+        this.districtType = type;
         return this;
     }
 
@@ -367,7 +376,8 @@ public class District implements LandOwner, ConfigurationSerializable {
     public boolean contains(Section section) {
         int sx = x << SIDE_BITS;
         int sz = z << SIDE_BITS;
-        MLogger.logVerbose("Checking if section " + section.getX() + ", " + section.getZ()
+        MLogger.logVerbose("Checking if section " + section.getX() + ", "
+                + section.getZ()
                 + " is within the bounds of " + sx + ", " + sz + ".", 5);
         return (section.getX() >= sx)
                 && (section.getX() < (sx + 0x10))
@@ -489,15 +499,6 @@ public class District implements LandOwner, ConfigurationSerializable {
 
     public void setLandCost(double landCost) {
         this.landCost = landCost;
-    }
-
-    /**
-     * Gets the CityWorld this district is in.
-     *
-     * @return
-     */
-    public MWorld getCityWorld() {
-        return world;
     }
 
     public String getEntryMessage() {

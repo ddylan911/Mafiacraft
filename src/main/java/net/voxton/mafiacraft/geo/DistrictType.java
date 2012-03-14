@@ -23,14 +23,19 @@
  */
 package net.voxton.mafiacraft.geo;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.voxton.mafiacraft.player.MPlayer;
 import java.util.HashMap;
 import java.util.Map;
+import net.voxton.mafiacraft.util.StringSerializer;
 
 /**
  * Represents a type of district.
  */
-public enum DistrictType {
+public enum DistrictType implements Serializable {
 
     /**
      * PvP enabled shared zone. Do whatever the crap you want.
