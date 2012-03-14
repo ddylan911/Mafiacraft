@@ -36,7 +36,7 @@ public class CWorldMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
-        addEntry("spawn", "Goes to the spawn location of the world.", "spawn");
+        addEntry("spawn");
     }
 
 }

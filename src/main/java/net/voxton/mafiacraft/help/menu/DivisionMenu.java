@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.help.menu;
 
+import java.lang.reflect.Method;
 import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.help.HelpMenu;
 import org.apache.commons.lang.StringUtils;
@@ -41,6 +42,6 @@ public class DivisionMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
-        addEntry("mycmd")
+        addEntry("mycmd");
     }
 }

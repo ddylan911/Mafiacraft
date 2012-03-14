@@ -92,16 +92,18 @@ public abstract class HelpMenu {
      * Adds an entry to the help menu.
      *
      * @param command The name of the command to add.
-     * @param description The description of the command as specified in the 
-     *      locale file.
      * @param usg The usage of the command.
      */
-    protected void addEntry(String command, String description, String usg) {
-        command = command.toLowerCase();
+    protected void addEntry(String usg) {
+        if (usg.length() < 1) {
+            return;
+        }
+        usg = usg.toLowerCase();
+        String command = usg.split(" ")[0];
         usage.put(command, usg);
 
         for (Locale locale : Mafiacraft.getLocales()) {
-            String desc = locale.localize("cmd-help." + );
+            String desc = locale.localize("cmd-help." + getCommandName() + "." + command);
 
             getLocalizedHelp(locale).put(command, desc);
 

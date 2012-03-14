@@ -107,23 +107,21 @@ public class HelpMenuTest {
     public void testAddEntry() {
         System.out.println("Testing adding an entry to the menu.");
 
-        String command = "test";
-        String desc = "cmd-help.test.test";
+        String usage = "test <req> [opt] [-r|-l]";
         String descExpected = "A test method.";
-        String usage = "[opt]";
 
-        testMenu.addEntry(command, desc, usage);
+        testMenu.addEntry(usage);
 
         //Make sure it went in!
-        assertTrue(testMenu.hasCommand(command));
+        assertTrue(testMenu.hasCommand("test"));
 
         //Check the description
-        String descResult = testMenu.getEntry(command, Mafiacraft.
+        String descResult = testMenu.getEntry("test", Mafiacraft.
                 getDefaultLocale());
         assertEquals(descExpected, descResult);
 
         //Check the usage
-        String usageResult = testMenu.getUsage(command);
+        String usageResult = testMenu.getUsage("test");
         assertEquals(usage, usageResult);
     }
 
@@ -216,18 +214,18 @@ public class HelpMenuTest {
 
         @Override
         public void loadMenu() {
-            addEntry("test", "A test method.", "<args>");
-            addEntry("test2", "A test2 method.", "<args2>");
-            addEntry("test3", "A test3 method.", "<args3>");
-            addEntry("test4", "A test4 method.", "<args4>");
-            addEntry("test5", "A test5 method.", "<args5>");
-            addEntry("test6", "A test6 method.", "<args6>");
-            addEntry("test7", "A test7 method.", "<args7>");
-            addEntry("test8", "A test8 method.", "<args8>");
-            addEntry("test9", "A test9 method.", "<args9>");
+            addEntry("test <args>");
+            addEntry("test2 <args2>");
+            addEntry("test3 <args3>");
+            addEntry("test4 <args4>");
+            addEntry("test5 <args5>");
+            addEntry("test6 <args6>");
+            addEntry("test7 <args7>");
+            addEntry("test8 <args8>");
+            addEntry("test9 <args9>");
 
             //Purposely out of order.
-            addEntry("test1", "A test1 method.", "<args1>");
+            addEntry("test1 <args1>");
         }
 
     }

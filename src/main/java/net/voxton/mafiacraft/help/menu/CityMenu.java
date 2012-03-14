@@ -36,10 +36,9 @@ public class CityMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
-        addEntry("annex",
-                "cmd-help.city.annex", "annex");
-        addEntry("bus", "cmd-help.city.bus", "bus <district>");
-        addEntry("spawn", "cmd-help.city.spawn", "spawn");
+        addEntry("annex");
+        addEntry("bus");
+        addEntry("spawn");
     }
 
 }

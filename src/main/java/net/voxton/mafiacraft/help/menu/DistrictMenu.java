@@ -36,7 +36,7 @@ public class DistrictMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
-        addEntry("blah", "blah.blah", "blah");
+        addEntry("blah");
     }
     
 }
