@@ -98,7 +98,7 @@ public class CWorldActionsTest {
         System.out.println("Testing of a toggle that should not be allowed.");
 
         String expected = Mafiacraft.getDefaultLocale().localize(
-                "command.general.not-allowed");
+                "action.general.not-allowed");
         String result = ActionType.CWORLD.doToggle(aubhaze, WorldToggle.FREE_ROAM.
                 name());
 
@@ -112,7 +112,7 @@ public class CWorldActionsTest {
         String toggleList = Arrays.asList(WorldToggle.values()).toString();
 
         String expected = Mafiacraft.getDefaultLocale().localize(
-                "command.cworld.toggle-invalid", toggleList);
+                "action.cworld.toggle-invalid", toggleList);
         String result = ActionType.CWORLD.doToggle(albireox, "free_rome"); //Intentional derp
 
         assertEquals(expected, result);
@@ -129,7 +129,7 @@ public class CWorldActionsTest {
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(
-                "command.cworld.toggle-set", toggle, value);
+                "action.cworld.toggle-set", toggle, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
     }
@@ -145,7 +145,7 @@ public class CWorldActionsTest {
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(
-                "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
+                "action.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
     }
@@ -162,7 +162,7 @@ public class CWorldActionsTest {
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(
-                "command.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
+                "action.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
         verify(world).toggle(WorldToggle.FREE_ROAM);
     }
