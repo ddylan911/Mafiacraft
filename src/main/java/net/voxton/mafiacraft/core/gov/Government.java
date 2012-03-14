@@ -232,8 +232,12 @@ public class Government extends Transactable implements LandPurchaser, Configura
      */
     public List<String> getCouncilMembers() {
         List<String> members = new ArrayList<String>();
-        members.add(leader);
-        members.add(viceLeader);
+        if (leader != null) {
+            members.add(leader);
+        }
+        if (viceLeader != null) {
+            members.add(viceLeader);
+        }
         members.addAll(officers);
         return members;
     }
