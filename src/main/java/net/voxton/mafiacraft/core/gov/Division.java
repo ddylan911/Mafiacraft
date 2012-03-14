@@ -23,7 +23,6 @@
  */
 package net.voxton.mafiacraft.core.gov;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -217,12 +216,12 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     }
 
     /**
-     * Gets a list of all workers within the division.
+     * Gets a Set of all workers within the division.
      *
-     * @return A list of all division workers.
+     * @return A Set of all division workers.
      */
-    public List<String> getWorkers() {
-        return new ArrayList<String>(workers);
+    public Set<String> getWorkers() {
+        return new HashSet<String>(workers);
     }
 
     /**
@@ -255,12 +254,12 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     }
 
     /**
-     * Gets a list of all members of the division.
+     * Gets a Set of all members of the division.
      *
      * @return
      */
-    public List<String> getMembers() {
-        List<String> members = getWorkers();
+    public Set<String> getMembers() {
+        Set<String> members = getWorkers();
         members.add(manager);
         return members;
     }
@@ -279,8 +278,8 @@ public class Division extends Transactable implements LandPurchaser, Configurati
      *
      * @return
      */
-    public List<MPlayer> getMembersAsMPlayers() {
-        List<MPlayer> members = new ArrayList<MPlayer>();
+    public Set<MPlayer> getMembersAsMPlayers() {
+        Set<MPlayer> members = new HashSet<MPlayer>();
         for (String player : getMembers()) {
             MPlayer mp = Mafiacraft.getPlayer(player);
             members.add(mp);
@@ -289,13 +288,13 @@ public class Division extends Transactable implements LandPurchaser, Configurati
     }
 
     /**
-     * Gets a list of all members currently online in the division.
+     * Gets a Set of all members currently online in the division.
      *
      * @return
      */
-    public List<MPlayer> getOnlineMembers() {
-        List<MPlayer> online = new ArrayList<MPlayer>();
-        List<String> members = getMembers();
+    public Set<MPlayer> getOnlineMembers() {
+        Set<MPlayer> online = new HashSet<MPlayer>();
+        Set<String> members = getMembers();
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (members.contains(player.getName())) {
                 online.add(player);

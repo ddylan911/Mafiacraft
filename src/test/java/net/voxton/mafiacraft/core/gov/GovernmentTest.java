@@ -499,7 +499,8 @@ public class GovernmentTest {
      */
     @Test
     public void testGetMembers_0args_councilOnly() {
-        System.out.println("Testing the getMembers method with only council members.");
+        System.out.println(
+                "Testing the getMembers method with only council members.");
 
         String leader = "Leader";
         String viceLeader = "ViceLeader";
@@ -532,7 +533,8 @@ public class GovernmentTest {
      */
     @Test
     public void testGetMembers_0args_govOnly() {
-        System.out.println("Testing the getMembers method with council members and affiliates.");
+        System.out.println(
+                "Testing the getMembers method with council members and affiliates.");
 
         String leader = "Leader";
         String viceLeader = "ViceLeader";
@@ -541,7 +543,7 @@ public class GovernmentTest {
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
-        
+
         government.addAffiliate("Steve");
         government.addAffiliate("Bill");
         government.addAffiliate("Billy");
@@ -574,16 +576,17 @@ public class GovernmentTest {
      */
     @Test
     public void testGetMembers_0args_govAndDivs() {
-        System.out.println("Testing the getMembers method with government and division members.");
-        
+        System.out.println(
+                "Testing the getMembers method with government and division members.");
+
         //Mock divisions
         Division div1 = mock(Division.class);
         when(div1.getLand()).thenReturn(20);
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        Set<Division> divs = Arrays.asSet(div1, div2);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
-        
+
         String leader = "Leader";
         String viceLeader = "ViceLeader";
         government.setLeader(leader);
@@ -591,13 +594,15 @@ public class GovernmentTest {
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
-        
+
         when(div1.getManager()).thenReturn("Fred");
-        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Darren", "Phillip")));
-        
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
         when(div2.getManager()).thenReturn("Marquise");
-        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Steven", "Nick")));
-        
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
         government.addAffiliate("Steve");
         government.addAffiliate("Bill");
         government.addAffiliate("Billy");
@@ -609,15 +614,15 @@ public class GovernmentTest {
         expectedSet.add("Bob");
         expectedSet.add("Tim");
         expectedSet.add("Nancy");
-        
+
         expectedSet.add("Fred");
         expectedSet.add("Darren");
         expectedSet.add("Phillip");
-        
+
         expectedSet.add("Marquise");
         expectedSet.add("Steven");
         expectedSet.add("Nick");
-        
+
         expectedSet.add("Steve");
         expectedSet.add("Bill");
         expectedSet.add("Billy");
@@ -673,7 +678,7 @@ public class GovernmentTest {
     @Test
     public void testGetPositions() {
         System.out.println("Testing the getPositions method.");
-        
+
         Map<Position, Set<String>> expected = null;
         Map<Position, Set<String>> result = government.getPositions();
         assertEquals(expected, result);
@@ -759,10 +764,10 @@ public class GovernmentTest {
     @Test
     public void testCreateDivision() {
         System.out.println("Testing the createDivision method.");
-        
+
         Division div = mock(Division.class);
         when(governmentManager.createDivision(government)).thenReturn(div);
-        
+
         Division expected = div;
         Division result = government.createDivision();
         assertEquals(expected, result);
@@ -896,7 +901,7 @@ public class GovernmentTest {
     @Test
     public void testGetOnlineMembers_0args_govAndDivs() {
         System.out.println("Testing the getOnlineMembers method.");
-        
+
         //Mock divisions
         Division div1 = mock(Division.class);
         when(div1.getLand()).thenReturn(20);
@@ -904,7 +909,7 @@ public class GovernmentTest {
         when(div2.getLand()).thenReturn(40);
         Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
-        
+
         String leader = "Jeff";
         String viceLeader = "Spe";
         government.setLeader(leader);
@@ -912,18 +917,20 @@ public class GovernmentTest {
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
-        
+
         when(div1.getManager()).thenReturn("Fred");
-        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Darren", "Phillip")));
-        
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Darren", "Phillip")));
+
         when(div2.getManager()).thenReturn("Marquise");
-        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList("Steven", "Nick")));
-        
+        when(div2.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                "Steven", "Nick")));
+
         government.addAffiliate("Steve");
         government.addAffiliate("Bill");
         government.addAffiliate("Billy");
         government.addAffiliate("Bobby");
-        
+
         MPlayer jeff = mock(MPlayer.class);
         MPlayer spe = mock(MPlayer.class);
         MPlayer bob = mock(MPlayer.class);
@@ -939,7 +946,7 @@ public class GovernmentTest {
         MPlayer bill = mock(MPlayer.class);
         MPlayer billy = mock(MPlayer.class);
         MPlayer bobby = mock(MPlayer.class);
-        
+
         when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
         when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
         when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
@@ -955,7 +962,7 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
         when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
         when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
-        
+
         Set<MPlayer> onlineMembers = new HashSet<MPlayer>();
         onlineMembers.add(jeff);
         onlineMembers.add(spe);
@@ -972,9 +979,9 @@ public class GovernmentTest {
         onlineMembers.add(bill);
         onlineMembers.add(billy);
         onlineMembers.add(bobby);
-        
+
         Set<MPlayer> expectedSet = new HashSet<MPlayer>(onlineMembers);
-        
+
         //Fake players now!
         MPlayer notin = mock(MPlayer.class);
         when(notin.getName()).thenReturn("notin");
@@ -985,11 +992,11 @@ public class GovernmentTest {
         MPlayer afforess = mock(MPlayer.class);
         when(afforess.getName()).thenReturn("Afforess");
         onlineMembers.add(afforess);
-        
+
         Set<MPlayer> resultSet = government.getOnlineMembers();
-        
+
         assertEquals(expectedSet, resultSet);
-        
+
         //Order to satisfy
 //        Object[] expected = expectedSet.toArray();
 //        Arrays.sort(expected);
@@ -1161,7 +1168,7 @@ public class GovernmentTest {
         Set<Division> divs = new HashSet<Division>();
         divs.add(div1);
         divs.add(div2);
-        
+
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         Position expected = Position.WORKER;
@@ -1183,10 +1190,11 @@ public class GovernmentTest {
         //Mock divisions
         Division div1 = mock(Division.class);
         when(div1.getLand()).thenReturn(20);
-        when(div1.getWorkers()).thenReturn(Arrays.asSet(playerName));
+        when(div1.getWorkers()).thenReturn(new HashSet<String>(Arrays.asList(
+                playerName)));
         Division div2 = mock(Division.class);
         when(div2.getLand()).thenReturn(40);
-        Set<Division> divs = Arrays.asSet(div1, div2);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
         when(governmentManager.getDivisions(government)).thenReturn(divs);
 
         Position expected = Position.WORKER;
