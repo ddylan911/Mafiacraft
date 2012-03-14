@@ -30,7 +30,7 @@ import net.voxton.mafiacraft.core.logging.MLogger;
 import net.voxton.mafiacraft.core.MafiacraftCore;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -126,11 +126,11 @@ public class PlayerManager {
     }
 
     /**
-     * Gets a list of all players.
+     * Gets a Set of all players.
      *
      * @return
      */
-    public List<MPlayer> getOnlinePlayers() {
+    public Set<MPlayer> getOnlinePlayers() {
         return Mafiacraft.getImpl().getOnlinePlayers();
     }
 

@@ -963,35 +963,38 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
         when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
 
-        Set<MPlayer> onlineMembers = new HashSet<MPlayer>();
-        onlineMembers.add(jeff);
-        onlineMembers.add(spe);
-        onlineMembers.add(bob);
-        onlineMembers.add(tim);
-        onlineMembers.add(nancy);
-        onlineMembers.add(fred);
-        onlineMembers.add(darren);
-        onlineMembers.add(phillip);
-        onlineMembers.add(marquise);
-        onlineMembers.add(steven);
-        onlineMembers.add(nick);
-        onlineMembers.add(steve);
-        onlineMembers.add(bill);
-        onlineMembers.add(billy);
-        onlineMembers.add(bobby);
+        Set<MPlayer> onlinePlayers = new HashSet<MPlayer>();
+        onlinePlayers.add(jeff);
+        onlinePlayers.add(spe);
+        onlinePlayers.add(bob);
+        onlinePlayers.add(tim);
+        onlinePlayers.add(nancy);
+        onlinePlayers.add(fred);
+        onlinePlayers.add(darren);
+        onlinePlayers.add(phillip);
+        onlinePlayers.add(marquise);
+        onlinePlayers.add(steven);
+        onlinePlayers.add(nick);
+        onlinePlayers.add(steve);
+        onlinePlayers.add(bill);
+        onlinePlayers.add(billy);
+        onlinePlayers.add(bobby);
 
-        Set<MPlayer> expectedSet = new HashSet<MPlayer>(onlineMembers);
+        Set<MPlayer> expectedSet = new HashSet<MPlayer>(onlinePlayers);
 
         //Fake players now!
         MPlayer notin = mock(MPlayer.class);
         when(notin.getName()).thenReturn("notin");
-        onlineMembers.add(notin);
+        onlinePlayers.add(notin);
         MPlayer albireox = mock(MPlayer.class);
         when(albireox.getName()).thenReturn("albireox");
-        onlineMembers.add(albireox);
+        onlinePlayers.add(albireox);
         MPlayer afforess = mock(MPlayer.class);
         when(afforess.getName()).thenReturn("Afforess");
-        onlineMembers.add(afforess);
+        onlinePlayers.add(afforess);
+
+        //Put them in
+        when(Mafiacraft.getOnlinePlayers()).thenReturn(onlinePlayers);
 
         Set<MPlayer> resultSet = government.getOnlineMembers();
 

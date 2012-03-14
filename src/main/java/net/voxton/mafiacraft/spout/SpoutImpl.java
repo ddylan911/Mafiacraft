@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.spout;
 
-import java.util.List;
+import java.util.Set;
 import net.voxton.mafiacraft.core.MafiacraftCore;
 import net.voxton.mafiacraft.core.config.MafiacraftConfig;
 import net.voxton.mafiacraft.core.geo.MPoint;
@@ -129,7 +129,7 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
     }
 
     @Override
-    public List<MPlayer> getOnlinePlayers() {
+    public Set<MPlayer> getOnlinePlayers() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

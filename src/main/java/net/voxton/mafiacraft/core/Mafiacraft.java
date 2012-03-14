@@ -33,6 +33,7 @@ import net.voxton.mafiacraft.core.gov.GovernmentManager;
 import net.voxton.mafiacraft.core.player.MPlayer;
 import net.voxton.mafiacraft.core.player.PlayerManager;
 import java.util.List;
+import java.util.Set;
 import net.voxton.mafiacraft.core.action.ConsolePerformer;
 import net.voxton.mafiacraft.core.data.DataWorker;
 import net.voxton.mafiacraft.core.locale.Locale;
@@ -72,7 +73,7 @@ public class Mafiacraft {
      *
      * @return
      */
-    public static List<MPlayer> getOnlinePlayers() {
+    public static Set<MPlayer> getOnlinePlayers() {
         return getCore().getPlayerManager().getOnlinePlayers();
     }
 
@@ -136,7 +137,7 @@ public class Mafiacraft {
     public static CityManager getCityManager() {
         return getCore().getCityManager();
     }
-    
+
     /**
      * Gets the console performer.
      * 

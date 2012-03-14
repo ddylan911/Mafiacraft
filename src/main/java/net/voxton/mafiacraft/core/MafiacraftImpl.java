@@ -24,7 +24,7 @@
 package net.voxton.mafiacraft.core;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 import net.voxton.mafiacraft.core.config.MafiacraftConfig;
 import net.voxton.mafiacraft.core.geo.MPoint;
@@ -71,7 +71,7 @@ public interface MafiacraftImpl {
 
     public boolean hasPermission(MPlayer player, String permission);
 
-    public List<MPlayer> getOnlinePlayers();
+    public Set<MPlayer> getOnlinePlayers();
 
     public String matchPlayerName(String name);
 

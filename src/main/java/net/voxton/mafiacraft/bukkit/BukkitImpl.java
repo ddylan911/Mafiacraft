@@ -23,9 +23,10 @@
  */
 package net.voxton.mafiacraft.bukkit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import net.milkbowl.vault.economy.Economy;
 import net.voxton.mafiacraft.core.config.MafiacraftConfig;
@@ -307,8 +308,8 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
     }
 
     @Override
-    public List<MPlayer> getOnlinePlayers() {
-        List<MPlayer> players = new ArrayList<MPlayer>();
+    public Set<MPlayer> getOnlinePlayers() {
+        Set<MPlayer> players = new HashSet<MPlayer>();
         for (Player player : Bukkit.getOnlinePlayers()) {
             players.add(Mafiacraft.getPlayer(player.getName()));
         }
