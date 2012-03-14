@@ -539,26 +539,20 @@ public class GovernmentTest {
         government.addAffiliate("Billy");
         government.addAffiliate("Bobby");
 
-        Set<String> expectedSet = new HashSet<String>();
-        expectedSet.add(leader);
-        expectedSet.add(viceLeader);
-        expectedSet.add("Bob");
-        expectedSet.add("Tim");
-        expectedSet.add("Nancy");
-        expectedSet.add("Steve");
-        expectedSet.add("Bill");
-        expectedSet.add("Billy");
-        expectedSet.add("Bobby");
+        Set<String> expected = new HashSet<String>();
+        expected.add(leader);
+        expected.add(viceLeader);
+        expected.add("Bob");
+        expected.add("Tim");
+        expected.add("Nancy");
+        expected.add("Steve");
+        expected.add("Bill");
+        expected.add("Billy");
+        expected.add("Bobby");
 
-        Set<String> resultSet = government.getMembers();
+        Set<String> result = government.getMembers();
 
-        //Order to satisfy
-        Object[] expected = expectedSet.toArray();
-        Arrays.sort(expected);
-        Object[] result = resultSet.toArray();
-        Arrays.sort(result);
-
-        assertArrayEquals(expected, result);
+        assertEquals(expected, result);
     }
 
     /**
@@ -598,35 +592,29 @@ public class GovernmentTest {
         government.addAffiliate("Billy");
         government.addAffiliate("Bobby");
 
-        Set<String> expectedSet = new HashSet<String>();
-        expectedSet.add(leader);
-        expectedSet.add(viceLeader);
-        expectedSet.add("Bob");
-        expectedSet.add("Tim");
-        expectedSet.add("Nancy");
+        Set<String> expected = new HashSet<String>();
+        expected.add(leader);
+        expected.add(viceLeader);
+        expected.add("Bob");
+        expected.add("Tim");
+        expected.add("Nancy");
 
-        expectedSet.add("Fred");
-        expectedSet.add("Darren");
-        expectedSet.add("Phillip");
+        expected.add("Fred");
+        expected.add("Darren");
+        expected.add("Phillip");
 
-        expectedSet.add("Marquise");
-        expectedSet.add("Steven");
-        expectedSet.add("Nick");
+        expected.add("Marquise");
+        expected.add("Steven");
+        expected.add("Nick");
 
-        expectedSet.add("Steve");
-        expectedSet.add("Bill");
-        expectedSet.add("Billy");
-        expectedSet.add("Bobby");
+        expected.add("Steve");
+        expected.add("Bill");
+        expected.add("Billy");
+        expected.add("Bobby");
 
-        Set<String> resultSet = government.getMembers();
-
-        //Order to satisfy
-        Object[] expected = expectedSet.toArray();
-        Arrays.sort(expected);
-        Object[] result = resultSet.toArray();
-        Arrays.sort(result);
-
-        assertArrayEquals(expected, result);
+        Set<String> result = government.getMembers();
+        
+        assertEquals(expected, result);
     }
 
     /**
@@ -1449,12 +1437,19 @@ public class GovernmentTest {
     @Test
     public void testGetAffiliates() {
         System.out.println("getAffiliates");
-        Government instance = null;
-        Set expResult = null;
-        Set result = instance.getAffiliates();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        government.setLeader("Billy");
+        government.addAffiliate("Jim");
+        government.addAffiliate("John");
+        government.addAffiliate("Phil");
+        
+        Set<String> expected = new HashSet<String>();
+        expected.add("Jim");
+        expected.add("John");
+        expected.add("Phil");
+        
+        Set<String> result = government.getAffiliates();
+        assertEquals(expected, result);
     }
 
     /**
@@ -1462,13 +1457,20 @@ public class GovernmentTest {
      */
     @Test
     public void testGetOfficers() {
-        System.out.println("getOfficers");
-        Government instance = null;
-        Set expResult = null;
-        Set result = instance.getOfficers();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getOfficers method.");
+        
+        government.setLeader("Billy");
+        government.addOfficer("Jim");
+        government.addOfficer("John");
+        government.addOfficer("Phil");
+        
+        Set<String> expected = new HashSet<String>();
+        expected.add("Jim");
+        expected.add("John");
+        expected.add("Phil");
+        
+        Set<String> result = government.getOfficers();
+        assertEquals(expected, result);
     }
 
     /**
@@ -1750,7 +1752,7 @@ public class GovernmentTest {
 
         Set<MPlayer> result = government.getCouncilMembersAsMPlayers();
 
-        assertArrayEquals(expected, result);
+        assertEquals(expected, result);
     }
 
     /**
