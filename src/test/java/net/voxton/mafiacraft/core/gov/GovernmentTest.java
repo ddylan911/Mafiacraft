@@ -36,6 +36,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.List;
 import java.util.Map;
+import net.voxton.mafiacraft.core.chat.MsgColor;
 import net.voxton.mafiacraft.core.city.LandOwner;
 import net.voxton.mafiacraft.core.city.OwnerType;
 import net.voxton.mafiacraft.core.player.MPlayer;
@@ -46,7 +47,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.powermock.api.mockito.PowerMockito.*;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.mockito.Mockito.*;
 
 /**
  * Government unit test.
@@ -190,7 +192,7 @@ public class GovernmentTest {
     @Test
     public void testGetPower() {
         System.out.println("Testing the getPower method.");
-        
+
         String leader = "Frank";
         String viceLeader = "Joe";
         government.setLeader(leader);
@@ -215,7 +217,7 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
         when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
         when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
-        
+
         int expResult = -8;
         int result = government.getPower();
         assertEquals(expResult, result);
@@ -227,33 +229,7 @@ public class GovernmentTest {
     @Test
     public void testGetMinPlayerPower() {
         System.out.println("Testing the getMinPlayerPower method.");
-        
-        int expResult = 0;
-        int result = government.getMinPlayerPower();
-        assertEquals(expResult, result);
-    }
 
-    /**
-     * Test of getMaxPlayerPower method, of class Government.
-     */
-    @Test
-    public void testGetMaxPlayerPower() {
-        System.out.println("getMaxPlayerPower");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getMaxPlayerPower();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPlayerPower method, of class Government.
-     */
-    @Test
-    public void testGetPlayerPower() {
-        System.out.println("getPlayerPower");
-        
         //Mock the council
         String leader = "Leader";
         String viceLeader = "ViceLeader";
@@ -262,16 +238,50 @@ public class GovernmentTest {
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
-        
-        //Mock divisions
-        Division div1 = mock(Division.class);
-        when(div1.getLand()).thenReturn(20);
-        Division div2 = mock(Division.class);
-        when(div2.getLand()).thenReturn(23);
-        List<Division> divs = Arrays.asList(div1, div2);
-        when(governmentManager.getDivisions(government)).thenReturn(divs);
-        
-        int expected = 3;
+
+        int expected = -80;
+        int result = government.getMinPlayerPower();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getMaxPlayerPower method, of class Government.
+     */
+    @Test
+    public void testGetMaxPlayerPower() {
+        System.out.println("Testing the getMaxPlayerPower method.");
+
+        //Mock the council
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        int expected = 80;
+        int result = government.getMaxPlayerPower();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getPlayerPower method, of class Government.
+     */
+    @Test
+    public void testGetPlayerPower() {
+        System.out.println("Testing the getPlayerPower method.");
+
+        //Mock the council
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        int expected = 40;
         int result = government.getPlayerPower();
         assertEquals(expected, result);
     }
@@ -281,14 +291,14 @@ public class GovernmentTest {
      */
     @Test
     public void testSetName() {
-        System.out.println("setName");
-        String name = "";
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.setName(name);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setName method.");
+
+        String name = "TestName123213";
+        government.setName(name);
+        
+        String expected = name;
+        String result = government.getName();
+        assertEquals(expected, result);
     }
 
     /**
@@ -297,10 +307,10 @@ public class GovernmentTest {
     @Test
     public void testGetType() {
         System.out.println("Testing the getType method.");
-        
+
         GovType type = GovType.MAFIA;
         government.setType(type);
-        
+
         GovType expected = type;
         GovType result = government.getType();
         assertEquals(expected, result);
@@ -312,10 +322,10 @@ public class GovernmentTest {
     @Test
     public void testSetType() {
         System.out.println("Testing the setType method.");
-        
+
         GovType type = GovType.MAFIA;
         government.setType(type);
-        
+
         GovType expected = type;
         GovType result = government.getType();
         assertEquals(expected, result);
@@ -343,12 +353,10 @@ public class GovernmentTest {
     @Test
     public void testGetOwnerName() {
         System.out.println("getOwnerName");
-        
-        String expResult = "GovarnMent";
-//        String result = instance.getOwnerName();
-        assertEquals(expResult, null);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        String expected = "GovarnMunt";
+        String result = government.getOwnerName();
+        assertEquals(expected, result);
     }
 
     /**
@@ -357,10 +365,10 @@ public class GovernmentTest {
     @Test
     public void testGetLeader() {
         System.out.println("Testing the getLeader method.");
-        
+
         String leader = "Tim";
         government.setLeader(leader);
-        
+
         String expected = leader;
         String result = government.getLeader();
         assertEquals(expected, result);
@@ -372,10 +380,10 @@ public class GovernmentTest {
     @Test
     public void testGetViceLeader() {
         System.out.println("Testing the getViceLeader method.");
-        
+
         String viceLeader = "bob";
         government.setViceLeader(viceLeader);
-        
+
         String expected = viceLeader;
         String result = government.getViceLeader();
         assertEquals(expected, result);
@@ -536,7 +544,7 @@ public class GovernmentTest {
     @Test
     public void testGetCouncilMemberCount() {
         System.out.println("Testing the getCouncilMemberCount method.");
-        
+
         String leader = "Leader";
         String viceLeader = "ViceLeader";
         government.setLeader(leader);
@@ -544,7 +552,7 @@ public class GovernmentTest {
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
-        
+
         int expected = 5;
         int result = government.getCouncilMemberCount();
         assertEquals(expected, result);
@@ -555,13 +563,14 @@ public class GovernmentTest {
      */
     @Test
     public void testGetCouncilMemberCount_noOfficers() {
-        System.out.println("Testing the getCouncilMemberCount method with no officers.");
-        
+        System.out.println(
+                "Testing the getCouncilMemberCount method with no officers.");
+
         String leader = "Leader";
         String viceLeader = "ViceLeader";
         government.setLeader(leader);
         government.setViceLeader(viceLeader);
-        
+
         int expected = 2;
         int result = government.getCouncilMemberCount();
         assertEquals(expected, result);
@@ -572,14 +581,15 @@ public class GovernmentTest {
      */
     @Test
     public void testGetCouncilMemberCount_noLeader() {
-        System.out.println("Testing the getCouncilMemberCount method with no leader.");
-        
+        System.out.println(
+                "Testing the getCouncilMemberCount method with no leader.");
+
         String viceLeader = "ViceLeader";
         government.setViceLeader(viceLeader);
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
-        
+
         int expected = 4;
         int result = government.getCouncilMemberCount();
         assertEquals(expected, result);
@@ -590,14 +600,15 @@ public class GovernmentTest {
      */
     @Test
     public void testGetCouncilMemberCount_noViceLeader() {
-        System.out.println("Testing the getCouncilMemberCount method with no vice leader.");
-        
+        System.out.println(
+                "Testing the getCouncilMemberCount method with no vice leader.");
+
         String leader = "Leader";
         government.setLeader(leader);
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
-        
+
         int expected = 4;
         int result = government.getCouncilMemberCount();
         assertEquals(expected, result);
@@ -608,12 +619,13 @@ public class GovernmentTest {
      */
     @Test
     public void testGetCouncilMemberCount_noLeaderOrViceLeader() {
-        System.out.println("Testing the getCouncilMemberCount method with no leader or vice leader.");
-        
+        System.out.println(
+                "Testing the getCouncilMemberCount method with no leader or vice leader.");
+
         government.addOfficer("Bob");
         government.addOfficer("Tim");
         government.addOfficer("RedBirdAlley");
-        
+
         int expected = 3;
         int result = government.getCouncilMemberCount();
         assertEquals(expected, result);
@@ -829,7 +841,7 @@ public class GovernmentTest {
     @Test
     public void testSetHq() {
         System.out.println("setHq");
-        
+
         Government instance = null;
         Government expResult = null;
         assertEquals(expResult, null);
@@ -843,11 +855,11 @@ public class GovernmentTest {
     @Test
     public void testSetLeader_MPlayer() {
         System.out.println("Testing the setLeader method with a MPlayer.");
-        
+
         MPlayer leader = mock(MPlayer.class);
         when(leader.getName()).thenReturn("Tim");
         government.setLeader(leader);
-        
+
         String expected = "Tim";
         String result = government.getLeader();
         assertEquals(expected, result);
@@ -859,10 +871,10 @@ public class GovernmentTest {
     @Test
     public void testSetLeader_String() {
         System.out.println("Testing the setLeader method with a string.");
-        
+
         String leader = "Tim";
         government.setLeader(leader);
-        
+
         String expected = leader;
         String result = government.getLeader();
         assertEquals(expected, result);
@@ -874,11 +886,11 @@ public class GovernmentTest {
     @Test
     public void testSetViceLeader_MPlayer() {
         System.out.println("Testing the setViceLeader method with an MPlayer.");
-        
+
         MPlayer viceLeader = mock(MPlayer.class);
         when(viceLeader.getName()).thenReturn("prince");
         government.setViceLeader(viceLeader);
-        
+
         String expected = "prince";
         String result = government.getViceLeader();
         assertEquals(expected, result);
@@ -890,10 +902,10 @@ public class GovernmentTest {
     @Test
     public void testSetViceLeader_String() {
         System.out.println("Testing the setViceLeader method with a string.");
-        
+
         String viceLeader = "bob";
         government.setViceLeader(viceLeader);
-        
+
         String expected = viceLeader;
         String result = government.getViceLeader();
         assertEquals(expected, result);
@@ -1126,7 +1138,7 @@ public class GovernmentTest {
     @Test
     public void testGetMaxGovernmentLand_withDivs() {
         System.out.println("Testing the getMaxGovernmentLand method.");
-        
+
         //Mock divisions
         Division div1 = mock(Division.class);
         when(div1.getLand()).thenReturn(20);
@@ -1134,7 +1146,7 @@ public class GovernmentTest {
         when(div2.getLand()).thenReturn(40);
         List<Division> divs = Arrays.asList(div1, div2);
         when(governmentManager.getDivisions(government)).thenReturn(divs);
-        
+
         int expected = 16;
         int result = government.getMaxGovernmentLand();
         assertEquals(expected, result);
@@ -1146,7 +1158,7 @@ public class GovernmentTest {
     @Test
     public void testGetMaxGovernmentLand_withoutDivs() {
         System.out.println("Testing the getMaxGovernmentLand method.");
-        
+
         int expected = 12;
         int result = government.getMaxGovernmentLand();
         assertEquals(expected, result);
@@ -1172,7 +1184,7 @@ public class GovernmentTest {
     @Test
     public void testGetLand() {
         System.out.println("Testing the getLand method.");
-        
+
         int expected = 201;
         int result = government.getLand();
         assertEquals(expected, result);
@@ -1184,7 +1196,7 @@ public class GovernmentTest {
     @Test
     public void testSetLand() {
         System.out.println("Testing the setLand method.");
-        
+
         int expected = 201;
         int result = government.getLand();
         assertEquals(expected, result);
@@ -1196,16 +1208,16 @@ public class GovernmentTest {
     @Test
     public void testIncLand() {
         System.out.println("Testing the incLand method.");
-        
+
         int expected = 201;
         int result = government.getLand();
         assertEquals(expected, result);
-        
+
         government.incLand();
         expected = 202;
         result = government.getLand();
         assertEquals(expected, result);
-        
+
         government.incLand();
         expected = 203;
         result = government.getLand();
@@ -1218,16 +1230,16 @@ public class GovernmentTest {
     @Test
     public void testDecLand() {
         System.out.println("Testing the decLand method.");
-        
+
         int expected = 201;
         int result = government.getLand();
         assertEquals(expected, result);
-        
+
         government.decLand();
         expected = 200;
         result = government.getLand();
         assertEquals(expected, result);
-        
+
         government.decLand();
         expected = 199;
         result = government.getLand();
@@ -1339,11 +1351,11 @@ public class GovernmentTest {
      */
     @Test
     public void testGetChatPrefix() {
-        System.out.println("getChatPrefix");
-        Government instance = null;
-        String expResult = "";
-        String result = instance.getChatPrefix();
-        assertEquals(expResult, result);
+        System.out.println("Testing the getChatPrefix method.");
+        
+        String expected = "";
+        String result = government.getChatPrefix();
+        assertEquals(expected, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -1352,13 +1364,42 @@ public class GovernmentTest {
      * Test of broadcastMessage method, of class Government.
      */
     @Test
-    public void testBroadcastMessage() {
-        System.out.println("broadcastMessage");
-        String message = "";
-        Government instance = null;
-        instance.broadcastMessage(message);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testBroadcastMessage_councilOnly() {
+        System.out.println("Testing the broadcastMessage method with only a council.");
+
+        String message = "This is a " + MsgColor.INFO_HILIGHT + "TEST";
+        String expectedMessage = MsgColor.INFO_GOV + message;
+        
+        //Setup council
+        String leader = "Frank";
+        String viceLeader = "Joe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        MPlayer frank = mock(MPlayer.class);
+        MPlayer joe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+
+        when(Mafiacraft.getPlayer("Frank")).thenReturn(frank);
+        when(Mafiacraft.getPlayer("Joe")).thenReturn(joe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        
+        //Broadcast
+        government.broadcastMessage(message);
+        
+        //Verify
+        verify(frank).sendMessage(expectedMessage);
+        verify(joe).sendMessage(expectedMessage);
+        verify(bob).sendMessage(expectedMessage);
+        verify(tim).sendMessage(expectedMessage);
+        verify(nancy).sendMessage(expectedMessage);
     }
 
     /**
@@ -1366,13 +1407,11 @@ public class GovernmentTest {
      */
     @Test
     public void testGetEntryMessage() {
-        System.out.println("getEntryMessage");
-        Government instance = null;
-        String expResult = "";
-        String result = instance.getEntryMessage();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getEntryMessage method.");
+        
+        String expected = "GovarnMunt";
+        String result = government.getEntryMessage();
+        assertEquals(expected, result);
     }
 
     /**
