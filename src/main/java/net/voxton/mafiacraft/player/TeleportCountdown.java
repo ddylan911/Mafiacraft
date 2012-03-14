@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.player;
 
+import net.voxton.mafiacraft.chat.MsgColor;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.MPoint;
 

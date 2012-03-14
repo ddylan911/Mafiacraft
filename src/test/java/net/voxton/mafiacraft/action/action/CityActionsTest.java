@@ -40,7 +40,7 @@ import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.locale.LocaleManager;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import org.junit.After;
 import org.junit.Before;
 import static org.powermock.api.mockito.PowerMockito.*;

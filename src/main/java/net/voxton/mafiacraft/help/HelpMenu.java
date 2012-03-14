@@ -34,7 +34,7 @@ import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.action.ActionPerformer;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 
 /**
  * Represents a help menu.

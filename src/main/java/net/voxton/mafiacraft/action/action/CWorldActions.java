@@ -26,7 +26,7 @@ package net.voxton.mafiacraft.action.action;
 import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.geo.WorldToggle;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import java.util.Arrays;
 import java.util.List;
 import net.voxton.mafiacraft.action.PlayerActions;

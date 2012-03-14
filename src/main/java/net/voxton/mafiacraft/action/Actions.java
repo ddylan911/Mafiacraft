@@ -25,7 +25,7 @@ package net.voxton.mafiacraft.action;
 
 import java.util.List;
 import net.voxton.mafiacraft.help.HelpMenu;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 
 /**
  * Performs actions.

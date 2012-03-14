@@ -28,7 +28,7 @@ import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.config.Config;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 
 /**
  * Local chat channel.

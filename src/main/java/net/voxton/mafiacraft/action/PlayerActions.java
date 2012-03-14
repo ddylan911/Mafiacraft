@@ -27,7 +27,7 @@ import java.util.List;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.help.HelpMenu;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 
 /**
  * Represents actions that can only be done ingame.

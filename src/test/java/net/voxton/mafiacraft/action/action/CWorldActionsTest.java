@@ -34,7 +34,7 @@ import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.geo.WorldToggle;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

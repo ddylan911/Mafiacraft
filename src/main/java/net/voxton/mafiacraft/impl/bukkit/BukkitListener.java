@@ -31,7 +31,7 @@ import net.voxton.mafiacraft.geo.Section;
 import net.voxton.mafiacraft.impl.bukkit.BukkitImpl;
 import net.voxton.mafiacraft.player.KillTracker;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import net.voxton.mafiacraft.player.SessionStore;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;

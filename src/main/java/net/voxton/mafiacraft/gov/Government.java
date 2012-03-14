@@ -35,7 +35,7 @@ import net.voxton.mafiacraft.city.District;
 import net.voxton.mafiacraft.city.LandPurchaser;
 import net.voxton.mafiacraft.city.OwnerType;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import net.voxton.mafiacraft.econ.Transactable;
 import java.util.Map.Entry;
 import java.util.Set;

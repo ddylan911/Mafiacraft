@@ -24,7 +24,7 @@
 package net.voxton.mafiacraft.action.action;
 
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import java.util.List;
 import net.voxton.mafiacraft.action.PlayerActions;
 

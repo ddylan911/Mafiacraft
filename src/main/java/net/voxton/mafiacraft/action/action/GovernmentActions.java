@@ -31,7 +31,7 @@ import net.voxton.mafiacraft.gov.GovType;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.gov.Position;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import net.voxton.mafiacraft.util.ValidationUtils;
 import com.google.common.base.Joiner;
 import java.util.List;

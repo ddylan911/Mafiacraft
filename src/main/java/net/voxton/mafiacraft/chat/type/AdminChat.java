@@ -26,7 +26,7 @@ package net.voxton.mafiacraft.chat.type;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.chat.ChatType;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 
 /**
  * Admin chat channel.

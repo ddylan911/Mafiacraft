@@ -27,7 +27,7 @@ import java.util.logging.Level;
 import net.voxton.mafiacraft.Mafiacraft;
 import net.voxton.mafiacraft.locale.Locale;
 import net.voxton.mafiacraft.logging.MLogger;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 
 /**
  * Represents the console.

@@ -33,7 +33,7 @@ import net.voxton.mafiacraft.config.Config;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.After;

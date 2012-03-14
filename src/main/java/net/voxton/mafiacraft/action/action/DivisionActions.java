@@ -29,7 +29,7 @@ import net.voxton.mafiacraft.gov.Division;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.gov.Position;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import com.google.common.base.Joiner;
 import java.text.NumberFormat;
 import java.util.List;

@@ -31,7 +31,7 @@ import net.voxton.mafiacraft.geo.MWorld;
 import net.voxton.mafiacraft.city.District;
 import net.voxton.mafiacraft.gov.Government;
 import net.voxton.mafiacraft.player.MPlayer;
-import net.voxton.mafiacraft.player.MsgColor;
+import net.voxton.mafiacraft.chat.MsgColor;
 import net.voxton.mafiacraft.util.ValidationUtils;
 import java.util.List;
 import net.voxton.mafiacraft.action.PlayerActions;

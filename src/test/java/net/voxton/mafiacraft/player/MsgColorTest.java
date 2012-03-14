@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.player;
 
+import net.voxton.mafiacraft.chat.MsgColor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
