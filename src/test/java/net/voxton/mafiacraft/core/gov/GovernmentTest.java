@@ -23,11 +23,7 @@
  */
 package net.voxton.mafiacraft.core.gov;
 
-import net.voxton.mafiacraft.core.gov.Government;
-import net.voxton.mafiacraft.core.gov.GovType;
-import net.voxton.mafiacraft.core.gov.GovernmentManager;
-import net.voxton.mafiacraft.core.gov.Position;
-import net.voxton.mafiacraft.core.gov.Division;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Arrays;
 import net.voxton.mafiacraft.core.Mafiacraft;
@@ -679,7 +675,10 @@ public class GovernmentTest {
     public void testGetPositions() {
         System.out.println("Testing the getPositions method.");
 
-        Map<Position, Set<String>> expected = null;
+        Map<Position, Set<String>> expected = new HashMap<Position, Set<String>>();
+        
+        
+        
         Map<Position, Set<String>> result = government.getPositions();
         assertEquals(expected, result);
     }
@@ -999,14 +998,6 @@ public class GovernmentTest {
         Set<MPlayer> resultSet = government.getOnlineMembers();
 
         assertEquals(expectedSet, resultSet);
-
-        //Order to satisfy
-//        Object[] expected = expectedSet.toArray();
-//        Arrays.sort(expected);
-//        Object[] result = resultSet.toArray();
-//        Arrays.sort(result);
-//
-//        assertArrayEquals(expected, result);
     }
 
     /**
