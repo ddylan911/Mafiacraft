@@ -506,22 +506,16 @@ public class GovernmentTest {
         government.addOfficer("Tim");
         government.addOfficer("Nancy");
 
-        Set<String> expectedSet = new HashSet<String>();
-        expectedSet.add(leader);
-        expectedSet.add(viceLeader);
-        expectedSet.add("Bob");
-        expectedSet.add("Tim");
-        expectedSet.add("Nancy");
+        Set<String> expected = new HashSet<String>();
+        expected.add(leader);
+        expected.add(viceLeader);
+        expected.add("Bob");
+        expected.add("Tim");
+        expected.add("Nancy");
 
-        Set<String> resultSet = government.getMembers();
+        Set<String> result = government.getMembers();
 
-        //Order to satisfy
-        Object[] expected = expectedSet.toArray();
-        Arrays.sort(expected);
-        Object[] result = resultSet.toArray();
-        Arrays.sort(result);
-
-        assertArrayEquals(expected, result);
+        assertEquals(expected, result);
     }
 
     /**
@@ -1747,20 +1741,14 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
         when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
 
-        Set<MPlayer> expectedSet = new HashSet<MPlayer>();
-        expectedSet.add(frank);
-        expectedSet.add(joe);
-        expectedSet.add(bob);
-        expectedSet.add(tim);
-        expectedSet.add(nancy);
+        Set<MPlayer> expected = new HashSet<MPlayer>();
+        expected.add(frank);
+        expected.add(joe);
+        expected.add(bob);
+        expected.add(tim);
+        expected.add(nancy);
 
-        Set<MPlayer> resultSet = government.getCouncilMembersAsMPlayers();
-
-        //Order to satisfy
-        Object[] expected = expectedSet.toArray();
-        Arrays.sort(expected);
-        Object[] result = resultSet.toArray();
-        Arrays.sort(result);
+        Set<MPlayer> result = government.getCouncilMembersAsMPlayers();
 
         assertArrayEquals(expected, result);
     }
