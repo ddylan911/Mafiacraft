@@ -176,10 +176,13 @@ public class Government extends Transactable implements LandPurchaser, Configura
         this.type = type;
     }
 
+    @Override
     public boolean canBuild(MPlayer player, Section section) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return player.getGovernment().equals(this) && player.getPosition().
+                isAtLeast(Position.OFFICER);
     }
 
+    @Override
     public String getOwnerName() {
         return name;
     }

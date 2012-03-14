@@ -1353,11 +1353,11 @@ public class GovernmentTest {
     public void testGetChatPrefix() {
         System.out.println("Testing the getChatPrefix method.");
         
-        String expected = "";
+        government.setType(GovType.MAFIA);
+        
+        String expected = GovType.MAFIA.getColor() + "[GovarnMunt]";
         String result = government.getChatPrefix();
         assertEquals(expected, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
