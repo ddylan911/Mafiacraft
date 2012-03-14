@@ -295,7 +295,7 @@ public class GovernmentTest {
 
         String name = "TestName123213";
         government.setName(name);
-        
+
         String expected = name;
         String result = government.getName();
         assertEquals(expected, result);
@@ -335,16 +335,119 @@ public class GovernmentTest {
      * Test of canBuild method, of class Government.
      */
     @Test
-    public void testCanBuild() {
-        System.out.println("canBuild");
-        MPlayer player = null;
-        Chunk c = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canBuild(player, null);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCanBuild_leader() {
+        System.out.println(
+                "Testing the canBuild method with a player of leader position.");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPosition()).thenReturn(Position.LEADER);
+        when(frank.getGovernment()).thenReturn(government);
+
+        boolean expected = true;
+        boolean result = government.canBuild(frank, null);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of canBuild method, of class Government.
+     */
+    @Test
+    public void testCanBuild_viceLeader() {
+        System.out.println(
+                "Testing the canBuild method with a player of vice leader position.");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPosition()).thenReturn(Position.VICE_LEADER);
+        when(frank.getGovernment()).thenReturn(government);
+
+        boolean expected = true;
+        boolean result = government.canBuild(frank, null);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of canBuild method, of class Government.
+     */
+    @Test
+    public void testCanBuild_officer() {
+        System.out.println(
+                "Testing the canBuild method with a player of officer position.");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPosition()).thenReturn(Position.OFFICER);
+        when(frank.getGovernment()).thenReturn(government);
+
+        boolean expected = true;
+        boolean result = government.canBuild(frank, null);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of canBuild method, of class Government.
+     */
+    @Test
+    public void testCanBuild_manager() {
+        System.out.println(
+                "Testing the canBuild method with a player of manager position.");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPosition()).thenReturn(Position.MANAGER);
+        when(frank.getGovernment()).thenReturn(government);
+
+        boolean expected = false;
+        boolean result = government.canBuild(frank, null);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of canBuild method, of class Government.
+     */
+    @Test
+    public void testCanBuild_worker() {
+        System.out.println(
+                "Testing the canBuild method with a player of worker position.");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPosition()).thenReturn(Position.WORKER);
+        when(frank.getGovernment()).thenReturn(government);
+
+        boolean expected = false;
+        boolean result = government.canBuild(frank, null);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of canBuild method, of class Government.
+     */
+    @Test
+    public void testCanBuild_affiliate() {
+        System.out.println(
+                "Testing the canBuild method with a player of affiliate position.");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPosition()).thenReturn(Position.AFFILIATE);
+        when(frank.getGovernment()).thenReturn(government);
+
+        boolean expected = false;
+        boolean result = government.canBuild(frank, null);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of canBuild method, of class Government.
+     */
+    @Test
+    public void testCanBuild_noPosition() {
+        System.out.println(
+                "Testing the canBuild method with a player of no position.");
+
+        MPlayer frank = mock(MPlayer.class);
+        when(frank.getPosition()).thenReturn(Position.NONE);
+        when(frank.getGovernment()).thenReturn(null);
+
+        boolean expected = false;
+        boolean result = government.canBuild(frank, null);
+        assertEquals(expected, result);
     }
 
     /**
@@ -408,7 +511,7 @@ public class GovernmentTest {
      */
     @Test
     public void testGetCouncilMembers() {
-        System.out.println("getCouncilMembers");
+        System.out.println("Testing the getCouncilMembers method.");
 
         String leader = "Leader";
         String viceLeader = "ViceLeader";
@@ -1352,9 +1455,9 @@ public class GovernmentTest {
     @Test
     public void testGetChatPrefix() {
         System.out.println("Testing the getChatPrefix method.");
-        
+
         government.setType(GovType.MAFIA);
-        
+
         String expected = GovType.MAFIA.getColor() + "[GovarnMunt]";
         String result = government.getChatPrefix();
         assertEquals(expected, result);
@@ -1365,11 +1468,12 @@ public class GovernmentTest {
      */
     @Test
     public void testBroadcastMessage_councilOnly() {
-        System.out.println("Testing the broadcastMessage method with only a council.");
+        System.out.println(
+                "Testing the broadcastMessage method with only a council.");
 
         String message = "This is a " + MsgColor.INFO_HILIGHT + "TEST";
         String expectedMessage = MsgColor.INFO_GOV + message;
-        
+
         //Setup council
         String leader = "Frank";
         String viceLeader = "Joe";
@@ -1390,10 +1494,10 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
         when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
         when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
-        
+
         //Broadcast
         government.broadcastMessage(message);
-        
+
         //Verify
         verify(frank).sendMessage(expectedMessage);
         verify(joe).sendMessage(expectedMessage);
@@ -1408,7 +1512,7 @@ public class GovernmentTest {
     @Test
     public void testGetEntryMessage() {
         System.out.println("Testing the getEntryMessage method.");
-        
+
         String expected = "GovarnMunt";
         String result = government.getEntryMessage();
         assertEquals(expected, result);

@@ -178,7 +178,11 @@ public class Government extends Transactable implements LandPurchaser, Configura
 
     @Override
     public boolean canBuild(MPlayer player, Section section) {
-        return player.getGovernment().equals(this) && player.getPosition().
+        Government gov = player.getGovernment();
+        if (gov == null) {
+            return false;
+        }
+        return gov.equals(this) && player.getPosition().
                 isAtLeast(Position.OFFICER);
     }
 
