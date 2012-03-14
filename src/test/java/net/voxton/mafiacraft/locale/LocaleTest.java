@@ -105,7 +105,7 @@ public class LocaleTest {
         System.out.println("Testing a third-level localization.");
 
         Locale locale = manager.getDefault();
-        String expected = "You are not allowed to use this command.";
+        String expected = "You are not allowed to perform this action.";
         String result = locale.localize("action.general.not-allowed");
 
         assertEquals(expected, result);

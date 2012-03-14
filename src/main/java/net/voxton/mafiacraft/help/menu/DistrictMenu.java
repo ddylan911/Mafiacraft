@@ -36,7 +36,7 @@ public class DistrictMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        addEntry("blah", "blah.blah", "blah");
     }
     
 }

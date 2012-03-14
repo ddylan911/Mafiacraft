@@ -41,6 +41,6 @@ public class DivisionMenu extends HelpMenu {
 
     @Override
     public void loadMenu() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        addEntry("mycmd")
     }
 }

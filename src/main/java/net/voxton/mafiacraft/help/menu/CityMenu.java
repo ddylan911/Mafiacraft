@@ -37,9 +37,9 @@ public class CityMenu extends HelpMenu {
     @Override
     public void loadMenu() {
         addEntry("annex",
-                "Annexes the district you are standing in to the city.", "annex");
-        addEntry("bus", "Teleports you to the given bus stop.", "bus <district>");
-        addEntry("spawn", "Teleports you to the city's spawn location.", "spawn");
+                "cmd-help.city.annex", "annex");
+        addEntry("bus", "cmd-help.city.bus", "bus <district>");
+        addEntry("spawn", "cmd-help.city.spawn", "spawn");
     }
 
 }

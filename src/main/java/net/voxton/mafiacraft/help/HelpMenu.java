@@ -101,7 +101,7 @@ public abstract class HelpMenu {
         usage.put(command, usg);
 
         for (Locale locale : Mafiacraft.getLocales()) {
-            String desc = locale.localize(description);
+            String desc = locale.localize("cmd-help." + );
 
             getLocalizedHelp(locale).put(command, desc);
 
@@ -322,7 +322,11 @@ public abstract class HelpMenu {
      */
     public String getCompleteUsage(String command) {
         String usg = getUsage(command);
-        return "/" + name.toLowerCase() + " " + command + " " + usg;
+        return "/" + getCommandName() + " " + command + " " + usg;
+    }
+    
+    public String getCommandName() {
+        return name.toLowerCase();
     }
 
     /**

@@ -129,6 +129,11 @@ help:
   strange-argument: Strange argument %s given.
   
 cmd-help:
+  city:
+    annex: Annexes this district to a city.
+    bus: Teleports you to the given bus stop.
+    spawn: Teleports you to the city's spawn location.
+  
   test:
     test: A test method.
     test1: A test1 method.
