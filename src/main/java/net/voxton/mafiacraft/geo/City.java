@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.geo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -44,9 +45,9 @@ import org.bukkit.configuration.serialization.SerializableAs;
  * Represents a... CITY!
  */
 @SerializableAs("city")
-public class City extends Transactable implements LandOwner, ConfigurationSerializable {
+public class City extends Transactable implements LandOwner, ConfigurationSerializable, Serializable {
 
-    private final int id;
+    private int id;
 
     private String name;
 
@@ -57,6 +58,9 @@ public class City extends Transactable implements LandOwner, ConfigurationSerial
     private MPoint spawn;
 
     private MWorld cityWorld;
+
+    public City() {
+    }
 
     public City(int id) {
         this.id = id;
