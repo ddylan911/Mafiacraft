@@ -58,6 +58,8 @@ public class District implements LandOwner, ConfigurationSerializable, Serializa
     private transient MWorld mworld;
 
     private transient DistrictType districtType;
+    
+    private int id;
 
     private String name;
 
@@ -75,10 +77,17 @@ public class District implements LandOwner, ConfigurationSerializable, Serializa
 
     private double landCost;
 
+    public District() {
+        this.world = "";
+        this.x = 0;
+        this.z = 0;
+    }
+
     public District(String world, int x, int z) {
         this.world = world;
         this.x = x;
         this.z = z;
+        this.id = GeoUtils.coordsToDistrictId(x, z);
     }
 
     public District(MWorld world, int x, int z) {
@@ -92,7 +101,7 @@ public class District implements LandOwner, ConfigurationSerializable, Serializa
      * @return
      */
     public int getId() {
-        return GeoUtils.coordsToDistrictId(x, z);
+        return id;
     }
 
     /**
@@ -305,7 +314,7 @@ public class District implements LandOwner, ConfigurationSerializable, Serializa
      *
      * @return The owners map.
      */
-    private TByteObjectHashMap<String> getOwners() {
+    protected TByteObjectHashMap<String> getOwners() {
         return owners;
     }
 
@@ -315,7 +324,7 @@ public class District implements LandOwner, ConfigurationSerializable, Serializa
      * @param owners The owners to set.
      * @return This District.
      */
-    private District setOwners(TByteObjectHashMap<String> owners) {
+    protected District setOwners(TByteObjectHashMap<String> owners) {
         this.owners = owners;
         return this;
     }
