@@ -70,7 +70,7 @@ public final class CWorldActions extends PlayerActions {
             return player.getLocale().localize("action.general.not-allowed");
         }
 
-        MWorld world = player.getCityWorld();
+        MWorld world = player.getWorld();
 
         WorldToggle tog = null;
         try {
@@ -87,7 +87,7 @@ public final class CWorldActions extends PlayerActions {
     }
 
     public String doSpawn(MPlayer player) {
-        MPoint spawn = player.getCityWorld().getSpawnPoint();
+        MPoint spawn = player.getWorld().getSpawnPoint();
         player.teleportWithCountdown(spawn);
         return null;
     }

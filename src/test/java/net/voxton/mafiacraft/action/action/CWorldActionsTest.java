@@ -80,13 +80,13 @@ public class CWorldActionsTest {
         aubhaze = mock(MPlayer.class);
         when(aubhaze.hasPermission(anyString())).thenReturn(false);
         when(aubhaze.getLocale()).thenReturn(locale);
-        when(aubhaze.getCityWorld()).thenReturn(world);
+        when(aubhaze.getWorld()).thenReturn(world);
 
         //AlbireoX has all permissions.
         albireox = mock(MPlayer.class);
         when(albireox.hasPermission(anyString())).thenReturn(true);
         when(albireox.getLocale()).thenReturn(locale);
-        when(albireox.getCityWorld()).thenReturn(world);
+        when(albireox.getWorld()).thenReturn(world);
     }
 
     @After

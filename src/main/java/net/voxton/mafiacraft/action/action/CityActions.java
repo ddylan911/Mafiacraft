@@ -116,11 +116,11 @@ public final class CityActions extends PlayerActions {
             return player.getLocale().localize("action.general.not-citizen");
         }
 
-        MWorld cw = player.getCityWorld();
+        MWorld cw = player.getWorld();
         City capital = cw.getCapital();
         if (capital != null) {
             return player.getLocale().localize(
-                    "command.city.capital-established");
+                    "action.city.capital-established");
         }
 
         double balance = player.getMoney();
@@ -193,7 +193,7 @@ public final class CityActions extends PlayerActions {
             return player.getLocale().localize("action.general.not-citizen");
         }
 
-        City city = player.getCityWorld().getCapital();
+        City city = player.getWorld().getCapital();
         if (city == null) {
             return player.getLocale().localize("action.city.none-in-world");
         }
