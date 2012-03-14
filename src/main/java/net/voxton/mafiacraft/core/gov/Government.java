@@ -213,12 +213,12 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all members in the government.
+     * Gets a Set of all members in the government.
      *
      * @return
      */
-    public List<String> getMembers() {
-        List<String> members = new ArrayList<String>();
+    public Set<String> getMembers() {
+        Set<String> members = new HashSet<String>();
         for (Position position : Position.values()) {
             members.addAll(getMembers(position));
         }
@@ -226,12 +226,12 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all members in the government's council.
+     * Gets a Set of all members in the government's council.
      *
      * @return
      */
-    public List<String> getCouncilMembers() {
-        List<String> members = new ArrayList<String>();
+    public Set<String> getCouncilMembers() {
+        Set<String> members = new HashSet<String>();
         if (leader != null) {
             members.add(leader);
         }
@@ -247,9 +247,9 @@ public class Government extends Transactable implements LandPurchaser, Configura
      *
      * @return
      */
-    public Map<Position, List<String>> getPositions() {
-        Map<Position, List<String>> positions =
-                new EnumMap<Position, List<String>>(Position.class);
+    public Map<Position, Set<String>> getPositions() {
+        Map<Position, Set<String>> positions =
+                new EnumMap<Position, Set<String>>(Position.class);
         for (Position position : Position.values()) {
             positions.put(position, getMembers(position));
         }
@@ -257,13 +257,13 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all members in the specified position.
+     * Gets a Set of all members in the specified position.
      *
      * @param position
      * @return
      */
-    public List<String> getMembers(Position position) {
-        List<String> members = new ArrayList<String>();
+    public Set<String> getMembers(Position position) {
+        Set<String> members = new HashSet<String>();
         switch (position) {
             case WORKER:
                 for (Division division : getDivisions()) {
@@ -326,11 +326,11 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all divisions in this Government.
+     * Gets a Set of all divisions in this Government.
      *
      * @return
      */
-    public List<Division> getDivisions() {
+    public Set<Division> getDivisions() {
         return Mafiacraft.getGovernmentManager().getDivisions(this);
     }
 
@@ -387,12 +387,12 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all online members of this government.
+     * Gets a Set of all online members of this government.
      *
      * @return
      */
-    public List<MPlayer> getOnlineMembers() {
-        List<MPlayer> members = new ArrayList<MPlayer>();
+    public Set<MPlayer> getOnlineMembers() {
+        Set<MPlayer> members = new HashSet<MPlayer>();
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (isMember(player)) {
                 members.add(player);
@@ -407,9 +407,9 @@ public class Government extends Transactable implements LandPurchaser, Configura
      * @param position
      * @return
      */
-    public List<MPlayer> getOnlineMembers(Position position) {
-        List<MPlayer> members = new ArrayList<MPlayer>();
-        List<String> pos = getMembers(position);
+    public Set<MPlayer> getOnlineMembers(Position position) {
+        Set<MPlayer> members = new HashSet<MPlayer>();
+        Set<String> pos = getMembers(position);
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (pos.contains(player.getName())) {
                 members.add(player);
@@ -455,12 +455,12 @@ public class Government extends Transactable implements LandPurchaser, Configura
     /**
      * Gets the position of a certain player.
      *
-     * @param player
-     * @return
+     * @param player The name of the player to get the position of.
+     * @return The position.
      */
     public Position getPosition(String player) {
         Position pos = Position.NONE;
-        for (Entry<Position, List<String>> position : getPositions().entrySet()) {
+        for (Entry<Position, Set<String>> position : getPositions().entrySet()) {
             if (position.getValue().contains(player)) {
                 return position.getKey();
             }
@@ -699,12 +699,12 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all affiliates within the Government.
+     * Gets a Set of all affiliates within the Government.
      *
      * @return The affiliates associated with this government.
      */
-    public List<String> getAffiliates() {
-        return new ArrayList<String>(affiliates);
+    public Set<String> getAffiliates() {
+        return new HashSet<String>(affiliates);
     }
 
     /**
@@ -719,12 +719,12 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all officers.
+     * Gets a Set of all officers.
      *
      * @return
      */
-    public List<String> getOfficers() {
-        return new ArrayList<String>(officers);
+    public Set<String> getOfficers() {
+        return new HashSet<String>(officers);
     }
 
     /**
@@ -739,13 +739,13 @@ public class Government extends Transactable implements LandPurchaser, Configura
     }
 
     /**
-     * Gets a list of all officers currently online.
+     * Gets a Set of all officers currently online.
      *
-     * @return The list of officers.
+     * @return The Set of officers.
      */
-    public List<MPlayer> getOnlineOfficers() {
-        List<MPlayer> online = new ArrayList<MPlayer>();
-        List<String> offics = getOfficers();
+    public Set<MPlayer> getOnlineOfficers() {
+        Set<MPlayer> online = new HashSet<MPlayer>();
+        Set<String> offics = getOfficers();
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
             if (offics.contains(player.getName())) {
                 online.add(player);
@@ -890,8 +890,8 @@ public class Government extends Transactable implements LandPurchaser, Configura
      *
      * @return
      */
-    public List<MPlayer> getCouncilMembersAsMPlayers() {
-        List<MPlayer> members = new ArrayList<MPlayer>();
+    public Set<MPlayer> getCouncilMembersAsMPlayers() {
+        Set<MPlayer> members = new HashSet<MPlayer>();
         for (String player : getCouncilMembers()) {
             MPlayer mp = Mafiacraft.getPlayer(player);
             members.add(mp);

@@ -496,14 +496,140 @@ public class GovernmentTest {
      * Test of getMembers method, of class Government.
      */
     @Test
-    public void testGetMembers_0args() {
-        System.out.println("getMembers");
-        Government instance = null;
-        List expResult = null;
-        List result = instance.getMembers();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetMembers_0args_councilOnly() {
+        System.out.println("Testing the getMembers method with only council members.");
+
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+
+        List<String> expectedList = new ArrayList<String>();
+        expectedList.add(leader);
+        expectedList.add(viceLeader);
+        expectedList.add("Bob");
+        expectedList.add("Tim");
+        expectedList.add("Nancy");
+
+        List<String> resultList = government.getMembers();
+
+        //Order to satisfy
+        Object[] expected = expectedList.toArray();
+        Arrays.sort(expected);
+        Object[] result = resultList.toArray();
+        Arrays.sort(result);
+
+        assertArrayEquals(expected, result);
+    }
+
+    /**
+     * Test of getMembers method, of class Government.
+     */
+    @Test
+    public void testGetMembers_0args_govOnly() {
+        System.out.println("Testing the getMembers method with council members and affiliates.");
+
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+        
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        List<String> expectedList = new ArrayList<String>();
+        expectedList.add(leader);
+        expectedList.add(viceLeader);
+        expectedList.add("Bob");
+        expectedList.add("Tim");
+        expectedList.add("Nancy");
+        expectedList.add("Steve");
+        expectedList.add("Bill");
+        expectedList.add("Billy");
+        expectedList.add("Bobby");
+
+        List<String> resultList = government.getMembers();
+
+        //Order to satisfy
+        Object[] expected = expectedList.toArray();
+        Arrays.sort(expected);
+        Object[] result = resultList.toArray();
+        Arrays.sort(result);
+
+        assertArrayEquals(expected, result);
+    }
+
+    /**
+     * Test of getMembers method, of class Government.
+     */
+    @Test
+    public void testGetMembers_0args_govAndDivs() {
+        System.out.println("Testing the getMembers method with government and division members.");
+        
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        List<Division> divs = Arrays.asList(div1, div2);
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+        
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+        
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(Arrays.asList("Darren", "Phillip"));
+        
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(Arrays.asList("Steven", "Nick"));
+        
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+
+        List<String> expectedList = new ArrayList<String>();
+        expectedList.add(leader);
+        expectedList.add(viceLeader);
+        expectedList.add("Bob");
+        expectedList.add("Tim");
+        expectedList.add("Nancy");
+        
+        expectedList.add("Fred");
+        expectedList.add("Darren");
+        expectedList.add("Phillip");
+        
+        expectedList.add("Marquise");
+        expectedList.add("Steven");
+        expectedList.add("Nick");
+        
+        expectedList.add("Steve");
+        expectedList.add("Bill");
+        expectedList.add("Billy");
+        expectedList.add("Bobby");
+
+        List<String> resultList = government.getMembers();
+
+        //Order to satisfy
+        Object[] expected = expectedList.toArray();
+        Arrays.sort(expected);
+        Object[] result = resultList.toArray();
+        Arrays.sort(result);
+
+        assertArrayEquals(expected, result);
     }
 
     /**
@@ -544,13 +670,11 @@ public class GovernmentTest {
      */
     @Test
     public void testGetPositions() {
-        System.out.println("getPositions");
-        Government instance = null;
-        Map expResult = null;
-        Map result = instance.getPositions();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getPositions method.");
+        
+        Map<Position, List<String>> expected = null;
+        Map<Position, List<String>> result = government.getPositions();
+        assertEquals(expected, result);
     }
 
     /**
@@ -632,13 +756,14 @@ public class GovernmentTest {
      */
     @Test
     public void testCreateDivision() {
-        System.out.println("createDivision");
-        Government instance = null;
-        Division expResult = null;
-        Division result = instance.createDivision();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the createDivision method.");
+        
+        Division div = mock(Division.class);
+        when(governmentManager.createDivision(government)).thenReturn(div);
+        
+        Division expected = div;
+        Division result = government.createDivision();
+        assertEquals(expected, result);
     }
 
     /**
@@ -767,14 +892,109 @@ public class GovernmentTest {
      * Test of getOnlineMembers method, of class Government.
      */
     @Test
-    public void testGetOnlineMembers_0args() {
-        System.out.println("getOnlineMembers");
-        Government instance = null;
-        List expResult = null;
-        List result = instance.getOnlineMembers();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetOnlineMembers_0args_govAndDivs() {
+        System.out.println("Testing the getOnlineMembers method.");
+        
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        List<Division> divs = Arrays.asList(div1, div2);
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+        
+        String leader = "Jeff";
+        String viceLeader = "Spe";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+        
+        when(div1.getManager()).thenReturn("Fred");
+        when(div1.getWorkers()).thenReturn(Arrays.asList("Darren", "Phillip"));
+        
+        when(div2.getManager()).thenReturn("Marquise");
+        when(div2.getWorkers()).thenReturn(Arrays.asList("Steven", "Nick"));
+        
+        government.addAffiliate("Steve");
+        government.addAffiliate("Bill");
+        government.addAffiliate("Billy");
+        government.addAffiliate("Bobby");
+        
+        MPlayer jeff = mock(MPlayer.class);
+        MPlayer spe = mock(MPlayer.class);
+        MPlayer bob = mock(MPlayer.class);
+        MPlayer tim = mock(MPlayer.class);
+        MPlayer nancy = mock(MPlayer.class);
+        MPlayer fred = mock(MPlayer.class);
+        MPlayer darren = mock(MPlayer.class);
+        MPlayer phillip = mock(MPlayer.class);
+        MPlayer marquise = mock(MPlayer.class);
+        MPlayer steven = mock(MPlayer.class);
+        MPlayer nick = mock(MPlayer.class);
+        MPlayer steve = mock(MPlayer.class);
+        MPlayer bill = mock(MPlayer.class);
+        MPlayer billy = mock(MPlayer.class);
+        MPlayer bobby = mock(MPlayer.class);
+        
+        when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
+        when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
+        when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
+        when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
+        when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        when(Mafiacraft.getPlayer("Fred")).thenReturn(fred);
+        when(Mafiacraft.getPlayer("Darren")).thenReturn(darren);
+        when(Mafiacraft.getPlayer("Phillip")).thenReturn(phillip);
+        when(Mafiacraft.getPlayer("Marquise")).thenReturn(marquise);
+        when(Mafiacraft.getPlayer("Steven")).thenReturn(steven);
+        when(Mafiacraft.getPlayer("Nick")).thenReturn(nick);
+        when(Mafiacraft.getPlayer("Steve")).thenReturn(steve);
+        when(Mafiacraft.getPlayer("Bill")).thenReturn(bill);
+        when(Mafiacraft.getPlayer("Billy")).thenReturn(billy);
+        when(Mafiacraft.getPlayer("Bobby")).thenReturn(bobby);
+        
+        List<MPlayer> onlineMembers = new ArrayList<MPlayer>();
+        onlineMembers.add(jeff);
+        onlineMembers.add(spe);
+        onlineMembers.add(bob);
+        onlineMembers.add(tim);
+        onlineMembers.add(nancy);
+        onlineMembers.add(fred);
+        onlineMembers.add(darren);
+        onlineMembers.add(phillip);
+        onlineMembers.add(marquise);
+        onlineMembers.add(steven);
+        onlineMembers.add(nick);
+        onlineMembers.add(steve);
+        onlineMembers.add(bill);
+        onlineMembers.add(billy);
+        onlineMembers.add(bobby);
+        
+        List<MPlayer> expectedList = new ArrayList<MPlayer>(onlineMembers);
+        
+        //Fake players now!
+        MPlayer notin = mock(MPlayer.class);
+        when(notin.getName()).thenReturn("notin");
+        onlineMembers.add(notin);
+        MPlayer albireox = mock(MPlayer.class);
+        when(albireox.getName()).thenReturn("albireox");
+        onlineMembers.add(albireox);
+        MPlayer afforess = mock(MPlayer.class);
+        when(afforess.getName()).thenReturn("Afforess");
+        onlineMembers.add(afforess);
+        
+        List<MPlayer> resultList = government.getOnlineMembers();
+        
+        assertEquals(expectedList, resultList);
+        
+        //Order to satisfy
+//        Object[] expected = expectedList.toArray();
+//        Arrays.sort(expected);
+//        Object[] result = resultList.toArray();
+//        Arrays.sort(result);
+//
+//        assertArrayEquals(expected, result);
     }
 
     /**
@@ -840,15 +1060,106 @@ public class GovernmentTest {
      * Test of getPosition method, of class Government.
      */
     @Test
-    public void testGetPosition_String() {
-        System.out.println("getPosition");
-        String player = "";
-        Government instance = null;
-        Position expResult = null;
-        Position result = instance.getPosition(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetPosition_String_Leader() {
+        System.out.println("Testing the getPosition method with a leader.");
+
+        String player = "Bob";
+        government.setLeader(player);
+
+        Position expected = Position.LEADER;
+        Position result = government.getPosition(player);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getPosition method, of class Government.
+     */
+    @Test
+    public void testGetPosition_String_ViceLeader() {
+        System.out.println("Testing the getPosition method with a vice leader.");
+
+        String player = "Bob";
+        government.setViceLeader(player);
+
+        Position expected = Position.VICE_LEADER;
+        Position result = government.getPosition(player);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getPosition method, of class Government.
+     */
+    @Test
+    public void testGetPosition_String_Officer() {
+        System.out.println("Testing the getPosition method with an officer.");
+
+        String player = "Bob";
+        government.addOfficer(player);
+
+        Position expected = Position.OFFICER;
+        Position result = government.getPosition(player);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getPosition method, of class Government.
+     */
+    @Test
+    public void testGetPosition_String_Affiliate() {
+        System.out.println("Testing the getPosition method with an affiliate.");
+
+        String player = "Bob";
+        government.addAffiliate(player);
+
+        Position expected = Position.AFFILIATE;
+        Position result = government.getPosition(player);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getPosition method, of class Government.
+     */
+    @Test
+    public void testGetPosition_String_Manager() {
+        System.out.println("Testing the getPosition method with a manager.");
+
+        String player = "Bob";
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        when(div1.getManager()).thenReturn(player);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        List<Division> divs = Arrays.asList(div1, div2);
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        Position expected = Position.MANAGER;
+        Position result = government.getPosition(player);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getPosition method, of class Government.
+     */
+    @Test
+    public void testGetPosition_String_Worker() {
+        System.out.println("Testing the getPosition method with a manager.");
+
+        String player = "Bob";
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        when(div1.getWorkers()).thenReturn(Arrays.asList(player));
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        List<Division> divs = Arrays.asList(div1, div2);
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        Position expected = Position.WORKER;
+        Position result = government.getPosition(player);
+        assertEquals(expected, result);
     }
 
     /**
@@ -856,14 +1167,24 @@ public class GovernmentTest {
      */
     @Test
     public void testGetPosition_MPlayer() {
-        System.out.println("getPosition");
-        MPlayer player = null;
-        Government instance = null;
-        Position expResult = null;
-        Position result = instance.getPosition(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getPosition method with an MPlayer.");
+
+        MPlayer player = mock(MPlayer.class);
+        String playerName = "Bob";
+        when(player.getName()).thenReturn(playerName);
+
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        when(div1.getWorkers()).thenReturn(Arrays.asList(playerName));
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        List<Division> divs = Arrays.asList(div1, div2);
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+
+        Position expected = Position.WORKER;
+        Position result = government.getPosition(player);
+        assertEquals(expected, result);
     }
 
     /**
