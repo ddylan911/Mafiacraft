@@ -221,13 +221,11 @@ public class GovernmentTest {
      */
     @Test
     public void testGetMinPlayerPower() {
-        System.out.println("getMinPlayerPower");
-        Government instance = null;
+        System.out.println("Testing the getMinPlayerPower method.");
+        
         int expResult = 0;
-        int result = instance.getMinPlayerPower();
+        int result = government.getMinPlayerPower();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -250,12 +248,27 @@ public class GovernmentTest {
     @Test
     public void testGetPlayerPower() {
         System.out.println("getPlayerPower");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getPlayerPower();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        //Mock the council
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+        
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(23);
+        List<Division> divs = Arrays.asList(div1, div2);
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+        
+        int expected = 3;
+        int result = government.getPlayerPower();
+        assertEquals(expected, result);
     }
 
     /**
@@ -517,13 +530,88 @@ public class GovernmentTest {
      */
     @Test
     public void testGetCouncilMemberCount() {
-        System.out.println("getCouncilMemberCount");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getCouncilMemberCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getCouncilMemberCount method.");
+        
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+        
+        int expected = 5;
+        int result = government.getCouncilMemberCount();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getCouncilMemberCount method, of class Government.
+     */
+    @Test
+    public void testGetCouncilMemberCount_noOfficers() {
+        System.out.println("Testing the getCouncilMemberCount method with no officers.");
+        
+        String leader = "Leader";
+        String viceLeader = "ViceLeader";
+        government.setLeader(leader);
+        government.setViceLeader(viceLeader);
+        
+        int expected = 2;
+        int result = government.getCouncilMemberCount();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getCouncilMemberCount method, of class Government.
+     */
+    @Test
+    public void testGetCouncilMemberCount_noLeader() {
+        System.out.println("Testing the getCouncilMemberCount method with no leader.");
+        
+        String viceLeader = "ViceLeader";
+        government.setViceLeader(viceLeader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+        
+        int expected = 4;
+        int result = government.getCouncilMemberCount();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getCouncilMemberCount method, of class Government.
+     */
+    @Test
+    public void testGetCouncilMemberCount_noViceLeader() {
+        System.out.println("Testing the getCouncilMemberCount method with no vice leader.");
+        
+        String leader = "Leader";
+        government.setLeader(leader);
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("Nancy");
+        
+        int expected = 4;
+        int result = government.getCouncilMemberCount();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getCouncilMemberCount method, of class Government.
+     */
+    @Test
+    public void testGetCouncilMemberCount_noLeaderOrViceLeader() {
+        System.out.println("Testing the getCouncilMemberCount method with no leader or vice leader.");
+        
+        government.addOfficer("Bob");
+        government.addOfficer("Tim");
+        government.addOfficer("RedBirdAlley");
+        
+        int expected = 3;
+        int result = government.getCouncilMemberCount();
+        assertEquals(expected, result);
     }
 
     /**
@@ -1028,17 +1116,35 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of getMaxGovernmentLand method, of class Government.
+     * Test of getMaxGovernmentLand method with divs.
      */
     @Test
-    public void testGetMaxGovernmentLand() {
-        System.out.println("getMaxGovernmentLand");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getMaxGovernmentLand();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetMaxGovernmentLand_withDivs() {
+        System.out.println("Testing the getMaxGovernmentLand method.");
+        
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        List<Division> divs = Arrays.asList(div1, div2);
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
+        
+        int expected = 16;
+        int result = government.getMaxGovernmentLand();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getMaxGovernmentLand method without divs.
+     */
+    @Test
+    public void testGetMaxGovernmentLand_withoutDivs() {
+        System.out.println("Testing the getMaxGovernmentLand method.");
+        
+        int expected = 12;
+        int result = government.getMaxGovernmentLand();
+        assertEquals(expected, result);
     }
 
     /**
@@ -1060,13 +1166,11 @@ public class GovernmentTest {
      */
     @Test
     public void testGetLand() {
-        System.out.println("getLand");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getLand();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getLand method.");
+        
+        int expected = 201;
+        int result = government.getLand();
+        assertEquals(expected, result);
     }
 
     /**
@@ -1074,14 +1178,11 @@ public class GovernmentTest {
      */
     @Test
     public void testSetLand() {
-        System.out.println("setLand");
-        int amt = 0;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.setLand(amt);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setLand method.");
+        
+        int expected = 201;
+        int result = government.getLand();
+        assertEquals(expected, result);
     }
 
     /**
@@ -1089,13 +1190,21 @@ public class GovernmentTest {
      */
     @Test
     public void testIncLand() {
-        System.out.println("incLand");
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.incLand();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the incLand method.");
+        
+        int expected = 201;
+        int result = government.getLand();
+        assertEquals(expected, result);
+        
+        government.incLand();
+        expected = 202;
+        result = government.getLand();
+        assertEquals(expected, result);
+        
+        government.incLand();
+        expected = 203;
+        result = government.getLand();
+        assertEquals(expected, result);
     }
 
     /**

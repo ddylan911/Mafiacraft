@@ -154,7 +154,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
      * @return
      */
     public int getPlayerPower() {
-        return getMaxGovernmentLand() / getCouncilMemberCount();
+        return getLand() / getCouncilMemberCount();
     }
 
     /**
