@@ -109,7 +109,7 @@ public class CWorldActionsTest {
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "action.general.not-allowed");
         String result = ActionType.CWORLD.doToggle(aubhaze,
-                WorldToggle.FREE_ROAM.name());
+                WorldToggle.RESTRICTED.name());
 
         assertEquals(expected, result);
     }
@@ -131,7 +131,7 @@ public class CWorldActionsTest {
     public void testToggle_success() {
         System.out.println("Testing of a successful toggle.");
 
-        String toggle = WorldToggle.FREE_ROAM.name();
+        String toggle = WorldToggle.RESTRICTED.name();
         boolean value = false;
 
         String result = ActionType.CWORLD.doToggle(albireox, toggle);
@@ -140,7 +140,7 @@ public class CWorldActionsTest {
         String message = Mafiacraft.getDefaultLocale().localize(
                 "action.cworld.toggle-set", toggle, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
-        verify(world).toggle(WorldToggle.FREE_ROAM);
+        verify(world).toggle(WorldToggle.RESTRICTED);
     }
 
     @Test
@@ -154,9 +154,9 @@ public class CWorldActionsTest {
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(
-                "action.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
+                "action.cworld.toggle-set", WorldToggle.RESTRICTED, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
-        verify(world).toggle(WorldToggle.FREE_ROAM);
+        verify(world).toggle(WorldToggle.RESTRICTED);
     }
 
     @Test
@@ -171,9 +171,9 @@ public class CWorldActionsTest {
         assertNull(result);
 
         String message = Mafiacraft.getDefaultLocale().localize(
-                "action.cworld.toggle-set", WorldToggle.FREE_ROAM, value);
+                "action.cworld.toggle-set", WorldToggle.RESTRICTED, value);
         verify(albireox).sendMessage(MsgColor.SUCCESS + message);
-        verify(world).toggle(WorldToggle.FREE_ROAM);
+        verify(world).toggle(WorldToggle.RESTRICTED);
     }
 
 }
