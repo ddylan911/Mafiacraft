@@ -235,15 +235,11 @@ public class BukkitListener implements Listener {
                         + "You aren't allowed to enter "
                         + dest.getNameInChat() + ".");
                 player.getSessionStore().setData("lastmovenag", now);
-
-                //Move back
-                Vector vec = new Vector(last.getX() - current.getX(), 0.0,
-                        last.getZ() - current.getZ()).normalize();
-
-                event.getPlayer().setVelocity(vec.multiply(2));
-                event.setCancelled(true);
-                return;
             }
+            //Move back
+            event.getPlayer().teleport(event.getFrom());
+            event.setCancelled(true);
+            return;
         }
 
         if (prev != dest) {
