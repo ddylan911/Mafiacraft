@@ -24,10 +24,7 @@
 package net.voxton.mafiacraft.bukkit;
 
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import net.milkbowl.vault.economy.Economy;
 import net.voxton.mafiacraft.core.config.MafiacraftConfig;
@@ -197,7 +194,7 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
         //Get the action we want to do.
         String action = (args.length > 0) ? args[0] : "";
-        List<String> largs = Arrays.asList(args);
+        List<String> largs = new ArrayList<String>(Arrays.asList(args));
         largs.remove(0);
 
         actions.parseActionCommand(performer, action, largs);
