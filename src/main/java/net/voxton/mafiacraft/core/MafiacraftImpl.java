@@ -24,6 +24,7 @@
 package net.voxton.mafiacraft.core;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Set;
 import java.util.logging.Logger;
 import net.voxton.mafiacraft.core.config.MafiacraftConfig;
@@ -78,4 +79,6 @@ public interface MafiacraftImpl {
     public double getMoney(MPlayer player);
     
     public double setMoney(MPlayer player, double amt);
+    
+    public InputStream getJarResource(String path);
 }

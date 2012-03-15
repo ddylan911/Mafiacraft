@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.bukkit;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -345,6 +346,11 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
             return economy.withdrawPlayer(player.getName(), -deposit).balance;
         }
         return 0;
+    }
+
+    @Override
+    public InputStream getJarResource(String path) {
+        return getResource(path);
     }
 
 }

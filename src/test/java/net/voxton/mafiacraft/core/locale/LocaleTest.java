@@ -23,15 +23,15 @@
  */
 package net.voxton.mafiacraft.core.locale;
 
-import net.voxton.mafiacraft.core.locale.LocaleManager;
-import net.voxton.mafiacraft.core.locale.Locale;
 import org.bukkit.Bukkit;
 import net.voxton.mafiacraft.core.config.Config;
 import java.io.File;
+import java.io.InputStream;
+import net.voxton.mafiacraft.bukkit.BukkitImpl;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.core.Mafiacraft;
-import org.bukkit.configuration.file.YamlConfiguration;
+import net.voxton.mafiacraft.core.MafiacraftCore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -66,6 +66,13 @@ public class LocaleTest {
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
+        
+        BukkitImpl impl = mock(BukkitImpl.class);
+        InputStream stream =
+                MafiacraftCore.class.getResourceAsStream("/locale/en-us.yml");
+        when(Mafiacraft.getImpl()).thenReturn(impl);
+        when(impl.getJarResource("/locale/en-us.yml")).thenReturn(stream);
+
 
         mockStatic(Config.class);
         when(Config.getString("locale.default")).thenReturn("en-us");
@@ -80,9 +87,6 @@ public class LocaleTest {
     @Test
     public void testTopLevelLocalization() {
         System.out.println("Testing a top-level localization.");
-
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("/Users/ianschool/Desktop/p/mfiacraft/target/classes/locale/en-us.yml"));
-        System.out.println(config);
         
         Locale locale = manager.getDefault();
         String expected = "en-us";

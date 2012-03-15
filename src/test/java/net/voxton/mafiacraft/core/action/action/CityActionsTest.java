@@ -36,8 +36,12 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.core.geo.MWorld;
 import net.voxton.mafiacraft.core.player.MPlayer;
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import net.voxton.mafiacraft.bukkit.BukkitImpl;
 import net.voxton.mafiacraft.core.config.Config;
 import net.voxton.mafiacraft.core.Mafiacraft;
+import net.voxton.mafiacraft.core.MafiacraftCore;
 import net.voxton.mafiacraft.core.locale.Locale;
 import net.voxton.mafiacraft.core.locale.LocaleManager;
 import net.voxton.mafiacraft.core.chat.MsgColor;
@@ -74,6 +78,13 @@ public class CityActionsTest {
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
+
+        BukkitImpl impl = mock(BukkitImpl.class);
+        InputStream stream =
+                MafiacraftCore.class.getResourceAsStream("/locale/en-us.yml");
+        when(Mafiacraft.getImpl()).thenReturn(impl);
+        when(impl.getJarResource("/locale/en-us.yml")).thenReturn(stream);
+
         mockStatic(Config.class);
         when(Config.getString("locale.default")).thenReturn("en-us");
         Locale locale = manager.getDefault();
@@ -153,7 +164,7 @@ public class CityActionsTest {
     @Test
     public void testDoFound_invalidName() {
         System.out.println("Testing found subcommand with a bad name.");
-        
+
         when(albireox.getMoney()).thenReturn(50000000000.0);
         when(Config.getDouble("city.foundcost")).thenReturn(10000000.0); //$10,000,000.00
 

@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.core.locale;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.voxton.mafiacraft.core.config.Config;
 import net.voxton.mafiacraft.core.logging.MLogger;
 import net.voxton.mafiacraft.core.Mafiacraft;
@@ -39,7 +40,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * Manages all locales.
- * 
+ *
  * TODO: initialize on creation
  */
 public class LocaleManager {
@@ -56,7 +57,7 @@ public class LocaleManager {
 
     /**
      * Gets a Locale from its name.
-     * 
+     *
      * @param name The name of the locale.
      * @return The Locale object.
      */
@@ -71,17 +72,11 @@ public class LocaleManager {
 
             //Check if there is a locale there
             if (!localeFile.exists()) {
-                URL localeJarUrl = Mafiacraft.class.getResource("/locale/"
-                        + name + ".yml"); //Try to get it from the jar
-
-                File localeJarFile = null;
-                try {
-                    localeJarFile = new File(localeJarUrl.toURI());
-                } catch (Exception ex) {
-                }
+                InputStream localeStream = Mafiacraft.getImpl().getJarResource(
+                        "/locale/" + name + ".yml");
 
                 //Check if there is a locale in the jar
-                if (localeJarFile == null || !localeJarFile.exists()) {
+                if (localeStream == null) {
                     //If not, we don't have a locale. Get English!
                     MLogger.log(Level.WARNING, "Unknown locale '" + name + "' "
                             + "could not be loaded. Defaulting it to English.");
@@ -89,8 +84,48 @@ public class LocaleManager {
                 }
 
                 //If so, we do have a locale. Copy to the locale folder.
-                //TODO copy file
-                localeFile = localeJarFile; //This will be replaced by a copy.
+                if (!localeFile.exists()) {
+                    try {
+                        localeFile.mkdirs();
+                        localeFile.createNewFile();
+                    } catch (IOException ex) {
+                        MLogger.log(Level.SEVERE, "Locale file not createable!",
+                                ex);
+                    }
+                }
+
+                OutputStream out = null;
+                try {
+                    out = new FileOutputStream(localeFile);
+                } catch (FileNotFoundException ex) {
+                }
+                byte buf[] = new byte[1024];
+                int len;
+
+                try {
+                    while ((len = localeStream.read(buf)) > 0) {
+                        try {
+                            out.write(buf, 0, len);
+                        } catch (IOException ex) {
+                            MLogger.log(Level.SEVERE,
+                                    "Could not close locale stream!", ex);
+                        }
+                    }
+                } catch (IOException ex) {
+                    MLogger.log(Level.SEVERE, "Could not close read stream!", ex);
+                }
+                try {
+                    out.close();
+                } catch (IOException ex) {
+                    MLogger.log(Level.SEVERE, "Could not close output stream!",
+                            ex);
+                }
+                try {
+                    localeStream.close();
+                } catch (IOException ex) {
+                    MLogger.log(Level.SEVERE, "Could not close locale stream!",
+                            ex);
+                }
             }
 
             YamlConfiguration localeYml = YamlConfiguration.loadConfiguration(
@@ -116,16 +151,16 @@ public class LocaleManager {
                     locale.addLocalization(entry.getKey(), current);
                 }
             }
-            
+
             //Store locale.
             locales.put(name, locale);
         }
         return locale;
     }
-    
+
     /**
      * Gets a list of all locales.
-     * 
+     *
      * @return The list of locales.
      */
     public List<Locale> getLocales() {
@@ -134,7 +169,7 @@ public class LocaleManager {
 
     /**
      * Gets the default locale.
-     * 
+     *
      * @return The locale.
      */
     public Locale getDefault() {
@@ -143,12 +178,20 @@ public class LocaleManager {
 
     /**
      * Registers a variable into the system.
-     * 
+     *
      * @param name The name of the variable.
      * @param data The data of the variable.
      */
     public void registerVariable(String name, String data) {
         vars.put(name.toLowerCase(), data);
+    }
+
+    public static void main(String[] args) {
+        URL url = Mafiacraft.class.getResource("/locale/en-us.yml");
+        InputStream stream =
+                Mafiacraft.class.getResourceAsStream("/locale/en-us.yml");
+        System.out.println(url);
+        System.out.println(stream);
     }
 
 }

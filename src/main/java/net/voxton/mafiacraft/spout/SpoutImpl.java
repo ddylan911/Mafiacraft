@@ -23,6 +23,7 @@
  */
 package net.voxton.mafiacraft.spout;
 
+import java.io.InputStream;
 import java.util.Set;
 import net.voxton.mafiacraft.core.MafiacraftCore;
 import net.voxton.mafiacraft.core.config.MafiacraftConfig;
@@ -102,13 +103,12 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
     public void teleportPlayer(MPlayer player, MPoint point) {
 //        getPlayer(player).getEntity().setPosition(null);
     }
-    
+
 //    private 
 //    
 //    private Point getPoint(MPoint mpoint) {
 //        return new Point()
 //    }
-
     @Override
     public boolean isOnline(MPlayer player) {
         return getPlayer(player).isOnline();
@@ -123,7 +123,7 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
     public boolean hasPermission(MPlayer player, String permission) {
         return getPlayer(player).hasPermission(permission);
     }
-    
+
     private Player getPlayer(MPlayer player) {
         return Spout.getGame().getPlayer(player.getName(), true);
     }
@@ -164,6 +164,11 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
 
     @Override
     public double setMoney(MPlayer player, double amt) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public InputStream getJarResource(String path) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
