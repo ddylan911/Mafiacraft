@@ -29,6 +29,7 @@ import net.voxton.mafiacraft.core.locale.LocaleManager;
 import net.voxton.mafiacraft.core.geo.MWorld;
 import net.voxton.mafiacraft.core.player.MPlayer;
 import java.io.File;
+import java.io.InputStream;
 import net.voxton.mafiacraft.core.Mafiacraft;
 import net.voxton.mafiacraft.core.config.Config;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -37,6 +38,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import net.voxton.mafiacraft.core.chat.MsgColor;
 import java.util.LinkedList;
 import java.util.List;
+import net.voxton.mafiacraft.bukkit.BukkitImpl;
+import net.voxton.mafiacraft.core.MafiacraftCore;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -77,8 +80,13 @@ public class HelpMenuTest {
         //Locale setup
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
-                "./plugins/Mafiacraft/locale/en-us.yml"));
+                "./target/plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
+        BukkitImpl impl = mock(BukkitImpl.class);
+        InputStream stream =
+                MafiacraftCore.class.getResourceAsStream("/locale/en-us.yml");
+        when(Mafiacraft.getImpl()).thenReturn(impl);
+        when(impl.getJarResource("/locale/en-us.yml")).thenReturn(stream);
         mockStatic(Config.class);
         when(Config.getString("locale.default")).thenReturn("en-us");
         Locale locale = manager.getDefault();

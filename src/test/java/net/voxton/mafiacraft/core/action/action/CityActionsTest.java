@@ -78,13 +78,11 @@ public class CityActionsTest {
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./target/plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
-
         BukkitImpl impl = mock(BukkitImpl.class);
         InputStream stream =
                 MafiacraftCore.class.getResourceAsStream("/locale/en-us.yml");
         when(Mafiacraft.getImpl()).thenReturn(impl);
         when(impl.getJarResource("/locale/en-us.yml")).thenReturn(stream);
-
         mockStatic(Config.class);
         when(Config.getString("locale.default")).thenReturn("en-us");
         Locale locale = manager.getDefault();
