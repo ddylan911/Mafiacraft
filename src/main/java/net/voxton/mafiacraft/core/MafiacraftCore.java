@@ -172,15 +172,9 @@ public class MafiacraftCore {
 
     private void loadMainYml() {
         YamlConfiguration main;
-        try {
-            main =
-                    YamlConfiguration.loadConfiguration(new File(Mafiacraft.class.
-                    getResource(
-                    "./mafiacraft.yml").toURI()));
-            this.version = main.getString("version");
-        } catch (URISyntaxException ex) {
-            MLogger.log(Level.SEVERE, "Unexpected URI syntax exception!", ex);
-        }
+        main = YamlConfiguration.loadConfiguration(impl.getJarResource(
+                "mafiacraft.yml"));
+        this.version = main.getString("version");
     }
 
     public ChatHandler getChatHandler() {
