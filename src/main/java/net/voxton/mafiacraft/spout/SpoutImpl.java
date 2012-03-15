@@ -100,7 +100,7 @@ public class SpoutImpl extends CommonPlugin implements MafiacraftImpl {
 
     @Override
     public void teleportPlayer(MPlayer player, MPoint point) {
-        getPlayer(player).getEntity().setPosition(null);
+//        getPlayer(player).getEntity().setPosition(null);
     }
     
 //    private 
