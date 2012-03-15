@@ -491,9 +491,9 @@ public class CityManager {
 
                         @Override
                         public Section load(Long key) throws Exception {
-                            int x = (int) ((key & 0xfffff0000000000L) >>> 40);
-                            int y = (int) ((key & 0xfffff00000L) >>> 20);
-                            int z = (int) (key & 0xfffffL);
+                            int x = getXFromKey(key);
+                            int y = getYFromKey(key);
+                            int z = getZFromKey(key);
                             return createSection(world, x, y, z);
                         }
 
@@ -505,20 +505,6 @@ public class CityManager {
 
     private Section createSection(MWorld world, int x, int y, int z) {
         return new Section(world, x, y, z);
-    }
-
-    /**
-     * Gets a section key from an x, y, and z.
-     *
-     * @param x The x.
-     * @param y The y.
-     * @param z The z.
-     * @return The section key.
-     */
-    private static long getSectionKey(int x, int y, int z) {
-        return ((x & 0xfffffL) << 40)
-                | ((y & 0xfffffL) << 20)
-                | (z & 0xfffffL);
     }
 
     /////////////
@@ -779,6 +765,41 @@ public class CityManager {
         }
 
         return this;
+    }
+
+    /**
+     * Gets a section key from an x, y, and z.
+     *
+     * @param x The x.
+     * @param y The y.
+     * @param z The z.
+     * @return The section key.
+     */
+    static long getSectionKey(int x, int y, int z) {
+        x += 0x100000;
+        y += 0x100000;
+        z += 0x100000;
+        return 
+                //X -- 63rd bit & 40 - 60
+                (((x & 0x1fffffL) << 42))
+                
+                //Y -- 62nd bit & 20-39
+                | (((y & 0x1fffffL) << 21))
+                
+                //Z -- 61st bit & 0-19
+                | ((z & 0x1fffffL));
+    }
+
+    static int getXFromKey(long key) {
+        return (int) (((key & 0x7ffff60000000000L) >>> 42) - 0x100000);
+    }
+
+    static int getYFromKey(long key) {
+        return (int) (((key & 0x3ffffe00000L) >>> 21) - 0x100000);
+    }
+
+    static int getZFromKey(long key) {
+        return (int) ((key & 0x1fffffL) - 0x100000);
     }
 
 }
