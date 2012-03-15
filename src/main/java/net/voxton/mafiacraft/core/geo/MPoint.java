@@ -110,9 +110,9 @@ public class MPoint implements Serializable {
      * @return The section containing the MPoint.
      */
     public Section getSection() {
-        int sx = (getBlockX() & ~0xf) >> Section.SIDE_BITS;
-        int sy = (getBlockY() & ~0xf) >> Section.HEIGHT_BITS;
-        int sz = (getBlockZ() & ~0xf) >> Section.SIDE_BITS;
+        int sx = (getBlockX() & Section.SIDE_MASK) >> Section.SIDE_BITS;
+        int sy = (getBlockY() & Section.HEIGHT_MASK) >> Section.HEIGHT_BITS;
+        int sz = (getBlockZ() & Section.SIDE_MASK) >> Section.SIDE_BITS;
         return Mafiacraft.getCityManager().getSection(world, sx, sy, sz);
     }
 

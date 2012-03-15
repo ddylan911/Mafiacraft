@@ -501,9 +501,9 @@ public class CityManager {
 
                         @Override
                         public Section load(Long key) throws Exception {
-                            int x = (int) ((key & 0xFFFFF80000000000L) >>> 43);
-                            int y = (int) ((key & 0x7FFFFC00000L) >>> 22);
-                            int z = (int) ((key & 0x3ffffe) >>> 1);
+                            int x = (int) ((key & 0xFFFFF80000000000L) >> 43);
+                            int y = (int) ((key & 0x7FFFFC00000L) >> 22);
+                            int z = (int) ((key & 0x3ffffe) >> 1);
                             return createSection(world, x, y, z);
                         }
 
