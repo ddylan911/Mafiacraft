@@ -201,7 +201,7 @@ public class BukkitListener implements Listener {
         if (event.getFrom().getChunk().equals(event.getTo().getChunk())) {
             return;
         }
-        
+
         Section last = store.getObject("lastsect", Section.class);
         Section current = player.getSection();
 
@@ -228,8 +228,7 @@ public class BukkitListener implements Listener {
         if (!dest.getType().canEnter(player)) {
             long now = System.currentTimeMillis();
 
-            long lastMoveNag = player.getSessionStore().getLong("lastmovenag",
-                    now);
+            long lastMoveNag = player.getSessionStore().getLong("lastmovenag");
 
             if (lastMoveNag + 1000L < now) {
                 player.sendMessage(MsgColor.ERROR
@@ -239,10 +238,10 @@ public class BukkitListener implements Listener {
             }
 
             //Move back
-            Vector vec = new Vector(current.getX() - last.getX(), 0.0, current.
-                    getZ() - last.getZ());
+            Vector vec = new Vector(last.getX() - current.getX(), 0.0,
+                    last.getZ() - current.getZ());
 
-            event.setTo(event.getFrom().subtract(vec.normalize()));
+            event.getPlayer().setVelocity(vec);
             event.setCancelled(true);
             return;
         }
