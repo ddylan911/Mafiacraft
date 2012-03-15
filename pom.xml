@@ -154,6 +154,7 @@ Mafiacraft Build file (c) 2012 Voxton.net
                 <directory>${basedir}/src/main/resources</directory>
                 <includes>
                     <include>plugin.yml</include>
+                    <include>mafiacraft.yml</include>
                 </includes>
             </resource>
             <resource>
