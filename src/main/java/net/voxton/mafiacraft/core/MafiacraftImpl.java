@@ -81,4 +81,6 @@ public interface MafiacraftImpl {
     public double setMoney(MPlayer player, double amt);
     
     public InputStream getJarResource(String path);
+
+    public String getServerVersion();
 }

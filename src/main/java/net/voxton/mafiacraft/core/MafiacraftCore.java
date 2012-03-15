@@ -35,6 +35,7 @@ import net.voxton.mafiacraft.core.data.DataWorker;
 import net.voxton.mafiacraft.core.city.CityManager;
 import net.voxton.mafiacraft.core.gov.GovernmentManager;
 import net.voxton.mafiacraft.core.locale.LocaleManager;
+import net.voxton.mafiacraft.core.metrics.Metrics;
 import net.voxton.mafiacraft.core.player.PlayerManager;
 import net.voxton.mafiacraft.core.task.TaskManager;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -66,7 +67,7 @@ public class MafiacraftCore {
 
     /**
      * Constructor.
-     * 
+     *
      * @param impl The Mafiacraft implementation.
      */
     public MafiacraftCore(MafiacraftImpl impl) {
@@ -105,7 +106,7 @@ public class MafiacraftCore {
 
         //Load desc file
         loadMainYml();
-        
+
         //Notify
         MLogger.log("Mafiacraft " + getVersionDetailed() + " loading...");
 
@@ -142,6 +143,10 @@ public class MafiacraftCore {
         //Load data
         MLogger.log("Loading all data into memory...");
         dataWorker.loadAll();
+
+        //Load data
+        MLogger.log("Initializing metrics...");
+        Metrics.initialize();
 
         /////////////////////////////////
         // Set up platform specific things

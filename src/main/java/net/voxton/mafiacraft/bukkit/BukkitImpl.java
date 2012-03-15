@@ -353,4 +353,9 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         return getResource(path);
     }
 
+    @Override
+    public String getServerVersion() {
+        return Bukkit.getVersion();
+    }
+
 }
