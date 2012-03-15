@@ -29,6 +29,6 @@ package net.voxton.mafiacraft.core.geo;
  */
 public enum WorldToggle {
 
-    FREE_ROAM;
+    RESTRICTED;
 
 }

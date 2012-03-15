@@ -241,25 +241,15 @@ public class CityManager {
         int id = GeoUtils.coordsToDistrictId(x, z);
         District d = getDistrictMap(world).get(id);
         if (d == null) {
-            d = (getDistrictList(world).size() <= 0)
-                    ? createDistrict(world, x, z)
-                    : createDistrict(world, x, z);
+            d = createDistrict(world, x, z);
         }
         return d;
     }
 
     public District getDistrict(MWorld world, int id) {
-        District d = getDistrictMap(world).get(id);
-
         int x = GeoUtils.xFromDistrictId(id);
         int z = GeoUtils.zFromDistrictId(id);
-
-        if (d == null) {
-            d = (getDistrictList(world).size() <= 0)
-                    ? createDistrict(world, x, z)
-                    : createDistrict(world, x, z);
-        }
-        return d;
+        return getDistrict(world, x, z);
     }
 
     /**

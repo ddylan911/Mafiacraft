@@ -123,8 +123,8 @@ public class MWorld implements ConfigurationSerializable {
      * @return The default district type.
      */
     public DistrictType getDefaultDistrictType() {
-        boolean freeRoam = isToggled(WorldToggle.FREE_ROAM);
-        return freeRoam ? DistrictType.ANARCHIC : DistrictType.RESERVED;
+        boolean freeRoam = isToggled(WorldToggle.RESTRICTED);
+        return freeRoam ? DistrictType.RESERVED : DistrictType.ANARCHIC;
     }
 
     /**
