@@ -2085,20 +2085,6 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of canRetainAllLand method, of class Government.
-     */
-    @Test
-    public void testCanRetainAllLand() {
-        System.out.println("canRetainAllLand");
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canRetainAllLand();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of canClaimMoreLand method, of class Government.
      */
     @Test
@@ -2317,13 +2303,15 @@ public class GovernmentTest {
      */
     @Test
     public void testCanHaveMoreDivisions() {
-        System.out.println("canHaveMoreDivisions");
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canHaveMoreDivisions();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the canHaveMoreDivisions method.");
+        
+        //Mock divisions
+        Division div1 = mock(Division.class);
+        when(div1.getLand()).thenReturn(20);
+        Division div2 = mock(Division.class);
+        when(div2.getLand()).thenReturn(40);
+        Set<Division> divs = new HashSet<Division>(Arrays.asList(div1, div2));
+        when(governmentManager.getDivisions(government)).thenReturn(divs);
     }
 
     /**

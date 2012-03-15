@@ -797,16 +797,6 @@ public class Government extends Transactable implements LandPurchaser, Configura
         return getPower() >= getLand();
     }
 
-    /**
-     * Returns true if the government is able to retain all of its land,
-     * including division land.
-     *
-     * @return
-     */
-    public boolean canRetainAllLand() {
-        return getPower() >= getTotalLand();
-    }
-
     public boolean canClaimMoreLand() {
         return getMaxGovernmentLand() < getLand();
     }
