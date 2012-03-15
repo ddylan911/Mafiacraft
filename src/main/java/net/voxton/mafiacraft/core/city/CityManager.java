@@ -491,14 +491,15 @@ public class CityManager {
 
                         @Override
                         public Section load(Long key) throws Exception {
-                            int x = (int) ((key & 0xfffff0000000000L) >> 40);
-                            int y = (int) ((key & 0xfffff00000L) >> 20);
+                            int x = (int) ((key & 0xfffff0000000000L) >>> 40);
+                            int y = (int) ((key & 0xfffff00000L) >>> 20);
                             int z = (int) (key & 0xfffffL);
                             return createSection(world, x, y, z);
                         }
 
                     });
         }
+        sections.put(world.getName(), cache);
         return cache;
     }
 
