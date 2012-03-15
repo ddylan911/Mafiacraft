@@ -525,9 +525,9 @@ public class CityManager {
      * @return The section key.
      */
     private static long getSectionKey(int x, int y, int z) {
-        return ((x & 0x1fffff) << 1)
+        return ((x & 0x1fffff) << 43)
                 | ((y & 0x1fffffL) << 22)
-                | ((z & 0x1fffffL) << 43);
+                | ((z & 0x1fffffL) << 1);
     }
 
     /////////////
