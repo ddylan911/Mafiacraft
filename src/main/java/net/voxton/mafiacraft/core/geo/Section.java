@@ -37,9 +37,9 @@ public class Section {
 
     public static final int SIDE_BITS = 4;
 
-    public static final int HEIGHT_MASK = (~0) >> (Integer.SIZE - HEIGHT_BITS);
+    public static final int HEIGHT_MASK = (~0) >>> (Integer.SIZE - HEIGHT_BITS);
 
-    public static final int SIDE_MASK = (~0) >> (Integer.SIZE - SIDE_BITS);
+    public static final int SIDE_MASK = (~0) >>> (Integer.SIZE - SIDE_BITS);
 
     public static final int HEIGHT_LENGTH = HEIGHT_MASK + 1;
 
