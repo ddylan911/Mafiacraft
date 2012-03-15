@@ -147,7 +147,7 @@ public class CWorldActionsTest {
     public void testToggle_caseInsensitive() {
         System.out.println("Testing of a successful toggle, case insensitive.");
 
-        String toggle = "free_RoaM";
+        String toggle = "resTrICteD";
         boolean value = false;
 
         String result = ActionType.CWORLD.doToggle(albireox, toggle);
@@ -164,7 +164,7 @@ public class CWorldActionsTest {
         System.out.println("Testing of a successful toggle "
                 + "with dashes instead of underscores.");
 
-        String toggle = "free-RoaM";
+        String toggle = "rEStriCTED";
         boolean value = false;
 
         String result = ActionType.CWORLD.doToggle(albireox, toggle);
