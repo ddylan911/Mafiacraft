@@ -26,7 +26,7 @@ package net.voxton.mafiacraft.core.player;
 import com.google.common.cache.*;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import net.voxton.mafiacraft.core.MafiacraftCore;
 import java.io.File;
 import java.io.IOException;

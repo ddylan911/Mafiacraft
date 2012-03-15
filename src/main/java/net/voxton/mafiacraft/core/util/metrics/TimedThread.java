@@ -22,7 +22,7 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.core.metrics;
+package net.voxton.mafiacraft.core.util.metrics;
 
 public class TimedThread extends Thread {
 

@@ -26,7 +26,7 @@ package net.voxton.mafiacraft.core.data;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import net.voxton.mafiacraft.core.Mafiacraft;
 import net.voxton.mafiacraft.core.MafiacraftCore;
 import net.voxton.mafiacraft.core.MafiacraftImpl;

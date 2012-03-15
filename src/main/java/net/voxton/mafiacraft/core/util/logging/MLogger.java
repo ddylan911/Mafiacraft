@@ -21,7 +21,7 @@
  * and the Voxton license along with Mafiacraft. 
  * If not, see <http://voxton.net/voxton-license-v1.txt>.
  */
-package net.voxton.mafiacraft.core.logging;
+package net.voxton.mafiacraft.core.util.logging;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

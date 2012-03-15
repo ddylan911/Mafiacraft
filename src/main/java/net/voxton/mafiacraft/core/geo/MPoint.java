@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.core.Mafiacraft;
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import net.voxton.mafiacraft.core.util.StringSerializer;
 
 /**

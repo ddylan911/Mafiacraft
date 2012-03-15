@@ -36,7 +36,7 @@ import net.voxton.mafiacraft.core.action.Actions;
 import net.voxton.mafiacraft.core.geo.MPoint;
 import net.voxton.mafiacraft.core.geo.MWorld;
 import net.voxton.mafiacraft.core.MafiacraftImpl;
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import net.voxton.mafiacraft.core.player.MPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

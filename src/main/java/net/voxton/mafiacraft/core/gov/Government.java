@@ -42,7 +42,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import net.voxton.mafiacraft.core.geo.MPoint;
 import net.voxton.mafiacraft.core.geo.Section;
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 

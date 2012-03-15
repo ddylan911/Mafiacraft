@@ -29,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import net.voxton.mafiacraft.core.Mafiacraft;
 import net.voxton.mafiacraft.core.action.ActionPerformer;
 import net.voxton.mafiacraft.core.locale.Locale;

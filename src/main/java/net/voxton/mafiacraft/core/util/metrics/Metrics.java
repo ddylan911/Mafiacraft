@@ -26,7 +26,7 @@
  * authors and contributors and should not be interpreted as representing official policies,
  * either expressed or implied, of anybody else.
  */
-package net.voxton.mafiacraft.core.metrics;
+package net.voxton.mafiacraft.core.util.metrics;
 
 import java.io.BufferedReader;
 import java.io.File;

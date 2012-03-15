@@ -23,7 +23,7 @@
  */
 package net.voxton.mafiacraft.core.city;
 
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import net.voxton.mafiacraft.core.Mafiacraft;
 import net.voxton.mafiacraft.core.gov.Division;
 import net.voxton.mafiacraft.core.player.MPlayer;

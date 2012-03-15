@@ -30,7 +30,7 @@ import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
-import net.voxton.mafiacraft.core.logging.MLogger;
+import net.voxton.mafiacraft.core.util.logging.MLogger;
 import net.voxton.mafiacraft.core.Mafiacraft;
 import net.voxton.mafiacraft.core.MafiacraftCore;
 import net.voxton.mafiacraft.core.player.MPlayer;
