@@ -241,7 +241,7 @@ public class BukkitListener implements Listener {
             Vector vec = new Vector(last.getX() - current.getX(), 0.0,
                     last.getZ() - current.getZ()).normalize();
 
-            event.getPlayer().teleport(event.getPlayer().getLocation().add(vec));
+            event.getPlayer().setVelocity(vec);
             event.setCancelled(true);
             return;
         }
