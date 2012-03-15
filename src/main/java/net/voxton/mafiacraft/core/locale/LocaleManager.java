@@ -86,7 +86,7 @@ public class LocaleManager {
                 //If so, we do have a locale. Copy to the locale folder.
                 if (!localeFile.exists()) {
                     try {
-                        localeFile.mkdirs();
+                        localeFile.getParentFile().mkdirs();
                         localeFile.createNewFile();
                     } catch (IOException ex) {
                         MLogger.log(Level.SEVERE, "Locale file not createable!",

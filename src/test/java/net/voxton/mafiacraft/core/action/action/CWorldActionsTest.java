@@ -28,9 +28,12 @@ import net.voxton.mafiacraft.core.config.Config;
 import net.voxton.mafiacraft.core.locale.LocaleManager;
 import net.voxton.mafiacraft.core.geo.MWorld;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Arrays;
+import net.voxton.mafiacraft.bukkit.BukkitImpl;
 import static org.mockito.Matchers.*;
 import net.voxton.mafiacraft.core.Mafiacraft;
+import net.voxton.mafiacraft.core.MafiacraftCore;
 import net.voxton.mafiacraft.core.geo.WorldToggle;
 import net.voxton.mafiacraft.core.locale.Locale;
 import net.voxton.mafiacraft.core.player.MPlayer;
@@ -63,8 +66,14 @@ public class CWorldActionsTest {
         //Locale setup
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
-                "./plugins/Mafiacraft/locale/en-us.yml"));
+                "./target/plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
+
+        BukkitImpl impl = mock(BukkitImpl.class);
+        InputStream stream =
+                MafiacraftCore.class.getResourceAsStream("/locale/en-us.yml");
+        when(Mafiacraft.getImpl()).thenReturn(impl);
+        when(impl.getJarResource("/locale/en-us.yml")).thenReturn(stream);
         mockStatic(Config.class);
         when(Config.getString("locale.default")).thenReturn("en-us");
         Locale locale = manager.getDefault();
