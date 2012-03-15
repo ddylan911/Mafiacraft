@@ -195,7 +195,9 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
         //Get the action we want to do.
         String action = (args.length > 0) ? args[0] : "";
         List<String> largs = new ArrayList<String>(Arrays.asList(args));
-        largs.remove(0);
+        if (largs.size() > 0) {
+            largs.remove(0);
+        }
 
         actions.parseActionCommand(performer, action, largs);
     }
