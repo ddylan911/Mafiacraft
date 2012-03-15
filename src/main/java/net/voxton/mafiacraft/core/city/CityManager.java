@@ -92,7 +92,8 @@ public class CityManager {
     /**
      * Map that stores section caches.
      */
-    private Map<String, Cache<Long, Section>> sections;
+    private Map<String, Cache<Long, Section>> sections =
+            new HashMap<String, Cache<Long, Section>>();
 
     private final MafiacraftCore mc;
 
