@@ -1213,65 +1213,6 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of getDivision method, of class Government.
-     */
-    @Test
-    public void testGetDivision_String() {
-        System.out.println("getDivision");
-        String player = "";
-        Government instance = null;
-        Division expResult = null;
-        Division result = instance.getDivision(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDivision method, of class Government.
-     */
-    @Test
-    public void testGetDivision_MPlayer() {
-        System.out.println("getDivision");
-        MPlayer player = null;
-        Government instance = null;
-        Division expResult = null;
-        Division result = instance.getDivision(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDivisions method, of class Government.
-     */
-    @Test
-    public void testGetDivisions() {
-        System.out.println("getDivisions");
-        Government instance = null;
-        Set expResult = null;
-        Set result = instance.getDivisions();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDivisionByName method, of class Government.
-     */
-    @Test
-    public void testGetDivisionByName() {
-        System.out.println("getDivisionByName");
-        String name = "";
-        Government instance = null;
-        Division expResult = null;
-        Division result = instance.getDivisionByName(name);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of createDivision method, of class Government.
      */
     @Test
@@ -1380,35 +1321,6 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of getMemberCount method, of class Government.
-     */
-    @Test
-    public void testGetMemberCount_0args() {
-        System.out.println("getMemberCount");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getMemberCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getMemberCount method, of class Government.
-     */
-    @Test
-    public void testGetMemberCount_Position() {
-        System.out.println("getMemberCount");
-        Position position = null;
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getMemberCount(position);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getOnlineMembers method, of class Government.
      */
     @Test
@@ -1459,7 +1371,7 @@ public class GovernmentTest {
         MPlayer bill = mock(MPlayer.class);
         MPlayer billy = mock(MPlayer.class);
         MPlayer bobby = mock(MPlayer.class);
-        
+
         when(jeff.getName()).thenReturn("Jeff");
         when(spe.getName()).thenReturn("Spe");
         when(bob.getName()).thenReturn("Bob");
@@ -1528,65 +1440,6 @@ public class GovernmentTest {
         Set<MPlayer> result = government.getOnlineMembers();
 
         assertEquals(expected, result);
-    }
-
-    /**
-     * Test of getOnlineMembers method, of class Government.
-     */
-    @Test
-    public void testGetOnlineMembers_Position() {
-        System.out.println("getOnlineMembers");
-        Position position = null;
-        Government instance = null;
-        Set expResult = null;
-        Set result = instance.getOnlineMembers(position);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getOnlineMemberCount method, of class Government.
-     */
-    @Test
-    public void testGetOnlineMemberCount() {
-        System.out.println("getOnlineMemberCount");
-        Government instance = null;
-        int expResult = 0;
-        int result = instance.getOnlineMemberCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of canHaveMore method, of class Government.
-     */
-    @Test
-    public void testCanHaveMore() {
-        System.out.println("canHaveMore");
-        Position position = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canHaveMore(position);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of canHaveLess method, of class Government.
-     */
-    @Test
-    public void testCanHaveLess() {
-        System.out.println("canHaveLess");
-        Position position = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canHaveLess(position);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -1727,89 +1580,17 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of unseatLeader method, of class Government.
-     */
-    @Test
-    public void testUnseatLeader() {
-        System.out.println("unseatLeader");
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.unseatLeader();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of unseatViceLeader method, of class Government.
-     */
-    @Test
-    public void testUnseatViceLeader() {
-        System.out.println("unseatViceLeader");
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.unseatViceLeader();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of succeedLeader method, of class Government.
-     */
-    @Test
-    public void testSucceedLeader() {
-        System.out.println("succeedLeader");
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.succeedLeader();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addOfficer method, of class Government.
-     */
-    @Test
-    public void testAddOfficer_MPlayer() {
-        System.out.println("addOfficer");
-        MPlayer player = null;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.addOfficer(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addOfficer method, of class Government.
-     */
-    @Test
-    public void testAddOfficer_String() {
-        System.out.println("addOfficer");
-        String player = "";
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.addOfficer(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of setHq method, of class Government.
      */
     @Test
     public void testSetHq() {
         System.out.println("Testing the setHq method.");
-        
+
         MWorld world = mock(MWorld.class);
         MPoint hq = new MPoint(world, 0, 2, 4);
-        
+
         government.setHq(hq);
-        
+
         MPoint expected = hq;
         MPoint result = government.getHq();
         assertEquals(expected, result);
@@ -1878,111 +1659,6 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of canRemoveMember method, of class Government.
-     */
-    @Test
-    public void testCanRemoveMember() {
-        System.out.println("canRemoveMember");
-        MPlayer player = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canRemoveMember(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of removeMember method, of class Government.
-     */
-    @Test
-    public void testRemoveMember() {
-        System.out.println("removeMember");
-        MPlayer player = null;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.removeMember(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of removeMemberAndSucceed method, of class Government.
-     */
-    @Test
-    public void testRemoveMemberAndSucceed() {
-        System.out.println("removeMemberAndSucceed");
-        MPlayer player = null;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.removeMemberAndSucceed(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isMember method, of class Government.
-     */
-    @Test
-    public void testIsMember_String() {
-        System.out.println("isMember");
-        String player = "";
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.isMember(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isMember method, of class Government.
-     */
-    @Test
-    public void testIsMember_MPlayer() {
-        System.out.println("isMember");
-        MPlayer player = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.isMember(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addAffiliate method, of class Government.
-     */
-    @Test
-    public void testAddAffiliate_String() {
-        System.out.println("addAffiliate");
-        String player = "";
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.addAffiliate(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addAffiliate method, of class Government.
-     */
-    @Test
-    public void testAddAffiliate_MPlayer() {
-        System.out.println("addAffiliate");
-        MPlayer player = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.addAffiliate(player);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getAffiliates method, of class Government.
      */
     @Test
@@ -2025,80 +1701,6 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of getOnlineOfficers method, of class Government.
-     */
-    @Test
-    public void testGetOnlineOfficers() {
-        System.out.println("getOnlineOfficers");
-        Government instance = null;
-        Set expResult = null;
-        Set result = instance.getOnlineOfficers();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getOwnerId method, of class Government.
-     */
-    @Test
-    public void testGetOwnerId() {
-        System.out.println("getOwnerId");
-        Government instance = null;
-        String expResult = "";
-        String result = instance.getOwnerId();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of dispatchInvite method, of class Government.
-     */
-    @Test
-    public void testDispatchInvite() {
-        System.out.println("dispatchInvite");
-        MPlayer inviter = null;
-        MPlayer invited = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.dispatchInvite(inviter, invited);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of canBeClaimed method, of class Government.
-     */
-    @Test
-    public void testCanBeClaimed() {
-        System.out.println("canBeClaimed");
-        Chunk chunk = null;
-        LandOwner futureOwner = null;
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canBeClaimed(null, futureOwner);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of canClaimMoreLand method, of class Government.
-     */
-    @Test
-    public void testCanClaimMoreLand() {
-        System.out.println("canClaimMoreLand");
-        Government instance = null;
-        boolean expResult = false;
-        boolean result = instance.canClaimMoreLand();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getMaxGovernmentLand method with divs.
      */
     @Test
@@ -2128,20 +1730,6 @@ public class GovernmentTest {
         int expected = 12;
         int result = government.getMaxGovernmentLand();
         assertEquals(expected, result);
-    }
-
-    /**
-     * Test of getOwnerType method, of class Government.
-     */
-    @Test
-    public void testGetOwnerType() {
-        System.out.println("getOwnerType");
-        Government instance = null;
-        OwnerType expResult = null;
-        OwnerType result = instance.getOwnerType();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -2213,47 +1801,17 @@ public class GovernmentTest {
     }
 
     /**
-     * Test of claim method, of class Government.
-     */
-    @Test
-    public void testClaim() {
-        System.out.println("claim");
-        Chunk chunk = null;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.claim(null);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of unclaim method, of class Government.
-     */
-    @Test
-    public void testUnclaim() {
-        System.out.println("unclaim");
-        Chunk chunk = null;
-        Government instance = null;
-        Government expResult = null;
-        Government result = instance.unclaim(null);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getHq method, of class Government.
      */
     @Test
     public void testGetHq() {
         System.out.println("Testing the getHq method.");
-        
+
         MWorld world = mock(MWorld.class);
         MPoint hq = new MPoint(world, 0, 2, 4);
-        
+
         government.setHq(hq);
-        
+
         MPoint expected = hq;
         MPoint result = government.getHq();
         assertEquals(expected, result);
@@ -2304,7 +1862,7 @@ public class GovernmentTest {
     @Test
     public void testCanHaveMoreDivisions() {
         System.out.println("Testing the canHaveMoreDivisions method.");
-        
+
         //Mock divisions
         Division div1 = mock(Division.class);
         when(div1.getLand()).thenReturn(20);
@@ -2353,7 +1911,7 @@ public class GovernmentTest {
         MPlayer bob = mock(MPlayer.class);
         MPlayer tim = mock(MPlayer.class);
         MPlayer nancy = mock(MPlayer.class);
-        
+
         when(frank.getName()).thenReturn("Frank");
         when(joe.getName()).thenReturn("Joe");
         when(bob.getName()).thenReturn("Bob");
@@ -2365,7 +1923,7 @@ public class GovernmentTest {
         when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
         when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
         when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
-        
+
         Set<MPlayer> onlineMembers = new HashSet<MPlayer>();
         onlineMembers.add(frank);
         onlineMembers.add(joe);
@@ -2395,34 +1953,6 @@ public class GovernmentTest {
         String expected = "GovarnMunt";
         String result = government.getEntryMessage();
         assertEquals(expected, result);
-    }
-
-    /**
-     * Test of serialize method, of class Government.
-     */
-    @Test
-    public void testSerialize() {
-        System.out.println("serialize");
-        Government instance = null;
-        Map expResult = null;
-        Map result = instance.serialize();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of deserialize method, of class Government.
-     */
-    @Test
-    public void testDeserialize() {
-        System.out.println("deserialize");
-        Map<String, Object> data = null;
-        Government expResult = null;
-        Government result = Government.deserialize(data);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }
