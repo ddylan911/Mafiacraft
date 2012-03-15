@@ -1141,7 +1141,7 @@ public class GovernmentTest {
     public void testGetMembers_Position_affiliate() {
         System.out.println(
                 "Testing the getMembers (Position) method with affiliates.");
-        Position position = Position.OFFICER;
+        Position position = Position.AFFILIATE;
 
         //Mock divisions
         Division div1 = mock(Division.class);
