@@ -23,6 +23,8 @@
  */
 package net.voxton.mafiacraft.core.gov;
 
+import net.voxton.mafiacraft.core.geo.MPoint;
+import net.voxton.mafiacraft.core.geo.MWorld;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Arrays;
@@ -1457,6 +1459,22 @@ public class GovernmentTest {
         MPlayer bill = mock(MPlayer.class);
         MPlayer billy = mock(MPlayer.class);
         MPlayer bobby = mock(MPlayer.class);
+        
+        when(jeff.getName()).thenReturn("Jeff");
+        when(spe.getName()).thenReturn("Spe");
+        when(bob.getName()).thenReturn("Bob");
+        when(tim.getName()).thenReturn("Tim");
+        when(nancy.getName()).thenReturn("Nancy");
+        when(fred.getName()).thenReturn("Fred");
+        when(darren.getName()).thenReturn("Darren");
+        when(phillip.getName()).thenReturn("Phillip");
+        when(marquise.getName()).thenReturn("Marquise");
+        when(steven.getName()).thenReturn("Steven");
+        when(nick.getName()).thenReturn("Nick");
+        when(steve.getName()).thenReturn("Steve");
+        when(bill.getName()).thenReturn("Bill");
+        when(billy.getName()).thenReturn("Billy");
+        when(bobby.getName()).thenReturn("Bobby");
 
         when(Mafiacraft.getPlayer("Jeff")).thenReturn(jeff);
         when(Mafiacraft.getPlayer("Spe")).thenReturn(spe);
@@ -1491,7 +1509,7 @@ public class GovernmentTest {
         onlinePlayers.add(billy);
         onlinePlayers.add(bobby);
 
-        Set<MPlayer> expectedSet = new HashSet<MPlayer>(onlinePlayers);
+        Set<MPlayer> expected = new HashSet<MPlayer>(onlinePlayers);
 
         //Fake players now!
         MPlayer notin = mock(MPlayer.class);
@@ -1507,9 +1525,9 @@ public class GovernmentTest {
         //Put them in
         when(Mafiacraft.getOnlinePlayers()).thenReturn(onlinePlayers);
 
-        Set<MPlayer> resultSet = government.getOnlineMembers();
+        Set<MPlayer> result = government.getOnlineMembers();
 
-        assertEquals(expectedSet, resultSet);
+        assertEquals(expected, result);
     }
 
     /**
@@ -1785,13 +1803,16 @@ public class GovernmentTest {
      */
     @Test
     public void testSetHq() {
-        System.out.println("setHq");
-
-        Government instance = null;
-        Government expResult = null;
-        assertEquals(expResult, null);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the setHq method.");
+        
+        MWorld world = mock(MWorld.class);
+        MPoint hq = new MPoint(world, 0, 2, 4);
+        
+        government.setHq(hq);
+        
+        MPoint expected = hq;
+        MPoint result = government.getHq();
+        assertEquals(expected, result);
     }
 
     /**
@@ -2240,10 +2261,16 @@ public class GovernmentTest {
      */
     @Test
     public void testGetHq() {
-        System.out.println("getHq");
-        Government instance = null;
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Testing the getHq method.");
+        
+        MWorld world = mock(MWorld.class);
+        MPoint hq = new MPoint(world, 0, 2, 4);
+        
+        government.setHq(hq);
+        
+        MPoint expected = hq;
+        MPoint result = government.getHq();
+        assertEquals(expected, result);
     }
 
     /**
@@ -2338,12 +2365,26 @@ public class GovernmentTest {
         MPlayer bob = mock(MPlayer.class);
         MPlayer tim = mock(MPlayer.class);
         MPlayer nancy = mock(MPlayer.class);
+        
+        when(frank.getName()).thenReturn("Frank");
+        when(joe.getName()).thenReturn("Joe");
+        when(bob.getName()).thenReturn("Bob");
+        when(tim.getName()).thenReturn("Tim");
+        when(nancy.getName()).thenReturn("Nancy");
 
         when(Mafiacraft.getPlayer("Frank")).thenReturn(frank);
         when(Mafiacraft.getPlayer("Joe")).thenReturn(joe);
         when(Mafiacraft.getPlayer("Bob")).thenReturn(bob);
         when(Mafiacraft.getPlayer("Tim")).thenReturn(tim);
         when(Mafiacraft.getPlayer("Nancy")).thenReturn(nancy);
+        
+        Set<MPlayer> onlineMembers = new HashSet<MPlayer>();
+        onlineMembers.add(frank);
+        onlineMembers.add(joe);
+        onlineMembers.add(bob);
+        onlineMembers.add(tim);
+        onlineMembers.add(nancy);
+        when(Mafiacraft.getOnlinePlayers()).thenReturn(onlineMembers);
 
         //Broadcast
         government.broadcastMessage(message);

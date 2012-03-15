@@ -396,6 +396,7 @@ public class Government extends Transactable implements LandPurchaser, Configura
     public Set<MPlayer> getOnlineMembers() {
         Set<MPlayer> members = new HashSet<MPlayer>();
         for (MPlayer player : Mafiacraft.getOnlinePlayers()) {
+            System.out.println(player + "; " + isMember(player));
             if (isMember(player)) {
                 members.add(player);
             }
