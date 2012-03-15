@@ -278,24 +278,26 @@ public class Government extends Transactable implements LandPurchaser, Configura
                 break;
 
             case LEADER:
+                String leader = getLeader();
+                Set<String> lSet = new HashSet<String>();
                 if (leader != null) {
-                    members.add(leader);
+                    lSet.add(getLeader());
                 }
-                break;
+                return lSet;
 
             case VICE_LEADER:
+                String viceLeader = getViceLeader();
+                Set<String> vlSet = new HashSet<String>();
                 if (viceLeader != null) {
-                    members.add(viceLeader);
+                    vlSet.add(viceLeader);
                 }
-                break;
+                return vlSet;
 
             case OFFICER:
-                members.addAll(officers);
-                break;
+                return getOfficers();
 
             case AFFILIATE:
-                members.addAll(affiliates);
-                break;
+                return getAffiliates();
         }
         return members;
     }
