@@ -43,7 +43,8 @@ public abstract class PlayerActions extends Actions {
     }
 
     @Override
-    protected String performActionCommand(ActionPerformer performer, String action,
+    protected String performActionCommand(ActionPerformer performer,
+            String action,
             List<String> args) {
         if (!(performer instanceof MPlayer)) {
             performer.sendMessage(MsgColor.ERROR + Mafiacraft.getDefaultLocale().
@@ -54,7 +55,8 @@ public abstract class PlayerActions extends Actions {
         return performActionCommand((MPlayer) performer, action, args);
     }
 
-    protected abstract String performActionCommand(MPlayer performer, String action,
+    protected abstract String performActionCommand(MPlayer performer,
+            String action,
             List<String> args);
 
 }

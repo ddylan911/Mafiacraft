@@ -160,7 +160,7 @@ public final class GovernmentActions extends PlayerActions {
 
     /**
      * Found command.
-     * 
+     *
      * @param player The player.
      * @param name The name to found as.
      * @param type The type of government.
@@ -512,7 +512,8 @@ public final class GovernmentActions extends PlayerActions {
         gov.subtractMoney(price);
 
         player.sendMessage(MsgColor.SUCCESS
-                + "You have successfully claimed the section " + section.getName() + " for your " + gov.getType().getName()
+                + "You have successfully claimed the section "
+                + section.getName() + " for your " + gov.getType().getName()
                 + ".");
         return null;
     }

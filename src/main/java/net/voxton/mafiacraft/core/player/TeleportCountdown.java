@@ -31,10 +31,11 @@ import net.voxton.mafiacraft.core.geo.MPoint;
  * A teleport countdown.
  */
 public class TeleportCountdown implements Runnable {
+
     private final MPlayer player;
-    
+
     private int duration;
-    
+
     private MPoint destination;
 
     public TeleportCountdown(MPlayer player, int duration, MPoint destination) {
@@ -50,9 +51,11 @@ public class TeleportCountdown implements Runnable {
             player.teleport(destination);
             Mafiacraft.getPlayerManager().cancelTeleport(player);
         } else {
-            player.sendMessage(MsgColor.INFO + "Teleporting in " + duration + " seconds.");
+            player.sendMessage(MsgColor.INFO + "Teleporting in " + duration
+                    + " seconds.");
         }
 
         --duration;
     }
+
 }

@@ -61,7 +61,7 @@ public class District implements LandOwner, ConfigurationSerializable, Serializa
     private transient MWorld mworld;
 
     private transient DistrictType districtType;
-    
+
     private int id;
 
     private String name;

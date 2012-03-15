@@ -29,26 +29,26 @@ Mafiacraft Build file (c) 2012 Voxton.net
     </properties>
 
 	<!-- License -->
-	<licenses>
-		<license>
-			<name>Voxton License Version 1</name>
-			<url>http://voxton.net/voxton-license-v1.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <licenses>
+        <license>
+            <name>Voxton License Version 1</name>
+            <url>http://voxton.net/voxton-license-v1.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
 	<!-- Source code -->
-	<scm>
-		<developerConnection>scm:git:git@github.com:Voxton/${project.name}.git</developerConnection>
-		<connection>scm:git:git://github.com/Voxton/${project.name}.git</connection>
-		<url>https://github.com/Voxton/${project.name}</url>
-	</scm>
+    <scm>
+        <developerConnection>scm:git:git@github.com:Voxton/${project.name}.git</developerConnection>
+        <connection>scm:git:git://github.com/Voxton/${project.name}.git</connection>
+        <url>https://github.com/Voxton/${project.name}</url>
+    </scm>
     
 	<!-- Continuous integration -->
-	<ciManagement>
-		<system>jenkins</system>
-		<url>http://voxton.net:8080/jenkins</url>
-	</ciManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>http://voxton.net:8080/jenkins</url>
+    </ciManagement>
     
     <!-- Repositories -->
     <repositories>

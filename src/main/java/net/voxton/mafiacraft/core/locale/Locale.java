@@ -53,7 +53,7 @@ public class Locale {
 
     /**
      * Gets the localized version of a string.
-     * 
+     *
      * @param string The string to localize.
      * @return The localized string.
      */
@@ -67,7 +67,7 @@ public class Locale {
 
     /**
      * Localizes and formats a string.
-     * 
+     *
      * @param string The string to localize.
      * @param vars The variable to localize with.
      * @return The localized string.
@@ -78,7 +78,7 @@ public class Locale {
 
     /**
      * Gets the name of the locale.
-     * 
+     *
      * @return The name of the locale.
      */
     public String getName() {
@@ -87,7 +87,7 @@ public class Locale {
 
     /**
      * Adds a localization to the locale.
-     * 
+     *
      * @param string The string to localize.
      * @param localized The localized string.
      */
@@ -98,7 +98,7 @@ public class Locale {
 
     /**
      * Gets the entryset of the locale strings.
-     * 
+     *
      * @return The entryset.
      */
     Set<Entry<String, String>> getEntries() {
@@ -107,8 +107,7 @@ public class Locale {
 
     @Override
     public String toString() {
-        return "Locale{name=" +
-                name + '}';
+        return "Locale{name=" + name + '}';
     }
 
 }

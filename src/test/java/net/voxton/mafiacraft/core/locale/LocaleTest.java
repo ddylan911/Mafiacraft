@@ -66,7 +66,7 @@ public class LocaleTest {
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
                 "./target/plugins/Mafiacraft/locale/en-us.yml"));
-        
+
         BukkitImpl impl = mock(BukkitImpl.class);
         InputStream stream =
                 MafiacraftCore.class.getResourceAsStream("/locale/en-us.yml");
@@ -87,7 +87,7 @@ public class LocaleTest {
     @Test
     public void testTopLevelLocalization() {
         System.out.println("Testing a top-level localization.");
-        
+
         Locale locale = manager.getDefault();
         String expected = "en-us";
         String result = locale.localize("name");
@@ -116,4 +116,5 @@ public class LocaleTest {
 
         assertEquals(expected, result);
     }
+
 }

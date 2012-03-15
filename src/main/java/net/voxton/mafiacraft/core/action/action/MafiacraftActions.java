@@ -48,7 +48,7 @@ public class MafiacraftActions extends Actions {
         } else {
             doHelp(performer);
         }
-        
+
         return null;
     }
 

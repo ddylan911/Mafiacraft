@@ -34,7 +34,7 @@ import org.apache.commons.lang.StringUtils;
 public class DivisionMenu extends HelpMenu {
 
     private final GovType type;
-    
+
     public DivisionMenu(GovType type) {
         super(StringUtils.capitalize("asdf"));
         this.type = type;
@@ -44,4 +44,5 @@ public class DivisionMenu extends HelpMenu {
     public void loadMenu() {
         addEntry("mycmd");
     }
+
 }

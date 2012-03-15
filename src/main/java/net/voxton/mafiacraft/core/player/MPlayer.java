@@ -330,7 +330,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
 
     /**
      * Clears the player's session store.
-     * 
+     *
      * @return This MPlayer.
      */
     public MPlayer clearSessionStore() {
@@ -462,7 +462,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
 
     /**
      * Gets the point where the player is located.
-     * 
+     *
      * @return The point where the player is located.
      */
     public MPoint getPoint() {
@@ -557,7 +557,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
 
     /**
      * Gets the locale of the player. At the moment this is only English US.
-     * 
+     *
      * @return The locale of the player.
      */
     public Locale getLocale() {
@@ -566,7 +566,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
 
     /**
      * Teleports the player to the given point.
-     * 
+     *
      * @param point The point to teleport to.
      * @return This MPlayer.
      */
@@ -577,7 +577,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
 
     /**
      * Teleports the player to a given location in the default time.
-     * 
+     *
      * @param point The point to teleport to.
      * @return This MPlayer.
      */
@@ -587,7 +587,7 @@ public class MPlayer extends Transactable implements LandPurchaser, ActionPerfor
 
     /**
      * Teleports the player to a given location in the given time.
-     * 
+     *
      * @param point The point to teleport to.
      * @param duration The duration of teleportation in seconds.
      * @return This MPlayer.

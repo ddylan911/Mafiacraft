@@ -48,7 +48,7 @@ public class ActionType {
 
     public static final GovernmentActions MAFIA = new GovernmentActions(
             GovType.MAFIA);
-    
+
     public static final MafiacraftActions MAFIACRAFT = new MafiacraftActions();
 
     public static final DivisionActions REGIME = new DivisionActions(

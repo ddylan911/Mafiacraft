@@ -55,7 +55,7 @@ public class MPoint implements Serializable {
 
     /**
      * Gets the world of this CityWorld.
-     * 
+     *
      * @return The world as a CityWorld.
      */
     public MWorld getWorld() {
@@ -67,7 +67,7 @@ public class MPoint implements Serializable {
 
     /**
      * Gets the X coordinate of the MPoint.
-     * 
+     *
      * @return The X coordinate.
      */
     public double getX() {
@@ -76,7 +76,7 @@ public class MPoint implements Serializable {
 
     /**
      * Gets the Y coordinate of the MPoint.
-     * 
+     *
      * @return The Y coordinate.
      */
     public double getY() {
@@ -85,7 +85,7 @@ public class MPoint implements Serializable {
 
     /**
      * Gets the Z coordinate of the MPoint.
-     * 
+     *
      * @return The Z coordinate.
      */
     public double getZ() {
@@ -106,7 +106,7 @@ public class MPoint implements Serializable {
 
     /**
      * Gets the section this MPoint is located.
-     * 
+     *
      * @return The section containing the MPoint.
      */
     public Section getSection() {
@@ -118,9 +118,9 @@ public class MPoint implements Serializable {
 
     /**
      * Gets the distance from the other MPoint squared.
-     * 
+     *
      * @param other
-     * @return 
+     * @return
      */
     public double distanceSquared(MPoint other) {
         double dx = x - other.x;
@@ -131,7 +131,7 @@ public class MPoint implements Serializable {
 
     /**
      * Serializes the MPoint to a string.
-     * 
+     *
      * @return The serialized MPoint.
      */
     public String serializeToString() {
@@ -146,7 +146,7 @@ public class MPoint implements Serializable {
 
     /**
      * Deserializes an MPoint from a string.
-     * 
+     *
      * @param string The string to deserialize.
      * @return The deserialized MPoint.
      */

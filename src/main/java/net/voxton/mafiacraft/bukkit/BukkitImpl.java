@@ -242,9 +242,9 @@ public class BukkitImpl extends JavaPlugin implements MafiacraftImpl {
 
     /**
      * Gets an MPoint from a location.
-     * 
+     *
      * @param location
-     * @return 
+     * @return
      */
     public MPoint getPoint(Location location) {
         return new MPoint(Mafiacraft.getWorld(location.getWorld().getName()),

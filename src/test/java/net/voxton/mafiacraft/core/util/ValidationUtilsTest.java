@@ -86,7 +86,8 @@ public class ValidationUtilsTest {
 
     @Test
     public void testValidateName_notAlphaNum() {
-        System.out.println("Testing of name validation with a name not alphanumeric.");
+        System.out.println(
+                "Testing of name validation with a name not alphanumeric.");
         String name = "@#CJOJRcweCRJJ@#PRC";
         boolean result = ValidationUtils.validateName(name);
 

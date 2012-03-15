@@ -30,14 +30,14 @@ import org.bukkit.ChatColor;
 
 /**
  * Holds message colors.
- * 
- * <p>Note: I include Bukkit references here because I think they are set
- * at compile time. If they aren't... well... crap.</p>
+ *
+ * <p>Note: I include Bukkit references here because I think they are set at
+ * compile time. If they aren't... well... crap.</p>
  */
 public class MsgColor {
 
     public static final String ERROR = ChatColor.RED.toString();
-    
+
     public static final String ERROR_HILIGHT = ChatColor.YELLOW.toString();
 
     public static final String INFO = ChatColor.YELLOW.toString();
@@ -47,7 +47,7 @@ public class MsgColor {
     public static final String INFO_GOV = ChatColor.GREEN.toString();
 
     public static final String SUCCESS = ChatColor.GREEN.toString();
-    
+
     public static final String SUCCESS_HILIGHT = ChatColor.YELLOW.toString();
 
     public static final String URL = ChatColor.AQUA.toString();
@@ -65,50 +65,52 @@ public class MsgColor {
     public static final String HELP_ENTRY = ChatColor.GREEN.toString();
 
     public static final String HELP_DEF = ChatColor.YELLOW.toString();
-    
+
     public static final String NORMAL = ChatColor.WHITE.toString();
-    
+
     public static final String MAFIA = ChatColor.DARK_RED.toString();
-    
+
     public static final String REGIME = ChatColor.GOLD.toString();
 
     public static final String OFFICER = ChatColor.GREEN.toString();
-    
+
     public static final String POLICE = ChatColor.BLUE.toString();
-    
+
     public static final String SQUAD = ChatColor.AQUA.toString();
-    
+
     public static final String COMMANDER = ChatColor.GRAY.toString();
 
-    private static final Map<String, String> colors = new HashMap<String, String>();
-    
+    private static final Map<String, String> colors =
+            new HashMap<String, String>();
+
     /**
      * Parses colors.
-     * 
+     *
      * @param uncolored The uncolored string full of color variables.
      * @return The string, brand new and colored.
      */
     public static String parseColors(String uncolored) {
         for (Entry<String, String> colorEntry : colors.entrySet()) {
-            uncolored = uncolored.replace("`{" + colorEntry.getKey() + "}", colorEntry.getValue());
+            uncolored = uncolored.replace("`{" + colorEntry.getKey() + "}",
+                    colorEntry.getValue());
         }
         return uncolored;
     }
-    
+
     /**
      * Gets a color from its name.
-     * 
+     *
      * @param colorName The name of the color.
      * @return The color in string form.
      */
     public static String getColor(String colorName) {
         return colors.get(colorName.toUpperCase());
     }
-    
+
     public static String stripColor(String string) {
         return ChatColor.stripColor(string);
     }
-    
+
     static {
         colors.put("ERROR", ERROR);
         colors.put("ERROR_HILIGHT", ERROR_HILIGHT);
@@ -118,4 +120,5 @@ public class MsgColor {
         colors.put("SUCCESS", SUCCESS);
         colors.put("SUCCESS_HILIGHT", SUCCESS_HILIGHT);
     }
+
 }

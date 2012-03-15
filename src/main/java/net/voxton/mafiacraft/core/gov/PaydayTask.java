@@ -40,22 +40,22 @@ public class PaydayTask implements Task {
     public void run() {
         for (District district : Mafiacraft.getDistrictList()) {
             double pay = ((int) district.getLandCost()) >> 4;
-            
+
             for (int i = 0; i < 16; i++) {
                 for (int j = 0; j < 16; j++) {
                     LandOwner owner = district.getOwner(i, j);
-                    
+
                     switch (owner.getOwnerType()) {
                         case PLAYER:
                             MPlayer player = (MPlayer) owner;
                             player.addMoney(pay);
                             break;
-                            
+
                         case GOVERNMENT:
                             Government gov = (Government) owner;
                             gov.addMoney(pay);
                             break;
-                            
+
                         case DIVISION:
                             Division div = (Division) owner;
                             div.addMoney(pay);
@@ -65,5 +65,5 @@ public class PaydayTask implements Task {
             }
         }
     }
-    
+
 }

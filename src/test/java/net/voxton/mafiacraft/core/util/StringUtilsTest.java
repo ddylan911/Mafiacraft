@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
  * Testing of String utilities.
  */
 public class StringUtilsTest {
-    
+
     public StringUtilsTest() {
     }
 
@@ -46,184 +46,187 @@ public class StringUtilsTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void testFormatCurrency() {
         System.out.println("Testing formatting currency with cents and dollars.");
-        
+
         double num = 209.46;
-        
+
         String expected = "$209.46";
         String result = StringUtils.formatCurrency(num);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testFormatCurrency_rounding() {
         System.out.println("Testing formatting currency with enough to round.");
-        
+
         double num = 209.467;
-        
+
         String expected = "$209.47";
         String result = StringUtils.formatCurrency(num);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testFormatCurrency_noRounding() {
         System.out.println("Testing formatting currency with "
                 + "enough to round but no rounding.");
-        
+
         double num = 209.46292572457492875982759827589;
-        
+
         String expected = "$209.46";
         String result = StringUtils.formatCurrency(num);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testFormatCurrency_commas() {
         System.out.println("Testing formatting currency with enough to "
                 + "have commas.");
-        
+
         double num = 3141592209.46;
-        
+
         String expected = "$3,141,592,209.46";
         String result = StringUtils.formatCurrency(num);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testFormatCurrency_commasAndRounding() {
         System.out.println("Testing formatting currency with enough "
                 + "to have commas and rounding.");
-        
+
         double num = 3141592209.4698217914;
-        
+
         String expected = "$3,141,592,209.47";
         String result = StringUtils.formatCurrency(num);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testFormatCurrency_commasAndNoRound() {
         System.out.println("Testing formatting currency with enough to "
                 + "have commas and rounding.");
-        
+
         double num = 3141592209.4638217914;
-        
+
         String expected = "$3,141,592,209.46";
         String result = StringUtils.formatCurrency(num);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize() {
         System.out.println("Testing titleize method.");
-        
+
         String string = "This is titleized text.";
-        
+
         String expected = "This Is Titleized Text.";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize_trailing() {
         System.out.println("Testing titleize method with trailing whitespace.");
-        
+
         String string = "This is titleized text.   ";
-        
+
         String expected = "This Is Titleized Text.   ";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize_bigSpaces() {
         System.out.println("Testing titleize method with big spaces.");
-        
+
         String string = "This    is    titleized text.";
-        
+
         String expected = "This    Is    Titleized Text.";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize_trailingAndBigSpaces() {
-        System.out.println("Testing titleize method with trailing whitespace and big spaces.");
-        
+        System.out.println(
+                "Testing titleize method with trailing whitespace and big spaces.");
+
         String string = "This    is    titleized text.   ";
-        
+
         String expected = "This    Is    Titleized Text.   ";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize_noSpaces() {
         System.out.println("Testing titleize method with no spaces.");
-        
+
         String string = "this_is_titleized_text.";
-        
+
         String expected = "This_is_titleized_text.";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize_uppercaseString() {
         System.out.println("Testing titleize method with an uppercase string.");
-        
+
         String string = "THIS IS TITLEIZED TEXT.";
-        
+
         String expected = "This Is Titleized Text.";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize_mixedcaseString() {
         System.out.println("Testing titleize method with a mixed case string.");
-        
+
         String string = "tHiS Is tItLeIzeD tEXt.";
-        
+
         String expected = "This Is Titleized Text.";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
-    
+
     @Test
     public void testTitleize_mixedcaseWithNumbersString() {
-        System.out.println("Testing titleize method with a mixed case with numbers string.");
-        
+        System.out.println(
+                "Testing titleize method with a mixed case with numbers string.");
+
         String string = "tHiS 4Is tIt123LeIzeD tEXt.";
-        
+
         String expected = "This 4is Tit123leized Text.";
         String result = StringUtils.titleize(string);
-        
+
         assertEquals(expected, result);
     }
+
 }

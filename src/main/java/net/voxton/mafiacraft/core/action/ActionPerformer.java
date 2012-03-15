@@ -32,21 +32,21 @@ public interface ActionPerformer {
 
     /**
      * Sends a message to the {@link ActionPerformer}.
-     * 
+     *
      * @param message The message to send.
      */
     public void sendMessage(String message);
 
     /**
      * Gets the locale of the {@link ActionPerformer}.
-     * 
+     *
      * @return The {@link Locale}.
      */
     public Locale getLocale();
 
     /**
      * Returns true if the {@link ActionPerformer} has the given permission.
-     * 
+     *
      * @param permission The permission to check.
      * @return True if the {@link ActionPerformer} has the given permission.
      */

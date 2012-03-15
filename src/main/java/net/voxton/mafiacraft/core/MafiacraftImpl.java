@@ -36,6 +36,7 @@ import net.voxton.mafiacraft.core.player.MPlayer;
  * Represents an implementation of Mafiacraft.
  */
 public interface MafiacraftImpl {
+
     public String getFullName();
 
     public void saveConfig();
@@ -43,7 +44,7 @@ public interface MafiacraftImpl {
     public void cancelTasks();
 
     public void setupCommands();
-    
+
     public void setupEconomy();
 
     public void registerEvents();
@@ -51,7 +52,7 @@ public interface MafiacraftImpl {
     public File getDataFolder();
 
     public Logger getLogger();
-    
+
     public MWorld getWorld(String name);
 
     public MafiacraftConfig getMafiacraftConfig();
@@ -77,10 +78,11 @@ public interface MafiacraftImpl {
     public String matchPlayerName(String name);
 
     public double getMoney(MPlayer player);
-    
+
     public double setMoney(MPlayer player, double amt);
-    
+
     public InputStream getJarResource(String path);
 
     public String getServerVersion();
+
 }

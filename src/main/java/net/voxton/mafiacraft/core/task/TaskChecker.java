@@ -35,7 +35,7 @@ public class TaskChecker implements Runnable {
 
     /**
      * The constructor.
-     * 
+     *
      * @param tm The task manager.
      */
     public TaskChecker(TaskManager tm) {

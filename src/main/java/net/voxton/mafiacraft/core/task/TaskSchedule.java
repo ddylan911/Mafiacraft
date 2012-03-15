@@ -50,7 +50,7 @@ public class TaskSchedule {
 
     /**
      * Constructor that uses regex strings.
-     * 
+     *
      * @param minutes The minute pattern.
      * @param hours The hour pattern.
      * @param days The day pattern.
@@ -62,7 +62,7 @@ public class TaskSchedule {
 
     /**
      * Constructor that uses patterns.
-     * 
+     *
      * @param minutes The minute pattern.
      * @param hours The hour pattern.
      * @param days The day pattern.
@@ -75,7 +75,7 @@ public class TaskSchedule {
 
     /**
      * Returns true if the value fits the minute.
-     * 
+     *
      * @param minute The minute to check.
      * @return True if the value fits the minute.
      */
@@ -85,7 +85,7 @@ public class TaskSchedule {
 
     /**
      * Returns true if the value fits the hour.
-     * 
+     *
      * @param minute The hour to check.
      * @return True if the value fits the hour.
      */
@@ -95,7 +95,7 @@ public class TaskSchedule {
 
     /**
      * Returns true if the value fits the day.
-     * 
+     *
      * @param minute The day to check.
      * @return True if the value fits the day.
      */
@@ -110,28 +110,29 @@ public class TaskSchedule {
 
     /**
      * Gets a schedule from its cron string.
-     * 
+     *
      * <p>Cron strings as defined for our purposes are formatted as follows:</p>
      * <pre>#minute #hour #day</pre>
-     * 
-     * <p>Here is an example of a cron string that is scheduled to run once per 15 minutes:</p>
+     *
+     * <p>Here is an example of a cron string that is scheduled to run once per
+     * 15 minutes:</p>
      * <pre>0,15,30,45 * *</pre>
-     * 
-     * <p>The stars mean that it doesn't matter what those are. As long as the 
-     * minutes are at 0, 15, 30, or 45 at the time, then the script will run.
-     * It would suck if you reloaded at that time... Now another one:</p>
+     *
+     * <p>The stars mean that it doesn't matter what those are. As long as the
+     * minutes are at 0, 15, 30, or 45 at the time, then the script will run. It
+     * would suck if you reloaded at that time... Now another one:</p>
      * <pre>0-15,30,45-90 * 2-6</pre>
-     * 
+     *
      * <p>That cron string would run every time from 0 to 15 minutes (16 times),
      * run at 30, then run at 45-59. There is no '60th' or '90th' minute or
-     * anything in between, so those are to be ignored. The string would also 
+     * anything in between, so those are to be ignored. The string would also
      * run every day from Monday to Friday, because there are 7 days in a week.
      * Here's another example, because I love writing specifications:</p>
      * <pre>* 0 *</pre>
-     * 
-     * <p>This string would run on the first hour of each day at midnight.
-     * There are 24 hours in a day. So that's it, pretty simple eh?</p>
-     * 
+     *
+     * <p>This string would run on the first hour of each day at midnight. There
+     * are 24 hours in a day. So that's it, pretty simple eh?</p>
+     *
      * @param schedule The string schedule as specified above.
      * @return The TaskSchedule parsed from this.
      */

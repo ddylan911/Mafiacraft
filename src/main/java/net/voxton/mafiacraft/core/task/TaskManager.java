@@ -76,8 +76,8 @@ public class TaskManager {
      *
      * @param name The name of the task.
      * @param task The task.
-     * @param schedule The schedule in which the task should be completed.
-     *      See {@link TaskSchedule.fromCron} for more info.
+     * @param schedule The schedule in which the task should be completed. See {@link TaskSchedule.fromCron}
+     * for more info.
      * @return This TaskManager.
      */
     public TaskManager registerTask(String name, Task task, String schedule) {

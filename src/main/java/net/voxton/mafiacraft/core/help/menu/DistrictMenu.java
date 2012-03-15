@@ -38,5 +38,5 @@ public class DistrictMenu extends HelpMenu {
     public void loadMenu() {
         addEntry("blah");
     }
-    
+
 }

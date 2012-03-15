@@ -93,7 +93,7 @@ public final class DivisionActions extends PlayerActions {
 
     /**
      * Performs help.
-     * 
+     *
      * @param player The player performing help.
      * @param type The type of government.
      * @return The errors.
@@ -109,7 +109,7 @@ public final class DivisionActions extends PlayerActions {
 
     /**
      * Performs help.
-     * 
+     *
      * @param player The player performing help.
      * @param arg The help argument.
      * @param type The type of government.

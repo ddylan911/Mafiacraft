@@ -36,7 +36,7 @@ public class GovernmentMenu extends HelpMenu {
 
     /**
      * Constructor.
-     * 
+     *
      * @param type The type of government.
      */
     public GovernmentMenu(GovType type) {

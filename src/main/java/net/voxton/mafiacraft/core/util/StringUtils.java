@@ -33,7 +33,7 @@ public class StringUtils {
 
     /**
      * Formats a number to the currency used on the server.
-     * 
+     *
      * @param num The number to format.
      * @return The formatted number.
      */
@@ -43,7 +43,7 @@ public class StringUtils {
 
     /**
      * Formats a string to capitalize the first letter of each word.
-     * 
+     *
      * @param string The string to format.
      * @return The formatted string.
      */

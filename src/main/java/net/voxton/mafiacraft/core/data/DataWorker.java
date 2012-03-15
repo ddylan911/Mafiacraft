@@ -115,7 +115,8 @@ public class DataWorker {
     }
 
     /**
-     * Gets a second-level file with the given name and directory and creates it if not found.
+     * Gets a second-level file with the given name and directory and creates it
+     * if not found.
      *
      * @param dir The directory containing the file.
      * @param name The name of the file.
@@ -128,7 +129,7 @@ public class DataWorker {
 
     /**
      * Gets a sub file.
-     * 
+     *
      * @param dir The directory containing the file.
      * @param name The name of the file.
      * @return The file retrieved.
@@ -154,7 +155,7 @@ public class DataWorker {
 
     /**
      * Gets a file.
-     * 
+     *
      * @param path The path to the file.
      * @return The file.
      */
@@ -164,7 +165,7 @@ public class DataWorker {
 
     /**
      * Creates a file if it doesn't exist.
-     * 
+     *
      * @param file The file to create.
      * @return The created file.
      */

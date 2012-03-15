@@ -29,13 +29,16 @@ import java.util.Date;
  * Represents a registered task.
  */
 public class RegisteredTask {
+
     private final String name;
+
     private final Task task;
+
     private final TaskSchedule schedule;
-    
+
     /**
      * Creates a new registered task.
-     * 
+     *
      * @param name The name of the task.
      * @param task The task to register.
      * @param schedule The schedule of the task.
@@ -48,7 +51,7 @@ public class RegisteredTask {
 
     /**
      * Gets the name of the task.
-     * 
+     *
      * @return The name of the task.
      */
     public String getName() {
@@ -57,7 +60,7 @@ public class RegisteredTask {
 
     /**
      * Gets the schedule of the task.
-     * 
+     *
      * @return The schedule of the task.
      */
     public TaskSchedule getSchedule() {
@@ -66,20 +69,21 @@ public class RegisteredTask {
 
     /**
      * Gets the task.
-     * 
+     *
      * @return The task.
      */
     public Task getTask() {
         return task;
     }
-    
+
     /**
      * Returns true if this should run at the given date..
-     * 
+     *
      * @return True if this should run.
      */
     public boolean shouldRun(Date date) {
 //        return schedule.pertainsTo()
         return false;
     }
+
 }

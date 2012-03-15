@@ -103,7 +103,8 @@ public abstract class HelpMenu {
         usage.put(command, usg);
 
         for (Locale locale : Mafiacraft.getLocales()) {
-            String desc = locale.localize("cmd-help." + getCommandName() + "." + command);
+            String desc = locale.localize("cmd-help." + getCommandName() + "."
+                    + command);
 
             getLocalizedHelp(locale).put(command, desc);
 
@@ -126,7 +127,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets a page out of the help menu.
-     * 
+     *
      * @param page The page to get.
      * @return The page as a List<String>.
      */
@@ -161,7 +162,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets help localized for a locale.
-     * 
+     *
      * @param locale The locale.
      * @return The localized help as a List<String>.
      */
@@ -176,7 +177,7 @@ public abstract class HelpMenu {
 
     /**
      * Gets help localized for a locale, parsed.
-     * 
+     *
      * @param locale The locale.
      * @return The localized help as a List<String>.
      */
@@ -191,7 +192,7 @@ public abstract class HelpMenu {
 
     /**
      * Builds a bordered header for the specified page.
-     * 
+     *
      * @param page The page to get the header of.
      * @param locale The locale of the page.
      * @return The bordered header.
@@ -326,7 +327,7 @@ public abstract class HelpMenu {
         String usg = getUsage(command);
         return "/" + getCommandName() + " " + command + " " + usg;
     }
-    
+
     public String getCommandName() {
         return name.toLowerCase();
     }
@@ -369,7 +370,7 @@ public abstract class HelpMenu {
 
     /**
      * Default help command.
-     * 
+     *
      * @param performer The performer to send the help menu to.
      */
     public void doHelp(ActionPerformer performer) {

@@ -98,7 +98,7 @@ public class Mafiacraft {
     }
 
     /**
-     * Gets a second-level file with the given name and directory and creates it 
+     * Gets a second-level file with the given name and directory and creates it
      * if it doesn't exist.
      *
      * @param dir The directory containing the file.
@@ -140,7 +140,7 @@ public class Mafiacraft {
 
     /**
      * Gets the console performer.
-     * 
+     *
      * @return The console performer.
      */
     public static ConsolePerformer getConsolePerformer() {
@@ -167,7 +167,7 @@ public class Mafiacraft {
 
     /**
      * Gets the locale manager.
-     * 
+     *
      * @return The locale manager.
      */
     public static LocaleManager getLocaleManager() {
@@ -185,7 +185,7 @@ public class Mafiacraft {
 
     /**
      * Gets the Mafiacraft implementation.
-     * 
+     *
      * @return The implementation.
      */
     public static MafiacraftImpl getImpl() {
@@ -238,7 +238,7 @@ public class Mafiacraft {
 
     /**
      * Gets a list of all districts.
-     * 
+     *
      * @return A list of all districts.
      */
     public static List<District> getDistrictList() {
@@ -247,7 +247,7 @@ public class Mafiacraft {
 
     /**
      * Gets a list of all locales.
-     * 
+     *
      * @return The list of all locales.
      */
     public static List<Locale> getLocales() {
@@ -256,7 +256,7 @@ public class Mafiacraft {
 
     /**
      * Gets the default locale of Mafiacraft.
-     * 
+     *
      * @return The default locale.
      */
     public static Locale getDefaultLocale() {
@@ -265,7 +265,7 @@ public class Mafiacraft {
 
     /**
      * Gets a locale by name.
-     * 
+     *
      * @param name The name of the locale.
      * @return The locale.
      */
@@ -275,7 +275,7 @@ public class Mafiacraft {
 
     /**
      * Gets a CityWorld from its name.
-     * 
+     *
      * @param worldString The string name of the CityWorld.
      * @return The CityWorld.
      */

@@ -27,5 +27,4 @@ package net.voxton.mafiacraft.core.task;
  * Represents a task. Currently just a tag class.
  */
 public interface Task extends Runnable {
-    
 }

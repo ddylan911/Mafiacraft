@@ -27,10 +27,12 @@ package net.voxton.mafiacraft.core.gov;
  * Represents a group of players.
  */
 public interface PlayerGroup {
+
     /**
      * Broadcasts a message to the player group.
-     * 
+     *
      * @param message The message to broadcast.
      */
     public void broadcastMessage(String message);
+
 }

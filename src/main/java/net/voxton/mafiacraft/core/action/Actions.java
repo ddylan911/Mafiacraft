@@ -43,7 +43,7 @@ public abstract class Actions {
 
     /**
      * Constructor for helpful actions.
-     * 
+     *
      * @param help The help menu.
      */
     public Actions(HelpMenu help) {
@@ -51,8 +51,9 @@ public abstract class Actions {
     }
 
     /**
-     * Parses an action command into a distinct performer, action, and arguments.
-     * 
+     * Parses an action command into a distinct performer, action, and
+     * arguments.
+     *
      * @param performer The performer of the action.
      * @param action The action to perform.
      * @param args The arguments of the action.
@@ -72,7 +73,7 @@ public abstract class Actions {
 
     /**
      * Parses an action command into an action.
-     * 
+     *
      * @param performer The performer of the action.
      * @param action The action.
      * @param args The arguments if any.

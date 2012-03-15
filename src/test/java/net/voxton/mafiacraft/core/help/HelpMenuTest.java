@@ -94,7 +94,7 @@ public class HelpMenuTest {
         when(Mafiacraft.getLocaleManager()).thenReturn(manager);
         when(Mafiacraft.getLocales()).thenReturn(manager.getLocales());
         //Locale setup end.
-        
+
         testMenu = new HelpMenuImpl();
 
         //Aubhaze has no permissions.
@@ -181,9 +181,9 @@ public class HelpMenuTest {
                 + "============= [ Test Help -- Page 2 of 2 ] =============");
         expected.add(MsgColor.HELP_ENTRY + "test1: " + MsgColor.HELP_DEF
                 + "A test1 method.");
-        
+
         List<String> result = testMenu.getPage(page);
-        
+
         assertEquals(expected, result);
     }
 
@@ -200,13 +200,13 @@ public class HelpMenuTest {
                 + "============ [ Test Help -- Page -1 of 2 ] ============");
         expected.add(MsgColor.SUCCESS + Mafiacraft.getDefaultLocale().localize(
                 "help.imaginary-page"));
-        
+
         List<String> result = testMenu.getPage(page);
-        
+
         for (int i = 0; i < result.size(); i++) {
             assertEquals(expected.get(i), result.get(i));
         }
-        
+
         assertEquals(expected, result);
     }
 

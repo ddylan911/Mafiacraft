@@ -245,4 +245,5 @@ public final class DistrictActions extends PlayerActions {
                 "command.city.cost-set", StringUtils.formatCurrency(cost)));
         return null;
     }
+
 }

@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import org.bukkit.configuration.Configuration;
 
-/** 
+/**
  * Mafiacraft configuration.
  */
 public class BukkitConfig implements MafiacraftConfig {
@@ -133,7 +133,7 @@ public class BukkitConfig implements MafiacraftConfig {
     {
         //Chat
         addDefault("chat.localdistance", 50);
-        
+
         //Locale
         addDefault("locale.default", "en-us");
 

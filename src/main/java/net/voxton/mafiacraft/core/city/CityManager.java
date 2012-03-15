@@ -121,10 +121,10 @@ public class CityManager {
     /////////////////
     /**
      * Gets a city world from its name.
-     * 
+     *
      * @param worldString The name of the world.
-     * @return The CityWorld corresponding with the name, or null if there is
-     *      no such world.
+     * @return The CityWorld corresponding with the name, or null if there is no
+     * such world.
      */
     public MWorld getWorld(String worldString) {
         MWorld cworld = worldMap.get(worldString);
@@ -465,7 +465,7 @@ public class CityManager {
     /////////////////
     /**
      * Gets a section from its coordinates.
-     * 
+     *
      * @param world The world.
      * @param x The x coordinate.
      * @param y The y coordinate.
@@ -484,7 +484,7 @@ public class CityManager {
 
     /**
      * Gets the section cache of a world.
-     * 
+     *
      * @param world The world of the cache.
      * @return The section cache.
      */
@@ -517,7 +517,7 @@ public class CityManager {
 
     /**
      * Gets a section key from an x, y, and z.
-     * 
+     *
      * @param x The x.
      * @param y The y.
      * @param z The z.

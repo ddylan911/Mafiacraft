@@ -108,8 +108,8 @@ public class CWorldActionsTest {
 
         String expected = Mafiacraft.getDefaultLocale().localize(
                 "action.general.not-allowed");
-        String result = ActionType.CWORLD.doToggle(aubhaze, WorldToggle.FREE_ROAM.
-                name());
+        String result = ActionType.CWORLD.doToggle(aubhaze,
+                WorldToggle.FREE_ROAM.name());
 
         assertEquals(expected, result);
     }
