@@ -186,12 +186,4 @@ public class LocaleManager {
         vars.put(name.toLowerCase(), data);
     }
 
-    public static void main(String[] args) {
-        URL url = Mafiacraft.class.getResource("/locale/en-us.yml");
-        InputStream stream =
-                Mafiacraft.class.getResourceAsStream("/locale/en-us.yml");
-        System.out.println(url);
-        System.out.println(stream);
-    }
-
 }
