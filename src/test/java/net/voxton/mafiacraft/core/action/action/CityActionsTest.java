@@ -75,7 +75,7 @@ public class CityActionsTest {
     public void setUp() {
         //Locale setup
         mockStatic(Mafiacraft.class);
-        when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
+        when(Mafiacraft.getSubFile("locale", "en-us.yml")).thenReturn(new File(
                 "./target/plugins/Mafiacraft/locale/en-us.yml"));
         LocaleManager manager = new LocaleManager();
         BukkitImpl impl = mock(BukkitImpl.class);

@@ -64,7 +64,7 @@ public class LocaleTest {
     @Before
     public void setUp() {
         mockStatic(Mafiacraft.class);
-        when(Mafiacraft.getSubFile("locale", "en-us")).thenReturn(new File(
+        when(Mafiacraft.getSubFile("locale", "en-us.yml")).thenReturn(new File(
                 "./target/plugins/Mafiacraft/locale/en-us.yml"));
 
         BukkitImpl impl = mock(BukkitImpl.class);
