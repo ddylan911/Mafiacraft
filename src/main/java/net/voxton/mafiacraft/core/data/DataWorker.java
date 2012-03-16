@@ -137,7 +137,6 @@ public class DataWorker {
     public File getSubFile(String dir, String name) {
         File folder = getSubFolder(dir);
         File f = getFile(folder.getPath() + File.separator + name);
-        System.out.println(f);
         return f;
     }
 
