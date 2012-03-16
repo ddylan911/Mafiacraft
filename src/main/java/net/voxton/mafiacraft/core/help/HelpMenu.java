@@ -333,33 +333,6 @@ public abstract class HelpMenu {
     }
 
     /**
-     * Does help for the given player.
-     *
-     * @param performer The player.
-     * @param arg The argument that is being parsed.
-     */
-    public void doHelp(ActionPerformer performer, String arg) {
-        int page = 1;
-        try {
-            page = Integer.parseInt(arg);
-            sendPage(page, performer);
-            return;
-        } catch (NumberFormatException ex) {
-        }
-
-        if (!hasCommand(arg)) {
-            performer.sendMessage(MsgColor.ERROR + performer.getLocale().
-                    localize(
-                    "help.strange-argument", arg));
-            return;
-        }
-
-        performer.sendMessage(MsgColor.ERROR + performer.getLocale().localize(
-                "help.incorrect-usage",
-                getCompleteUsage(arg)));
-    }
-
-    /**
      * Gets the name of the help menu.
      *
      * @return The help menu name.
@@ -375,6 +348,29 @@ public abstract class HelpMenu {
      */
     public void doHelp(ActionPerformer performer) {
         doHelp(performer, "1");
+    }
+
+    /**
+     * Does help for the given player.
+     *
+     * @param performer The player.
+     * @param arg The argument that is being parsed.
+     */
+    public void doHelp(ActionPerformer performer, String arg) {
+        try {
+            int page = Integer.parseInt(arg);
+            sendPage(page, performer);
+            return;
+        } catch (NumberFormatException ex) {
+            if (!hasCommand(arg)) {
+                performer.sendMessage(MsgColor.ERROR + performer.getLocale().
+                        localize("help.strange-argument", arg));
+                return;
+            }
+
+            performer.sendMessage(MsgColor.ERROR + performer.getLocale().
+                    localize("help.incorrect-usage", getCompleteUsage(arg)));
+        }
     }
 
 }

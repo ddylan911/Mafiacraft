@@ -23,7 +23,6 @@
  */
 package net.voxton.mafiacraft.core.help;
 
-import net.voxton.mafiacraft.core.help.HelpMenu;
 import net.voxton.mafiacraft.core.locale.Locale;
 import net.voxton.mafiacraft.core.locale.LocaleManager;
 import net.voxton.mafiacraft.core.geo.MWorld;
@@ -40,6 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 import net.voxton.mafiacraft.bukkit.BukkitImpl;
 import net.voxton.mafiacraft.core.MafiacraftCore;
+import net.voxton.mafiacraft.core.action.ConsolePerformer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,6 +48,7 @@ import org.junit.Test;
 import static org.powermock.api.mockito.PowerMockito.*;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.verify;
 
 /**
  * Help menu test.
@@ -211,8 +212,17 @@ public class HelpMenuTest {
     }
 
     @Test
-    public void testDoHelp_incorrectUsage() {
-//        fail();
+    public void testDoHelp_noArg() {
+        System.out.println("Testing the doHelp method with no arg.");
+        
+        ConsolePerformer performer = mock(ConsolePerformer.class);
+        Locale locale = Mafiacraft.getDefaultLocale();
+        when(performer.getLocale()).thenReturn(locale);
+        
+        testMenu.doHelp(performer);
+        
+        verify(performer).sendMessage(MsgColor.INFO
+                + "============ [ Test Help -- Page 1 of 2 ] ============");
     }
 
     private class HelpMenuImpl extends HelpMenu {
