@@ -47,7 +47,7 @@ public abstract class PlayerActions extends Actions {
             String action,
             List<String> args) {
         if (!(performer instanceof MPlayer)) {
-            return Mafiacraft.getDefaultLocale().localize("command.general.ingame-only");
+            return Mafiacraft.getDefaultLocale().localize("action.general.ingame-only");
         }
 
         return performActionCommand((MPlayer) performer, action, args);
