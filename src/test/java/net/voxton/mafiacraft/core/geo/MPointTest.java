@@ -39,7 +39,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Mafiacraft.class})
 public class MPointTest {
-    
+
     public MPointTest() {
     }
 
@@ -50,11 +50,11 @@ public class MPointTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -65,11 +65,11 @@ public class MPointTest {
     @Test
     public void testGetWorld() {
         System.out.println("Testing the getWorld method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         MWorld expected = world;
         MWorld result = instance.getWorld();
         assertEquals(expected, result);
@@ -81,11 +81,11 @@ public class MPointTest {
     @Test
     public void testGetX() {
         System.out.println("Testing the getX method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         double expected = 1;
         double result = instance.getX();
         assertEquals(expected, result, 0);
@@ -97,11 +97,11 @@ public class MPointTest {
     @Test
     public void testGetY() {
         System.out.println("Testing the getY method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         double expected = 2;
         double result = instance.getY();
         assertEquals(expected, result, 0);
@@ -113,11 +113,11 @@ public class MPointTest {
     @Test
     public void testGetZ() {
         System.out.println("Testing the getZ method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         double expected = 3;
         double result = instance.getZ();
         assertEquals(expected, result, 0);
@@ -129,11 +129,11 @@ public class MPointTest {
     @Test
     public void testGetBlockX() {
         System.out.println("Testing the getBlockX method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         int expected = 1;
         int result = instance.getBlockX();
         assertEquals(expected, result);
@@ -145,11 +145,11 @@ public class MPointTest {
     @Test
     public void testGetBlockY() {
         System.out.println("Testing the getBlockY method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         int expected = 2;
         int result = instance.getBlockY();
         assertEquals(expected, result);
@@ -161,11 +161,11 @@ public class MPointTest {
     @Test
     public void testGetBlockZ() {
         System.out.println("Testing the getBlockZ method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         int expected = 3;
         int result = instance.getBlockZ();
         assertEquals(expected, result);
@@ -177,21 +177,21 @@ public class MPointTest {
     @Test
     public void testGetSection() {
         System.out.println("Testing the getSection method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
-        
+
         Section section = mock(Section.class);
         CityManager cm = mock(CityManager.class);
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getCityManager()).thenReturn(cm);
         when(cm.getSection(world, 0, 0, 0)).thenReturn(section);
-        
+
         Section expected = section;
         Section result = instance.getSection();
         assertEquals(expected, result);
-        
+
         verify(cm).getSection(world, 0, 0, 0);
     }
 
@@ -200,22 +200,23 @@ public class MPointTest {
      */
     @Test
     public void testGetSection_notOrigin() {
-        System.out.println("Testing the getSection method with a section not at the origin.");
-        
+        System.out.println(
+                "Testing the getSection method with a section not at the origin.");
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 52, 69, 88);
-        
+
         Section section = mock(Section.class);
         CityManager cm = mock(CityManager.class);
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getCityManager()).thenReturn(cm);
         when(cm.getSection(world, 3, 0, 5)).thenReturn(section);
-        
+
         Section expected = section;
         Section result = instance.getSection();
         assertEquals(expected, result);
-        
+
         verify(cm).getSection(world, 3, 0, 5);
     }
 
@@ -224,22 +225,23 @@ public class MPointTest {
      */
     @Test
     public void testGetSection_negative() {
-        System.out.println("Testing the getSection method with a section negative.");
-        
+        System.out.println(
+                "Testing the getSection method with a section negative.");
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, -52, -69, -88);
-        
+
         Section section = mock(Section.class);
         CityManager cm = mock(CityManager.class);
         mockStatic(Mafiacraft.class);
         when(Mafiacraft.getCityManager()).thenReturn(cm);
         when(cm.getSection(world, -4, -1, -6)).thenReturn(section);
-        
+
         Section expected = section;
         Section result = instance.getSection();
         assertEquals(expected, result);
-        
+
         verify(cm).getSection(world, -4, -1, -6);
     }
 
@@ -249,15 +251,15 @@ public class MPointTest {
     @Test
     public void testDistanceSquared() {
         System.out.println("Testing the distanceSquared method.");
-        
+
         MWorld world = mock(MWorld.class);
         when(world.getName()).thenReturn("world");
         MPoint instance = new MPoint(world, 1, 2, 3);
         MPoint other = new MPoint(world, 1, 56, 12);
-        
+
         double expected = 2997.00407601;
         double result = instance.distanceSquared(other);
         assertEquals(expected, result, 0.1);
     }
-    
+
 }
