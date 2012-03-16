@@ -42,11 +42,6 @@ public final class ChatActions extends PlayerActions {
     @Override
     public String performActionCommand(MPlayer performer, String action,
             List<String> args) {
-        if (action.isEmpty()) {
-            doChat(performer);
-            return null;
-        }
-
         return doChat(performer, action);
     }
 
@@ -67,7 +62,7 @@ public final class ChatActions extends PlayerActions {
 
         player.setChatType(chatType);
         player.sendMessage(MsgColor.SUCCESS + player.getLocale().localize(
-                "command.chat.changed", chatType.getName()));
+                "action.chat.changed", chatType.getName()));
         return null;
     }
 

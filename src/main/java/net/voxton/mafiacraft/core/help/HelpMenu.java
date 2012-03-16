@@ -350,7 +350,7 @@ public abstract class HelpMenu {
         if (!hasCommand(arg)) {
             performer.sendMessage(MsgColor.ERROR + performer.getLocale().
                     localize(
-                    "help.strange-argument"));
+                    "help.strange-argument", arg));
             return;
         }
 
