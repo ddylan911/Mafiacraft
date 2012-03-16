@@ -214,6 +214,9 @@ public class BukkitListener implements Listener {
             return;
         }
 
+        //We've switched chunks!
+        store.setData("lastchunk", current);
+        
         LandOwner lastOwner = last.getOwner();
         LandOwner currentOwner = current.getOwner();
 
@@ -246,9 +249,6 @@ public class BukkitListener implements Listener {
             player.sendMessage(ChatColor.GRAY + "You are now entering " + dest.
                     getNameInChat() + ".");
         }
-
-        //We've switched chunks!
-        store.setData("lastchunk", current);
     }
 
     @EventHandler
