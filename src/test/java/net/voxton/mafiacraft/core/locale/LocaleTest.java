@@ -71,7 +71,7 @@ public class LocaleTest {
         InputStream stream =
                 MafiacraftCore.class.getResourceAsStream("/locale/en-us.yml");
         when(Mafiacraft.getImpl()).thenReturn(impl);
-        when(impl.getJarResource("/locale/en-us.yml")).thenReturn(stream);
+        when(impl.getJarResource("locale/en-us.yml")).thenReturn(stream);
 
 
         mockStatic(Config.class);

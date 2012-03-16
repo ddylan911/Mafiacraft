@@ -32,8 +32,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author ianschool
+ * Test of MsgColors.
  */
 public class MsgColorTest {
 
