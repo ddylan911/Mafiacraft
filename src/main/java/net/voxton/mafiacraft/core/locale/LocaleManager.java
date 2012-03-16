@@ -68,7 +68,7 @@ public class LocaleManager {
             //Load locale
             locale = new Locale(name);
 
-            File localeFile = Mafiacraft.getSubFile("locale", name);
+            File localeFile = Mafiacraft.getSubFile("locale", name + ".yml");
 
             //Check if there is a locale there
             if (!localeFile.exists()) {
