@@ -222,7 +222,7 @@ public class HelpMenuTest {
         testMenu.doHelp(performer);
         
         verify(performer).sendMessage(MsgColor.INFO
-                + "============ [ Test Help -- Page 1 of 2 ] ============");
+                + "============= [ Test Help -- Page 1 of 2 ] =============");
     }
 
     private class HelpMenuImpl extends HelpMenu {
