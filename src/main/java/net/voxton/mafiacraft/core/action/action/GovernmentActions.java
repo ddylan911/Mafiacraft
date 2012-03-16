@@ -55,65 +55,61 @@ public final class GovernmentActions extends PlayerActions {
     @Override
     protected String performActionCommand(MPlayer performer, String action,
             List<String> args) {
-        String result = null;
-
         if (args.size() < 1) {
             if (action.equalsIgnoreCase("who")) {
-                result = doWho(performer);
+                return doWho(performer);
             } else if (action.equalsIgnoreCase("claim")) {
-                result = doClaim(performer);
+                return doClaim(performer);
             } else if (action.equalsIgnoreCase("hq")) {
-                result = doHq(performer);
+                return doHq(performer);
             } else if (action.equalsIgnoreCase("sethq")) {
-                result = doSetHq(performer);
+                return doSetHq(performer);
             } else if (action.equalsIgnoreCase("leave")) {
-                result = doLeave(performer, type);
+                return doLeave(performer, type);
             } else if (action.equalsIgnoreCase("player")) {
-                result = doPlayer(performer);
+                return doPlayer(performer);
             } else if (action.equalsIgnoreCase("accept")) {
-                result = doAccept(performer, type);
+                return doAccept(performer, type);
             } else {
-                result = doHelp(performer, action, type);
+                return doHelp(performer, action, type);
             }
         } else if (args.size() < 2) {
             if (action.equalsIgnoreCase("who")) {
-                result = doWho(performer, args.get(0));
+                return doWho(performer, args.get(0));
             } else if (action.equalsIgnoreCase("invite")) {
-                result = doInvite(performer, args.get(0));
+                return doInvite(performer, args.get(0));
             } else if (action.equalsIgnoreCase("createdivision")) {
-                result = doCreateDivision(performer, args.get(0));
+                return doCreateDivision(performer, args.get(0));
             } else if (action.equalsIgnoreCase("kick")) {
-                result = doKick(performer, args.get(0));
+                return doKick(performer, args.get(0));
             } else if (action.equalsIgnoreCase("player")) {
-                result = doPlayer(performer, args.get(0));
+                return doPlayer(performer, args.get(0));
             } else if (action.equalsIgnoreCase("found")) {
-                result = doFound(performer, args.get(0), type);
+                return doFound(performer, args.get(0), type);
             } else if (action.equalsIgnoreCase("promoteofficer")) {
-                result = doPromoteOfficer(performer, args.get(0));
+                return doPromoteOfficer(performer, args.get(0));
             } else if (action.equalsIgnoreCase("demoteofficer")) {
-                result = doDemoteOfficer(performer, args.get(0));
+                return doDemoteOfficer(performer, args.get(0));
             } else {
-                result = doHelp(performer, action, type);
+                return doHelp(performer, action, type);
             }
         } else if (args.size() < 3) {
             if (action.equalsIgnoreCase("grant")) {
-                result = doGrant(performer, args.get(0), args.get(1));
+                return doGrant(performer, args.get(0), args.get(1));
             } else if (action.equalsIgnoreCase("setmanager")
                     || action.equalsIgnoreCase("setcapo")
                     || action.equalsIgnoreCase("setsergeant")) {
-                result = doSetManager(performer, args.get(0), args.get(1));
+                return doSetManager(performer, args.get(0), args.get(1));
             } else {
-                result = doHelp(performer, action, type);
+                return doHelp(performer, action, type);
             }
         } else {
             if (action.equalsIgnoreCase("found")) {
-                result = doFound(performer, Joiner.on(' ').join(args), type);
+                return doFound(performer, Joiner.on(' ').join(args), type);
             } else {
-                result = doHelp(performer, action, type);
+                return doHelp(performer, action, type);
             }
         }
-
-        return result;
     }
 
     public String doHelp(MPlayer player, GovType type) {
