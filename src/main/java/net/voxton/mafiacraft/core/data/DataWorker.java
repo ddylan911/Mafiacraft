@@ -135,9 +135,7 @@ public class DataWorker {
      * @return The file retrieved.
      */
     public File getSubFile(String dir, String name) {
-        File folder = getSubFolder(dir);
-        File f = getFile(folder.getPath() + File.separator + name);
-        return f;
+        return getFile(getSubFolder(dir).getPath() + File.separator + name);
     }
 
     /**

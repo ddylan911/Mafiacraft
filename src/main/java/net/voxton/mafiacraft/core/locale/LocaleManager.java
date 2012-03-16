@@ -73,7 +73,7 @@ public class LocaleManager {
             //Check if there is a locale there
             if (!localeFile.exists()) {
                 InputStream localeStream = Mafiacraft.getImpl().getJarResource(
-                        "/locale/" + name + ".yml");
+                        "locale/" + name + ".yml");
 
                 //Check if there is a locale in the jar
                 if (localeStream == null) {
